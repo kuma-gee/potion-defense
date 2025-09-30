@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ibjbsw07la23"]
+
+[node name="Slime" type="Node3D"]
+
+[node name="Decal" type="Decal" parent="."]

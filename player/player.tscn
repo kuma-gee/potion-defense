@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsjo3xx3s5pje"]
+
+[ext_resource type="Script" uid="uid://c6wwca7h8xf7f" path="res://player/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://xqdtlyollsqn" path="res://player/player_movement.gd" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://ch1gifjud7map" path="res://player/player_view_controller.gd" id="3_yw30f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+radius = 0.1
+height = 0.6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g1dw6"]
+height = 0.6
+radius = 0.1
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_4flbx")
+
+[node name="Body" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3087991, 0)
+shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="Hurtbox" type="Area3D" parent="Body"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body/Hurtbox"]
+shape = SubResource("CylinderShape3D_g1dw6")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Body"]
+radius = 0.1
+height = 0.6
+
+[node name="CameraRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53269744, 0)
+
+[node name="Pivot" type="SpringArm3D" parent="CameraRoot"]
+spring_length = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraRoot/Pivot"]
+current = true
+
+[node name="PlayerViewController" type="Node" parent="." node_paths=PackedStringArray("body", "camera_root", "camera")]
+script = ExtResource("3_yw30f")
+body = NodePath("../Body")
+camera_root = NodePath("../CameraRoot")
+camera = NodePath("../CameraRoot/Pivot/Camera3D")
+metadata/_custom_type_script = "uid://ch1gifjud7map"
+
+[node name="PlayerMovement" type="Node" parent="."]
+script = ExtResource("2_g1dw6")
+metadata/_custom_type_script = "uid://xqdtlyollsqn"

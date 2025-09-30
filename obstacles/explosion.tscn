@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0a0g6he07s"]
+
+[ext_resource type="PackedScene" uid="uid://bo3gps2h7swsx" path="res://obstacles/spawn_marker.tscn" id="1_6lgfm"]
+[ext_resource type="PackedScene" uid="uid://csiavq076wjrx" path="res://magic/explosion_vfx.tscn" id="1_m8q8a"]
+
+[node name="Explosion" type="Node3D"]
+
+[node name="SpawnMarker" parent="." instance=ExtResource("1_6lgfm")]
+
+[node name="ExplosionVFX" parent="." instance=ExtResource("1_m8q8a")]

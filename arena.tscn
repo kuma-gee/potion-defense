@@ -1,0 +1,165 @@
+[gd_scene load_steps=10 format=3 uid="uid://dc2tq0tljgm6v"]
+
+[ext_resource type="Script" uid="uid://djehtd7eujwr1" path="res://arena.gd" id="1_444vf"]
+[ext_resource type="PackedScene" uid="uid://dsjo3xx3s5pje" path="res://player/player.tscn" id="1_ubfh8"]
+[ext_resource type="Script" uid="uid://5nj8apry1sqn" path="res://ui/seconds_timer.gd" id="3_27ga2"]
+[ext_resource type="Script" uid="uid://ddh3ur6ehl3po" path="res://start_platform.gd" id="4_h0wof"]
+[ext_resource type="Script" uid="uid://dhmgpcwqho5h4" path="res://spawn_manager.gd" id="5_fu4bq"]
+[ext_resource type="PackedScene" uid="uid://bpb0k1s4thvtb" path="res://ui/upgrade_item.tscn" id="5_sbb53"]
+[ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://ui/gameover_screen.gd" id="6_pbtuc"]
+[ext_resource type="PackedScene" uid="uid://b0a0g6he07s" path="res://obstacles/explosion.tscn" id="8_yokb4"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_27ga2"]
+height = 1.0
+radius = 0.3955078
+
+[node name="Arena" type="Node3D" node_paths=PackedStringArray("player", "survival_timer", "platform", "spawn_manager", "level_label", "upgrade_select", "upgrade_select_container", "gameover_screen")]
+script = ExtResource("1_444vf")
+player = NodePath("Player")
+survival_timer = NodePath("SurvivalTimer")
+platform = NodePath("StartPlatform")
+spawn_manager = NodePath("SpawnManager")
+level_label = NodePath("CanvasLayer/Control/MarginContainer/VBoxContainer/Level")
+upgrade_select = NodePath("CanvasLayer/Control/CenterContainer/UpgradeSelect")
+upgrade_select_container = NodePath("CanvasLayer/Control/CenterContainer")
+gameover_screen = NodePath("CanvasLayer/Control/GameoverScreen")
+
+[node name="Floor" type="CSGCylinder3D" parent="."]
+use_collision = true
+radius = 8.0
+height = 7.0
+sides = 32
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Floor"]
+operation = 2
+use_collision = true
+radius = 7.0
+height = 6.0
+sides = 64
+
+[node name="Root" type="Node3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9786394, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_ubfh8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9743328, 2.4892728)
+
+[node name="StartPlatform" type="Node3D" parent="." node_paths=PackedStringArray("area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.979724, 0)
+script = ExtResource("4_h0wof")
+area = NodePath("Area3D")
+
+[node name="Area3D" type="Area3D" parent="StartPlatform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9232788, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StartPlatform/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_27ga2")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="StartPlatform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9232788, 0)
+height = 0.1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+
+[node name="SurvivalTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("spawn_timer", "root")]
+script = ExtResource("5_fu4bq")
+spawn_objects = Array[PackedScene]([ExtResource("8_yokb4")])
+spawn_timer = NodePath("Timer")
+root = NodePath("../Floor/Root")
+
+[node name="Timer" type="Timer" parent="SpawnManager"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Level" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Floor 1"
+
+[node name="Time" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer" node_paths=PackedStringArray("timer")]
+layout_mode = 2
+text = "00s"
+script = ExtResource("3_27ga2")
+timer = NodePath("../../../../../SurvivalTimer")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="UpgradeSelect" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/separation = 16
+
+[node name="Upgrade" parent="CanvasLayer/Control/CenterContainer/UpgradeSelect" instance=ExtResource("5_sbb53")]
+layout_mode = 2
+
+[node name="Upgrade2" parent="CanvasLayer/Control/CenterContainer/UpgradeSelect" instance=ExtResource("5_sbb53")]
+layout_mode = 2
+
+[node name="Upgrade3" parent="CanvasLayer/Control/CenterContainer/UpgradeSelect" instance=ExtResource("5_sbb53")]
+layout_mode = 2
+
+[node name="GameoverScreen" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("restart_btn")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+script = ExtResource("6_pbtuc")
+restart_btn = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Restart")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/GameoverScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameoverScreen/CenterContainer"]
+layout_mode = 2
+
+[node name="GameOver" type="Label" parent="CanvasLayer/Control/GameoverScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Gameover"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/GameoverScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Restart" type="Button" parent="CanvasLayer/Control/GameoverScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Restart"

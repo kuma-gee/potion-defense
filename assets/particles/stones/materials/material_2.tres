@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://duvr1avofemvv"]
+
+[ext_resource type="Texture2D" uid="uid://b5wieyvavpua6" path="res://assets/particles/stones/textures/material_2_baseColor.png" id="1_b7tkc"]
+[ext_resource type="Texture2D" uid="uid://bdrwf61tid5fn" path="res://assets/particles/stones/textures/material_2_emissive.png" id="2_y3t6a"]
+[ext_resource type="Texture2D" uid="uid://dib5umgct31v8" path="res://assets/particles/stones/textures/material_2_metallicRoughness.png" id="3_fntpm"]
+[ext_resource type="Texture2D" uid="uid://ds2varjyq7avu" path="res://assets/particles/stones/textures/material_2_normal.png" id="4_u4u82"]
+
+[resource]
+resource_name = "material_2"
+diffuse_mode = 3
+albedo_texture = ExtResource("1_b7tkc")
+metallic_texture = ExtResource("3_fntpm")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("3_fntpm")
+roughness_texture_channel = 1
+emission_enabled = true
+emission_texture = ExtResource("2_y3t6a")
+normal_enabled = true
+normal_texture = ExtResource("4_u4u82")

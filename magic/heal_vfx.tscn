@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dddgbrdm8e88d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jabm0"]
+radius = 1.0
+
+[node name="HealVFX" type="Area3D"]
+collision_layer = 0
+collision_mask = 34
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jabm0")
