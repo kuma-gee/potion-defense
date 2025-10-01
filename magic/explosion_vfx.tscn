@@ -759,7 +759,6 @@ radius = 1.0
 [node name="ExplosionVFX" type="Area3D"]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
 script = ExtResource("1_vjgue")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]

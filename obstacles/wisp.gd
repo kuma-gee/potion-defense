@@ -1,0 +1,2 @@
+class_name Wisp
+extends CharacterBody3D

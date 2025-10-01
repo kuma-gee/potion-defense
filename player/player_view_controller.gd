@@ -24,7 +24,7 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not locked_target:
 		var sens = mouse_sensitivity
 		player.rotate_y(-event.relative.x * sens.x)
-		if body:
+		if body and player.velocity.length() < 0.5:
 			body.rotate_y(event.relative.x * sens.x)
 		camera_root.rotate_x(-event.relative.y * sens.y)
 		camera_root.rotation.x = clamp(camera_root.rotation.x, deg_to_rad(-70), deg_to_rad(70))
