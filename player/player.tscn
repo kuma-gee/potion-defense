@@ -1,12 +1,99 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsjo3xx3s5pje"]
+[gd_scene load_steps=27 format=3 uid="uid://dsjo3xx3s5pje"]
 
 [ext_resource type="Script" uid="uid://c6wwca7h8xf7f" path="res://player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://xqdtlyollsqn" path="res://player/player_movement.gd" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://ceanc8yrpv7ov" path="res://player/player_animation.gd" id="2_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://olicgb1t6k84" path="res://assets/models/runner.glb" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://ch1gifjud7map" path="res://player/player_view_controller.gd" id="3_yw30f"]
+[ext_resource type="Material" uid="uid://bhte32yr5w1n7" path="res://player/body_mat.tres" id="6_g6k8r"]
+[ext_resource type="Material" uid="uid://cml2p3oqube1s" path="res://player/face_mat.tres" id="7_boad6"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yw30f"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hg6s5"]
+animation = &"Running Turn 180"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qjkh3"]
+animation = &"Running"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8t03j"]
+animation = &"Standard Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6k8r"]
+animation = &"Run To Stop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rgyib"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hg6s5"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "has_motion()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8t03j"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "!has_motion()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2ieo8"]
+xfade_time = 0.2
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ebec5"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "has_motion()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wodsf"]
+advance_mode = 2
+advance_expression = "not has_motion()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_32hag"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "sprinting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqiix"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "not sprinting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e7oew"]
+advance_mode = 2
+advance_expression = "is_turning() and has_motion()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c35mf"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "not is_turning() and has_motion()"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_32hag"]
+states/End/position = Vector2(943, 100)
+states/Idle/node = SubResource("AnimationNodeAnimation_yw30f")
+states/Idle/position = Vector2(364, 49)
+states/Running/node = SubResource("AnimationNodeAnimation_qjkh3")
+states/Running/position = Vector2(552, 49)
+"states/Running Turn 180/node" = SubResource("AnimationNodeAnimation_hg6s5")
+"states/Running Turn 180/position" = Vector2(742, 149)
+"states/Standard Run/node" = SubResource("AnimationNodeAnimation_8t03j")
+"states/Standard Run/position" = Vector2(742, 49)
+states/Stop/node = SubResource("AnimationNodeAnimation_g6k8r")
+states/Stop/position = Vector2(497, 143)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rgyib"), "Idle", "Running", SubResource("AnimationNodeStateMachineTransition_hg6s5"), "Running", "Stop", SubResource("AnimationNodeStateMachineTransition_8t03j"), "Stop", "Idle", SubResource("AnimationNodeStateMachineTransition_2ieo8"), "Stop", "Running", SubResource("AnimationNodeStateMachineTransition_ebec5"), "Running Turn 180", "Stop", SubResource("AnimationNodeStateMachineTransition_wodsf"), "Running", "Standard Run", SubResource("AnimationNodeStateMachineTransition_32hag"), "Standard Run", "Running", SubResource("AnimationNodeStateMachineTransition_tqiix"), "Standard Run", "Running Turn 180", SubResource("AnimationNodeStateMachineTransition_e7oew"), "Running Turn 180", "Standard Run", SubResource("AnimationNodeStateMachineTransition_c35mf")]
+graph_offset = Vector2(-110, -63)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yw30f"]
+graph_offset = Vector2(-531.2998, 140.54327)
+nodes/output/position = Vector2(380, 120)
+nodes/Move/node = SubResource("AnimationNodeStateMachine_32hag")
+nodes/Move/position = Vector2(-160, 140)
+node_connections = [&"output", 0, &"Move"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
-radius = 0.1
-height = 0.6
+radius = 0.08
+height = 0.78808594
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_g1dw6"]
 height = 0.6
@@ -16,11 +103,71 @@ radius = 0.1
 collision_layer = 2
 script = ExtResource("1_4flbx")
 
+[node name="PlayerAnimation" type="AnimationTree" parent="." node_paths=PackedStringArray("player_move")]
+root_node = NodePath("../Body/runner")
+tree_root = SubResource("AnimationNodeBlendTree_yw30f")
+anim_player = NodePath("../Body/runner/AnimationPlayer")
+script = ExtResource("2_qjkh3")
+player_move = NodePath("../PlayerMovement")
+
+[node name="PlayerViewController" type="Node" parent="." node_paths=PackedStringArray("body", "camera_root", "camera")]
+script = ExtResource("3_yw30f")
+body = NodePath("../Body")
+camera_root = NodePath("../CameraRoot")
+camera = NodePath("../CameraRoot/Pivot/Camera3D")
+metadata/_custom_type_script = "uid://ch1gifjud7map"
+
+[node name="PlayerMovement" type="Node" parent="."]
+script = ExtResource("2_g1dw6")
+metadata/_custom_type_script = "uid://xqdtlyollsqn"
+
 [node name="Body" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3087991, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40391627, 0)
 shape = SubResource("CapsuleShape3D_sh265")
 
+[node name="runner" parent="Body" instance=ExtResource("2_yw30f")]
+transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, -0.4036945, 0)
+
+[node name="Skeleton3D" parent="Body/runner/Armature_002" index="0"]
+bones/0/position = Vector3(0.0015537689, 2.2941355e-09, 0.019244604)
+bones/1/position = Vector3(0.0016498821, 0.92377436, 0.011672793)
+bones/1/rotation = Quaternion(-0.007104439, 0.012020584, -0.04313724, 0.99897164)
+bones/2/rotation = Quaternion(-0.03560705, -0.012139378, 0.021458426, 0.99906176)
+bones/3/rotation = Quaternion(0.0046715187, -0.0029956552, 0.051778793, 0.99864316)
+bones/4/rotation = Quaternion(0.004722368, 0.0017765489, 0.051413924, 0.9986647)
+bones/5/rotation = Quaternion(0.053499505, -0.0015798324, -0.01881823, 0.9983893)
+bones/6/rotation = Quaternion(0.013397023, 0.0059269243, -0.07077529, 0.9973848)
+bones/8/rotation = Quaternion(-0.6295903, -0.4022558, 0.47765517, -0.46222508)
+bones/9/rotation = Quaternion(0.6152248, -0.0031838703, -0.10983064, 0.78065723)
+bones/10/rotation = Quaternion(0.031901676, -0.0020360106, 0.14338663, 0.98915035)
+bones/11/rotation = Quaternion(0.0040038726, 0.9122759, -0.17237085, 0.37151727)
+bones/12/rotation = Quaternion(-0.18082702, -0.010630717, 0.17229839, 0.9682468)
+bones/13/rotation = Quaternion(-0.13222139, 0.12092221, 0.07697379, 0.9808009)
+bones/14/rotation = Quaternion(-0.066568844, 0.07343273, 0.03161898, 0.99457353)
+bones/16/rotation = Quaternion(0.5817915, -0.45544237, 0.52593386, 0.4212892)
+bones/17/rotation = Quaternion(0.50486344, 0.0042914203, 0.033684786, 0.86253107)
+bones/18/rotation = Quaternion(0.034017794, 0.002728721, -0.16365673, 0.9859269)
+bones/19/rotation = Quaternion(-0.10931462, 0.9144015, -0.2577021, -0.29242095)
+bones/20/rotation = Quaternion(0.0937455, 0.9096759, -0.39180538, 0.10094668)
+bones/21/rotation = Quaternion(0.17141162, -0.054039605, 0.07568904, 0.98080015)
+bones/22/rotation = Quaternion(0.12905672, -0.019368583, 0.036693614, 0.9907688)
+bones/24/rotation = Quaternion(0.11842884, 0.1467438, 0.97414047, -0.1244638)
+bones/25/rotation = Quaternion(-0.21783392, -0.078781396, 0.017365208, 0.9726461)
+bones/26/rotation = Quaternion(0.51065826, -0.09183769, -0.06349746, 0.85250354)
+bones/27/rotation = Quaternion(0.30222344, 0.011229099, -0.00366492, 0.9531639)
+bones/29/rotation = Quaternion(-0.038276423, -0.017632898, 0.9954967, -0.08491389)
+bones/30/rotation = Quaternion(-0.0769474, 0.044519335, 0.044991296, 0.9950241)
+bones/31/rotation = Quaternion(0.51367307, -0.005095618, -0.073629946, 0.8548057)
+bones/32/rotation = Quaternion(0.3401298, -0.016667303, 0.006139945, 0.9402108)
+
+[node name="Body" parent="Body/runner/Armature_002/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("6_g6k8r")
+
+[node name="Face" parent="Body/runner/Armature_002/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("7_boad6")
+
 [node name="Hurtbox" type="Area3D" parent="Body"]
+visible = false
 collision_layer = 4
 collision_mask = 0
 
@@ -28,6 +175,7 @@ collision_mask = 0
 shape = SubResource("CylinderShape3D_g1dw6")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Body"]
+visible = false
 radius = 0.1
 height = 0.6
 
@@ -40,13 +188,4 @@ spring_length = 2.0
 [node name="Camera3D" type="Camera3D" parent="CameraRoot/Pivot"]
 current = true
 
-[node name="PlayerViewController" type="Node" parent="." node_paths=PackedStringArray("body", "camera_root", "camera")]
-script = ExtResource("3_yw30f")
-body = NodePath("../Body")
-camera_root = NodePath("../CameraRoot")
-camera = NodePath("../CameraRoot/Pivot/Camera3D")
-metadata/_custom_type_script = "uid://ch1gifjud7map"
-
-[node name="PlayerMovement" type="Node" parent="."]
-script = ExtResource("2_g1dw6")
-metadata/_custom_type_script = "uid://xqdtlyollsqn"
+[editable path="Body/runner"]

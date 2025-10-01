@@ -3,8 +3,6 @@ extends CharacterBody3D
 
 signal died()
 
-@onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
 var health := 5:
 	set(v):
 		health = v
@@ -17,12 +15,6 @@ func _ready() -> void:
 
 func _on_died() -> void:
 	queue_free()
-
-func apply_gravity(delta):
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-	else:
-		velocity.y = 0
 
 func is_dead():
 	return false

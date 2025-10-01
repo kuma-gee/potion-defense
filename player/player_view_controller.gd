@@ -36,16 +36,10 @@ func _unhandled_input(event):
 func _process(delta: float) -> void:
 	_align_to_locked_target()
 
-	var is_moving = player.velocity.length() > 0.5
-	var target_fov = running_fov if Input.is_action_pressed("sprint") and is_moving else fov
-	camera.fov = move_toward(camera.fov, target_fov, delta * fov_change_speed)
-	if is_moving:
-		var v = player.velocity
-		body.look_at(body.global_position + Vector3(v.x, 0, v.z))
-
 func _align_to_locked_target() -> void:
 	if not locked_target:
 		return
+
 	var target_dir: Vector3 = (locked_target.global_position - player.global_position).normalized()
 	var flat_dir := Vector3(target_dir.x, 0.0, target_dir.z)
 	if flat_dir.length() > 0.0001:
