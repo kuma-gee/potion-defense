@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc2tq0tljgm6v"]
+[gd_scene load_steps=11 format=3 uid="uid://dc2tq0tljgm6v"]
 
 [ext_resource type="Script" uid="uid://djehtd7eujwr1" path="res://arena.gd" id="1_444vf"]
 [ext_resource type="PackedScene" uid="uid://dsjo3xx3s5pje" path="res://player/player.tscn" id="1_ubfh8"]
@@ -12,6 +12,8 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27ga2"]
 height = 1.0
 radius = 0.3955078
+
+[sub_resource type="MeshLibrary" id="MeshLibrary_yokb4"]
 
 [node name="Arena" type="Node3D" node_paths=PackedStringArray("player", "survival_timer", "platform", "spawn_manager", "level_label", "upgrade_select", "upgrade_select_container", "gameover_screen")]
 script = ExtResource("1_444vf")
@@ -163,3 +165,6 @@ layout_mode = 2
 [node name="Restart" type="Button" parent="CanvasLayer/Control/GameoverScreen/CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Restart"
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = SubResource("MeshLibrary_yokb4")

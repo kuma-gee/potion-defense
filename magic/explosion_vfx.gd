@@ -1,7 +1,10 @@
 extends Area3D
 
-func _ready() -> void:
-	body_entered.connect(func(b):
-		if b.has_method("hit"):
-			b.hit(global_position)
-	)
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+func start():
+	animation_player.play("start")
+
+func hit():
+	for b in get_overlapping_bodies():
+		b.hit(global_position)

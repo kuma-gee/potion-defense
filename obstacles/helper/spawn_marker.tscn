@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo3gps2h7swsx"]
 
-[ext_resource type="Script" uid="uid://bvobax0sbglis" path="res://obstacles/spawn_marker.gd" id="1_ft0h3"]
+[ext_resource type="Script" uid="uid://bvobax0sbglis" path="res://obstacles/helper/spawn_marker.gd" id="1_ft0h3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3mv5o"]
 

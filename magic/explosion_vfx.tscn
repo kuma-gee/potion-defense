@@ -1,13 +1,10 @@
-[gd_scene load_steps=84 format=3 uid="uid://csiavq076wjrx"]
+[gd_scene load_steps=83 format=3 uid="uid://csiavq076wjrx"]
 
 [ext_resource type="Script" uid="uid://bxmjv37bmrlaj" path="res://magic/explosion_vfx.gd" id="1_vjgue"]
 [ext_resource type="Shader" uid="uid://dpqsia4sjvs85" path="res://magic/streak_vfx.tres" id="2_dqbw7"]
 [ext_resource type="Texture2D" uid="uid://dpy74naxllt47" path="res://assets/particles/flare_01.png" id="3_at50x"]
 [ext_resource type="Texture2D" uid="uid://ciespxrctvqsp" path="res://assets/particles/explosion_decal.png" id="4_erun6"]
 [ext_resource type="Texture2D" uid="uid://dbm5r0ya35uqy" path="res://assets/particles/explosion_decal_emission.png" id="5_ie8lq"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_c57t4"]
-size = Vector2(20, 20)
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_pxhyp"]
 linked_parent_graph_frame = 16
@@ -606,18 +603,6 @@ tracks/6/keys = {
 "update": 0,
 "values": [1.0]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".:monitoring")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_prran"]
 resource_name = "start"
@@ -720,17 +705,19 @@ tracks/7/keys = {
 "method": &"queue_free"
 }]
 }
-tracks/8/type = "value"
+tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath(".:monitoring")
+tracks/8/path = NodePath(".")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4q3nj"]
@@ -772,11 +759,8 @@ radius = 1.0
 [node name="ExplosionVFX" type="Area3D"]
 collision_layer = 0
 collision_mask = 2
+monitoring = false
 script = ExtResource("1_vjgue")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0510707, 0, 0)
-mesh = SubResource("PlaneMesh_c57t4")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_vjgue")
@@ -807,7 +791,6 @@ omni_range = 10.0
 libraries = {
 &"": SubResource("AnimationLibrary_4q3nj")
 }
-autoplay = "start"
 
 [node name="Flare" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_k1pk8")
