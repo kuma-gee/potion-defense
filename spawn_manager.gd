@@ -1,25 +1,35 @@
 class_name SpawnManager
 extends Node
 
-@export var spawn_radius := 6.5
-@export var spawn_objects: Array[PackedScene]
-@export var spawn_timer: Timer
 @export var root: Node3D
+@export var obstacle_resources: Array[ObstacleResource] = []
+
+@export_category("Spawn Settings")
+@export var spawn_radius := 6.5
+@export var spawn_timer: Timer
+@export var min_spawn_time := 0.3
+@export var max_spawn_time := 1.0
+
+var current_obstacles := []
+var spawn_time := 1.0
 
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timeout)
 
 func _on_spawn_timeout() -> void:
-	if spawn_objects.size() == 0:
+	if current_obstacles.size() == 0:
+		print("No obstacles to spawn")
 		return
 
-	var spawn_scene = spawn_objects[randi() % spawn_objects.size()]
-	var spawn_instance = spawn_scene.instantiate() as Node3D
+	var res = current_obstacles.pick_random() as ObstacleResource
+	var spawn_instance = res.scene.instantiate() as Node3D
 	spawn_instance.position = Vector3.FORWARD.rotated(Vector3.UP, randf() * TAU) * randf_range(0, spawn_radius)
 	root.add_child(spawn_instance)
 
-func start():
-	spawn_timer.start()
+func start(level: int):
+	current_obstacles = obstacle_resources.filter(func(o): return o.from_level >= level and (o.to_level <= level or o.to_level < 0))
+	spawn_time = lerp(max_spawn_time, min_spawn_time, clamp(float(level - 1) / 20.0, 0.0, 1.0))
+	spawn_timer.start(spawn_time)
 
 func stop():
 	spawn_timer.stop()

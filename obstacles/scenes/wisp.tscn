@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://fakwldg440fl"]
+
+[ext_resource type="Script" uid="uid://ctftbm5mya4k8" path="res://obstacles/scenes/wisp.gd" id="1_pn3ps"]
+[ext_resource type="Script" uid="uid://bm5ffe64c76bj" path="res://obstacles/helper/drifting.gd" id="2_52ylq"]
+[ext_resource type="Script" uid="uid://bkrembvwcg1br" path="res://magic/PlayParticleSystems.gd" id="3_fal7u"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_52ylq"]
+height = 1.5
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cm02p"]
+radius = 0.25
+height = 0.5
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cm02p"]
+radius = 0.25
+
+[node name="Wisp" type="CharacterBody3D"]
+script = ExtResource("1_pn3ps")
+
+[node name="DetectArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7554474, 0)
+shape = SubResource("CylinderShape3D_52ylq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6645262, 0)
+mesh = SubResource("SphereMesh_cm02p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6645262, 0)
+shape = SubResource("SphereShape3D_cm02p")
+
+[node name="Drifting" type="Node" parent="."]
+script = ExtResource("2_52ylq")
+metadata/_custom_type_script = "uid://bm5ffe64c76bj"
+
+[node name="Particles" type="Node3D" parent="."]
+script = ExtResource("3_fal7u")
+
+[connection signal="body_entered" from="DetectArea" to="Particles" method="play"]

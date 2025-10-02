@@ -1,9 +1,5 @@
 extends Node3D
 
-const UPGRADE_LEVELS = {
-	1: []
-}
-
 @export var player: Player
 @export var survival_timer: Timer
 @export var platform: StartPlatform
@@ -69,5 +65,5 @@ func _on_round_ended():
 func start_round():
 	level += 1
 	survival_timer.start()
-	spawn_manager.start()
+	spawn_manager.start(level)
 	print("Round %s started" % level)

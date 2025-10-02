@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ObstacleResource" load_steps=3 format=3 uid="uid://batbxreft8mag"]
+
+[ext_resource type="PackedScene" uid="uid://fakwldg440fl" path="res://obstacles/scenes/wisp.tscn" id="1_4fbto"]
+[ext_resource type="Script" uid="uid://d1wc206jva6vg" path="res://obstacles/helper/obstacle_resource.gd" id="1_wxmyb"]
+
+[resource]
+script = ExtResource("1_wxmyb")
+scene = ExtResource("1_4fbto")
+metadata/_custom_type_script = "uid://d1wc206jva6vg"

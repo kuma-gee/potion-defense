@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
+const GROUP = "player"
+
 signal died()
 
 var health := 5:
@@ -11,6 +13,7 @@ var health := 5:
 			died.emit()
 
 func _ready() -> void:
+	add_to_group(GROUP)
 	died.connect(_on_died)
 
 func _on_died() -> void:
@@ -22,7 +25,7 @@ func is_dead():
 func is_grounded():
 	return is_on_floor()
 
-func hit(_from_pos: Vector3):
+func hit(_from_pos: Vector3, _force: float = 0.0):
 	if is_dead():
 		return
 

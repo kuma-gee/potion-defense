@@ -92,8 +92,8 @@ operator = 2
 frequency = 0.0058
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qx7sg"]
-seamless = true
 noise = SubResource("FastNoiseLite_n8grj")
+seamless = true
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_aqrjy"]
 expanded_output_ports = [0]
@@ -167,7 +167,7 @@ operator = 2
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec2 CloudMove;
 uniform sampler2D Texture2DParameter;

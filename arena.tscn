@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc2tq0tljgm6v"]
+[gd_scene load_steps=20 format=3 uid="uid://dc2tq0tljgm6v"]
 
 [ext_resource type="Script" uid="uid://djehtd7eujwr1" path="res://arena.gd" id="1_444vf"]
 [ext_resource type="PackedScene" uid="uid://dsjo3xx3s5pje" path="res://player/player.tscn" id="1_ubfh8"]
@@ -7,13 +7,66 @@
 [ext_resource type="Script" uid="uid://dhmgpcwqho5h4" path="res://spawn_manager.gd" id="5_fu4bq"]
 [ext_resource type="PackedScene" uid="uid://bpb0k1s4thvtb" path="res://ui/upgrade_item.tscn" id="5_sbb53"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://ui/gameover_screen.gd" id="6_pbtuc"]
-[ext_resource type="PackedScene" uid="uid://b0a0g6he07s" path="res://obstacles/explosion.tscn" id="8_yokb4"]
+[ext_resource type="Texture2D" uid="uid://ce37fcn8ptva0" path="res://assets/particles/Circle.png" id="9_35c7g"]
+[ext_resource type="PackedScene" uid="uid://dks6w4ls71yt6" path="res://magic/red_beam_impact.tscn" id="9_n068f"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27ga2"]
 height = 1.0
 radius = 0.3955078
 
 [sub_resource type="MeshLibrary" id="MeshLibrary_yokb4"]
+
+[sub_resource type="Environment" id="Environment_yokb4"]
+glow_enabled = true
+glow_intensity = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.5
+glow_hdr_scale = 1.5
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.08
+volumetric_fog_albedo = Color(0.34781694, 0.34781697, 0.3478169, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yokb4"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("9_35c7g")
+
+[sub_resource type="Curve" id="Curve_35c7g"]
+_data = [Vector2(0, 0.5393259), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_n068f"]
+_limits = [0.0, 3.5, 0.0, 1.0]
+_data = [Vector2(0, 3.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_g8a64"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_uvldv"]
+curve_x = SubResource("Curve_35c7g")
+curve_y = SubResource("Curve_n068f")
+curve_z = SubResource("Curve_g8a64")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yokb4"]
+particle_flag_align_y = true
+spread = 15.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+scale_min = 0.049999997
+scale_max = 0.14999999
+scale_curve = SubResource("CurveXYZTexture_uvldv")
+color = Color(3.2944162, 1.987145, 1.3646345, 1)
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.3
+collision_use_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_yokb4"]
 
 [node name="Arena" type="Node3D" node_paths=PackedStringArray("player", "survival_timer", "platform", "spawn_manager", "level_label", "upgrade_select", "upgrade_select_container", "gameover_screen")]
 script = ExtResource("1_444vf")
@@ -27,6 +80,7 @@ upgrade_select_container = NodePath("CanvasLayer/Control/CenterContainer")
 gameover_screen = NodePath("CanvasLayer/Control/GameoverScreen")
 
 [node name="Floor" type="CSGCylinder3D" parent="."]
+visible = false
 use_collision = true
 radius = 8.0
 height = 7.0
@@ -41,6 +95,10 @@ sides = 64
 
 [node name="Root" type="Node3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9786394, 0)
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11983925, 0)
+size = Vector3(20, 0.2, 20)
 
 [node name="Player" parent="." instance=ExtResource("1_ubfh8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9743328, 2.4892728)
@@ -64,16 +122,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9232788, 0)
 height = 0.1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+visible = false
 
 [node name="SurvivalTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("spawn_timer", "root")]
+[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("root", "spawn_timer")]
 script = ExtResource("5_fu4bq")
-spawn_objects = Array[PackedScene]([ExtResource("8_yokb4")])
-spawn_timer = NodePath("Timer")
 root = NodePath("../Floor/Root")
+spawn_timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="SpawnManager"]
 
@@ -168,3 +226,21 @@ text = "Restart"
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = SubResource("MeshLibrary_yokb4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yokb4")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_yokb4")
+amount = 40
+lifetime = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_yokb4")
+draw_pass_1 = SubResource("QuadMesh_yokb4")
+
+[node name="RedBeamImpact" parent="." instance=ExtResource("9_n068f")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03786242, 0)
+size = Vector3(9.478516, 0.022460938, 8.265381)
