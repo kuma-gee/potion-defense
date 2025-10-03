@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbww05n0ma6xq"
-path.s3tc="res://.godot/imported/SphereWarp.png-6f9940b93ec555556af30f34e29366cc.s3tc.ctex"
+uid="uid://da2ssw3y2uk18"
+path.s3tc="res://.godot/imported/ImpactTex.png-460711b21870a6aa9cf39d99461d62c5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/SphereWarp.png"
-dest_files=["res://.godot/imported/SphereWarp.png-6f9940b93ec555556af30f34e29366cc.s3tc.ctex"]
+source_file="res://assets/particles/course/ImpactTex.png"
+dest_files=["res://.godot/imported/ImpactTex.png-460711b21870a6aa9cf39d99461d62c5.s3tc.ctex"]
 
 [params]
 

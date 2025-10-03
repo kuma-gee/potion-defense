@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=17 format=3 uid="uid://w0bufmmr0a1o"]
+[gd_resource type="VisualShader" load_steps=18 format=3 uid="uid://w0bufmmr0a1o"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_sjbq0"]
 operator = 2
@@ -58,6 +58,10 @@ parameter_name = "DissolveTiling"
 default_value_enabled = true
 default_value = Vector2(1, 1)
 
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_sjbq0"]
+billboard_type = 3
+keep_scale = true
+
 [resource]
 code = "shader_type spatial;
 render_mode blend_add, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
@@ -69,6 +73,23 @@ uniform sampler2D Dissolve;
 uniform float DissolveAmount : hint_range(0.0, 1.0) = 0.0;
 
 
+
+void vertex() {
+	mat4 n_out2p0;
+// GetBillboardMatrix:2
+	{
+		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
+		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		n_out2p0 = VIEW_MATRIX * __wm;
+	}
+
+
+// Output:0
+	MODELVIEW_MATRIX = n_out2p0;
+
+
+}
 
 void fragment() {
 // Input:16
@@ -140,6 +161,9 @@ void fragment() {
 "
 modes/blend = 1
 flags/unshaded = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_sjbq0")
+nodes/vertex/2/position = Vector2(100, 460)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
 nodes/fragment/0/position = Vector2(1400, 220)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_sjbq0")
 nodes/fragment/2/position = Vector2(-340, 160)
@@ -173,4 +197,4 @@ nodes/fragment/16/node = SubResource("VisualShaderNodeInput_sjbq0")
 nodes/fragment/16/position = Vector2(580, 100)
 nodes/fragment/17/node = SubResource("VisualShaderNodeVectorOp_dvtpy")
 nodes/fragment/17/position = Vector2(1020, 220)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 5, 0, 4, 2, 6, 0, 4, 0, 8, 0, 10, 0, 9, 0, 10, 1, 10, 0, 6, 0, 12, 0, 11, 1, 7, 0, 11, 0, 11, 0, 6, 2, 3, 0, 13, 0, 4, 0, 13, 1, 15, 0, 14, 2, 13, 0, 14, 1, 3, 0, 14, 0, 16, 0, 17, 0, 14, 0, 17, 1, 17, 0, 0, 0, 17, 4, 0, 1)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 5, 0, 4, 2, 6, 0, 4, 0, 8, 0, 10, 0, 9, 0, 10, 1, 10, 0, 6, 0, 12, 0, 11, 1, 7, 0, 11, 0, 11, 0, 6, 2, 3, 0, 13, 0, 4, 0, 13, 1, 15, 0, 14, 2, 13, 0, 14, 1, 3, 0, 14, 0, 16, 0, 17, 0, 14, 0, 17, 1, 17, 4, 0, 1, 17, 0, 0, 0)

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctp8pgkeli18e"
-path.s3tc="res://.godot/imported/FlarePlus.png-8c182ff93b7da675c17ab7a067c915eb.s3tc.ctex"
+uid="uid://bbww05n0ma6xq"
+path.s3tc="res://.godot/imported/SphereWarp.png-ccdf9b693e425de9cd5c16ce1f61dbf1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/FlarePlus.png"
-dest_files=["res://.godot/imported/FlarePlus.png-8c182ff93b7da675c17ab7a067c915eb.s3tc.ctex"]
+source_file="res://assets/particles/course/SphereWarp.png"
+dest_files=["res://.godot/imported/SphereWarp.png-ccdf9b693e425de9cd5c16ce1f61dbf1.s3tc.ctex"]
 
 [params]
 

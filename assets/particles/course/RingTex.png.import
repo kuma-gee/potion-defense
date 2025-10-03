@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccgj137yo3nbp"
-path.s3tc="res://.godot/imported/CircleBlurry.png-2dbbbfc509a1574200de59e6b3f8785d.s3tc.ctex"
+uid="uid://c36t3itic1ivn"
+path.s3tc="res://.godot/imported/RingTex.png-cf43ad52510b996ffc91692f37a519fa.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/CircleBlurry.png"
-dest_files=["res://.godot/imported/CircleBlurry.png-2dbbbfc509a1574200de59e6b3f8785d.s3tc.ctex"]
+source_file="res://assets/particles/course/RingTex.png"
+dest_files=["res://.godot/imported/RingTex.png-cf43ad52510b996ffc91692f37a519fa.s3tc.ctex"]
 
 [params]
 

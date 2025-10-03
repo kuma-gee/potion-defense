@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da2ssw3y2uk18"
-path.s3tc="res://.godot/imported/ImpactTex.png-cdf5dcc3551d1c0a7d9b336f0f2257b4.s3tc.ctex"
+uid="uid://d16r5p580hv6t"
+path.s3tc="res://.godot/imported/Flame01.png-d6ff2501efbf9e56639e0e8b7e813e17.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/ImpactTex.png"
-dest_files=["res://.godot/imported/ImpactTex.png-cdf5dcc3551d1c0a7d9b336f0f2257b4.s3tc.ctex"]
+source_file="res://assets/particles/course/Flame01.png"
+dest_files=["res://.godot/imported/Flame01.png-d6ff2501efbf9e56639e0e8b7e813e17.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cje6wstbddcpy"
-path.s3tc="res://.godot/imported/ImpactMark01.png-850d8897f19f6ee6e5a3b50197d4eac9.s3tc.ctex"
+uid="uid://byjkmlkla0k01"
+path.s3tc="res://.godot/imported/FireCyclinderTex.png-c04f72c1c38c2968dc7de1dd461d68ed.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/ImpactMark01.png"
-dest_files=["res://.godot/imported/ImpactMark01.png-850d8897f19f6ee6e5a3b50197d4eac9.s3tc.ctex"]
+source_file="res://assets/particles/course/FireCyclinderTex.png"
+dest_files=["res://.godot/imported/FireCyclinderTex.png-c04f72c1c38c2968dc7de1dd461d68ed.s3tc.ctex"]
 
 [params]
 
