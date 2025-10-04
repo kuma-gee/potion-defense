@@ -19,16 +19,19 @@ extends Node3D
 		cleanDelays = false
 
 var particle_systems: Array
+var running := false
 
 func play():
+	if running: return
 	play_particles = true
+
 
 func _find_particles():
 	particle_systems.clear()  # Always clear and re-detect
 	var existing_delays = delays.duplicate()  # Preserve existing delays
 
 	for child in get_children():
-		if child is GPUParticles3D or child is HitBox:
+		if child is GPUParticles3D or child is HitBox or child is ParticleCallback:
 			particle_systems.append(child)
 			if not existing_delays.has(child.name):
 				existing_delays[child.name] = 0.0  # Assign default delay
@@ -47,11 +50,12 @@ func _start_delays():
 			delays[particle.name] = 0.0  # Keep existing delays, add new ones
 
 func _play_particles():
+	running = true
 	for particle in particle_systems:
 		var delay = delays.get(particle.name, 0.0)
 		_playDelay(particle, delay)
 		
-func _playDelay(ps: Node3D, delay: float):
+func _playDelay(ps: Node, delay: float):
 	if ps is GPUParticles3D:
 		ps.emitting = false  # Reset first (prevents issues)
 		await get_tree().create_timer(delay).timeout
@@ -62,3 +66,6 @@ func _playDelay(ps: Node3D, delay: float):
 		await get_tree().create_timer(delay).timeout
 		ps.show()
 		ps.hit()
+	elif ps is ParticleCallback:
+		await get_tree().create_timer(delay).timeout
+		ps.run()

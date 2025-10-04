@@ -2,3 +2,7 @@
 .godot/
 /android/
 .cursor
+
+assets/**/*.*
+!assets/**/*.import
+!assets/*.zip

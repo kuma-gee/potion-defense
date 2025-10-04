@@ -44,4 +44,4 @@ func _physics_process(delta):
 	character_body.move_and_slide()
 
 func _find_player():
-    player = get_tree().get_first_node_in_group("player") as Player
+	player = get_tree().get_first_node_in_group("player") as Player

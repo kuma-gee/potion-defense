@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://tkk4wdjf6oaf"]
+
+[ext_resource type="Script" uid="uid://8b4vb34b2tth" path="res://obstacles/helper/follow_player.gd" id="1_ak6dn"]
+[ext_resource type="PackedScene" uid="uid://d1it77k88xbrp" path="res://assets/models/zombie_strong/mutant.glb" id="1_rnd1b"]
+[ext_resource type="Material" uid="uid://hwi7egx2e8iv" path="res://obstacles/enemies/mutant.tres" id="2_ynqad"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ynqad"]
+radius = 0.34277344
+height = 1.5310059
+
+[node name="Mutant" type="CharacterBody3D"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76854986, 0.18805313)
+shape = SubResource("CapsuleShape3D_ynqad")
+
+[node name="mutant" parent="." instance=ExtResource("1_rnd1b")]
+
+[node name="Skeleton3D" parent="mutant/Armature_004" index="0"]
+bones/0/position = Vector3(-4.5897104e-07, 1.7124106e-14, 1.4364741e-07)
+bones/1/position = Vector3(1.9728391e-07, 0.8053293, 0.045524996)
+bones/1/rotation = Quaternion(-0.0022018068, -3.0752382e-08, -0.009474549, 0.99995273)
+bones/2/rotation = Quaternion(0.15285893, 0.0017408713, 0.0042940583, 0.98823726)
+bones/3/rotation = Quaternion(0.13128734, 0.0021771824, 0.008648512, 0.9913042)
+bones/4/rotation = Quaternion(0.1446302, 0.0018094138, 0.007657437, 0.9894545)
+bones/5/rotation = Quaternion(0.026006626, -0.008014632, 0.000903136, 0.99962926)
+bones/6/rotation = Quaternion(-0.18870568, 0.023675127, -0.017435808, 0.98159343)
+bones/8/rotation = Quaternion(0.5829853, 0.5421007, -0.28136736, 0.5358053)
+bones/9/rotation = Quaternion(0.30943164, -0.2382652, 0.21213007, 0.895814)
+bones/10/rotation = Quaternion(0.14737768, 0.061509516, 0.46034887, 0.87325567)
+bones/12/rotation = Quaternion(0.55975217, -0.55997723, 0.30789202, 0.5275468)
+bones/13/rotation = Quaternion(0.38862175, 0.2117596, -0.16061266, 0.8822327)
+bones/14/rotation = Quaternion(0.1280765, 0.10582835, -0.5650518, 0.8081542)
+bones/15/rotation = Quaternion(0.16697474, 0.0648382, -0.027321538, 0.9834475)
+bones/16/rotation = Quaternion(0.33299932, -0.15041983, 0.020553559, 0.930625)
+bones/17/rotation = Quaternion(0.2644732, 0.010360177, -0.11285543, 0.9577109)
+bones/18/rotation = Quaternion(0.13927796, 0.040077113, -0.13396005, 0.9803317)
+bones/20/rotation = Quaternion(0.25646585, 0.7665001, 0.18358664, 0.559463)
+bones/21/rotation = Quaternion(0.0004674837, 1.4065362e-05, 0.26473808, 0.96432024)
+bones/22/rotation = Quaternion(0.00037660287, -5.8719736e-05, 0.3516888, 0.93611693)
+bones/24/rotation = Quaternion(0.39776662, -0.32792863, -0.20358877, 0.83234376)
+bones/25/rotation = Quaternion(-0.16908027, -0.070561685, 0.31856477, 0.93002665)
+bones/26/rotation = Quaternion(-0.18928942, -0.10167651, 0.21139282, 0.9534908)
+bones/28/rotation = Quaternion(0.08025415, 0.30886048, 0.9205389, -0.2253278)
+bones/29/rotation = Quaternion(-0.47218308, 0.01702976, -0.088672236, 0.8768641)
+bones/30/rotation = Quaternion(0.5152169, 0.044018004, -0.106632955, 0.8492605)
+bones/31/rotation = Quaternion(0.41316116, 0.03436791, -0.1077415, 0.9036086)
+bones/33/rotation = Quaternion(-0.15988629, 0.31495798, 0.9211549, 0.1634369)
+bones/34/rotation = Quaternion(-0.47241068, -0.06400728, 0.0029890947, 0.87904626)
+bones/35/rotation = Quaternion(0.5120482, 0.0029382482, 0.1212076, 0.8503569)
+bones/36/rotation = Quaternion(0.42039537, 0.06080003, 0.12240054, 0.89698905)
+
+[node name="MutantMesh" parent="mutant/Armature_004/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_ynqad")
+
+[node name="FollowPlayer" type="Node" parent="."]
+script = ExtResource("1_ak6dn")
+metadata/_custom_type_script = "uid://8b4vb34b2tth"
+
+[editable path="mutant"]

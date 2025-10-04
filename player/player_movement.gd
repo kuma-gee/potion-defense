@@ -50,6 +50,8 @@ func get_forward_input():
 	return _forward(get_input_dir())
 
 func get_input_dir():
+	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE: return Vector2.ZERO
+	
 	return Input.get_vector("move_right", "move_left", "move_down", "move_up")
 
 func _forward(dir: Vector2):

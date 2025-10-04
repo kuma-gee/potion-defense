@@ -5,4 +5,5 @@ extends Area3D
 
 func hit():
 	for b in get_overlapping_bodies():
-		b.hit(global_position, force)
+		if b.has_method("hit"):
+			b.hit(global_position, force)
