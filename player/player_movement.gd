@@ -8,11 +8,14 @@ extends Node
 @export var deceleration = 20.0
 @export var rotation_speed = 10.0
 @export var sprint_slide_acceleration = 1.0
+@export var knockback_resistance = 5.0
 
 @export var body: Node3D
 
 @onready var player: CharacterBody3D = get_parent()
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+var knockback: Vector3
 
 func _physics_process(delta):
 	if player.is_dead():
@@ -26,7 +29,12 @@ func _physics_process(delta):
 	if is_sprinting and direction and is_moving_opposite(direction, player.velocity):
 		current_acceleration = sprint_slide_acceleration
 
-	if player.is_grounded():
+	var has_knockback = knockback.length() > 0.01
+	if has_knockback:
+		player.velocity.x = knockback.x
+		player.velocity.z = knockback.z
+		knockback = knockback.lerp(Vector3.ZERO, delta * knockback_resistance)
+	elif player.is_grounded():
 		if direction:
 			player.velocity.x = lerp(player.velocity.x, direction.x * speed, delta * current_acceleration)
 			player.velocity.z = lerp(player.velocity.z, direction.z * speed, delta * current_acceleration)
@@ -44,7 +52,8 @@ func _physics_process(delta):
 	apply_gravity(delta)
 	player.move_and_slide()
 
-	rotate_body_to_velocity(delta, direction)
+	var rotate_dir = knockback if has_knockback else direction
+	rotate_body_to_velocity(delta, rotate_dir)
 
 func get_forward_input():
 	return _forward(get_input_dir())

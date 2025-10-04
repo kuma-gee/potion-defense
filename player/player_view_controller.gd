@@ -33,7 +33,7 @@ func _unhandled_input(event):
 	elif event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_align_to_locked_target()
 
 func _align_to_locked_target() -> void:
