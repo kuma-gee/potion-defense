@@ -1,29 +1,51 @@
 class_name PlayerMovement
 extends Node
 
+@export var body: Node3D
 @export var default_speed = 5.0
-@export var sprint_speed = 8.0
 @export var jump_vel = 4.
 @export var acceleration = 15.0
 @export var deceleration = 20.0
 @export var rotation_speed = 10.0
-@export var sprint_slide_acceleration = 1.0
 @export var knockback_resistance = 5.0
 
-@export var body: Node3D
+@export_category("Sprint")
+@export var sprint_speed = 8.0
+@export var sprint_slide_acceleration = 5.0
+@export var sprint_boost_speed = 12.0
+@export var sprint_boost_duration = 0.3
 
 @onready var player: CharacterBody3D = get_parent()
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var knockback: Vector3
+var was_sprinting: bool = false
+var sprint_boost_timer: float = 0.0
 
 func _physics_process(delta):
 	if player.is_dead():
 		return
 
 	var direction = get_forward_input()
-	var speed = sprint_speed if Input.is_action_pressed("sprint") else default_speed
 	var is_sprinting = Input.is_action_pressed("sprint")
+	
+	# Handle sprint boost on initial sprint press
+	if is_sprinting and not was_sprinting and direction:
+		sprint_boost_timer = sprint_boost_duration
+	
+	# Update sprint boost timer
+	if sprint_boost_timer > 0.0:
+		sprint_boost_timer -= delta
+	
+	# Calculate current speed with potential boost
+	var speed = default_speed
+	if is_sprinting:
+		if sprint_boost_timer > 0.0:
+			speed = sprint_boost_speed
+		else:
+			speed = sprint_speed
+	
+	was_sprinting = is_sprinting
 	
 	var current_acceleration = acceleration
 	if is_sprinting and direction and is_moving_opposite(direction, player.velocity):

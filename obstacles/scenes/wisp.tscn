@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://fakwldg440fl"]
+[gd_scene load_steps=21 format=3 uid="uid://fakwldg440fl"]
 
 [ext_resource type="Script" uid="uid://ctftbm5mya4k8" path="res://obstacles/scenes/wisp.gd" id="1_pn3ps"]
 [ext_resource type="Script" uid="uid://bm5ffe64c76bj" path="res://obstacles/helper/drifting.gd" id="2_52ylq"]
@@ -7,8 +7,69 @@
 [ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://magic/aoe_cylinder.tres" id="5_qbxvx"]
 [ext_resource type="Texture2D" uid="uid://cwxts0ibk6ntj" path="res://assets/particles/lelu-noise-pack/T_VFX_Glo31.png" id="5_xfhrg"]
 [ext_resource type="Texture2D" uid="uid://d4iyfih35lnc1" path="res://assets/particles/lelu-noise-pack/T_VFX_Flare_666.jpg" id="6_jhg21"]
+[ext_resource type="PackedScene" uid="uid://bfgfb221ebj27" path="res://obstacles/scenes/hit_box.tscn" id="8_xfhrg"]
 [ext_resource type="Script" uid="uid://buo8cbu61vttl" path="res://magic/particle_callback.gd" id="9_xfhrg"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="10_jhg21"]
+
+[sub_resource type="Animation" id="Animation_jhg21"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D/MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_fktfv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D/MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fktfv"]
+_data = {
+&"RESET": SubResource("Animation_fktfv"),
+&"start": SubResource("Animation_jhg21")
+}
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cm02p"]
 radius = 0.125
@@ -47,12 +108,18 @@ alpha_curve = SubResource("CurveTexture_2va2v")
 
 [sub_resource type="QuadMesh" id="QuadMesh_xfhrg"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_jhg21"]
-radius = 1.0
-
 [node name="Wisp" type="CharacterBody3D"]
 collision_layer = 0
 script = ExtResource("1_pn3ps")
+
+[node name="CleanupTimer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fktfv")
+}
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28893906, 0)
@@ -103,8 +170,8 @@ delays = {
 &"GroundMarkBright": 1.5,
 &"GroundMarkDark": 1.55,
 &"HalfSphere": 1.5,
-&"HideWisp": 1.0,
-&"HitBox": 1.0,
+&"HideWisp": 0.5,
+&"HitBox": 0.5,
 &"ImpaceFlare": 1.5,
 &"ImpactParticles": 1.5,
 &"OuterRing": 0.0,
@@ -115,22 +182,10 @@ delays = {
 [node name="AnticipationParticles" parent="BlueBeamImpact" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28702083, 0)
 
-[node name="HitBox" type="Area3D" parent="BlueBeamImpact"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_jhg21")
-force = 10.0
-metadata/_custom_type_script = "uid://cuspqvicid1n2"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BlueBeamImpact/HitBox"]
-shape = SubResource("CylinderShape3D_jhg21")
+[node name="HitBox" parent="BlueBeamImpact" instance=ExtResource("8_xfhrg")]
 
 [node name="HideWisp" type="Node" parent="BlueBeamImpact"]
 script = ExtResource("9_xfhrg")
 metadata/_custom_type_script = "uid://buo8cbu61vttl"
-
-[node name="CleanupTimer" type="Timer" parent="."]
-wait_time = 6.0
-one_shot = true
 
 [editable path="BlueBeamImpact"]
