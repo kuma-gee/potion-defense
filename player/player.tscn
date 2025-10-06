@@ -1,13 +1,17 @@
-[gd_scene load_steps=31 format=3 uid="uid://dsjo3xx3s5pje"]
+[gd_scene load_steps=35 format=3 uid="uid://dsjo3xx3s5pje"]
 
 [ext_resource type="Script" uid="uid://c6wwca7h8xf7f" path="res://player/player.gd" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://xqdtlyollsqn" path="res://player/player_movement.gd" id="2_g1dw6"]
 [ext_resource type="Script" uid="uid://ceanc8yrpv7ov" path="res://player/player_animation.gd" id="2_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://olicgb1t6k84" path="res://assets/models/runner/runner.glb" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://ch1gifjud7map" path="res://player/player_view_controller.gd" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://di0mgt87hfkk6" path="res://player/states/move.gd" id="5_yllr7"]
+[ext_resource type="Script" uid="uid://bx3a0klh2slmp" path="res://player/states/dash.gd" id="6_2ieo8"]
 [ext_resource type="Material" uid="uid://bhte32yr5w1n7" path="res://player/body_mat.tres" id="6_g6k8r"]
 [ext_resource type="Material" uid="uid://cml2p3oqube1s" path="res://player/face_mat.tres" id="7_boad6"]
+[ext_resource type="Script" uid="uid://c47cerucvqs22" path="res://player/states/knockbacked.gd" id="7_ebec5"]
 [ext_resource type="Script" uid="uid://5fkvv50lqbl8" path="res://player/dodge_area.gd" id="8_rgyib"]
+[ext_resource type="Script" uid="uid://bigqmro10vuly" path="res://player/states/dead.gd" id="8_yllr7"]
+[ext_resource type="Script" uid="uid://yp8jmq5o37s5" path="res://player/states/state_machine.gd" id="9_hg6s5"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_boad6"]
 animation = &"Getting Hit"
@@ -126,7 +130,7 @@ radius = 0.55
 collision_layer = 2
 script = ExtResource("1_4flbx")
 
-[node name="PlayerAnimation" type="AnimationTree" parent="." node_paths=PackedStringArray("player_move")]
+[node name="PlayerAnimation" type="AnimationTree" parent="."]
 root_node = NodePath("../BodyRoot/runner")
 tree_root = SubResource("AnimationNodeBlendTree_yw30f")
 anim_player = NodePath("../BodyRoot/runner/AnimationPlayer")
@@ -134,7 +138,6 @@ parameters/Hit/active = false
 parameters/Hit/internal_active = false
 parameters/Hit/request = 0
 script = ExtResource("2_qjkh3")
-player_move = NodePath("../PlayerMovement")
 
 [node name="PlayerViewController" type="Node" parent="." node_paths=PackedStringArray("body", "camera_root", "camera")]
 script = ExtResource("3_yw30f")
@@ -143,15 +146,32 @@ camera_root = NodePath("../CameraRoot")
 camera = NodePath("../CameraRoot/Pivot/Camera3D")
 metadata/_custom_type_script = "uid://ch1gifjud7map"
 
-[node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("body")]
-script = ExtResource("2_g1dw6")
-body = NodePath("../BodyRoot")
-default_speed = 3.0
-knockback_resistance = 12.0
-sprint_speed = 5.0
-sprint_slide_acceleration = 10.0
-sprint_boost_speed = 7.0
-metadata/_custom_type_script = "uid://xqdtlyollsqn"
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("9_hg6s5")
+initial_state = NodePath("Move")
+metadata/_custom_type_script = "uid://yp8jmq5o37s5"
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "dash_state", "knockback_state")]
+script = ExtResource("5_yllr7")
+player = NodePath("../..")
+dash_state = NodePath("../Dash")
+knockback_state = NodePath("../Knockbacked")
+metadata/_custom_type_script = "uid://g325vyi3fud1"
+
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "dodge_area")]
+script = ExtResource("6_2ieo8")
+player = NodePath("../..")
+dodge_area = NodePath("../../DodgeArea")
+metadata/_custom_type_script = "uid://g325vyi3fud1"
+
+[node name="Knockbacked" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_ebec5")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://g325vyi3fud1"
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("8_yllr7")
+metadata/_custom_type_script = "uid://g325vyi3fud1"
 
 [node name="BodyRoot" type="Node3D" parent="."]
 
@@ -159,36 +179,36 @@ metadata/_custom_type_script = "uid://xqdtlyollsqn"
 transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, 0, 0)
 
 [node name="Skeleton3D" parent="BodyRoot/runner/Armature_002" index="0"]
-bones/0/position = Vector3(0.0017049614, 2.247428e-09, 0.018852793)
+bones/0/position = Vector3(-0.0019624452, 1.9351223e-09, 0.016232982)
 bones/1/position = Vector3(0.0016498821, 0.92377436, 0.011672793)
-bones/1/rotation = Quaternion(-0.0065507954, 0.01228937, -0.04306295, 0.9989753)
-bones/2/rotation = Quaternion(-0.03448737, -0.011902871, 0.02143993, 0.9991043)
-bones/3/rotation = Quaternion(0.0060198116, -0.0027737676, 0.051761553, 0.99863756)
-bones/4/rotation = Quaternion(0.0060862596, 0.0018524514, 0.051392764, 0.9986583)
-bones/5/rotation = Quaternion(0.053700306, -0.0015623313, -0.01895209, 0.9983761)
-bones/6/rotation = Quaternion(0.013102856, 0.0050018756, -0.070595615, 0.9974064)
-bones/8/rotation = Quaternion(-0.63530356, -0.39321032, 0.48597753, -0.45343253)
-bones/9/rotation = Quaternion(0.6017827, -0.0052089426, -0.10740249, 0.7913882)
+bones/1/rotation = Quaternion(-0.007968412, 0.013262964, -0.042061485, 0.9989953)
+bones/2/rotation = Quaternion(-0.038874276, -0.012479452, 0.020531518, 0.99895525)
+bones/3/rotation = Quaternion(-0.0016526808, -0.0039389487, 0.051729493, 0.9986521)
+bones/4/rotation = Quaternion(-0.001671123, 0.0015032651, 0.051379126, 0.9986767)
+bones/5/rotation = Quaternion(0.053504135, -0.0017615173, -0.019020708, 0.99838495)
+bones/6/rotation = Quaternion(0.013516336, 0.004839134, -0.07137331, 0.9973464)
+bones/8/rotation = Quaternion(-0.60551775, -0.4363945, 0.4431878, -0.49648032)
+bones/9/rotation = Quaternion(0.66656953, 0.0047133453, -0.11340722, 0.73675084)
 bones/10/rotation = Quaternion(0.031901676, -0.0020360106, 0.14338663, 0.98915035)
-bones/11/rotation = Quaternion(0.0036921995, 0.91213, -0.1718717, 0.3721096)
-bones/12/rotation = Quaternion(-0.18145488, -0.010679056, 0.17262682, 0.96807027)
-bones/13/rotation = Quaternion(-0.13272125, 0.12136654, 0.07723489, 0.98065794)
-bones/14/rotation = Quaternion(-0.06702679, 0.073949076, 0.031850427, 0.9944972)
-bones/16/rotation = Quaternion(0.58658624, -0.44609472, 0.53404427, 0.41438258)
-bones/17/rotation = Quaternion(0.49198657, 0.0057244822, 0.032385588, 0.86998147)
+bones/11/rotation = Quaternion(0.00443069, 0.9127327, -0.17250423, 0.37032658)
+bones/12/rotation = Quaternion(-0.17445953, -0.010139961, 0.16896321, 0.9700064)
+bones/13/rotation = Quaternion(-0.12715384, 0.116416305, 0.074325874, 0.98221934)
+bones/14/rotation = Quaternion(-0.061925605, 0.06819912, 0.029273298, 0.9953177)
+bones/16/rotation = Quaternion(0.5608022, -0.4916616, 0.49187732, 0.44925103)
+bones/17/rotation = Quaternion(0.5541508, -0.0011704821, 0.036907542, 0.8315969)
 bones/18/rotation = Quaternion(0.034017794, 0.002728721, -0.16365673, 0.9859269)
-bones/19/rotation = Quaternion(-0.10937322, 0.9143263, -0.25737846, -0.29291868)
-bones/20/rotation = Quaternion(0.09404986, 0.90938306, -0.392402, 0.10098384)
-bones/21/rotation = Quaternion(0.17205195, -0.054241523, 0.075943716, 0.9806573)
-bones/22/rotation = Quaternion(0.12973025, -0.01946505, 0.036944337, 0.9906696)
-bones/24/rotation = Quaternion(0.118048586, 0.14743523, 0.97411525, -0.1242058)
-bones/25/rotation = Quaternion(-0.2180412, -0.078796424, 0.017628033, 0.9725937)
-bones/26/rotation = Quaternion(0.50987536, -0.0922682, -0.06309021, 0.8529557)
+bones/19/rotation = Quaternion(-0.10933413, 0.91528434, -0.25734985, -0.28995147)
+bones/20/rotation = Quaternion(0.09065783, 0.912615, -0.38574806, 0.10056696)
+bones/21/rotation = Quaternion(0.16492045, -0.05199345, 0.07310634, 0.9822186)
+bones/22/rotation = Quaternion(0.122227654, -0.018389143, 0.034151863, 0.9917439)
+bones/24/rotation = Quaternion(0.1183528, 0.14569208, 0.9743056, -0.124479525)
+bones/25/rotation = Quaternion(-0.2141773, -0.07837232, 0.016916309, 0.97349876)
+bones/26/rotation = Quaternion(0.50708723, -0.09214642, -0.06380394, 0.85457635)
 bones/27/rotation = Quaternion(0.30222344, 0.011229099, -0.00366492, 0.9531639)
-bones/29/rotation = Quaternion(-0.038330305, -0.015737522, 0.9955198, -0.0849913)
-bones/30/rotation = Quaternion(-0.07776594, 0.04487814, 0.044761963, 0.9949547)
-bones/31/rotation = Quaternion(0.51366913, -0.004943878, -0.07330225, 0.85483706)
-bones/32/rotation = Quaternion(0.34015587, -0.016665954, 0.006140629, 0.9402014)
+bones/29/rotation = Quaternion(-0.038141157, -0.014806639, 0.9954396, -0.086175196)
+bones/30/rotation = Quaternion(-0.079978034, 0.047648534, 0.04347503, 0.9947076)
+bones/31/rotation = Quaternion(0.5141643, -0.0056714355, -0.07485766, 0.8543999)
+bones/32/rotation = Quaternion(0.3403481, -0.016656017, 0.0061456836, 0.9401319)
 
 [node name="Body" parent="BodyRoot/runner/Armature_002/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("6_g6k8r")
