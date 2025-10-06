@@ -6,3 +6,5 @@
 assets/**/*.*
 !assets/**/*.import
 !assets/*.zip
+
+VFX

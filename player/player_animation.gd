@@ -1,8 +1,10 @@
+class_name PlayerAnimation
 extends AnimationTree
 
 @onready var player: CharacterBody3D = get_parent()
 
 const HIT_REQUEST = "parameters/Hit/request"
+const DODGE_REQUEST = "parameters/Dodge/request"
 
 var sprinting := false
 var motion: Vector3
@@ -24,3 +26,6 @@ func _physics_process(_d: float) -> void:
 
 func hit():
 	set(HIT_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+func dodge():
+	set(DODGE_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)

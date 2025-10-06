@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dsjo3xx3s5pje" path="res://player/player.tscn" id="1_ubfh8"]
 [ext_resource type="Script" uid="uid://5nj8apry1sqn" path="res://ui/seconds_timer.gd" id="3_27ga2"]
 [ext_resource type="Script" uid="uid://d1wc206jva6vg" path="res://obstacles/helper/obstacle_resource.gd" id="3_yokb4"]
+[ext_resource type="Resource" uid="uid://cw02hkc4f3dca" path="res://obstacles/mutant.tres" id="4_35c7g"]
 [ext_resource type="Script" uid="uid://ddh3ur6ehl3po" path="res://start_platform.gd" id="4_h0wof"]
 [ext_resource type="Script" uid="uid://dhmgpcwqho5h4" path="res://spawn_manager.gd" id="5_fu4bq"]
-[ext_resource type="Resource" uid="uid://batbxreft8mag" path="res://obstacles/wisp.tres" id="5_g8a64"]
 [ext_resource type="PackedScene" uid="uid://bpb0k1s4thvtb" path="res://ui/upgrade_item.tscn" id="5_sbb53"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://ui/gameover_screen.gd" id="6_pbtuc"]
 
@@ -43,10 +43,10 @@ environment = SubResource("Environment_yokb4")
 [node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("root", "spawn_timer")]
 script = ExtResource("5_fu4bq")
 root = NodePath("../Floor/Root")
-obstacle_resources = Array[ExtResource("3_yokb4")]([ExtResource("5_g8a64")])
-spawn_radius = 8.0
+obstacle_resources = Array[ExtResource("3_yokb4")]([ExtResource("4_35c7g")])
+spawn_radius = 15.0
 spawn_timer = NodePath("Timer")
-max_count = 5
+max_count = 1
 
 [node name="Timer" type="Timer" parent="SpawnManager"]
 
@@ -56,14 +56,15 @@ one_shot = true
 
 [node name="Floor" type="CSGCylinder3D" parent="."]
 use_collision = true
-radius = 10.0
+collision_mask = 0
+radius = 20.0
 height = 7.0
 sides = 32
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Floor"]
 operation = 2
 use_collision = true
-radius = 9.0
+radius = 18.0
 height = 6.0
 sides = 64
 

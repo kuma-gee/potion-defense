@@ -72,6 +72,45 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1o2ct")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrxjk"]
+albedo_color = Color(0.196078, 0.192157, 0.215686, 1)
+
+[sub_resource type="Curve" id="Curve_0vhb3"]
+_data = [Vector2(0, 1), 0.0, -3.4875, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nrxjk"]
+curve = SubResource("Curve_0vhb3")
+
+[sub_resource type="Curve" id="Curve_nrxjk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.630824, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.31508, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yqv3b"]
+curve = SubResource("Curve_nrxjk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nrxjk"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.3
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+radial_velocity_min = 0.999978
+radial_velocity_max = 1.99998
+radial_velocity_curve = SubResource("CurveTexture_nrxjk")
+gravity = Vector3(0, -40, 0)
+scale_min = 0.29999998
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_yqv3b")
+collision_mode = 1
+collision_friction = 0.8
+collision_bounce = 0.3
+collision_use_scale = true
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_u7ckr"]
 _surfaces = [{
 "aabb": AABB(-0.570792, -0.0304513, -0.535917, 1.07608, 1.21996, 1.08485),
@@ -106,44 +145,188 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_u7ckr")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vhb3"]
-albedo_color = Color(0.196078, 0.192157, 0.215686, 1)
-
-[sub_resource type="Curve" id="Curve_0vhb3"]
-_data = [Vector2(0, 1), 0.0, -3.4875, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_nrxjk"]
-curve = SubResource("Curve_0vhb3")
-
-[sub_resource type="Curve" id="Curve_nrxjk"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.630824, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.31508, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_yqv3b"]
-curve = SubResource("Curve_nrxjk")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nrxjk"]
-particle_flag_rotate_y = true
-emission_shape = 1
-emission_sphere_radius = 0.3
-angle_min = -180.0
-angle_max = 180.0
-direction = Vector3(0, 1, 0)
-spread = 15.0
-initial_velocity_min = 5.0
-initial_velocity_max = 10.0
-radial_velocity_min = 0.999978
-radial_velocity_max = 1.99998
-radial_velocity_curve = SubResource("CurveTexture_nrxjk")
-gravity = Vector3(0, -40, 0)
-scale_min = 0.3
-scale_max = 0.7
-scale_curve = SubResource("CurveTexture_yqv3b")
-collision_mode = 1
-collision_friction = 0.8
-collision_bounce = 0.3
-collision_use_scale = true
+[sub_resource type="Animation" id="Animation_6581h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Meshes/Stone01:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.0526273, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Meshes/Stone02:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.853991, -0.276788, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Meshes/Stone03:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.72829, 0.094753, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Meshes/Stone04:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.29045, 0.0615385, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Meshes/Stone02_01:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.503253, -0.211292, -0.106178)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Meshes/Stone02_02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.12121, -0.146269, 0.252505)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Meshes/Stone03_01:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.69233, -0.159779, -0.172868)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Meshes/Stone04_01:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.13639, -0.211292, 0.260351)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Meshes/Stone01_01:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.226227, -0.0955779, 0.130921)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Meshes/Stone01/Decal:albedo_mix")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Meshes/Decal3:albedo_mix")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Meshes/Decal4:albedo_mix")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Meshes/Decal2:albedo_mix")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Meshes/Stone01/Stones:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.209374, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Meshes/Stone01/Stones:emitting")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_yxhpy"]
 resource_name = "start"
@@ -259,7 +442,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Meshes/Decal:albedo_mix")
+tracks/9/path = NodePath("Meshes/Stone01/Decal:albedo_mix")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -307,7 +490,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Meshes/GPUParticles3D:position")
+tracks/13/path = NodePath("Meshes/Stone01/Stones:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -319,7 +502,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Meshes/GPUParticles3D:emitting")
+tracks/14/path = NodePath("Meshes/Stone01/Stones:emitting")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -327,189 +510,6 @@ tracks/14/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
-}
-
-[sub_resource type="Animation" id="Animation_6581h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Meshes/Stone01:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.0526273, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Meshes/Stone02:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.853991, -0.276788, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Meshes/Stone03:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.72829, 0.094753, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Meshes/Stone04:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(2.29045, 0.0615385, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Meshes/Stone02_01:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.503253, -0.211292, -0.106178)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Meshes/Stone02_02:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.12121, -0.146269, 0.252505)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Meshes/Stone03_01:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.69233, -0.159779, -0.172868)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Meshes/Stone04_01:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(2.13639, -0.211292, 0.260351)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Meshes/Stone01_01:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.226227, -0.0955779, 0.130921)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Meshes/Decal:albedo_mix")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Meshes/Decal3:albedo_mix")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Meshes/Decal4:albedo_mix")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Meshes/Decal2:albedo_mix")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Meshes/GPUParticles3D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0.209374, 0)]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Meshes/GPUParticles3D:emitting")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6581h"]
@@ -537,8 +537,25 @@ skeleton = NodePath("")
 transform = Transform3D(0.78249, 0.553649, 0.00330351, -0.304929, 1.40441, 0.104822, 0.0313294, -0.15894, 0.937726, 0, -0.0526273, 0)
 
 [node name="Object_54" type="MeshInstance3D" parent="Meshes/Stone01"]
+transform = Transform3D(0.027926076, -0.45783567, -0.6554436, -0.60571146, 0.41596562, -0.31636453, 0.52185565, 0.50730544, -0.33212534, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3qpiy")
-skeleton = NodePath("")
+
+[node name="Stones" type="GPUParticles3D" parent="Meshes/Stone01"]
+transform = Transform3D(1.0845964, -0.36370572, 0.2968395, 0.27439803, 0.51152086, -0.42502514, -0.18343109, 0.4217143, 0.92047346, 0, 0.209374, 0)
+material_override = SubResource("StandardMaterial3D_nrxjk")
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_nrxjk")
+draw_pass_1 = ExtResource("3_0vhb3")
+
+[node name="Decal" type="Decal" parent="Meshes/Stone01"]
+transform = Transform3D(0.9999997, 2.0023435e-08, 0, -3.4924597e-08, 1.0000001, 1.4901161e-08, 7.450581e-09, -1.4901161e-08, 0.9999998, -0.04934641, -0.017495017, 0.09084951)
+size = Vector3(1.5, 1.5, 1.5)
+texture_albedo = ExtResource("2_6581h")
+albedo_mix = 0.0
 
 [node name="Stone02" type="Node3D" parent="Meshes"]
 transform = Transform3D(0.62751, 0.372534, 0, -0.250653, 0.92342, -0.0483455, -0.025045, 0.0922673, 0.483847, 0.853991, -0.276788, 0)
@@ -596,12 +613,6 @@ transform = Transform3D(0.21545, 0.131712, 0.138825, -0.0826356, 0.388663, -0.03
 mesh = SubResource("ArrayMesh_yc2h4")
 skeleton = NodePath("")
 
-[node name="Decal" type="Decal" parent="Meshes"]
-transform = Transform3D(0.34038, 0, 0.940288, 0, 1, 0, -0.940288, 0, 0.34038, 0.042325, 0, 0)
-size = Vector3(1.66309, 2, 1.85327)
-texture_albedo = ExtResource("2_6581h")
-albedo_mix = 0.0
-
 [node name="Decal3" type="Decal" parent="Meshes"]
 transform = Transform3D(0.34038, 0, 0.940288, 0, 1, 0, -0.940288, 0, 0.34038, 0.93761, 0, 0)
 size = Vector3(1.48535, 2, 1.63281)
@@ -619,16 +630,6 @@ transform = Transform3D(0.34038, 0, 0.940288, 0, 1, 0, -0.940288, 0, 0.34038, 2.
 size = Vector3(1.20117, 2, 1.32715)
 texture_albedo = ExtResource("2_6581h")
 albedo_mix = 0.0
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Meshes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209374, 0)
-material_override = SubResource("StandardMaterial3D_0vhb3")
-emitting = false
-amount = 200
-lifetime = 4.0
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_nrxjk")
-draw_pass_1 = ExtResource("3_0vhb3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

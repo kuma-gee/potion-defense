@@ -1,21 +1,20 @@
 class_name FollowPlayer
-extends Node
+extends State
 
 @export var follow_speed: float = 3.0
 @export var follow_distance: float = 2.0
 @export var acceleration: float = 8.0
 @export var max_distance: float = 10.0
 @export var stop_distance: float = 1.0
-
-@onready var character_body: CharacterBody3D = get_parent()
+@export var character_body: CharacterBody3D
 
 var player: Player
 var current_velocity: Vector3
 
 func _ready():
-	_find_player()
+	player = get_tree().get_first_node_in_group("player") as Player
 
-func _physics_process(delta):
+func physics_update(delta: float):
 	if not character_body or not player:
 		return
 	
@@ -42,6 +41,3 @@ func _physics_process(delta):
 	# Apply movement
 	character_body.velocity = current_velocity
 	character_body.move_and_slide()
-
-func _find_player():
-	player = get_tree().get_first_node_in_group("player") as Player

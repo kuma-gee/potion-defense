@@ -2,8 +2,12 @@ extends State
 
 @export var player: Player
 @export var knockback_resistance = 5.0
+@export var animation: PlayerAnimation
 
 var knockback: Vector3
+
+func enter():
+	animation.hit()
 
 func physics_update(delta: float) -> void:
 	player.velocity.x = knockback.x

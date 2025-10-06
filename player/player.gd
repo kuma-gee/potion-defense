@@ -38,10 +38,8 @@ func hit(from_pos: Vector3, force: float = 10.0):
 		return
 
 	health -= 1
-
 	var knockback = _get_knockback_direction(from_pos) * force
 	knocked_back.emit(knockback)
-	player_animation.hit()
 
 func _get_knockback_direction(from_pos: Vector3) -> Vector3:
 	var dir = (global_position - from_pos).normalized()

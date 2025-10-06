@@ -1,4 +1,6 @@
 extends State
 
+@export var character: CharacterBody3D
+
 func enter() -> void:
-	queue_free()
+	character.queue_free()
