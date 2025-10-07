@@ -6,14 +6,14 @@ const GROUP = "player"
 signal died()
 signal knocked_back(force)
 
+@export var rotation_speed = 10.0
+
 @onready var player_animation: AnimationTree = $PlayerAnimation
 @onready var body: Node3D = $BodyRoot
 @onready var state_machine: StateMachine = $StateMachine
 @onready var dead: State = $StateMachine/Dead
 @onready var move: Node = $StateMachine/Move
-
-@export var rotation_speed = 10.0
-
+@onready var stamina: Stamina = $Stamina
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var health := 5:

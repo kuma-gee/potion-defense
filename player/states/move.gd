@@ -8,6 +8,7 @@ extends State
 @export var sprint_speed = 5.0
 @export var acceleration = 8.0
 @export var deceleration = 12.0
+@export var dodge_stamina := 20
 
 func _ready() -> void:
 	player.knocked_back.connect(func(f):
@@ -18,7 +19,7 @@ func _ready() -> void:
 func physics_update(delta: float) -> void:
 	var direction = player.get_forward_input()
 	var speed = default_speed
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") and player.stamina.has_stamina():
 		speed = sprint_speed
 	
 	if player.is_grounded():
@@ -36,7 +37,7 @@ func physics_update(delta: float) -> void:
 			player.velocity.x = lerp(player.velocity.x, 0.0, delta * deceleration * 0.1)
 			player.velocity.z = lerp(player.velocity.z, 0.0, delta * deceleration * 0.1)
 
-	if Input.is_action_just_pressed("dodge") and direction.length() > 0.01:
+	if Input.is_action_just_pressed("dodge") and direction.length() > 0.01 and player.stamina.use_stamina(dodge_stamina):
 		state_machine.change_state(dash_state)
 
 	player.rotate_body_to_velocity(delta, direction)

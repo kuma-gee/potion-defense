@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dsjo3xx3s5pje"]
+[gd_scene load_steps=42 format=3 uid="uid://dsjo3xx3s5pje"]
 
 [ext_resource type="Script" uid="uid://c6wwca7h8xf7f" path="res://player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://ceanc8yrpv7ov" path="res://player/player_animation.gd" id="2_qjkh3"]
@@ -9,9 +9,13 @@
 [ext_resource type="Material" uid="uid://bhte32yr5w1n7" path="res://player/body_mat.tres" id="6_g6k8r"]
 [ext_resource type="Material" uid="uid://cml2p3oqube1s" path="res://player/face_mat.tres" id="7_boad6"]
 [ext_resource type="Script" uid="uid://c47cerucvqs22" path="res://player/states/knockbacked.gd" id="7_ebec5"]
+[ext_resource type="Script" uid="uid://c1agy1l74jb0j" path="res://util/FrameFreeze.gd" id="7_wodsf"]
 [ext_resource type="Script" uid="uid://5fkvv50lqbl8" path="res://player/dodge_area.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://bigqmro10vuly" path="res://player/states/dead.gd" id="8_yllr7"]
 [ext_resource type="Script" uid="uid://yp8jmq5o37s5" path="res://player/states/state_machine.gd" id="9_hg6s5"]
+[ext_resource type="Script" uid="uid://cdj7du7ubtond" path="res://player/stamina.gd" id="13_yllr7"]
+[ext_resource type="Script" uid="uid://cr3qlwd21vb4k" path="res://player/stamina_bar.gd" id="14_kb6p2"]
+[ext_resource type="Shader" uid="uid://br5iefff7slht" path="res://obstacles/helper/lock_circle.gdshader" id="15_32hag"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ebec5"]
 animation = &"Sprinting Forward Roll"
@@ -142,6 +146,11 @@ radius = 0.1
 [sub_resource type="SphereShape3D" id="SphereShape3D_boad6"]
 radius = 0.55
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tqiix"]
+shader = ExtResource("15_32hag")
+shader_parameter/radius = 0.250000011875
+shader_parameter/smoothness = 0.0800000038
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_4flbx")
@@ -158,8 +167,9 @@ parameters/Dodge/internal_active = false
 parameters/Dodge/request = 0
 script = ExtResource("2_qjkh3")
 
-[node name="PlayerViewController" type="Node" parent="." node_paths=PackedStringArray("body", "camera_root", "camera")]
+[node name="PlayerViewController" type="Node" parent="." node_paths=PackedStringArray("target_lock_circle", "body", "camera_root", "camera")]
 script = ExtResource("3_yw30f")
+target_lock_circle = NodePath("../CanvasLayer/Control/TargetLock")
 body = NodePath("../BodyRoot")
 camera_root = NodePath("../CameraRoot")
 camera = NodePath("../CameraRoot/Pivot/Camera3D")
@@ -177,20 +187,31 @@ dash_state = NodePath("../Dash")
 knockback_state = NodePath("../Knockbacked")
 metadata/_custom_type_script = "uid://g325vyi3fud1"
 
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "dodge_area", "animation")]
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "dodge_area", "animation", "frame_freeze")]
 script = ExtResource("6_2ieo8")
 player = NodePath("../..")
 dodge_area = NodePath("../../DodgeArea")
 speed = 15.0
 deaccel = 4.0
 animation = NodePath("../../PlayerAnimation")
+frame_freeze = NodePath("FrameFreeze")
 metadata/_custom_type_script = "uid://g325vyi3fud1"
 
-[node name="Knockbacked" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animation")]
+[node name="FrameFreeze" type="Node" parent="StateMachine/Dash"]
+script = ExtResource("7_wodsf")
+time_scale = 0.2
+metadata/_custom_type_script = "uid://c1agy1l74jb0j"
+
+[node name="Knockbacked" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animation", "frame_freeze")]
 script = ExtResource("7_ebec5")
 player = NodePath("../..")
 animation = NodePath("../../PlayerAnimation")
+frame_freeze = NodePath("FrameFreeze")
 metadata/_custom_type_script = "uid://g325vyi3fud1"
+
+[node name="FrameFreeze" type="Node" parent="StateMachine/Knockbacked"]
+script = ExtResource("7_wodsf")
+metadata/_custom_type_script = "uid://c1agy1l74jb0j"
 
 [node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("8_yllr7")
@@ -203,36 +224,36 @@ metadata/_custom_type_script = "uid://g325vyi3fud1"
 transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, 0, 0)
 
 [node name="Skeleton3D" parent="BodyRoot/runner/Armature_002" index="0"]
-bones/0/position = Vector3(-0.0019909558, 1.7937414e-09, 0.015046993)
+bones/0/position = Vector3(-0.0005512108, 1.7952071e-09, 0.015059289)
 bones/1/position = Vector3(0.0016498821, 0.92377436, 0.011672793)
-bones/1/rotation = Quaternion(-0.008945606, 0.013639426, -0.042090096, 0.9989807)
-bones/2/rotation = Quaternion(-0.036341153, -0.012500148, 0.021295043, 0.99903435)
-bones/3/rotation = Quaternion(0.0029662144, -0.003251288, 0.051909305, 0.99864215)
-bones/4/rotation = Quaternion(0.003001194, 0.0016816969, 0.051548008, 0.9986646)
-bones/5/rotation = Quaternion(0.053883296, -0.0016954889, -0.019010006, 0.9983649)
-bones/6/rotation = Quaternion(0.012726363, 0.0061100638, -0.072528146, 0.99726653)
-bones/8/rotation = Quaternion(-0.6236194, -0.41128796, 0.47095856, -0.46918982)
-bones/9/rotation = Quaternion(0.62733674, -0.00075017184, -0.11103888, 0.7707909)
+bones/1/rotation = Quaternion(-0.008432986, 0.013427375, -0.042751435, 0.99895996)
+bones/2/rotation = Quaternion(-0.034181952, -0.012048294, 0.02162471, 0.999109)
+bones/3/rotation = Quaternion(0.006340619, -0.0027324283, 0.05183439, 0.9986319)
+bones/4/rotation = Quaternion(0.0064117005, 0.0018523731, 0.051464077, 0.9986526)
+bones/5/rotation = Quaternion(0.054230176, -0.00163508, -0.01900021, 0.9983464)
+bones/6/rotation = Quaternion(0.013343262, 0.0055933697, -0.07109263, 0.99736476)
+bones/8/rotation = Quaternion(-0.63571316, -0.3924507, 0.48726118, -0.45213705)
+bones/9/rotation = Quaternion(0.6010286, -0.0031746305, -0.10783942, 0.7919124)
 bones/10/rotation = Quaternion(0.03190167, -0.0020360593, 0.14338663, 0.98915035)
-bones/11/rotation = Quaternion(0.0028072193, 0.91257906, -0.16943048, 0.37213594)
-bones/12/rotation = Quaternion(-0.17052549, -0.009836652, 0.16689964, 0.9710658)
-bones/13/rotation = Quaternion(-0.12402323, 0.11363266, 0.07268999, 0.98306775)
-bones/14/rotation = Quaternion(-0.059058502, 0.06496755, 0.027824955, 0.9957496)
-bones/16/rotation = Quaternion(0.57747185, -0.4636689, 0.51901335, 0.42680517)
-bones/17/rotation = Quaternion(0.5145632, 0.0037335427, 0.035726584, 0.8566997)
+bones/11/rotation = Quaternion(0.0034321109, 0.91181755, -0.17163263, 0.3729871)
+bones/12/rotation = Quaternion(-0.16782519, -0.009628527, 0.1654819, 0.9717808)
+bones/13/rotation = Quaternion(-0.121874094, 0.11172156, 0.071566716, 0.9836378)
+bones/14/rotation = Quaternion(-0.057091016, 0.06274989, 0.026831158, 0.9960337)
+bones/16/rotation = Quaternion(0.58757234, -0.44444984, 0.5352785, 0.41315868)
+bones/17/rotation = Quaternion(0.48977897, 0.0062109046, 0.035289105, 0.8711101)
 bones/18/rotation = Quaternion(0.034017798, 0.0027287286, -0.16365673, 0.9859269)
-bones/19/rotation = Quaternion(-0.10898375, 0.91402686, -0.2580348, -0.29342076)
-bones/20/rotation = Quaternion(0.088749126, 0.9144035, -0.3819997, 0.10033006)
-bones/21/rotation = Quaternion(0.16091026, -0.05072921, 0.0715105, 0.98306704)
-bones/22/rotation = Quaternion(0.1180101, -0.017784242, 0.03258229, 0.9923184)
-bones/24/rotation = Quaternion(0.118148774, 0.14632969, 0.97420686, -0.12469788)
-bones/25/rotation = Quaternion(-0.21517323, -0.07786577, 0.016893785, 0.9733202)
-bones/26/rotation = Quaternion(0.5071344, -0.09238637, -0.06358307, 0.85453886)
+bones/19/rotation = Quaternion(-0.10958424, 0.9140643, -0.25771782, -0.29335883)
+bones/20/rotation = Quaternion(0.08743858, 0.9156193, -0.37942412, 0.10016602)
+bones/21/rotation = Quaternion(0.15815733, -0.049861524, 0.07041493, 0.9836371)
+bones/22/rotation = Quaternion(0.115115374, -0.017369062, 0.03150525, 0.99270046)
+bones/24/rotation = Quaternion(0.11776607, 0.1470211, 0.97415364, -0.12466238)
+bones/25/rotation = Quaternion(-0.21644771, -0.0776001, 0.017141659, 0.9730544)
+bones/26/rotation = Quaternion(0.5078817, -0.092487365, -0.06291909, 0.8541332)
 bones/27/rotation = Quaternion(0.3022234, 0.011227907, -0.00366585, 0.9531639)
-bones/29/rotation = Quaternion(-0.038428634, -0.013667625, 0.99543864, -0.0862466)
-bones/30/rotation = Quaternion(-0.08266028, 0.04781021, 0.044040147, 0.9944556)
-bones/31/rotation = Quaternion(0.5148264, -0.005886912, -0.075222574, 0.85396767)
-bones/32/rotation = Quaternion(0.34044868, -0.016650897, 0.006149082, 0.9400956)
+bones/29/rotation = Quaternion(-0.038809374, -0.013192091, 0.9954636, -0.08586043)
+bones/30/rotation = Quaternion(-0.08303858, 0.047770817, 0.0443056, 0.99441427)
+bones/31/rotation = Quaternion(0.5149748, -0.005553637, -0.074431434, 0.8539498)
+bones/32/rotation = Quaternion(0.34052238, -0.016647084, 0.0061510163, 0.94006896)
 
 [node name="Body" parent="BodyRoot/runner/Armature_002/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("6_g6k8r")
@@ -274,5 +295,63 @@ script = ExtResource("8_rgyib")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DodgeArea"]
 shape = SubResource("SphereShape3D_boad6")
+
+[node name="Stamina" type="Node" parent="." node_paths=PackedStringArray("recovery_start_timer")]
+script = ExtResource("13_yllr7")
+recovery_start_timer = NodePath("RecoverStart")
+metadata/_custom_type_script = "uid://cdj7du7ubtond"
+
+[node name="RecoverStart" type="Timer" parent="Stamina"]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TargetLock" type="ColorRect" parent="CanvasLayer/Control"]
+material = SubResource("ShaderMaterial_tqiix")
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -12.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 8
+
+[node name="StaminaBar" type="ProgressBar" parent="CanvasLayer/Control/MarginContainer" node_paths=PackedStringArray("stamina")]
+custom_minimum_size = Vector2(250, 16)
+layout_mode = 2
+size_flags_vertical = 1
+show_percentage = false
+script = ExtResource("14_kb6p2")
+stamina = NodePath("../../../../Stamina")
 
 [editable path="BodyRoot/runner"]

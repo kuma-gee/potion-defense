@@ -7,6 +7,7 @@ extends State
 @export var enemy: CharacterBody3D
 @export var vfx_scene: PackedScene
 @export var hit_area: HitBox
+@export var camera_shake: CameraShake
 
 @onready var land_recover: Timer = $LandRecover
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_multiplier
@@ -58,6 +59,7 @@ func physics_update(delta: float) -> void:
 func on_landing() -> void:
 	_spawn_landing_vfx()
 	hit_area.hit()
+	camera_shake.shake()
 	land_recover.start()
 
 func _spawn_landing_vfx() -> void:

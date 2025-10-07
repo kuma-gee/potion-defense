@@ -5,10 +5,7 @@ extends State
 @export var speed = 10.0
 @export var deaccel := 5.0
 @export var animation: PlayerAnimation
-
-@export_category("Dodge")
-@export var dodge_time_scale: float = 0.5
-@export var dodge_time_duration: float = 0.3
+@export var frame_freeze: FrameFreeze
 
 var dodging := false
 var dodge_dir: Vector3
@@ -18,9 +15,7 @@ func _ready() -> void:
 	
 func _on_dodged():
 	dodging = true
-	Engine.time_scale = dodge_time_scale
-	await get_tree().create_timer(dodge_time_duration, false).timeout
-	Engine.time_scale = 1.0
+	await frame_freeze.freeze()
 	dodging = false
 
 func enter() -> void:
