@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=3 uid="uid://bjemhxyjs5ne6"]
+
+[ext_resource type="Script" uid="uid://b4aianeydif4r" path="res://proximity-chat/fps_player.gd" id="1_krq8x"]
+[ext_resource type="Script" uid="uid://cqobewhbocpir" path="res://proximity-chat/microphone_audio.gd" id="2_ehckg"]
+[ext_resource type="Texture2D" uid="uid://dr8bn2ivgef62" path="res://proximity-chat/flair_circle_8.png" id="3_40uvb"]
+[ext_resource type="Script" uid="uid://ceq8ebgeawn0u" path="res://proximity-chat/microphone_icon.gd" id="3_etqxp"]
+[ext_resource type="PackedScene" uid="uid://cvb6005pohejp" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Mage.glb" id="3_wt4vc"]
+[ext_resource type="Script" uid="uid://dqdc4c70kjwm8" path="res://proximity-chat/interact_ray.gd" id="4_ffq0p"]
+[ext_resource type="Texture2D" uid="uid://8mfn6xq54pgk" path="res://proximity-chat/flair_disabled_cross.png" id="4_lg10s"]
+[ext_resource type="Script" uid="uid://eux0ef0rg11v" path="res://input/PlayerInput.gd" id="7_ubged"]
+[ext_resource type="Script" uid="uid://c5hhthw0ddkit" path="res://player/ground_spring_cast.gd" id="8_ffq0p"]
+[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://ui/circle.gdshader" id="10_jhtns"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1rodb"]
+radius = 0.22949219
+height = 1.5817647
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_f37t5"]
+mix_rate_mode = 1
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_bp3w1"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t1bxn"]
+properties/0/path = NodePath(".:global_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:global_rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("CameraRoot:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("CameraRoot/SpotLight3D:light_energy")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5nf5r"]
+shader = ExtResource("10_jhtns")
+shader_parameter/radius = 0.4610000218975
+shader_parameter/border_smoothness = 0.05600000266
+shader_parameter/circle_color = Color(1, 1, 1, 1)
+shader_parameter/background_color = Color(0, 0, 0, 0)
+
+[node name="FPSPlayer" type="CharacterBody3D" node_paths=PackedStringArray("interact_ray", "camera", "camera_root", "body", "hold_position", "item_placeholder", "item_label")]
+collision_layer = 2
+script = ExtResource("1_krq8x")
+SPEED = 3.0
+interact_ray = NodePath("CameraRoot/Camera3D/RayCast3D")
+camera = NodePath("CameraRoot/Camera3D")
+camera_root = NodePath("CameraRoot")
+body = NodePath("CollisionShape3D")
+hold_position = NodePath("CameraRoot/Camera3D/HoldPosition")
+item_placeholder = NodePath("CameraRoot/Camera3D/HoldPosition/CSGBox3D")
+item_label = NodePath("CanvasLayer/Label")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("7_ubged")
+metadata/_custom_type_script = "uid://eux0ef0rg11v"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.79039407, 0)
+shape = SubResource("CapsuleShape3D_1rodb")
+
+[node name="Skeleton_Mage" parent="CollisionShape3D" instance=ExtResource("3_wt4vc")]
+transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, -0.79039407, 0)
+visible = false
+
+[node name="GroundSpringCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10346982, 0)
+script = ExtResource("8_ffq0p")
+
+[node name="CameraRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3422251, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRoot"]
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraRoot/Camera3D" node_paths=PackedStringArray("player")]
+target_position = Vector3(0, 0, -2)
+collision_mask = 32768
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("4_ffq0p")
+player = NodePath("../../..")
+
+[node name="HoldPosition" type="Marker3D" parent="CameraRoot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46627957, -0.20286894, -0.38936043)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CameraRoot/Camera3D/HoldPosition"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="ProximityAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2577047, 0)
+stream = SubResource("AudioStreamGenerator_f37t5")
+autoplay = true
+
+[node name="MicrophoneAudio" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("audio_player")]
+stream = SubResource("AudioStreamMicrophone_bp3w1")
+bus = &"Record"
+script = ExtResource("2_ehckg")
+audio_player = NodePath("../ProximityAudioPlayer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t1bxn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MicrophoneIcon" type="TextureButton" parent="CanvasLayer" node_paths=PackedStringArray("microphone", "fade_timer", "icon_texture")]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+toggle_mode = true
+texture_normal = ExtResource("4_lg10s")
+texture_pressed = ExtResource("3_40uvb")
+script = ExtResource("3_etqxp")
+microphone = NodePath("../../MicrophoneAudio")
+fade_timer = NodePath("FadeTimer")
+icon_texture = NodePath(".")
+
+[node name="FadeTimer" type="Timer" parent="CanvasLayer/MicrophoneIcon"]
+one_shot = true
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -33.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Test"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CenterContainer"]
+material = SubResource("ShaderMaterial_5nf5r")
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2

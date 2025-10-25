@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfgfb221ebj27"]
+[gd_scene load_steps=8 format=3 uid="uid://bfgfb221ebj27"]
 
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="1_fmku3"]
 [ext_resource type="Texture2D" uid="uid://covybbccb35ba" path="res://assets/particles/course/PlusTex.png" id="2_6gmmq"]
@@ -32,9 +32,6 @@ color = Color(1.353256, 1.2420194, 0.68583614, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_jhg21"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_jhg21"]
-radius = 1.0
-
 [node name="HitBox" type="Area3D"]
 collision_layer = 4
 collision_mask = 2
@@ -51,6 +48,3 @@ one_shot = true
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_pualc")
 draw_pass_1 = SubResource("QuadMesh_jhg21")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CylinderShape3D_jhg21")

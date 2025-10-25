@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c464j778ehuwc"]
+
+[ext_resource type="Script" uid="uid://boasiuy183xm3" path="res://potion/chest.gd" id="1_e0v3a"]
+[ext_resource type="PackedScene" uid="uid://c2nbusd5p0wbq" path="res://assets/fantasy/Exports/glTF/Crate_Wooden.gltf" id="1_ertou"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_domfe"]
+
+[node name="Chest" type="Area3D" node_paths=PackedStringArray("label")]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_e0v3a")
+label = NodePath("Label3D")
+
+[node name="Crate_Wooden5" parent="." instance=ExtResource("1_ertou")]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6535338, 0)
+billboard = 1
+no_depth_test = true
+text = "Stuff"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4020462, 0)
+shape = SubResource("BoxShape3D_domfe")

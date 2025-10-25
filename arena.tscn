@@ -1,12 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://dc2tq0tljgm6v"]
+[gd_scene load_steps=15 format=3 uid="uid://dc2tq0tljgm6v"]
 
 [ext_resource type="Script" uid="uid://djehtd7eujwr1" path="res://arena.gd" id="1_444vf"]
 [ext_resource type="PackedScene" uid="uid://dsjo3xx3s5pje" path="res://player/player.tscn" id="1_ubfh8"]
 [ext_resource type="Script" uid="uid://5nj8apry1sqn" path="res://ui/seconds_timer.gd" id="3_27ga2"]
 [ext_resource type="Script" uid="uid://d1wc206jva6vg" path="res://obstacles/helper/obstacle_resource.gd" id="3_yokb4"]
-[ext_resource type="Resource" uid="uid://cw02hkc4f3dca" path="res://obstacles/mutant.tres" id="4_35c7g"]
+[ext_resource type="Resource" uid="uid://batbxreft8mag" path="res://obstacles/wisp.tres" id="4_35c7g"]
 [ext_resource type="Script" uid="uid://ddh3ur6ehl3po" path="res://start_platform.gd" id="4_h0wof"]
 [ext_resource type="Script" uid="uid://dhmgpcwqho5h4" path="res://spawn_manager.gd" id="5_fu4bq"]
+[ext_resource type="Texture2D" uid="uid://cx5et81xum38w" path="res://assets/fantasy/Textures/T_Trim_Props_BaseColor.png" id="5_n068f"]
 [ext_resource type="PackedScene" uid="uid://bpb0k1s4thvtb" path="res://ui/upgrade_item.tscn" id="5_sbb53"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://ui/gameover_screen.gd" id="6_pbtuc"]
 
@@ -19,6 +20,9 @@ glow_hdr_scale = 1.5
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.08
 volumetric_fog_albedo = Color(0.34781694, 0.34781697, 0.3478169, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8a64"]
+albedo_texture = ExtResource("5_n068f")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27ga2"]
 height = 1.0
@@ -46,7 +50,8 @@ root = NodePath("../Floor/Root")
 obstacle_resources = Array[ExtResource("3_yokb4")]([ExtResource("4_35c7g")])
 spawn_radius = 15.0
 spawn_timer = NodePath("Timer")
-max_count = 1
+min_spawn_time = 0.5
+max_count = 20
 
 [node name="Timer" type="Timer" parent="SpawnManager"]
 
@@ -55,6 +60,7 @@ wait_time = 30.0
 one_shot = true
 
 [node name="Floor" type="CSGCylinder3D" parent="."]
+material_override = SubResource("StandardMaterial3D_g8a64")
 use_collision = true
 collision_mask = 0
 radius = 20.0

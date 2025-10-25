@@ -8,7 +8,7 @@ extends State
 var knockback: Vector3
 
 func enter():
-	animation.hit()
+	animation.hit(knockback.length())
 	frame_freeze.freeze()
 
 func physics_update(delta: float) -> void:

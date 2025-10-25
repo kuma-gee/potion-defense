@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ObstacleResource" load_steps=3 format=3 uid="uid://d0uuyfjw3d8pq"]
+
+[ext_resource type="PackedScene" uid="uid://dbultd6qr5567" path="res://obstacles/scenes/earth_orb.tscn" id="1_g08ae"]
+[ext_resource type="Script" uid="uid://d1wc206jva6vg" path="res://obstacles/helper/obstacle_resource.gd" id="2_fx861"]
+
+[resource]
+script = ExtResource("2_fx861")
+scene = ExtResource("1_g08ae")
+metadata/_custom_type_script = "uid://d1wc206jva6vg"

@@ -17,10 +17,10 @@ func _ready() -> void:
 	)
 
 func physics_update(delta: float) -> void:
-	var direction = player.get_forward_input()
+	var direction = player.get_forward_input().normalized()
 	var speed = default_speed
-	if Input.is_action_pressed("sprint") and player.stamina.has_stamina():
-		speed = sprint_speed
+	#if Input.is_action_pressed("sprint") and player.stamina.has_stamina():
+		#speed = sprint_speed
 	
 	if player.is_grounded():
 		if direction:
@@ -37,7 +37,7 @@ func physics_update(delta: float) -> void:
 			player.velocity.x = lerp(player.velocity.x, 0.0, delta * deceleration * 0.1)
 			player.velocity.z = lerp(player.velocity.z, 0.0, delta * deceleration * 0.1)
 
-	if Input.is_action_just_pressed("dodge") and direction.length() > 0.01 and player.stamina.use_stamina(dodge_stamina):
-		state_machine.change_state(dash_state)
+	#if Input.is_action_just_pressed("dodge") and direction.length() > 0.01 and player.stamina.use_stamina(dodge_stamina):
+		#state_machine.change_state(dash_state)
 
 	player.rotate_body_to_velocity(delta, direction)
