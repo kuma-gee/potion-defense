@@ -44,7 +44,7 @@ shader_parameter/background_color = Color(0, 0, 0, 0)
 [node name="FPSPlayer" type="CharacterBody3D" node_paths=PackedStringArray("interact_ray", "camera", "camera_root", "body", "hold_position", "item_placeholder", "item_label")]
 collision_layer = 2
 script = ExtResource("1_krq8x")
-SPEED = 3.0
+SPEED = 5.0
 interact_ray = NodePath("CameraRoot/Camera3D/RayCast3D")
 camera = NodePath("CameraRoot/Camera3D")
 camera_root = NodePath("CameraRoot")

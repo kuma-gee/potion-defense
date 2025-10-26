@@ -691,34 +691,6 @@ tracks/6/keys = {
 "update": 0,
 "values": [1.0, 0.0]
 }
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath(".")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"hit"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4q3nj"]
 _data = {
@@ -789,6 +761,7 @@ light_energy = 20.0
 libraries = {
 &"": SubResource("AnimationLibrary_4q3nj")
 }
+autoplay = "start"
 
 [node name="Flare" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_k1pk8")
