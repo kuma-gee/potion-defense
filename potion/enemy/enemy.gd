@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	var has_knockback = knockback.length() > 0.01
 	if has_knockback:
 		# Project knockback onto the global_basis.z direction
-		var knockback_dir = -global_basis.z.normalized()
+		var knockback_dir = global_basis.z.normalized()
 		var knockback_amount = knockback.length()
 		velocity = knockback_dir * knockback_amount
 		knockback = knockback.lerp(Vector3.ZERO, delta * knockback_resistance)
