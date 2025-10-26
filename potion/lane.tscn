@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://wmkgnnq04t5v"]
+[gd_scene load_steps=11 format=3 uid="uid://wmkgnnq04t5v"]
 
 [ext_resource type="PackedScene" uid="uid://cphqgua11ges1" path="res://assets/fantasy/Exports/glTF/Stall_Empty.gltf" id="1_f2kob"]
 [ext_resource type="Script" uid="uid://rrnueps36v2q" path="res://potion/lane.gd" id="1_fyuo5"]
 [ext_resource type="PackedScene" uid="uid://ccwy6e2e7obld" path="res://potion/throwable.tscn" id="2_fyuo5"]
+[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_utd16"]
+[ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/hp_bar.gd" id="5_85vib"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqivl"]
 size = Vector3(1.7255859, 1.1617432, 1)
@@ -10,12 +12,22 @@ size = Vector3(1.7255859, 1.1617432, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2kob"]
 size = Vector3(1.7907715, 0.82829285, 0.80249023)
 
-[node name="Lane" type="Area3D" node_paths=PackedStringArray("position_marker", "label")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_fyuo5"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_85vib"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utd16"]
+bg_color = Color(0.3255701, 0.6942944, 0.36325124, 1)
+
+[node name="Lane" type="Area3D" node_paths=PackedStringArray("position_marker", "hurt_box", "label")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_fyuo5")
 potion_scene = ExtResource("2_fyuo5")
 position_marker = NodePath("Position")
+spawn_distance = 10
+hurt_box = NodePath("Hurtbox")
 label = NodePath("Label3D")
 
 [node name="Stall_Empty2" parent="." instance=ExtResource("1_f2kob")]
@@ -38,3 +50,40 @@ shape = SubResource("BoxShape3D_f2kob")
 
 [node name="Position" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82863104, 0)
+
+[node name="Hurtbox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8475059, -0.22905588)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("4_utd16")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("BoxShape3D_fyuo5")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2124271, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = SubResource("ViewportTexture_85vib")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HpBar" type="ProgressBar" parent="Sprite3D/SubViewport/CenterContainer" node_paths=PackedStringArray("hurt_box")]
+custom_minimum_size = Vector2(120, 16)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_utd16")
+step = 1.0
+value = 45.0
+show_percentage = false
+script = ExtResource("5_85vib")
+hurt_box = NodePath("../../../../Hurtbox")
