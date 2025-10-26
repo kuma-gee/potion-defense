@@ -53,7 +53,7 @@ func fire():
 		return
 	
 	var direction = (global_transform.basis.z).normalized()
-	potion.throw(direction + Vector3.UP/2, 30.0)
+	potion.throw(direction + Vector3.UP/3, 10.0)
 	item = null
 
 func get_spawn_position():

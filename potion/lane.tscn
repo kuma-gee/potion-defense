@@ -26,7 +26,6 @@ collision_mask = 0
 script = ExtResource("1_fyuo5")
 potion_scene = ExtResource("2_fyuo5")
 position_marker = NodePath("Position")
-spawn_distance = 10
 hurt_box = NodePath("Hurtbox")
 label = NodePath("Label3D")
 
@@ -56,6 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8475059, -0.22905588)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("4_utd16")
+max_health = 50
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("BoxShape3D_fyuo5")

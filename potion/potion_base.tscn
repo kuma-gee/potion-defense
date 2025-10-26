@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=25 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
 [ext_resource type="PackedScene" uid="uid://d0305dj7tcnuc" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_1.gltf" id="2_174p6"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bib5i83omj08y" path="res://assets/fantasy/Exports/glTF/Workbench.gltf" id="7_v3l23"]
 [ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/chest.tscn" id="8_domfe"]
 [ext_resource type="PackedScene" uid="uid://cnthd0gp61ctv" path="res://assets/fantasy/Exports/glTF/Barrel.gltf" id="8_oihk5"]
+[ext_resource type="Script" uid="uid://diwvn14ovq151" path="res://potion/trash.gd" id="9_qliwp"]
 [ext_resource type="PackedScene" uid="uid://bv4bgju6johp7" path="res://assets/fantasy/Exports/glTF/Bed_Twin1.gltf" id="9_wg4qq"]
 [ext_resource type="PackedScene" uid="uid://cp82ox505xryk" path="res://assets/fantasy/Exports/glTF/CandleStick_Triple.gltf" id="11_pnone"]
 [ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="12_pnone"]
@@ -23,6 +24,14 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fqivl"]
 radius = 0.60290617
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_atkst"]
+height = 0.81396484
+radius = 0.47070313
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qliwp"]
+height = 0.87994385
+radius = 0.39794922
 
 [node name="PotionBase" type="Node3D"]
 
@@ -76,6 +85,12 @@ no_depth_test = true
 text = "Stuff"
 
 [node name="Cauldron2" parent="Cauldron" instance=ExtResource("5_6xdoe")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cauldron"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cauldron/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40698242, 0)
+shape = SubResource("CylinderShape3D_atkst")
 
 [node name="Chandelier2" parent="." instance=ExtResource("6_7xbj5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
@@ -173,8 +188,26 @@ light_color = Color(1, 0.75686276, 0.6509804, 1)
 light_energy = 0.2
 omni_range = 3.0
 
-[node name="Barrel2" parent="." instance=ExtResource("8_oihk5")]
+[node name="Trash" type="Area3D" parent="." node_paths=PackedStringArray("label")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6168385, 0, 3.4966788)
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("9_qliwp")
+label = NodePath("Label3D")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="Barrel2" parent="Trash" instance=ExtResource("8_oihk5")]
+
+[node name="Label3D" type="Label3D" parent="Trash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0654136, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "Trash"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48379517, 0)
+shape = SubResource("CylinderShape3D_qliwp")
 
 [node name="Bed_Twin12" parent="." instance=ExtResource("9_wg4qq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.631706, 0, -4.4636407)
@@ -223,8 +256,8 @@ size = Vector3(12, 0.101, 12)
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, 6)
+visible = false
 material_override = ExtResource("12_pnone")
-use_collision = true
 size = Vector3(12, 0.101, 12)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Walls/CSGBox3D5"]
