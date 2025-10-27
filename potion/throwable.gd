@@ -10,6 +10,6 @@ func _ready() -> void:
 		if linear_velocity.length() > 1:
 			hit_effect.on_hit()
 	)
-
+	
 func throw(direction: Vector3, force: float) -> void:
 	apply_central_impulse(direction.normalized() * force)

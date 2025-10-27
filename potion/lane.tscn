@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://wmkgnnq04t5v"]
+[gd_scene load_steps=16 format=3 uid="uid://wmkgnnq04t5v"]
 
 [ext_resource type="PackedScene" uid="uid://cphqgua11ges1" path="res://assets/fantasy/Exports/glTF/Stall_Empty.gltf" id="1_f2kob"]
 [ext_resource type="Script" uid="uid://rrnueps36v2q" path="res://potion/lane.gd" id="1_fyuo5"]
 [ext_resource type="PackedScene" uid="uid://ccwy6e2e7obld" path="res://potion/throwable.tscn" id="2_fyuo5"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_utd16"]
 [ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/hp_bar.gd" id="5_85vib"]
+[ext_resource type="Shader" uid="uid://crddsivq5r6ss" path="res://shader/impact_circle.gdshader" id="6_67lsy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqivl"]
 size = Vector3(1.7255859, 1.1617432, 1)
@@ -20,13 +21,32 @@ viewport_path = NodePath("Sprite3D/SubViewport")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utd16"]
 bg_color = Color(0.3255701, 0.6942944, 0.36325124, 1)
 
-[node name="Lane" type="Area3D" node_paths=PackedStringArray("position_marker", "hurt_box", "label")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5t2j1"]
+render_priority = 0
+shader = ExtResource("6_67lsy")
+shader_parameter/circle_color = Color(1, 1, 0, 0.8)
+shader_parameter/radius = 0.4290000203775
+shader_parameter/border_smoothness = 0.03200000152
+
+[sub_resource type="QuadMesh" id="QuadMesh_85vib"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67lsy"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_67lsy"]
+
+[node name="Lane" type="Area3D" node_paths=PackedStringArray("position_marker", "hurt_box", "impact_indicator", "trajectory_node", "label")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_fyuo5")
 potion_scene = ExtResource("2_fyuo5")
 position_marker = NodePath("Position")
 hurt_box = NodePath("Hurtbox")
+impact_indicator = NodePath("ImpactIndicator")
+trajectory_node = NodePath("Trajectory")
 label = NodePath("Label3D")
 
 [node name="Stall_Empty2" parent="." instance=ExtResource("1_f2kob")]
@@ -42,6 +62,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69043446, 0)
 shape = SubResource("BoxShape3D_fqivl")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41365814, 0)
@@ -87,3 +108,13 @@ value = 45.0
 show_percentage = false
 script = ExtResource("5_85vib")
 hurt_box = NodePath("../../../../Hurtbox")
+
+[node name="ImpactIndicator" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_5t2j1")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_85vib")
+
+[node name="Trajectory" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_67lsy")
+cast_shadow = 0
+mesh = SubResource("ImmediateMesh_67lsy")

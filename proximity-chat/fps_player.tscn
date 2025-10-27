@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://8mfn6xq54pgk" path="res://proximity-chat/flair_disabled_cross.png" id="4_lg10s"]
 [ext_resource type="Script" uid="uid://eux0ef0rg11v" path="res://input/PlayerInput.gd" id="7_ubged"]
 [ext_resource type="Script" uid="uid://c5hhthw0ddkit" path="res://player/ground_spring_cast.gd" id="8_ffq0p"]
-[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://ui/circle.gdshader" id="10_jhtns"]
+[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://shader/circle.gdshader" id="10_jhtns"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1rodb"]
 radius = 0.22949219

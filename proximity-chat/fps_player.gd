@@ -141,7 +141,7 @@ func drop_item(charge_time: float = 0.0) -> void:
 	
 	if pickupable_instance:
 		pickupable_instance.item_type = dropped_item
-		pickupable_instance.global_position = global_position + global_transform.basis.z * -1.5 + Vector3.UP * 0.5
+		pickupable_instance.position = global_position + global_transform.basis.z * -1.5 + Vector3.UP * 0.5
 		
 		# Calculate throw force based on charge time
 		var throw_force = get_throw_force(charge_time)
