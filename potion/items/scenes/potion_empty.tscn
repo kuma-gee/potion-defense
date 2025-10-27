@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://potion_empty_visual"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bottle"]
+top_radius = 0.08
+bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_cork"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
+albedo_color = Color(0.8, 0.8, 0.8, 0.3)
+transparency = 1
+
+[node name="PotionEmptyVisual" type="Node3D"]
+
+[node name="Bottle" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_bottle")
+surface_material_override/0 = SubResource("StandardMaterial3D_glass")
+
+[node name="Cork" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
+mesh = SubResource("SphereMesh_cork")

@@ -25,6 +25,29 @@ const RECIPIES = {
 	Type.POTION_PARALYSIS: [Type.WHITE_FLOWER, Type.SPRING_WATER],
 }
 
+# Map item types to their 3D scenes
+# TODO: Replace placeholder paths with actual item scenes
+const ITEM_SCENES = {
+	Type.RED_HERB: preload("res://potion/items/scenes/red_herb.tscn"),
+	Type.SULFUR: preload("res://potion/items/scenes/sulfur.tscn"),
+	Type.BLUE_CRYSTAL: preload("res://potion/items/scenes/blue_crystal.tscn"),
+	Type.WATER: preload("res://potion/items/scenes/water.tscn"),
+	Type.GREEN_MOSS: preload("res://potion/items/scenes/green_moss.tscn"),
+	Type.SPIDER_VENOM: preload("res://potion/items/scenes/spider_venom.tscn"),
+	Type.WHITE_FLOWER: preload("res://potion/items/scenes/white_flower.tscn"),
+	Type.SPRING_WATER: preload("res://potion/items/scenes/spring_water.tscn"),
+	Type.POTION_EMPTY: preload("res://potion/items/scenes/potion_empty.tscn"),
+	Type.POTION_FIRE_BOMB: preload("res://potion/items/scenes/potion_fire_bomb.tscn"),
+	Type.POTION_ICE_SHARD: preload("res://potion/items/scenes/potion_ice_shard.tscn"),
+	Type.POTION_POISON_CLOUD: preload("res://potion/items/scenes/potion_poison_cloud.tscn"),
+	Type.POTION_PARALYSIS: preload("res://potion/items/scenes/potion_paralysis.tscn"),
+}
+
+static func get_item_scene(type: ItemResource.Type) -> PackedScene:
+	if type in ITEM_SCENES:
+		return ITEM_SCENES[type]
+	return null
+
 static func is_empty_potion(type: ItemResource.Type):
 	return type == Type.POTION_EMPTY
 

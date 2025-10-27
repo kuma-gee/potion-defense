@@ -4,6 +4,11 @@ extends CharacterBody3D
 @export var SPEED = 8.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
 
+@export_category("Item Dropping")
+@export var min_throw_force: float = 3.0
+@export var max_throw_force: float = 15.0
+@export var throw_charge_time: float = 1.0
+
 @export var interact_ray: InteractRay
 @export var camera: Camera3D
 @export var camera_root: Node3D
@@ -15,6 +20,9 @@ extends CharacterBody3D
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
+
+var drop_button_held: bool = false
+var drop_charge_time: float = 0.0
 
 var item = null:
 	set(v):
@@ -53,9 +61,17 @@ func _ready():
 				interact_ray.interact(self)
 			elif event.is_action_released("interact"):
 				interact_ray.release(self)
+			elif event.is_action_pressed("drop_item"):
+				start_drop_charge()
+			elif event.is_action_released("drop_item"):
+				release_drop_item()
 	)
 
 func _physics_process(delta):
+	# Update drop charge if button is held
+	if drop_button_held:
+		drop_charge_time = min(drop_charge_time + delta, throw_charge_time)
+	
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var _speed = SPEED
@@ -85,3 +101,53 @@ func take_item():
 
 func has_item():
 	return item != null
+
+func start_drop_charge() -> void:
+	if item == null:
+		return
+	
+	drop_button_held = true
+	drop_charge_time = 0.0
+
+func release_drop_item() -> void:
+	if not drop_button_held:
+		return
+	
+	drop_button_held = false
+	drop_item(drop_charge_time)
+	drop_charge_time = 0.0
+
+func get_throw_force(charge_time: float) -> float:
+	# Calculate throw force based on how long the button was held
+	var charge_ratio = clamp(charge_time / throw_charge_time, 0.0, 1.0)
+	return lerp(min_throw_force, max_throw_force, charge_ratio)
+
+func get_charge_percentage() -> float:
+	# Returns the current charge percentage (0.0 to 1.0)
+	if not drop_button_held:
+		return 0.0
+	return clamp(drop_charge_time / throw_charge_time, 0.0, 1.0)
+
+func drop_item(charge_time: float = 0.0) -> void:
+	if item == null:
+		return
+	
+	var dropped_item = item
+	item = null
+	
+	# Create a physical pickupable item
+	var pickupable_scene = preload("res://potion/items/pickupable.tscn")
+	var pickupable_instance = pickupable_scene.instantiate() as Pickupable
+	
+	if pickupable_instance:
+		pickupable_instance.item_type = dropped_item
+		pickupable_instance.global_position = global_position + global_transform.basis.z * -1.5 + Vector3.UP * 0.5
+		
+		# Calculate throw force based on charge time
+		var throw_force = get_throw_force(charge_time)
+		var throw_direction = -global_transform.basis.z + Vector3.UP * 0.3
+		pickupable_instance.linear_velocity = throw_direction.normalized() * throw_force
+		
+		get_tree().current_scene.add_child(pickupable_instance)
+		
+		print("Dropped item: %s (throw force: %.1f)" % [ItemResource.build_name(dropped_item), throw_force])

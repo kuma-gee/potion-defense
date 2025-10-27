@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://white_flower_visual"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_flower"]
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flower"]
+albedo_color = Color(1, 1, 1, 1)
+
+[node name="WhiteFlowerVisual" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_flower")
+surface_material_override/0 = SubResource("StandardMaterial3D_flower")

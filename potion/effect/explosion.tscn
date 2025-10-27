@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="2_cmr3i"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cmr3i"]
-radius = 1.2861122
+radius = 1.381854
 
 [node name="Explosion" type="Node3D"]
 

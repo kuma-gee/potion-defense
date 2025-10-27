@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://blue_crystal_visual"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_crystal"]
+size = Vector3(0.15, 0.3, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crystal"]
+albedo_color = Color(0.1, 0.4, 1, 0.8)
+transparency = 1
+metallic = 0.5
+roughness = 0.2
+
+[node name="BlueCrystalVisual" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
