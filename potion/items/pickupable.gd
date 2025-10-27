@@ -4,36 +4,24 @@ extends RigidBody3D
 signal picked_up(item_type: ItemResource.Type, by: Node3D)
 
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
-@export var pickup_radius: float = 1.5
-@export var auto_pickup: bool = false
-
-@onready var pickup_area: Area3D = $PickupArea
+@onready var ray_interactable: RayInteractable = $RayInteractable
 @onready var item_visual_root: Node3D = $ItemVisualRoot
 
 var is_picked_up: bool = false
 
 func _ready() -> void:
-	# Setup pickup area if auto_pickup is enabled
-	if auto_pickup and pickup_area:
-		pickup_area.body_entered.connect(_on_body_entered_pickup_area)
+	if ray_interactable:
+		if ray_interactable.label:
+			ray_interactable.label.text = ItemResource.build_name(item_type)
+		ray_interactable.interacted.connect(_on_interacted)
 	
-	# Instantiate the visual representation of the item
 	_create_item_visual()
 
 func _create_item_visual() -> void:
-	# Clear any existing visuals
-	if item_visual_root:
-		for child in item_visual_root.get_children():
-			child.queue_free()
-	else:
-		# Create visual root if it doesn't exist
-		item_visual_root = Node3D.new()
-		item_visual_root.name = "ItemVisualRoot"
-		add_child(item_visual_root)
+	for child in item_visual_root.get_children():
+		child.queue_free()
 	
-	# Get the scene for this item type
 	var item_scene = ItemResource.get_item_scene(item_type)
-	
 	if item_scene:
 		var item_instance = item_scene.instantiate()
 		item_visual_root.add_child(item_instance)
@@ -88,6 +76,13 @@ func _on_body_entered_pickup_area(body: Node3D) -> void:
 	if body.has_method("hold_item"):
 		pickup_by(body)
 
+func _on_interacted(actor: Node3D) -> void:
+	# Called when player presses interact button while hovering
+	if is_picked_up:
+		return
+	
+	pickup_by(actor)
+
 func pickup_by(actor: Node3D) -> void:
 	if is_picked_up:
 		return
@@ -112,3 +107,6 @@ func set_item_type(new_type: ItemResource.Type) -> void:
 	item_type = new_type
 	if is_inside_tree():
 		_create_item_visual()
+		# Update the label text
+		if ray_interactable and ray_interactable.label:
+			ray_interactable.label.text = ItemResource.build_name(item_type)
