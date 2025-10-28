@@ -1,24 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://potion_empty_visual"]
+[gd_scene load_steps=7 format=3 uid="uid://b36xk56a0wmoo"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_bottle"]
+[ext_resource type="Script" uid="uid://cxwrswl4exd3d" path="res://potion/items/scenes/potion.gd" id="1_u5iux"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nxe1v"]
+height = 0.30371094
+radius = 0.095214844
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nxe1v"]
 top_radius = 0.08
 bottom_radius = 0.1
 height = 0.3
 
-[sub_resource type="SphereMesh" id="SphereMesh_cork"]
-radius = 0.05
-height = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
-albedo_color = Color(0.8, 0.8, 0.8, 0.3)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5iux"]
 transparency = 1
+albedo_color = Color(0.8, 0.8, 0.8, 0.3)
 
-[node name="PotionEmptyVisual" type="Node3D"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_u5iux"]
+top_radius = 0.075
+bottom_radius = 0.095
+height = 0.25
 
-[node name="Bottle" type="MeshInstance3D" parent="."]
-mesh = SubResource("CylinderMesh_bottle")
-surface_material_override/0 = SubResource("StandardMaterial3D_glass")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uolvk"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.1)
 
-[node name="Cork" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
-mesh = SubResource("SphereMesh_cork")
+[node name="PotionEmptyVisual" type="CollisionShape3D" node_paths=PackedStringArray("liquid_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036865234, 0)
+shape = SubResource("CylinderShape3D_nxe1v")
+script = ExtResource("1_u5iux")
+potion_type = 0
+liquid_mesh = NodePath("Liquid")
+
+[node name="Bottle2" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_nxe1v")
+surface_material_override/0 = SubResource("StandardMaterial3D_u5iux")
+
+[node name="Liquid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, 0)
+mesh = SubResource("CylinderMesh_u5iux")
+surface_material_override/0 = SubResource("StandardMaterial3D_uolvk")

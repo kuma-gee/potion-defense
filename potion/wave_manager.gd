@@ -15,7 +15,7 @@ signal wave_completed()
 
 @export_category("Enemy Resources")
 @export var wave_enemy_resources: Array[PackedScene] = []
-@export var lanes: Array[Lane] = []
+@export var lanes: Array[LaneReceiver] = []
 @export var spawn_timer: Timer
 @export var wave_break_timer: Timer
 

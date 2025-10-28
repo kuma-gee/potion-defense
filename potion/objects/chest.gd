@@ -4,8 +4,7 @@ extends RayInteractable
 @export var item := ItemResource.Type.RED_HERB
 @export var spawn_offset := Vector3(0, 1.0, 0)
 @export var spawn_impulse := Vector3(0, 3.0, 0)
-
-var pickupable_scene := preload("res://potion/items/pickupable.tscn")
+@export var pickupable_scene: PackedScene
 
 func _ready() -> void:
 	super()

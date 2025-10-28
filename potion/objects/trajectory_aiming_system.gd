@@ -1,80 +1,29 @@
-class_name Lane
-extends RayInteractable
+class_name TrajectoryAimingSystem
+extends Node
 
-signal destroyed()
+signal aiming_started()
+signal aiming_cancelled()
+signal projectile_fired(force: float)
+signal force_changed(force: float)
 
-@export var potion_scene: PackedScene
-@export var position_marker: Node3D
-@export var spawn_distance := 50
-@export var hurt_box: HurtBox
-
-@export_category("Throwing")
 @export var min_throw_force := 5.0
 @export var max_throw_force := 20.0
 @export var force_adjust_sensitivity := 0.5
 @export var trajectory_points := 30
 @export var trajectory_time_step := 0.1
 @export var trajectory_line_width := 0.03
+@export var hold_time_threshold := 0.3
+
+@export var position_marker: Node3D
 @export var impact_indicator: MeshInstance3D
 @export var trajectory_node: MeshInstance3D
-@export var hold_time_threshold := 0.3
-@export var item_receiver: LaneReceiver
 
 @onready var gravity_force = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 
-var potion: Throwable
 var is_aiming := false
 var current_throw_force := 10.0
 var aim_start_time := 0.0
-# var item = null:
-# 	set(v):
-# 		if item == null:
-# 			potion = null
-		
-# 		item = v
-# 		if item and not potion:
-# 			potion = potion_scene.instantiate()
-# 			potion.position = position_marker.global_position
-# 			get_tree().current_scene.add_child(potion)
-
-var enemies = []
-
-func _ready() -> void:
-	super ()
-	
-	if item_receiver:
-		item_receiver.set_lane(self)
-		item_receiver.potion_placed.connect(_on_potion_placed)
-	
-	hovered.connect(func(a: FPSPlayer):
-		label.text = "Put Potion" if _can_place_potion(a) else ""
-		if potion != null:
-			label.text = "Shoot"
-	)
-	interacted.connect(func(a: FPSPlayer):
-		if potion != null:
-			if not is_aiming:
-				start_aiming()
-		# Potion placement is now handled by LaneReceiver automatically
-	)
-	released.connect(func(_a: FPSPlayer):
-		if is_aiming:
-			var hold_duration := Time.get_ticks_msec() / 1000.0 - aim_start_time
-			if hold_duration >= hold_time_threshold:
-				fire()
-			else:
-				pass
-	)
-	hurt_box.died.connect(func():
-		for e in enemies:
-			if is_instance_valid(e):
-				e.queue_free()
-		enemies.clear()
-		destroyed.emit()
-		queue_free()
-	)
-	
-	cancel_aim()
+var projectile_to_exclude: RigidBody3D = null
 
 func _input(event: InputEvent) -> void:
 	if not is_aiming:
@@ -84,72 +33,93 @@ func _input(event: InputEvent) -> void:
 		var mouse_motion := event as InputEventMouseMotion
 		var force_delta := mouse_motion.relative.y * force_adjust_sensitivity
 		current_throw_force = clamp(current_throw_force + force_delta, min_throw_force, max_throw_force)
-		_update_aim_label()
+		force_changed.emit(current_throw_force)
+		_update_trajectory_preview()
 	
 	if event.is_action_pressed("interact"):
 		fire()
 	elif event.is_action_pressed("drop_item"):
 		cancel_aim()
 
-func start_aiming() -> void:
+func start_aiming(projectile: RigidBody3D = null) -> void:
 	is_aiming = true
 	aim_start_time = Time.get_ticks_msec() / 1000.0
 	current_throw_force = (min_throw_force + max_throw_force) / 2.0
-	_update_aim_label()
+	projectile_to_exclude = projectile
+	
 	_update_trajectory_preview()
+	
 	if trajectory_node:
 		trajectory_node.visible = true
 	if impact_indicator:
 		impact_indicator.visible = false
+	
+	aiming_started.emit()
 
 func cancel_aim() -> void:
 	is_aiming = false
-	if label:
-		label.text = "Shoot"
+	projectile_to_exclude = null
+	
 	if trajectory_node:
 		trajectory_node.visible = false
 	if impact_indicator:
 		impact_indicator.visible = false
+	
+	aiming_cancelled.emit()
 
-func _update_aim_label() -> void:
-	if label:
-		var force_percent := int((current_throw_force - min_throw_force) / (max_throw_force - min_throw_force) * 100)
-		label.text = "Force: %d%% (Release to fire)" % force_percent
-	_update_trajectory_preview()
-
-func _can_place_potion(a: FPSPlayer) -> bool:
-	return a.has_item() and ItemResource.is_potion(a.item) and potion == null
-
-func _on_potion_placed(potion_type: ItemResource.Type) -> void:
-	print("Lane received potion: %s" % ItemResource.build_name(potion_type))
-
-func fire():
-	if not potion or not is_aiming:
+func fire() -> void:
+	if not is_aiming:
 		return
 	
-	var direction = (global_transform.basis.z).normalized()
-	var throw_dir = direction + Vector3.UP / 3
-	potion.apply_central_impulse(throw_dir.normalized() * current_throw_force)
-	potion = null
-
+	var force = current_throw_force
 	is_aiming = false
+	projectile_to_exclude = null
+	
 	if trajectory_node:
 		trajectory_node.visible = false
 	if impact_indicator:
 		impact_indicator.visible = false
+	
+	projectile_fired.emit(force)
+
+func check_fire_on_release() -> bool:
+	if not is_aiming:
+		return false
+	
+	var hold_duration := Time.get_ticks_msec() / 1000.0 - aim_start_time
+	if hold_duration >= hold_time_threshold:
+		fire()
+		return true
+	
+	return false
+
+func get_throw_direction() -> Vector3:
+	var parent_node := get_parent()
+	var parent_transform: Transform3D = parent_node.global_transform if parent_node else Transform3D.IDENTITY
+	var direction: Vector3 = (parent_transform.basis.z).normalized()
+	return direction + Vector3.UP / 3
+
+func get_force_percentage() -> float:
+	return (current_throw_force - min_throw_force) / (max_throw_force - min_throw_force)
 
 func _update_trajectory_preview() -> void:
-	if not trajectory_node or not is_aiming or not potion:
+	if not trajectory_node or not is_aiming:
 		return
 	
 	trajectory_node.mesh.clear_surfaces()
 	
-	var start_pos := position_marker.global_position
-	var direction := (global_transform.basis.z).normalized() + Vector3.UP / 3
+	var parent_node := get_parent()
+	var parent_transform: Transform3D = parent_node.global_transform if parent_node else Transform3D.IDENTITY
+	var start_pos: Vector3 = position_marker.global_position if position_marker else parent_transform.origin
+	var direction := get_throw_direction()
 	var velocity := direction.normalized() * current_throw_force
 	var gravity_vec = Vector3.DOWN * gravity_force
 	
-	var space_state := get_world_3d().direct_space_state
+	var parent_3d := get_parent() as Node3D
+	if not parent_3d:
+		return
+	
+	var space_state := parent_3d.get_world_3d().direct_space_state
 	var collision_point: Vector3
 	var collision_normal: Vector3
 	var has_collision := false
@@ -163,7 +133,8 @@ func _update_trajectory_preview() -> void:
 		
 		if i > 0 and not has_collision:
 			var query := PhysicsRayQueryParameters3D.create(positions[i - 1], pos)
-			query.exclude = [potion]
+			if projectile_to_exclude:
+				query.exclude = [projectile_to_exclude]
 			var result := space_state.intersect_ray(query)
 			if result:
 				collision_point = result.position
@@ -223,6 +194,3 @@ func _update_impact_indicator(point: Vector3, normal: Vector3) -> void:
 	var up := right.cross(forward).normalized()
 	
 	impact_indicator.global_transform.basis = Basis(right, up, forward)
-
-func get_spawn_position():
-	return global_position + global_transform.basis.z.normalized() * spawn_distance

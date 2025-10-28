@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c464j778ehuwc"]
+[gd_scene load_steps=6 format=3 uid="uid://c464j778ehuwc"]
 
-[ext_resource type="Script" uid="uid://boasiuy183xm3" path="res://potion/chest.gd" id="1_e0v3a"]
+[ext_resource type="Script" uid="uid://boasiuy183xm3" path="res://potion/objects/chest.gd" id="1_e0v3a"]
 [ext_resource type="PackedScene" uid="uid://c2nbusd5p0wbq" path="res://assets/fantasy/Exports/glTF/Crate_Wooden.gltf" id="1_ertou"]
+[ext_resource type="PackedScene" uid="uid://bryjvapfcc2mh" path="res://potion/items/pickupable.tscn" id="2_nlx63"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_domfe"]
+size = Vector3(0.8, 0.8, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ertou"]
 size = Vector3(0.8408203, 0.8135376, 0.8654785)
@@ -12,6 +14,7 @@ size = Vector3(0.8408203, 0.8135376, 0.8654785)
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_e0v3a")
+pickupable_scene = ExtResource("2_nlx63")
 label = NodePath("Label3D")
 
 [node name="Crate_Wooden5" parent="." instance=ExtResource("1_ertou")]

@@ -28,7 +28,7 @@ var is_frozen: bool = false
 var held_physical_item: Pickupable = null:
 	set(v):
 		held_physical_item = v
-		item_placeholder.visible = v != null
+		#item_placeholder.visible = v != null
 		item_label.text = "%s" % ItemResource.build_name(v.item_type) if v != null else ""
 
 func _enter_tree():

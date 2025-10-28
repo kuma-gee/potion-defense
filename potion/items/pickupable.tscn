@@ -1,26 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bryjvapfcc2mh"]
+[gd_scene load_steps=4 format=3 uid="uid://bryjvapfcc2mh"]
 
 [ext_resource type="Script" uid="uid://b5wpkniyftdno" path="res://potion/items/pickupable.gd" id="1_pickupable"]
 [ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://proximity-chat/ray_interactable.gd" id="2_ray_interactable"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5qq00"]
-rough = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5qq00"]
-size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_interact"]
 radius = 0.3
 
 [node name="Pickupable" type="RigidBody3D"]
 collision_layer = 32
-physics_material_override = SubResource("PhysicsMaterial_5qq00")
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_pickupable")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_5qq00")
-
-[node name="ItemVisualRoot" type="Node3D" parent="."]
+follow_strength = 100.0
+drag_factor = 20.0
 
 [node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("label")]
 collision_layer = 32768

@@ -1,23 +1,19 @@
 [gd_scene load_steps=16 format=3 uid="uid://wmkgnnq04t5v"]
 
 [ext_resource type="PackedScene" uid="uid://cphqgua11ges1" path="res://assets/fantasy/Exports/glTF/Stall_Empty.gltf" id="1_f2kob"]
-[ext_resource type="Script" uid="uid://rrnueps36v2q" path="res://potion/lane.gd" id="1_fyuo5"]
-[ext_resource type="PackedScene" uid="uid://ccwy6e2e7obld" path="res://potion/throwable.tscn" id="2_fyuo5"]
-[ext_resource type="Script" path="res://potion/lane_receiver.gd" id="3_lane_receiver"]
+[ext_resource type="Script" uid="uid://clopmtbpgy4fn" path="res://potion/objects/lane_receiver.gd" id="3_lane_receiver"]
+[ext_resource type="Script" uid="uid://pc0deefjlj2h" path="res://potion/objects/trajectory_aiming_system.gd" id="3_trajectory"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_utd16"]
 [ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/hp_bar.gd" id="5_85vib"]
 [ext_resource type="Shader" uid="uid://crddsivq5r6ss" path="res://shader/impact_circle.gdshader" id="6_67lsy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqivl"]
-size = Vector3(1.7255859, 1.1617432, 1)
+size = Vector3(1.7255859, 0.21656418, 0.82714844)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2kob"]
 size = Vector3(1.7907715, 0.82829285, 0.80249023)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyuo5"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lane_receiver"]
-size = Vector3(1.5, 1.5, 1.5)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_85vib"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -42,17 +38,19 @@ albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_67lsy"]
 
-[node name="Lane" type="Area3D" node_paths=PackedStringArray("position_marker", "hurt_box", "impact_indicator", "trajectory_node", "item_receiver", "label")]
+[node name="Lane" type="Area3D" node_paths=PackedStringArray("hurt_box", "aiming_system", "label")]
 collision_layer = 32768
-collision_mask = 0
-script = ExtResource("1_fyuo5")
-potion_scene = ExtResource("2_fyuo5")
-position_marker = NodePath("Position")
+collision_mask = 32
+script = ExtResource("3_lane_receiver")
 hurt_box = NodePath("Hurtbox")
-impact_indicator = NodePath("ImpactIndicator")
-trajectory_node = NodePath("Trajectory")
-item_receiver = NodePath("DropArea")
+aiming_system = NodePath("TrajectoryAimingSystem")
+snap_offset = Vector3(0, 0.5, 0)
+auto_remove_item = false
 label = NodePath("Label3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7820997, 0)
+shape = SubResource("BoxShape3D_fqivl")
 
 [node name="Stall_Empty2" parent="." instance=ExtResource("1_f2kob")]
 
@@ -62,9 +60,11 @@ billboard = 1
 no_depth_test = true
 text = "Load"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69043446, 0)
-shape = SubResource("BoxShape3D_fqivl")
+[node name="TrajectoryAimingSystem" type="Node" parent="." node_paths=PackedStringArray("position_marker", "impact_indicator", "trajectory_node")]
+script = ExtResource("3_trajectory")
+position_marker = NodePath("")
+impact_indicator = NodePath("../ImpactIndicator")
+trajectory_node = NodePath("../Trajectory")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0
@@ -72,18 +72,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41365814, 0)
 shape = SubResource("BoxShape3D_f2kob")
-
-[node name="Position" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82863104, 0)
-
-[node name="DropArea" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 32
-script = ExtResource("3_lane_receiver")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DropArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-shape = SubResource("BoxShape3D_lane_receiver")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8475059, -0.22905588)

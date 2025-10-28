@@ -10,8 +10,8 @@ signal picked_up(item_type: ItemResource.Type, by: Node3D)
 @export var rotation_damping: float = 8.0
 
 @onready var ray_interactable: RayInteractable = $RayInteractable
-@onready var item_visual_root: Node3D = $ItemVisualRoot
 
+var item_node = null
 var is_picked_up: bool = false
 var holder: Node3D = null
 var target_position: Vector3 = Vector3.ZERO
@@ -29,13 +29,16 @@ func _physics_process(delta: float) -> void:
 		_update_held_physics(delta)
 
 func _create_item_visual() -> void:
-	for child in item_visual_root.get_children():
-		child.queue_free()
-	
 	var item_scene = ItemResource.get_item_scene(item_type)
 	if item_scene:
 		var item_instance = item_scene.instantiate()
-		item_visual_root.add_child(item_instance)
+		add_child(item_instance)
+		item_node = item_instance
+		
+		# If it's a potion, set the potion type
+		if item_instance is Potion:
+			var potion := item_instance as Potion
+			potion.set_potion_type(item_type)
 	else:
 		push_warning("No scene defined for item type: %s" % ItemResource.build_name(item_type))
 		# Create a placeholder visual
@@ -53,7 +56,8 @@ func _create_placeholder_visual() -> void:
 	material.albedo_color = _get_placeholder_color()
 	mesh_instance.set_surface_override_material(0, material)
 	
-	item_visual_root.add_child(mesh_instance)
+	add_child(mesh_instance)
+	item_node = mesh_instance
 
 func _get_placeholder_color() -> Color:
 	# Different colors for different item types
@@ -168,9 +172,24 @@ func can_pickup() -> bool:
 
 # Call this to change the item type after instantiation
 func set_item_type(new_type: ItemResource.Type) -> void:
+	var old_type = item_type
 	item_type = new_type
+	
 	if is_inside_tree():
-		_create_item_visual()
+		# Check if we can just update the existing potion visual
+		var old_was_potion = ItemResource.is_potion(old_type)
+		var new_is_potion = ItemResource.is_potion(new_type)
+		
+		if old_was_potion and new_is_potion and item_node:
+			# Just update the existing potion's type
+			var visual = item_node
+			if visual is Potion:
+				var potion := visual as Potion
+				potion.set_potion_type(new_type)
+		else:
+			# Need to recreate the visual
+			_create_item_visual()
+		
 		# Update the label text
 		if ray_interactable and ray_interactable.label:
 			ray_interactable.label.text = ItemResource.build_name(item_type)

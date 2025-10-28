@@ -1,25 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://potion_fire_bomb_visual"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_bottle"]
-top_radius = 0.08
-bottom_radius = 0.1
-height = 0.3
+[gd_scene load_steps=5 format=3 uid="uid://dvrh3kheld5df"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_liquid"]
 top_radius = 0.075
 bottom_radius = 0.095
 height = 0.25
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
-albedo_color = Color(0.8, 0.8, 0.8, 0.3)
-transparency = 1
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fire"]
-albedo_color = Color(1, 0.3, 0, 0.8)
 transparency = 1
+albedo_color = Color(1, 0.3, 0, 0.8)
 emission_enabled = true
 emission = Color(1, 0.5, 0, 1)
 emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bottle"]
+top_radius = 0.08
+bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
+transparency = 1
+albedo_color = Color(0.8, 0.8, 0.8, 0.3)
 
 [node name="PotionFireBombVisual" type="Node3D"]
 

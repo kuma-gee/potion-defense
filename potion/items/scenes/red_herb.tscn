@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://red_herb_visual"]
+[gd_scene load_steps=4 format=3 uid="uid://devp4ralvjicb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_46km1"]
+size = Vector3(0.2890625, 0.43554688, 0.107666016)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_herb"]
 top_radius = 0.05
@@ -8,18 +11,20 @@ height = 0.3
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_herb"]
 albedo_color = Color(0.8, 0.1, 0.1, 1)
 
-[node name="RedHerbVisual" type="Node3D"]
+[node name="RedHerbVisual" type="CollisionShape3D"]
+shape = SubResource("BoxShape3D_46km1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10229693, 0)
 mesh = SubResource("CylinderMesh_herb")
 surface_material_override/0 = SubResource("StandardMaterial3D_herb")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.09770307, 0)
 mesh = SubResource("CylinderMesh_herb")
 surface_material_override/0 = SubResource("StandardMaterial3D_herb")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.047703072, 0)
 mesh = SubResource("CylinderMesh_herb")
 surface_material_override/0 = SubResource("StandardMaterial3D_herb")

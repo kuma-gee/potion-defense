@@ -1,5 +1,5 @@
 class_name ItemReceiver
-extends Area3D
+extends RayInteractable
 
 signal item_received(item_type: ItemResource.Type, pickupable: Pickupable)
 signal item_rejected(item_type: ItemResource.Type, pickupable: Pickupable)
@@ -12,6 +12,7 @@ signal item_rejected(item_type: ItemResource.Type, pickupable: Pickupable)
 @export var accept_dropped_items: bool = true
 
 func _ready() -> void:
+	super()
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node3D) -> void:
@@ -63,14 +64,7 @@ func _process_pickupable(pickupable: Pickupable) -> void:
 	
 	# Remove from player's hand if held
 	if was_held and holder:
-		if holder.has_method("release_physical_item"):
-			holder.release_physical_item()
-		elif holder is FPSPlayer:
-			var player := holder as FPSPlayer
-			if player.held_physical_item == pickupable:
-				player.held_physical_item = null
-		
-		pickupable.drop()
+		_release_item(holder, pickupable)
 	
 	# Snap to position if enabled
 	if snap_to_center:
@@ -90,11 +84,21 @@ func _process_pickupable(pickupable: Pickupable) -> void:
 	else:
 		item_rejected.emit(item_type, pickupable)
 
+func _release_item(holder: FPSPlayer, pickupable: Pickupable):
+	if holder.has_method("release_physical_item"):
+		holder.release_physical_item()
+	elif holder is FPSPlayer:
+		var player := holder as FPSPlayer
+		if player.held_physical_item == pickupable:
+			player.held_physical_item = null
+	
+	pickupable.drop()
+
 # Virtual method - override in derived classes
-func can_accept_item(item_type: ItemResource.Type) -> bool:
+func can_accept_item(_item_type: ItemResource.Type) -> bool:
 	return true
 
 # Virtual method - override in derived classes
 # Return true if item was accepted, false if rejected
-func handle_item_received(item_type: ItemResource.Type, pickupable: Pickupable) -> bool:
+func handle_item_received(_item_type: ItemResource.Type, _pickupable: Pickupable) -> bool:
 	return true

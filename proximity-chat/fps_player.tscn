@@ -84,8 +84,10 @@ player = NodePath("../../..")
 
 [node name="HoldPosition" type="Marker3D" parent="CameraRoot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46627957, -0.20286894, -0.38936043)
+visible = false
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CameraRoot/Camera3D/HoldPosition"]
+visible = false
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="ProximityAudioPlayer" type="AudioStreamPlayer3D" parent="."]
