@@ -4,10 +4,17 @@ extends RigidBody3D
 signal picked_up(item_type: ItemResource.Type, by: Node3D)
 
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
+@export var hold_distance: float = 2.0
+@export var follow_strength: float = 10.0
+@export var drag_factor: float = 5.0
+@export var rotation_damping: float = 8.0
+
 @onready var ray_interactable: RayInteractable = $RayInteractable
 @onready var item_visual_root: Node3D = $ItemVisualRoot
 
 var is_picked_up: bool = false
+var holder: Node3D = null
+var target_position: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	if ray_interactable:
@@ -16,6 +23,10 @@ func _ready() -> void:
 		ray_interactable.interacted.connect(_on_interacted)
 	
 	_create_item_visual()
+
+func _physics_process(delta: float) -> void:
+	if is_picked_up and holder:
+		_update_held_physics(delta)
 
 func _create_item_visual() -> void:
 	for child in item_visual_root.get_children():
@@ -88,16 +99,69 @@ func pickup_by(actor: Node3D) -> void:
 		return
 	
 	is_picked_up = true
+	holder = actor
+	
+	# Disable collision with the holder
+	if actor is CharacterBody3D or actor is RigidBody3D:
+		add_collision_exception_with(actor)
+	
+	# Disable ray interactable while held
+	if ray_interactable:
+		ray_interactable.monitoring = false
+		if ray_interactable.label:
+			ray_interactable.label.hide()
 	
 	# Emit signal with item type and actor
 	picked_up.emit(item_type, actor)
 	
-	# Give item to actor if they have the method
-	if actor.has_method("hold_item"):
-		actor.hold_item(item_type)
+	# Notify actor if they have the method
+	if actor.has_method("hold_physical_item"):
+		actor.hold_physical_item(self)
+
+func drop() -> void:
+	if not is_picked_up:
+		return
 	
-	# Remove the pickup from the scene
-	queue_free()
+	is_picked_up = false
+	
+	# Re-enable collision
+	if holder and (holder is CharacterBody3D or holder is RigidBody3D):
+		remove_collision_exception_with(holder)
+	
+	# Re-enable ray interactable
+	if ray_interactable:
+		ray_interactable.monitoring = true
+		if ray_interactable.label:
+			ray_interactable.label.show()
+	
+	holder = null
+
+func _update_held_physics(delta: float) -> void:
+	# Calculate target position in front of holder
+	var camera: Camera3D = null
+	
+	if holder.has_node("CameraRoot/Camera3D"):
+		camera = holder.get_node("CameraRoot/Camera3D") as Camera3D
+	elif holder.has_node("Camera3D"):
+		camera = holder.get_node("Camera3D") as Camera3D
+	
+	if camera:
+		target_position = camera.global_position + (-camera.global_transform.basis.z * hold_distance)
+	else:
+		target_position = holder.global_position + (-holder.global_transform.basis.z * hold_distance)
+	
+	# Calculate force to pull item to target position
+	var direction = target_position - global_position
+	var distance = direction.length()
+	
+	# Apply force with drag
+	var force = direction.normalized() * follow_strength * distance
+	var drag = linear_velocity * drag_factor
+	
+	linear_velocity += (force - drag) * delta
+	
+	# Dampen rotation
+	angular_velocity = angular_velocity.lerp(Vector3.ZERO, rotation_damping * delta)
 
 func can_pickup() -> bool:
 	return not is_picked_up

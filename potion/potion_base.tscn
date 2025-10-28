@@ -29,6 +29,10 @@ radius = 0.60290617
 height = 0.81396484
 radius = 0.47070313
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_drop_area"]
+height = 1.5
+radius = 0.5
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qliwp"]
 height = 0.87994385
 radius = 0.39794922
@@ -68,11 +72,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.107366, 0, 5.5121093)
 [node name="Lane4" parent="Lanes" instance=ExtResource("18_vaceq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.107366, 0, 5.5121093)
 
-[node name="Cauldron" type="Area3D" parent="." node_paths=PackedStringArray("label")]
+[node name="Cauldron" type="Area3D" parent="." node_paths=PackedStringArray("label", "drop_area")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("2_domfe")
 label = NodePath("Label3D")
+drop_area = NodePath("DropArea")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Cauldron"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5241116, 0)
@@ -91,6 +96,14 @@ text = "Stuff"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cauldron/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40698242, 0)
 shape = SubResource("CylinderShape3D_atkst")
+
+[node name="DropArea" type="Area3D" parent="Cauldron"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cauldron/DropArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("CylinderShape3D_drop_area")
 
 [node name="Chandelier2" parent="." instance=ExtResource("6_7xbj5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)

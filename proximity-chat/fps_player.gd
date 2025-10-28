@@ -31,6 +31,8 @@ var item = null:
 		item_placeholder.visible = v != null
 		item_label.text = "%s" % ItemResource.build_name(v) if v != null else ""
 
+var held_physical_item: Pickupable = null
+
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 
@@ -102,13 +104,26 @@ func hold_item(i: ItemResource.Type) -> void:
 	if item == null:
 		item = i
 
+func hold_physical_item(pickupable: Pickupable) -> void:
+	if held_physical_item:
+		held_physical_item.drop()
+	
+	held_physical_item = pickupable
+	item = pickupable.item_type
+	item_placeholder.visible = false
+
 func take_item():
 	var i = item
 	item = null
+	
+	if held_physical_item:
+		held_physical_item.drop()
+		held_physical_item = null
+	
 	return i
 
 func has_item():
-	return item != null
+	return item != null or held_physical_item != null
 
 func freeze_player() -> void:
 	is_frozen = true
@@ -144,6 +159,21 @@ func get_charge_percentage() -> float:
 	return clamp(drop_charge_time / throw_charge_time, 0.0, 1.0)
 
 func drop_item(charge_time: float = 0.0) -> void:
+	# If holding a physical item, throw it
+	if held_physical_item:
+		var throw_force = get_throw_force(charge_time)
+		var throw_direction = -global_transform.basis.z + Vector3.UP * 0.3
+		
+		held_physical_item.drop()
+		held_physical_item.linear_velocity = throw_direction.normalized() * throw_force
+		
+		print("Threw physical item: %s (throw force: %.1f)" % [ItemResource.build_name(held_physical_item.item_type), throw_force])
+		
+		held_physical_item = null
+		item = null
+		return
+	
+	# Otherwise create a new pickupable (legacy behavior for abstract items)
 	if item == null:
 		return
 	
