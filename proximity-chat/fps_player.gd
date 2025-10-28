@@ -23,6 +23,7 @@ extends CharacterBody3D
 
 var drop_button_held: bool = false
 var drop_charge_time: float = 0.0
+var is_frozen: bool = false
 
 var item = null:
 	set(v):
@@ -46,6 +47,9 @@ func _ready():
 	
 	# hand.released.connect(func(): camera.current = true)
 	player_input.input_event.connect(func(event: InputEvent):
+		if is_frozen:
+			return
+		
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -68,6 +72,10 @@ func _ready():
 	)
 
 func _physics_process(delta):
+	if is_frozen:
+		velocity = Vector3.ZERO
+		return
+	
 	# Update drop charge if button is held
 	if drop_button_held:
 		drop_charge_time = min(drop_charge_time + delta, throw_charge_time)
@@ -101,6 +109,13 @@ func take_item():
 
 func has_item():
 	return item != null
+
+func freeze_player() -> void:
+	is_frozen = true
+	velocity = Vector3.ZERO
+
+func unfreeze_player() -> void:
+	is_frozen = false
 
 func start_drop_charge() -> void:
 	if item == null:

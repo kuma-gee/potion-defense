@@ -3,6 +3,7 @@ extends RayInteractable
 
 var items = []
 var current_hovering_player: FPSPlayer = null
+var mixing_player: FPSPlayer = null
 
 @export var mix_item_per_item := 0.5
 @export var potion_amount := 4
@@ -14,6 +15,7 @@ var mixing := 0:
 		mixing = max(v, 0)
 		if mixing == 0:
 			time = 0.0
+			_unfreeze_mixing_player()
 
 func _ready() -> void:
 	super()
@@ -44,15 +46,27 @@ func _ready() -> void:
 			_update_label(a)
 			print("Cauldron items: %s" % [items])
 		elif mixing <= 0:
+			mixing_player = a
 			mixing += 1
+			if mixing_player:
+				mixing_player.freeze_player()
 	)
-	released.connect(func(_a: FPSPlayer): mixing -= 1)
+	released.connect(func(_a: FPSPlayer): 
+		mixing -= 1
+		if mixing <= 0:
+			_unfreeze_mixing_player()
+	)
 
 func _is_only_potions():
 	for i in items:
 		if not ItemResource.is_potion(i):
 			return false
 	return true
+
+func _unfreeze_mixing_player() -> void:
+	if mixing_player:
+		mixing_player.unfreeze_player()
+		mixing_player = null
 
 func _update_label(player: FPSPlayer) -> void:
 	if not label:
