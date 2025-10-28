@@ -7,8 +7,7 @@ var mixing_player: FPSPlayer = null
 
 @export var mix_item_per_item := 0.5
 @export var potion_amount := 4
-@export var drop_area: Area3D
-@export var detection_height_threshold := 0.5
+@export var item_receiver: CauldronReceiver
 
 var required_time := 0.0
 var time := 0.0
@@ -22,8 +21,9 @@ var mixing := 0:
 func _ready() -> void:
 	super()
 	
-	if drop_area:
-		drop_area.body_entered.connect(_on_drop_area_body_entered)
+	if item_receiver:
+		item_receiver.set_cauldron(self)
+		item_receiver.item_received.connect(_on_item_received)
 	
 	hovered.connect(func(a: FPSPlayer):
 		current_hovering_player = a
@@ -37,44 +37,9 @@ func _ready() -> void:
 			return
 
 		if a and a.has_item():
-			# Handle physical items being held
-			if a.held_physical_item:
-				var pickupable := a.held_physical_item
-				var item_type := pickupable.item_type
-				
-				if item_type == ItemResource.Type.POTION_EMPTY:
-					if not items.is_empty() and _is_only_potions():
-						pickupable.set_item_type(items.pop_back())
-						_update_label(a)
-					return
-				elif ItemResource.is_potion(item_type):
-					items.append(item_type)
-					pickupable.set_item_type(ItemResource.Type.POTION_EMPTY)
-				else:
-					items.append(item_type)
-					a.held_physical_item = null
-					pickupable.drop()
-					pickupable.queue_free()
-				
-				_update_label(a)
-				print("Cauldron items: %s" % [items])
-				return
-			
-			# Handle abstract items (legacy)
-			if a.item == ItemResource.Type.POTION_EMPTY:
-				if not items.is_empty() and _is_only_potions():
-					a.take_item()
-					a.hold_item(items.pop_back())
-					_update_label(a)
-				return
-			elif ItemResource.is_potion(a.item):
-				items.append(a.take_item())
-				a.hold_item(ItemResource.Type.POTION_EMPTY)
-			else:
-				items.append(a.take_item())
-			
-			_update_label(a)
-			print("Cauldron items: %s" % [items])
+			# Items are now handled by CauldronReceiver automatically
+			# This is just for the mixing interaction
+			pass
 		elif mixing <= 0:
 			mixing_player = a
 			mixing += 1
@@ -93,77 +58,12 @@ func _is_only_potions():
 			return false
 	return true
 
-func _on_drop_area_body_entered(body: Node3D) -> void:
-	if mixing > 0:
-		return
-	
-	if body is Pickupable:
-		var pickupable := body as Pickupable
-		
-		# Check if item is being dropped from above
-		if not _is_dropped_from_above(pickupable):
-			return
-		
-		# Check if item is not currently held
-		if pickupable.is_picked_up:
-			return
-		
-		# Add the item to the cauldron
-		_add_pickupable_to_cauldron(pickupable)
+func _on_item_received(item_type: ItemResource.Type, _pickupable: Pickupable) -> void:
+	print("Cauldron items: %s" % [items])
 
-func _is_dropped_from_above(pickupable: Pickupable) -> bool:
-	# Check if the pickupable is above the cauldron
-	var relative_y := pickupable.global_position.y - global_position.y
-	
-	# Must be coming from above the threshold
-	if relative_y < detection_height_threshold:
-		return false
-	
-	# Check if it has downward velocity
-	if pickupable.linear_velocity.y >= 0:
-		return false
-	
-	return true
-
-func _add_pickupable_to_cauldron(pickupable: Pickupable) -> void:
-	var item_type := pickupable.item_type
-	
-	# Handle potion empty bottles
-	if item_type == ItemResource.Type.POTION_EMPTY:
-		if not items.is_empty() and _is_only_potions():
-			# Fill the bottle with a potion
-			var potion_type = items.pop_back()
-			pickupable.set_item_type(potion_type)
-			# Give it an upward impulse to eject it
-			pickupable.linear_velocity = Vector3.UP * 5.0
-			
-			if current_hovering_player:
-				_update_label(current_hovering_player)
-			
-			print("Filled bottle with: %s (%d left)" % [ItemResource.build_name(potion_type), items.size()])
-		return
-	
-	# Handle potions being put back in
-	if ItemResource.is_potion(item_type):
-		items.append(item_type)
-		# Create empty bottle in its place
-		pickupable.set_item_type(ItemResource.Type.POTION_EMPTY)
-		# Give it an upward impulse to eject it
-		pickupable.linear_velocity = Vector3.UP * 5.0
-		
-		if current_hovering_player:
-			_update_label(current_hovering_player)
-		
-		print("Added potion to cauldron: %s" % ItemResource.build_name(item_type))
-	else:
-		# Handle regular ingredients
-		items.append(item_type)
-		pickupable.queue_free()
-		
-		if current_hovering_player:
-			_update_label(current_hovering_player)
-		
-		print("Added ingredient to cauldron: %s" % ItemResource.build_name(item_type))
+func _update_label_if_hovering() -> void:
+	if current_hovering_player:
+		_update_label(current_hovering_player)
 
 func _unfreeze_mixing_player() -> void:
 	if mixing_player:

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
 [ext_resource type="PackedScene" uid="uid://d0305dj7tcnuc" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_1.gltf" id="2_174p6"]
 [ext_resource type="Script" uid="uid://4e5v0k0sfdj6" path="res://potion/cauldron.gd" id="2_domfe"]
+[ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/cauldron_receiver.gd" id="2_receiver"]
 [ext_resource type="PackedScene" uid="uid://d0w5c27p08lp6" path="res://potion/enemy/enemy.tscn" id="2_vaceq"]
 [ext_resource type="PackedScene" uid="uid://d2o0g25w8c8la" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_2.gltf" id="3_po1gq"]
 [ext_resource type="PackedScene" uid="uid://0bxr3phl6apo" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_3.gltf" id="4_6xdoe"]
@@ -12,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/chest.tscn" id="8_domfe"]
 [ext_resource type="PackedScene" uid="uid://cnthd0gp61ctv" path="res://assets/fantasy/Exports/glTF/Barrel.gltf" id="8_oihk5"]
 [ext_resource type="Script" uid="uid://diwvn14ovq151" path="res://potion/trash.gd" id="9_qliwp"]
+[ext_resource type="Script" path="res://potion/trash_receiver.gd" id="9_trash_receiver"]
 [ext_resource type="PackedScene" uid="uid://bv4bgju6johp7" path="res://assets/fantasy/Exports/glTF/Bed_Twin1.gltf" id="9_wg4qq"]
 [ext_resource type="PackedScene" uid="uid://cp82ox505xryk" path="res://assets/fantasy/Exports/glTF/CandleStick_Triple.gltf" id="11_pnone"]
 [ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="12_pnone"]
@@ -36,6 +38,10 @@ radius = 0.5
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qliwp"]
 height = 0.87994385
 radius = 0.39794922
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trash_receiver"]
+height = 1.2
+radius = 0.45
 
 [node name="PotionBase" type="Node3D"]
 
@@ -72,12 +78,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.107366, 0, 5.5121093)
 [node name="Lane4" parent="Lanes" instance=ExtResource("18_vaceq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.107366, 0, 5.5121093)
 
-[node name="Cauldron" type="Area3D" parent="." node_paths=PackedStringArray("label", "drop_area")]
+[node name="Cauldron" type="Area3D" parent="." node_paths=PackedStringArray("label", "item_receiver")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("2_domfe")
 label = NodePath("Label3D")
-drop_area = NodePath("DropArea")
+item_receiver = NodePath("DropArea")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Cauldron"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5241116, 0)
@@ -100,6 +106,7 @@ shape = SubResource("CylinderShape3D_atkst")
 [node name="DropArea" type="Area3D" parent="Cauldron"]
 collision_layer = 0
 collision_mask = 32
+script = ExtResource("2_receiver")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cauldron/DropArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
@@ -201,12 +208,13 @@ light_color = Color(1, 0.75686276, 0.6509804, 1)
 light_energy = 0.2
 omni_range = 3.0
 
-[node name="Trash" type="Area3D" parent="." node_paths=PackedStringArray("label")]
+[node name="Trash" type="Area3D" parent="." node_paths=PackedStringArray("label", "item_receiver")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6168385, 0, 3.4966788)
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("9_qliwp")
 label = NodePath("Label3D")
+item_receiver = NodePath("DropArea")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="Barrel2" parent="Trash" instance=ExtResource("8_oihk5")]
@@ -221,6 +229,15 @@ text = "Trash"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trash"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48379517, 0)
 shape = SubResource("CylinderShape3D_qliwp")
+
+[node name="DropArea" type="Area3D" parent="Trash"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("9_trash_receiver")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trash/DropArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CylinderShape3D_trash_receiver")
 
 [node name="Bed_Twin12" parent="." instance=ExtResource("9_wg4qq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.631706, 0, -4.4636407)

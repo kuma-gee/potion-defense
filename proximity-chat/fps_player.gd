@@ -125,6 +125,12 @@ func take_item():
 func has_item():
 	return item != null or held_physical_item != null
 
+func release_physical_item() -> void:
+	if held_physical_item:
+		held_physical_item.drop()
+		held_physical_item = null
+		item = null
+
 func freeze_player() -> void:
 	is_frozen = true
 	velocity = Vector3.ZERO
