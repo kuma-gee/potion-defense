@@ -69,7 +69,6 @@ func _process_pickupable(pickupable: Pickupable) -> void:
 			var player := holder as FPSPlayer
 			if player.held_physical_item == pickupable:
 				player.held_physical_item = null
-				player.item = null
 		
 		pickupable.drop()
 	

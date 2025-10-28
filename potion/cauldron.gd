@@ -82,7 +82,8 @@ func _update_label(player: FPSPlayer) -> void:
 		return
 	
 	if player.has_item():
-		if ItemResource.is_empty_potion(player.item):
+		var held_item_type = player.held_physical_item.item_type if player.held_physical_item else null
+		if held_item_type and ItemResource.is_empty_potion(held_item_type):
 			if not items.is_empty() and _is_only_potions():
 				label.text = "Fill (%d left)" % items.size()
 			elif not items.is_empty() and not _is_only_potions():

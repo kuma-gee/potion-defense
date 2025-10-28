@@ -84,7 +84,7 @@ func _on_body_entered_pickup_area(body: Node3D) -> void:
 		return
 	
 	# Check if the body has a method to hold items (like FPSPlayer)
-	if body.has_method("hold_item"):
+	if body.has_method("pickup_item"):
 		pickup_by(body)
 
 func _on_interacted(actor: Node3D) -> void:
@@ -115,8 +115,8 @@ func pickup_by(actor: Node3D) -> void:
 	picked_up.emit(item_type, actor)
 	
 	# Notify actor if they have the method
-	if actor.has_method("hold_physical_item"):
-		actor.hold_physical_item(self)
+	if actor.has_method("pickup_item"):
+		actor.pickup_item(self)
 
 func drop() -> void:
 	if not is_picked_up:

@@ -6,7 +6,6 @@ extends RigidBody3D
 func _ready() -> void:
 	hit_effect.hit.connect(func(): queue_free())
 	body_entered.connect(func(_b):
-		print(linear_velocity.length())
 		if linear_velocity.length() > 1:
 			hit_effect.on_hit()
 	)

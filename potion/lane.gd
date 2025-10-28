@@ -18,6 +18,7 @@ signal destroyed()
 @export var impact_indicator: MeshInstance3D
 @export var trajectory_node: MeshInstance3D
 @export var hold_time_threshold := 0.3
+@export var item_receiver: LaneReceiver
 
 @onready var gravity_force = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 
@@ -25,32 +26,36 @@ var potion: Throwable
 var is_aiming := false
 var current_throw_force := 10.0
 var aim_start_time := 0.0
-var item = null:
-	set(v):
-		if item == null:
-			potion = null
+# var item = null:
+# 	set(v):
+# 		if item == null:
+# 			potion = null
 		
-		item = v
-		if item and not potion:
-			potion = potion_scene.instantiate()
-			potion.position = position_marker.global_position
-			get_tree().current_scene.add_child(potion)
+# 		item = v
+# 		if item and not potion:
+# 			potion = potion_scene.instantiate()
+# 			potion.position = position_marker.global_position
+# 			get_tree().current_scene.add_child(potion)
 
 var enemies = []
 
 func _ready() -> void:
 	super ()
+	
+	if item_receiver:
+		item_receiver.set_lane(self)
+		item_receiver.potion_placed.connect(_on_potion_placed)
+	
 	hovered.connect(func(a: FPSPlayer):
 		label.text = "Put Potion" if _can_place_potion(a) else ""
-		if item != null:
+		if potion != null:
 			label.text = "Shoot"
 	)
 	interacted.connect(func(a: FPSPlayer):
-		if item != null:
+		if potion != null:
 			if not is_aiming:
 				start_aiming()
-		elif _can_place_potion(a):
-			item = a.take_item()
+		# Potion placement is now handled by LaneReceiver automatically
 	)
 	released.connect(func(_a: FPSPlayer):
 		if is_aiming:
@@ -113,15 +118,20 @@ func _update_aim_label() -> void:
 	_update_trajectory_preview()
 
 func _can_place_potion(a: FPSPlayer) -> bool:
-	return a.has_item() and ItemResource.is_potion(a.item) and item == null
+	return a.has_item() and ItemResource.is_potion(a.item) and potion == null
+
+func _on_potion_placed(potion_type: ItemResource.Type) -> void:
+	print("Lane received potion: %s" % ItemResource.build_name(potion_type))
 
 func fire():
 	if not potion or not is_aiming:
 		return
 	
 	var direction = (global_transform.basis.z).normalized()
-	potion.throw(direction + Vector3.UP / 3, current_throw_force)
-	item = null
+	var throw_dir = direction + Vector3.UP / 3
+	potion.apply_central_impulse(throw_dir.normalized() * current_throw_force)
+	potion = null
+
 	is_aiming = false
 	if trajectory_node:
 		trajectory_node.visible = false

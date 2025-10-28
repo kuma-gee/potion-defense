@@ -25,19 +25,16 @@ var drop_button_held: bool = false
 var drop_charge_time: float = 0.0
 var is_frozen: bool = false
 
-var item = null:
+var held_physical_item: Pickupable = null:
 	set(v):
-		item = v
+		held_physical_item = v
 		item_placeholder.visible = v != null
-		item_label.text = "%s" % ItemResource.build_name(v) if v != null else ""
-
-var held_physical_item: Pickupable = null
+		item_label.text = "%s" % ItemResource.build_name(v.item_type) if v != null else ""
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	item = null
 	# if Networking.has_network():
 	# 	var is_authority = is_multiplayer_authority()
 	# 	camera.current = is_authority
@@ -100,36 +97,20 @@ func _physics_process(delta):
 	ground_spring_cast.apply_gravity(self, delta)
 	move_and_slide()
 
-func hold_item(i: ItemResource.Type) -> void:
-	if item == null:
-		item = i
-
-func hold_physical_item(pickupable: Pickupable) -> void:
+func pickup_item(pickupable: Pickupable) -> void:
 	if held_physical_item:
 		held_physical_item.drop()
 	
 	held_physical_item = pickupable
-	item = pickupable.item_type
 	item_placeholder.visible = false
 
-func take_item():
-	var i = item
-	item = null
-	
-	if held_physical_item:
-		held_physical_item.drop()
-		held_physical_item = null
-	
-	return i
-
-func has_item():
-	return item != null or held_physical_item != null
+func has_item() -> bool:
+	return held_physical_item != null
 
 func release_physical_item() -> void:
 	if held_physical_item:
 		held_physical_item.drop()
 		held_physical_item = null
-		item = null
 
 func freeze_player() -> void:
 	is_frozen = true
@@ -139,7 +120,7 @@ func unfreeze_player() -> void:
 	is_frozen = false
 
 func start_drop_charge() -> void:
-	if item == null:
+	if held_physical_item == null:
 		return
 	
 	drop_button_held = true
@@ -165,40 +146,15 @@ func get_charge_percentage() -> float:
 	return clamp(drop_charge_time / throw_charge_time, 0.0, 1.0)
 
 func drop_item(charge_time: float = 0.0) -> void:
-	# If holding a physical item, throw it
-	if held_physical_item:
-		var throw_force = get_throw_force(charge_time)
-		var throw_direction = -global_transform.basis.z + Vector3.UP * 0.3
-		
-		held_physical_item.drop()
-		held_physical_item.linear_velocity = throw_direction.normalized() * throw_force
-		
-		print("Threw physical item: %s (throw force: %.1f)" % [ItemResource.build_name(held_physical_item.item_type), throw_force])
-		
-		held_physical_item = null
-		item = null
+	if held_physical_item == null:
 		return
 	
-	# Otherwise create a new pickupable (legacy behavior for abstract items)
-	if item == null:
-		return
+	var throw_force = get_throw_force(charge_time)
+	var throw_direction = -global_transform.basis.z + Vector3.UP * 0.3
 	
-	var dropped_item = item
-	item = null
+	held_physical_item.drop()
+	held_physical_item.linear_velocity = throw_direction.normalized() * throw_force
 	
-	# Create a physical pickupable item
-	var pickupable_scene = preload("res://potion/items/pickupable.tscn")
-	var pickupable_instance = pickupable_scene.instantiate() as Pickupable
+	print("Threw physical item: %s (throw force: %.1f)" % [ItemResource.build_name(held_physical_item.item_type), throw_force])
 	
-	if pickupable_instance:
-		pickupable_instance.item_type = dropped_item
-		pickupable_instance.position = global_position + global_transform.basis.z * -1.5 + Vector3.UP * 0.5
-		
-		# Calculate throw force based on charge time
-		var throw_force = get_throw_force(charge_time)
-		var throw_direction = -global_transform.basis.z + Vector3.UP * 0.3
-		pickupable_instance.linear_velocity = throw_direction.normalized() * throw_force
-		
-		get_tree().current_scene.add_child(pickupable_instance)
-		
-		print("Dropped item: %s (throw force: %.1f)" % [ItemResource.build_name(dropped_item), throw_force])
+	held_physical_item = null
