@@ -31,6 +31,11 @@ var held_physical_item: Pickupable = null:
 		#item_placeholder.visible = v != null
 		item_label.text = "%s" % ItemResource.build_name(v.item_type) if v != null else ""
 
+func get_interact_collision_point():
+	if interact_ray.is_colliding():
+		return interact_ray.get_collision_point()
+	return interact_ray.global_position + interact_ray.target_position
+
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 

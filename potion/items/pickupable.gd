@@ -4,13 +4,17 @@ extends RigidBody3D
 signal picked_up(item_type: ItemResource.Type, by: Node3D)
 
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
-@export var hold_distance: float = 2.0
+@export var min_hold_distance: float = 1.0
+@export var max_hold_distance: float = 3.0
+@export var hold_scroll_speed: float = 0.2
 @export var follow_strength: float = 10.0
 @export var drag_factor: float = 5.0
 @export var rotation_damping: float = 8.0
+@export var break_force_threshold: float = 2.0
 
 @onready var ray_interactable: RayInteractable = $RayInteractable
 
+var hold_distance: float = 2.0
 var item_node = null
 var is_picked_up: bool = false
 var holder: Node3D = null
@@ -23,10 +27,30 @@ func _ready() -> void:
 		ray_interactable.interacted.connect(_on_interacted)
 	
 	_create_item_visual()
+	hold_distance = clamp(hold_distance, min_hold_distance, max_hold_distance)
 
 func _physics_process(delta: float) -> void:
 	if is_picked_up and holder:
 		_update_held_physics(delta)
+
+		# Allow player to adjust hold_distance with scrollwheel
+		_handle_scroll_input()
+func _handle_scroll_input() -> void:
+	# Only allow adjustment if held by a player
+	if not holder:
+		return
+
+	var scroll_up := Input.is_action_just_pressed("scroll_up")
+	var scroll_down := Input.is_action_just_pressed("scroll_down")
+	if scroll_up:
+		hold_distance = clamp(hold_distance + hold_scroll_speed, min_hold_distance, max_hold_distance)
+	elif scroll_down:
+		hold_distance = clamp(hold_distance - hold_scroll_speed, min_hold_distance, max_hold_distance)
+
+	# Check for breaking on collision if this is a potion
+	if item_node and ItemResource.is_potion(item_type):
+		if _should_break():
+			_break_potion()
 
 func _create_item_visual() -> void:
 	var item_scene = ItemResource.get_item_scene(item_type)
@@ -193,3 +217,20 @@ func set_item_type(new_type: ItemResource.Type) -> void:
 		# Update the label text
 		if ray_interactable and ray_interactable.label:
 			ray_interactable.label.text = ItemResource.build_name(item_type)
+
+func _should_break() -> bool:
+	# Check if the body has hit something with enough force to break
+	# You can tune the threshold as needed
+	print(linear_velocity.length())
+	return linear_velocity.length() > break_force_threshold and _is_colliding()
+
+func _is_colliding() -> bool:
+	# Use Godot's built-in collision detection
+	return get_contact_count() > 0
+
+func _break_potion() -> void:
+	if item_node and item_node is Potion:
+		var potion := item_node as Potion
+		potion.on_hit()
+
+	queue_free()

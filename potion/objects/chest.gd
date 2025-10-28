@@ -19,14 +19,10 @@ func _spawn_pickupable(player: FPSPlayer) -> void:
 	
 	if pickupable_instance:
 		pickupable_instance.item_type = item
-		pickupable_instance.position = global_position + spawn_offset
-		
+		pickupable_instance.position = player.get_interact_collision_point() * 0.8 #global_position + spawn_offset
 		get_tree().current_scene.add_child(pickupable_instance)
 		
-		# Give it an upward impulse to pop out
-		pickupable_instance.linear_velocity = spawn_impulse
-		
-		# Automatically pick it up
+		#pickupable_instance.linear_velocity = spawn_impulse
 		pickupable_instance.pickup_by(player)
 		
 		print("Spawned pickupable from chest: %s" % ItemResource.build_name(item))
