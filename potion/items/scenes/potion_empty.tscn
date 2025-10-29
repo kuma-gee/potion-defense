@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b36xk56a0wmoo"]
+[gd_scene load_steps=8 format=3 uid="uid://b36xk56a0wmoo"]
 
 [ext_resource type="Script" uid="uid://cxwrswl4exd3d" path="res://potion/items/scenes/potion.gd" id="1_u5iux"]
 
@@ -24,6 +24,10 @@ height = 0.25
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.1)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yedi4"]
+radius = 0.119628906
+height = 0.41015625
+
 [node name="PotionEmptyVisual" type="CollisionShape3D" node_paths=PackedStringArray("liquid_mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036865234, 0)
 shape = SubResource("CylinderShape3D_nxe1v")
@@ -39,3 +43,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_u5iux")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, 0)
 mesh = SubResource("CylinderMesh_u5iux")
 surface_material_override/0 = SubResource("StandardMaterial3D_uolvk")
+
+[node name="HitArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea"]
+shape = SubResource("CapsuleShape3D_yedi4")

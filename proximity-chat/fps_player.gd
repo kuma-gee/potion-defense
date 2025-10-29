@@ -5,8 +5,8 @@ extends CharacterBody3D
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
 
 @export_category("Item Dropping")
-@export var min_throw_force: float = 3.0
-@export var max_throw_force: float = 15.0
+@export var min_throw_force: float = 0.0
+@export var max_throw_force: float = 10.0
 @export var throw_charge_time: float = 1.0
 
 @export var interact_ray: InteractRay
@@ -35,6 +35,9 @@ func get_interact_collision_point():
 	if interact_ray.is_colliding():
 		return interact_ray.get_collision_point()
 	return interact_ray.global_position + interact_ray.target_position
+
+func get_camera_point():
+	return interact_ray.global_position
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())

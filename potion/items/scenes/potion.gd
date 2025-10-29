@@ -5,6 +5,7 @@ signal hit()
 
 @export var potion_type := ItemResource.Type.POTION_EMPTY
 @export var liquid_mesh: MeshInstance3D
+@onready var hit_area: Area3D = $HitArea
 
 const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("res://potion/effect/explosion.tscn"),
@@ -28,6 +29,9 @@ const POTION_EMISSIONS = {
 
 func _ready() -> void:
 	_update_liquid_color()
+
+func is_hitting_enemy():
+	return hit_area.has_overlapping_bodies()
 
 func set_potion_type(new_type: ItemResource.Type) -> void:
 	potion_type = new_type

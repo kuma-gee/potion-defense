@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://csiavq076wjrx"]
+[gd_scene load_steps=82 format=3 uid="uid://csiavq076wjrx"]
 
 [ext_resource type="Script" uid="uid://bxmjv37bmrlaj" path="res://magic/explosion_vfx.gd" id="1_vjgue"]
 [ext_resource type="Shader" uid="uid://dpqsia4sjvs85" path="res://magic/streak_vfx.tres" id="2_dqbw7"]
@@ -725,12 +725,7 @@ scale_curve = SubResource("CurveTexture_i6s84")
 
 [sub_resource type="QuadMesh" id="QuadMesh_vcupu"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_jabm0"]
-radius = 1.0
-
-[node name="ExplosionVFX" type="Area3D"]
-collision_layer = 0
-collision_mask = 2
+[node name="ExplosionVFX" type="Node3D"]
 script = ExtResource("1_vjgue")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
@@ -778,6 +773,3 @@ texture_albedo = ExtResource("4_erun6")
 texture_emission = ExtResource("5_ie8lq")
 emission_energy = 2.0
 modulate = Color(1, 0.5875, 0.00999999, 1)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_jabm0")

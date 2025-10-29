@@ -1,29 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bryjvapfcc2mh"]
+[gd_scene load_steps=3 format=3 uid="uid://bryjvapfcc2mh"]
 
 [ext_resource type="Script" uid="uid://b5wpkniyftdno" path="res://potion/items/pickupable.gd" id="1_pickupable"]
-[ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://proximity-chat/ray_interactable.gd" id="2_ray_interactable"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_interact"]
-radius = 0.3
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4e6pr"]
 
-[node name="Pickupable" type="RigidBody3D"]
-collision_layer = 32
+[node name="Pickupable" type="RigidBody3D" node_paths=PackedStringArray("label")]
+collision_layer = 32800
+collision_mask = 32775
+physics_material_override = SubResource("PhysicsMaterial_4e6pr")
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_pickupable")
+label = NodePath("Label3D")
 follow_strength = 100.0
 drag_factor = 20.0
+break_force_threshold = 1.0
 
-[node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("label")]
-collision_layer = 32768
-collision_mask = 0
-script = ExtResource("2_ray_interactable")
-label = NodePath("Label3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
-shape = SubResource("SphereShape3D_interact")
-
-[node name="Label3D" type="Label3D" parent="RayInteractable"]
+[node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 billboard = 1
 no_depth_test = true

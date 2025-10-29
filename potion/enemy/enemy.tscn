@@ -8,15 +8,15 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_a31gv"]
 size = Vector3(1, 1, 0.56640625)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_22bvo"]
-radius = 0.39404297
-height = 1.8847656
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a31gv"]
 radius = 0.6274414
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b0un1"]
+height = 1.7161865
+radius = 0.37109375
+
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
-collision_layer = 0
+collision_layer = 4
 script = ExtResource("1_x44yb")
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Warrior/HitBox")
@@ -131,10 +131,6 @@ metadata/_custom_type_script = "uid://cuspqvicid1n2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
 shape = SubResource("BoxShape3D_a31gv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9465184, 0)
-shape = SubResource("CapsuleShape3D_22bvo")
-
 [node name="HurtBox" type="Area3D" parent="."]
 collision_layer = 128
 collision_mask = 0
@@ -143,5 +139,9 @@ script = ExtResource("4_b0un1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0028687, -0.2604406)
 shape = SubResource("CapsuleShape3D_a31gv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8600464, -0.13637716)
+shape = SubResource("CylinderShape3D_b0un1")
 
 [editable path="Skeleton_Warrior"]

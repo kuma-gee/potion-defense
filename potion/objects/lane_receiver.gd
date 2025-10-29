@@ -7,6 +7,7 @@ signal destroyed()
 @export var spawn_distance := 50
 @export var hurt_box: HurtBox
 @export var aiming_system: TrajectoryAimingSystem
+@export var shoot_interactable: RayInteractable
 
 var potion: Pickupable
 var enemies = []
@@ -28,6 +29,11 @@ func _ready() -> void:
 		aiming_system.force_changed.connect(_on_force_changed)
 		aiming_system.projectile_fired.connect(_on_projectile_fired)
 		aiming_system.aiming_cancelled.connect(_on_aiming_cancelled)
+		
+	if shoot_interactable:
+		shoot_interactable.interacted.connect(handle_interacted)
+		shoot_interactable.released.connect(handle_released)
+		shoot_interactable.hovered.connect(handle_hovered)
 
 func can_accept_item(item_type: ItemResource.Type) -> bool:
 	# Only accept potions (not empty, not ingredients)

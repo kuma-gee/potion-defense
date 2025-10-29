@@ -2,29 +2,32 @@ class_name Pickupable
 extends RigidBody3D
 
 signal picked_up(item_type: ItemResource.Type, by: Node3D)
+signal hovered(actor)
+signal unhovered(actor)
+signal interacted(actor)
+signal released(actor)
 
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
+@export var label: Label3D
 @export var min_hold_distance: float = 1.0
 @export var max_hold_distance: float = 3.0
 @export var hold_scroll_speed: float = 0.2
 @export var follow_strength: float = 10.0
 @export var drag_factor: float = 5.0
 @export var rotation_damping: float = 8.0
+@export var rotation_smoothness: float = 5.0
 @export var break_force_threshold: float = 2.0
 
-@onready var ray_interactable: RayInteractable = $RayInteractable
-
-var hold_distance: float = 2.0
+var hold_distance: float = 1.5
 var item_node = null
 var is_picked_up: bool = false
 var holder: Node3D = null
 var target_position: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
-	if ray_interactable:
-		if ray_interactable.label:
-			ray_interactable.label.text = ItemResource.build_name(item_type)
-		ray_interactable.interacted.connect(_on_interacted)
+	if label:
+		label.text = ItemResource.build_name(item_type)
+		label.hide()
 	
 	_create_item_visual()
 	hold_distance = clamp(hold_distance, min_hold_distance, max_hold_distance)
@@ -40,11 +43,9 @@ func _handle_scroll_input() -> void:
 	if not holder:
 		return
 
-	var scroll_up := Input.is_action_just_pressed("scroll_up")
-	var scroll_down := Input.is_action_just_pressed("scroll_down")
-	if scroll_up:
+	if Input.is_action_just_pressed("scroll_up"):
 		hold_distance = clamp(hold_distance + hold_scroll_speed, min_hold_distance, max_hold_distance)
-	elif scroll_down:
+	elif Input.is_action_just_pressed("scroll_down"):
 		hold_distance = clamp(hold_distance - hold_scroll_speed, min_hold_distance, max_hold_distance)
 
 	# Check for breaking on collision if this is a potion
@@ -122,6 +123,25 @@ func _on_interacted(actor: Node3D) -> void:
 	
 	pickup_by(actor)
 
+func hover(actor: Node3D) -> void:
+	hovered.emit(actor)
+	if label:
+		label.show()
+
+func unhover(actor: Node3D) -> void:
+	unhovered.emit(actor)
+	if label:
+		label.hide()
+
+func interact(actor: Node3D) -> void:
+	if label:
+		label.hide()
+	interacted.emit(actor)
+	_on_interacted(actor)
+
+func release(actor: Node3D) -> void:
+	released.emit(actor)
+
 func pickup_by(actor: Node3D) -> void:
 	if is_picked_up:
 		return
@@ -133,11 +153,9 @@ func pickup_by(actor: Node3D) -> void:
 	if actor is CharacterBody3D or actor is RigidBody3D:
 		add_collision_exception_with(actor)
 	
-	# Disable ray interactable while held
-	if ray_interactable:
-		ray_interactable.monitoring = false
-		if ray_interactable.label:
-			ray_interactable.label.hide()
+	# Hide label while held
+	if label:
+		label.hide()
 	
 	# Emit signal with item type and actor
 	picked_up.emit(item_type, actor)
@@ -156,11 +174,9 @@ func drop() -> void:
 	if holder and (holder is CharacterBody3D or holder is RigidBody3D):
 		remove_collision_exception_with(holder)
 	
-	# Re-enable ray interactable
-	if ray_interactable:
-		ray_interactable.monitoring = true
-		if ray_interactable.label:
-			ray_interactable.label.show()
+	# Show label again
+	if label:
+		label.show()
 	
 	holder = null
 
@@ -190,6 +206,9 @@ func _update_held_physics(delta: float) -> void:
 	
 	# Dampen rotation
 	angular_velocity = angular_velocity.lerp(Vector3.ZERO, rotation_damping * delta)
+	
+	# Smoothly rotate to zero rotation
+	rotation = rotation.lerp(Vector3.ZERO, rotation_smoothness * delta)
 
 func can_pickup() -> bool:
 	return not is_picked_up
@@ -215,14 +234,23 @@ func set_item_type(new_type: ItemResource.Type) -> void:
 			_create_item_visual()
 		
 		# Update the label text
-		if ray_interactable and ray_interactable.label:
-			ray_interactable.label.text = ItemResource.build_name(item_type)
+		if label:
+			label.text = ItemResource.build_name(item_type)
 
 func _should_break() -> bool:
-	# Check if the body has hit something with enough force to break
-	# You can tune the threshold as needed
-	print(linear_velocity.length())
-	return linear_velocity.length() > break_force_threshold and _is_colliding()
+	if not _is_colliding():
+		return false
+	
+	var l = linear_velocity.length()
+	var threshold = break_force_threshold
+	if item_type == ItemResource.Type.POTION_EMPTY:
+		threshold *= 2
+	
+	var potion = item_node as Potion
+	if potion and potion.is_hitting_enemy():
+		return true
+	
+	return l > threshold
 
 func _is_colliding() -> bool:
 	# Use Godot's built-in collision detection

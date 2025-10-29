@@ -19,7 +19,11 @@ func _spawn_pickupable(player: FPSPlayer) -> void:
 	
 	if pickupable_instance:
 		pickupable_instance.item_type = item
-		pickupable_instance.position = player.get_interact_collision_point() * 0.8 #global_position + spawn_offset
+		
+		var cam = player.get_camera_point()
+		var spawn = player.get_interact_collision_point()
+		var dir = cam.direction_to(spawn)
+		pickupable_instance.position = spawn - dir * 0.7 #global_position + spawn_offset
 		get_tree().current_scene.add_child(pickupable_instance)
 		
 		#pickupable_instance.linear_velocity = spawn_impulse

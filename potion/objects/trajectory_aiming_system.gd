@@ -1,5 +1,5 @@
 class_name TrajectoryAimingSystem
-extends Node
+extends Node3D
 
 signal aiming_started()
 signal aiming_cancelled()
@@ -14,7 +14,6 @@ signal force_changed(force: float)
 @export var trajectory_line_width := 0.03
 @export var hold_time_threshold := 0.3
 
-@export var position_marker: Node3D
 @export var impact_indicator: MeshInstance3D
 @export var trajectory_node: MeshInstance3D
 
@@ -24,6 +23,9 @@ var is_aiming := false
 var current_throw_force := 10.0
 var aim_start_time := 0.0
 var projectile_to_exclude: RigidBody3D = null
+
+func _ready() -> void:
+	cancel_aim()
 
 func _input(event: InputEvent) -> void:
 	if not is_aiming:
@@ -110,7 +112,7 @@ func _update_trajectory_preview() -> void:
 	
 	var parent_node := get_parent()
 	var parent_transform: Transform3D = parent_node.global_transform if parent_node else Transform3D.IDENTITY
-	var start_pos: Vector3 = position_marker.global_position if position_marker else parent_transform.origin
+	var start_pos: Vector3 = global_position
 	var direction := get_throw_direction()
 	var velocity := direction.normalized() * current_throw_force
 	var gravity_vec = Vector3.DOWN * gravity_force

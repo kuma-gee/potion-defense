@@ -3,7 +3,7 @@ extends RayCast3D
 
 @export var player: Node3D
 
-var last_collider: RayInteractable = null:
+var last_collider = null:
 	set(v):
 		if last_collider:
 			last_collider.unhover(player)
