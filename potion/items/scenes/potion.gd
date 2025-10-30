@@ -31,7 +31,7 @@ func _ready() -> void:
 	_update_liquid_color()
 
 func is_hitting_enemy():
-	return hit_area.has_overlapping_bodies()
+	return hit_area.has_overlapping_areas()
 
 func set_potion_type(new_type: ItemResource.Type) -> void:
 	potion_type = new_type

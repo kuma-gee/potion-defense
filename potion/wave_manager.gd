@@ -98,6 +98,8 @@ func _on_spawn_enemy() -> void:
 		return
 	
 	var lane = lanes.pick_random()
+	if not lane: return
+	
 	enemy_instance.position = lane.get_spawn_position()
 	lane.enemies.append(enemy_instance)
 	enemy_spawn_root.add_child(enemy_instance)

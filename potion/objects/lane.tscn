@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://wmkgnnq04t5v"]
+[gd_scene load_steps=16 format=3 uid="uid://wmkgnnq04t5v"]
 
 [ext_resource type="PackedScene" uid="uid://cphqgua11ges1" path="res://assets/fantasy/Exports/glTF/Stall_Empty.gltf" id="1_f2kob"]
 [ext_resource type="Script" uid="uid://clopmtbpgy4fn" path="res://potion/objects/lane_receiver.gd" id="3_lane_receiver"]
@@ -6,10 +6,9 @@
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_utd16"]
 [ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/hp_bar.gd" id="5_85vib"]
 [ext_resource type="Shader" uid="uid://crddsivq5r6ss" path="res://shader/impact_circle.gdshader" id="6_67lsy"]
-[ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://proximity-chat/ray_interactable.gd" id="7_0cu2o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqivl"]
-size = Vector3(0.8095703, 0.21656418, 0.82714844)
+size = Vector3(0.96777344, 0.24975586, 0.82714844)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2kob"]
 size = Vector3(1.7907715, 0.82829285, 0.80249023)
@@ -39,15 +38,11 @@ albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_67lsy"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0cu2o"]
-size = Vector3(1, 0.21386719, 0.24121094)
-
-[node name="Lane" type="Area3D" node_paths=PackedStringArray("hurt_box", "aiming_system", "label")]
+[node name="Lane" type="Area3D" node_paths=PackedStringArray("hurt_box", "label")]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_lane_receiver")
 hurt_box = NodePath("Hurtbox")
-aiming_system = NodePath("")
 snap_offset = Vector3(0, 0.5, 0)
 auto_remove_item = false
 label = NodePath("Label3D")
@@ -124,14 +119,3 @@ mesh = SubResource("QuadMesh_85vib")
 material_override = SubResource("StandardMaterial3D_67lsy")
 cast_shadow = 0
 mesh = SubResource("ImmediateMesh_67lsy")
-
-[node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("label")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8452718, 0.31778944)
-collision_layer = 32768
-collision_mask = 0
-script = ExtResource("7_0cu2o")
-label = NodePath("../Label3D")
-metadata/_custom_type_script = "uid://buns64rcufm7p"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
-shape = SubResource("BoxShape3D_0cu2o")

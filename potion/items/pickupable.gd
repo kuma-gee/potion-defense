@@ -17,12 +17,14 @@ signal released(actor)
 @export var rotation_damping: float = 8.0
 @export var rotation_smoothness: float = 5.0
 @export var break_force_threshold: float = 2.0
+@export var pickup_time_break_threshold := 0.5
 
 var hold_distance: float = 1.5
 var item_node = null
 var is_picked_up: bool = false
 var holder: Node3D = null
 var target_position: Vector3 = Vector3.ZERO
+var pickup_time := 0.0
 
 func _ready() -> void:
 	if label:
@@ -34,10 +36,14 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_picked_up and holder:
+		pickup_time += delta
 		_update_held_physics(delta)
 
 		# Allow player to adjust hold_distance with scrollwheel
 		_handle_scroll_input()
+	else:
+		pickup_time = 0
+	
 func _handle_scroll_input() -> void:
 	# Only allow adjustment if held by a player
 	if not holder:
@@ -66,47 +72,6 @@ func _create_item_visual() -> void:
 			potion.set_potion_type(item_type)
 	else:
 		push_warning("No scene defined for item type: %s" % ItemResource.build_name(item_type))
-		# Create a placeholder visual
-		_create_placeholder_visual()
-
-func _create_placeholder_visual() -> void:
-	# Create a simple placeholder mesh if no scene is defined
-	var mesh_instance = MeshInstance3D.new()
-	var box_mesh = BoxMesh.new()
-	box_mesh.size = Vector3(0.3, 0.3, 0.3)
-	mesh_instance.mesh = box_mesh
-	
-	# Create a simple material
-	var material = StandardMaterial3D.new()
-	material.albedo_color = _get_placeholder_color()
-	mesh_instance.set_surface_override_material(0, material)
-	
-	add_child(mesh_instance)
-	item_node = mesh_instance
-
-func _get_placeholder_color() -> Color:
-	# Different colors for different item types
-	match item_type:
-		ItemResource.Type.RED_HERB:
-			return Color.RED
-		ItemResource.Type.SULFUR:
-			return Color.YELLOW
-		ItemResource.Type.BLUE_CRYSTAL:
-			return Color.BLUE
-		ItemResource.Type.WATER:
-			return Color.CYAN
-		ItemResource.Type.GREEN_MOSS:
-			return Color.GREEN
-		ItemResource.Type.SPIDER_VENOM:
-			return Color.DARK_MAGENTA
-		ItemResource.Type.WHITE_FLOWER:
-			return Color.WHITE
-		ItemResource.Type.SPRING_WATER:
-			return Color.LIGHT_BLUE
-		ItemResource.Type.POTION_EMPTY:
-			return Color.GRAY
-		_:
-			return Color.ORANGE
 
 func _on_body_entered_pickup_area(body: Node3D) -> void:
 	if is_picked_up:
@@ -238,22 +203,21 @@ func set_item_type(new_type: ItemResource.Type) -> void:
 			label.text = ItemResource.build_name(item_type)
 
 func _should_break() -> bool:
-	if not _is_colliding():
+	if pickup_time < pickup_time_break_threshold:
 		return false
 	
-	var l = linear_velocity.length()
 	var threshold = break_force_threshold
 	if item_type == ItemResource.Type.POTION_EMPTY:
 		threshold *= 2
 	
 	var potion = item_node as Potion
-	if potion and potion.is_hitting_enemy():
-		return true
+	if potion.is_hitting_enemy():
+		threshold /= 2
 	
-	return l > threshold
+	var l = linear_velocity.length()
+	return l > threshold and (_is_colliding() or potion.is_hitting_enemy())
 
 func _is_colliding() -> bool:
-	# Use Godot's built-in collision detection
 	return get_contact_count() > 0
 
 func _break_potion() -> void:
