@@ -162,7 +162,5 @@ func drop_item(charge_time: float = 0.0) -> void:
 	
 	held_physical_item.drop()
 	held_physical_item.linear_velocity = throw_direction.normalized() * throw_force
-	
 	print("Threw physical item: %s (throw force: %.1f)" % [ItemResource.build_name(held_physical_item.item_type), throw_force])
-	
 	held_physical_item = null

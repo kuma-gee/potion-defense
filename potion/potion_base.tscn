@@ -154,7 +154,7 @@ light_energy = 0.2
 omni_range = 3.0
 
 [node name="Trash" parent="." instance=ExtResource("8_fqivl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6168385, 0, 3.4966788)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.617, 0, 3.497)
 
 [node name="Bed_Twin12" parent="." instance=ExtResource("9_wg4qq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.631706, 0, -4.4636407)
@@ -353,3 +353,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.712775)
 offset_right = 1.0
 offset_bottom = 23.0
 text = "Wave"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011, 4.739, 14.227)
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, -0.771, 0.45)
+size = Vector3(0.2, 0.2, 0.2)

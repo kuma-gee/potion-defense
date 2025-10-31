@@ -2,13 +2,8 @@ class_name Pickupable
 extends RigidBody3D
 
 signal picked_up(item_type: ItemResource.Type, by: Node3D)
-signal hovered(actor)
-signal unhovered(actor)
-signal interacted(actor)
-signal released(actor)
 
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
-@export var label: Label3D
 @export var min_hold_distance: float = 1.0
 @export var max_hold_distance: float = 3.0
 @export var hold_scroll_speed: float = 0.2
@@ -25,12 +20,10 @@ var is_picked_up: bool = false
 var holder: Node3D = null
 var target_position: Vector3 = Vector3.ZERO
 var pickup_time := 0.0
+var invincible_time := 0.0
+var shooting := false
 
 func _ready() -> void:
-	if label:
-		label.text = ItemResource.build_name(item_type)
-		label.hide()
-	
 	_create_item_visual()
 	hold_distance = clamp(hold_distance, min_hold_distance, max_hold_distance)
 
@@ -43,21 +36,18 @@ func _physics_process(delta: float) -> void:
 		_handle_scroll_input()
 	else:
 		pickup_time = 0
+		
+	if invincible_time > 0:
+		invincible_time -= delta
 	
 func _handle_scroll_input() -> void:
-	# Only allow adjustment if held by a player
-	if not holder:
-		return
+	if not holder: return
 
 	if Input.is_action_just_pressed("scroll_up"):
 		hold_distance = clamp(hold_distance + hold_scroll_speed, min_hold_distance, max_hold_distance)
 	elif Input.is_action_just_pressed("scroll_down"):
 		hold_distance = clamp(hold_distance - hold_scroll_speed, min_hold_distance, max_hold_distance)
 
-	# Check for breaking on collision if this is a potion
-	if item_node and ItemResource.is_potion(item_type):
-		if _should_break():
-			_break_potion()
 
 func _create_item_visual() -> void:
 	var item_scene = ItemResource.get_item_scene(item_type)
@@ -73,54 +63,17 @@ func _create_item_visual() -> void:
 	else:
 		push_warning("No scene defined for item type: %s" % ItemResource.build_name(item_type))
 
-func _on_body_entered_pickup_area(body: Node3D) -> void:
-	if is_picked_up:
-		return
-	
-	# Check if the body has a method to hold items (like FPSPlayer)
-	if body.has_method("pickup_item"):
-		pickup_by(body)
-
-func _on_interacted(actor: Node3D) -> void:
-	# Called when player presses interact button while hovering
-	if is_picked_up:
-		return
-	
-	pickup_by(actor)
-
-func hover(actor: Node3D) -> void:
-	hovered.emit(actor)
-	if label:
-		label.show()
-
-func unhover(actor: Node3D) -> void:
-	unhovered.emit(actor)
-	if label:
-		label.hide()
-
 func interact(actor: Node3D) -> void:
-	if label:
-		label.hide()
-	interacted.emit(actor)
-	_on_interacted(actor)
-
-func release(actor: Node3D) -> void:
-	released.emit(actor)
-
-func pickup_by(actor: Node3D) -> void:
 	if is_picked_up:
 		return
 	
+	shooting = false
 	is_picked_up = true
 	holder = actor
 	
 	# Disable collision with the holder
 	if actor is CharacterBody3D or actor is RigidBody3D:
 		add_collision_exception_with(actor)
-	
-	# Hide label while held
-	if label:
-		label.hide()
 	
 	# Emit signal with item type and actor
 	picked_up.emit(item_type, actor)
@@ -138,10 +91,6 @@ func drop() -> void:
 	# Re-enable collision
 	if holder and (holder is CharacterBody3D or holder is RigidBody3D):
 		remove_collision_exception_with(holder)
-	
-	# Show label again
-	if label:
-		label.show()
 	
 	holder = null
 
@@ -197,13 +146,9 @@ func set_item_type(new_type: ItemResource.Type) -> void:
 		else:
 			# Need to recreate the visual
 			_create_item_visual()
-		
-		# Update the label text
-		if label:
-			label.text = ItemResource.build_name(item_type)
 
 func _should_break() -> bool:
-	if pickup_time < pickup_time_break_threshold:
+	if is_picked_up and pickup_time < pickup_time_break_threshold:
 		return false
 	
 	var threshold = break_force_threshold
@@ -214,8 +159,10 @@ func _should_break() -> bool:
 	if potion.is_hitting_enemy():
 		threshold /= 2
 	
+	var is_hitting = _is_colliding() or potion.is_hitting_enemy()
 	var l = linear_velocity.length()
-	return l > threshold and (_is_colliding() or potion.is_hitting_enemy())
+	
+	return (l > threshold or shooting) and is_hitting
 
 func _is_colliding() -> bool:
 	return get_contact_count() > 0
@@ -226,3 +173,45 @@ func _break_potion() -> void:
 		potion.on_hit()
 
 	queue_free()
+
+var was_colliding := false
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var contact_count: int = state.get_contact_count()
+	var is_colliding = contact_count > 0
+	if was_colliding and not is_colliding:
+		invincible_time = 0.5
+	
+	was_colliding = is_colliding
+	
+	if not ItemResource.is_potion(item_type) or invincible_time > 0: return
+
+	if is_picked_up and pickup_time < pickup_time_break_threshold:
+		return
+	
+	var threshold = get_break_threshold()
+	#print("Pickup: %s, time: %s, speed: %s, collision: %s, hit: %s" % [is_picked_up, pickup_time, state.linear_velocity.length(), contact_count, item_node.is_hitting_enemy()])
+
+	if shooting and item_node.is_hitting_enemy():
+		_break_potion()
+		return
+	
+	for i in range(contact_count):
+		var impulse_vec := state.get_contact_impulse(i)
+		if impulse_vec.length() > threshold:
+			_break_potion()
+			break
+		
+		if state.linear_velocity.length() > threshold:
+			_break_potion()
+			break
+
+func get_break_threshold():
+	var threshold = break_force_threshold
+	if item_type == ItemResource.Type.POTION_EMPTY:
+		threshold *= 2
+
+	if item_node and item_node is Potion and (item_node as Potion).is_hitting_enemy():
+		threshold /= 2
+
+	return threshold;
