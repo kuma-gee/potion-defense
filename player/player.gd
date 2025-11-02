@@ -2,11 +2,13 @@ class_name Player
 extends CharacterBody3D
 
 const GROUP = "player"
+const StatusEffectManager = preload("res://potion/effect/status_effect_manager.gd")
 
 signal died()
 signal knocked_back(force)
 
 @export var rotation_speed = 10.0
+@export var status_effect_manager: StatusEffectManager
 
 @onready var player_animation: AnimationTree = $PlayerAnimation
 @onready var body: Node3D = $BodyRoot
@@ -26,6 +28,11 @@ var health := 5:
 func _ready() -> void:
 	add_to_group(GROUP)
 	died.connect(func(): state_machine.change_state(dead))
+	
+	# Create StatusEffectManager if not assigned
+	if not status_effect_manager:
+		status_effect_manager = StatusEffectManager.new()
+		add_child(status_effect_manager)
 
 func is_dead():
 	return health <= 0

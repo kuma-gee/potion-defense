@@ -19,3 +19,6 @@ func hit(dmg: int, knockback = Vector3.ZERO):
 	
 	if knockback:
 		knockbacked.emit(knockback)
+
+func is_dead():
+	return health <= 0

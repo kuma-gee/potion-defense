@@ -39,6 +39,7 @@ func _physics_process(delta: float) -> void:
 		
 	if invincible_time > 0:
 		invincible_time -= delta
+		print(invincible_time)
 	
 func _handle_scroll_input() -> void:
 	if not holder: return
@@ -64,6 +65,9 @@ func _create_item_visual() -> void:
 		push_warning("No scene defined for item type: %s" % ItemResource.build_name(item_type))
 
 func interact(actor: Node3D) -> void:
+	pickup_by(actor)
+	
+func pickup_by(actor: Node3D) -> void:
 	if is_picked_up:
 		return
 	
@@ -124,6 +128,10 @@ func _update_held_physics(delta: float) -> void:
 	# Smoothly rotate to zero rotation
 	rotation = rotation.lerp(Vector3.ZERO, rotation_smoothness * delta)
 
+func shoot():
+	shooting = true
+	invincible_time = 0.1
+
 func can_pickup() -> bool:
 	return not is_picked_up
 
@@ -178,11 +186,6 @@ var was_colliding := false
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var contact_count: int = state.get_contact_count()
-	var is_colliding = contact_count > 0
-	if was_colliding and not is_colliding:
-		invincible_time = 0.5
-	
-	was_colliding = is_colliding
 	
 	if not ItemResource.is_potion(item_type) or invincible_time > 0: return
 

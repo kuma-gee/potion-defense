@@ -80,7 +80,7 @@ func _on_projectile_fired(force: float) -> void:
 	
 	var direction = aiming_system.get_throw_direction()
 	potion.apply_central_impulse(direction.normalized() * force)
-	potion.shooting = true
+	potion.shoot()
 	potion = null
 
 func _on_aiming_cancelled() -> void:

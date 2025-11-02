@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0w5c27p08lp6"]
+[gd_scene load_steps=11 format=3 uid="uid://d0w5c27p08lp6"]
 
 [ext_resource type="PackedScene" uid="uid://csgnjx147ai2w" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Warrior.glb" id="1_22bvo"]
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_x44yb"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="3_a31gv"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_b0un1"]
+[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status_effect_manager.gd" id="5_k76b1"]
+[ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_gvykr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a31gv"]
 size = Vector3(1, 1, 0.56640625)
@@ -15,9 +17,13 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6edpb"]
+viewport_path = NodePath("Status/SubViewport")
+
+[node name="Warrior" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_x44yb")
+speed = 2.5
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Warrior/HitBox")
 animation_player = NodePath("Skeleton_Warrior/AnimationPlayer")
@@ -129,7 +135,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
 shape = SubResource("BoxShape3D_a31gv")
 
 [node name="HurtBox" type="Area3D" parent="."]
-visible = false
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("4_b0un1")
@@ -141,5 +146,16 @@ shape = SubResource("CapsuleShape3D_a31gv")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8600464, -0.103174105)
 shape = SubResource("CylinderShape3D_b0un1")
+
+[node name="StatusEffectManager" type="Node" parent="."]
+script = ExtResource("5_k76b1")
+metadata/_custom_type_script = "uid://bn80he875obc8"
+
+[node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_gvykr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
+texture = SubResource("ViewportTexture_6edpb")
+status_manager = NodePath("../StatusEffectManager")
+
+[connection signal="hit" from="." to="Skeleton_Warrior/HitBox" method="hit"]
 
 [editable path="Skeleton_Warrior"]

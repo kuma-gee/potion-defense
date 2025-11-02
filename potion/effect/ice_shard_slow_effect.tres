@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FreezeEffect" load_steps=2 format=3 uid="uid://s3xs8moxxs1k"]
+
+[ext_resource type="Script" uid="uid://lwbhlqabwjhg" path="res://potion/effect/freeze_effect.gd" id="1_e0nfk"]
+
+[resource]
+script = ExtResource("1_e0nfk")
+slow_multiplier = 0.0
+metadata/_custom_type_script = "uid://lwbhlqabwjhg"

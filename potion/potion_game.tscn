@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
 [ext_resource type="PackedScene" uid="uid://d0305dj7tcnuc" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_1.gltf" id="2_174p6"]
-[ext_resource type="PackedScene" uid="uid://d0w5c27p08lp6" path="res://potion/enemy/enemy.tscn" id="2_vaceq"]
+[ext_resource type="PackedScene" uid="uid://dwepgd5dhngl5" path="res://potion/enemy/mage.tscn" id="3_atkst"]
 [ext_resource type="PackedScene" uid="uid://d2o0g25w8c8la" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_2.gltf" id="3_po1gq"]
 [ext_resource type="PackedScene" uid="uid://0bxr3phl6apo" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_3.gltf" id="4_6xdoe"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="4_qliwp"]
@@ -26,7 +26,7 @@
 script = ExtResource("19_fqivl")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 wave_label = NodePath("../CanvasLayer/Wave")
-wave_enemy_resources = Array[PackedScene]([ExtResource("2_vaceq")])
+wave_enemy_resources = Array[PackedScene]([ExtResource("3_atkst")])
 lanes = [NodePath("../Lanes/Lane"), NodePath("../Lanes/Lane2"), NodePath("../Lanes/Lane3"), NodePath("../Lanes/Lane4")]
 spawn_timer = NodePath("SpawnTimer")
 wave_break_timer = NodePath("WaveBreakTimer")
@@ -353,11 +353,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.712775)
 offset_right = 1.0
 offset_bottom = 23.0
 text = "Wave"
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011, 4.739, 14.227)
-size = Vector3(0.2, 0.2, 0.2)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, -0.771, 0.45)
-size = Vector3(0.2, 0.2, 0.2)

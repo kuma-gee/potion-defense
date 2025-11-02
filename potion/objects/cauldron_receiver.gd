@@ -53,7 +53,6 @@ func handle_released(_actor: Node) -> void:
 
 func _process(delta: float) -> void:
 	if mixing > 0:
-		print("Mixing: %s" % time)
 		time += delta
 		required_time = mix_item_per_item * items.size()
 		

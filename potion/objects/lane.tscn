@@ -42,6 +42,7 @@ albedo_color = Color(1, 1, 0, 1)
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_lane_receiver")
+spawn_distance = 25
 hurt_box = NodePath("Hurtbox")
 aiming_system = NodePath("TrajectoryAimingSystem")
 snap_offset = Vector3(0, 0.5, 0)
@@ -78,7 +79,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8475059, -0.22905588)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("4_utd16")
-max_health = 50
+max_health = 100
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("BoxShape3D_fyuo5")

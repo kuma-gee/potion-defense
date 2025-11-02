@@ -69,6 +69,7 @@ func _process_pickupable(pickupable: Pickupable) -> void:
 	# Snap to position if enabled
 	if snap_to_center:
 		pickupable.global_position = global_position + snap_offset
+		pickupable.global_rotation = Vector3.ZERO
 		pickupable.linear_velocity = Vector3.ZERO
 		pickupable.angular_velocity = Vector3.ZERO
 	

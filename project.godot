@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="magical-arena"
-run/main_scene="uid://dc2tq0tljgm6v"
+run/main_scene="uid://bquyk6n7heynp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,7 +21,7 @@ UpgradeManager="*res://upgrades/upgrade_manager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PolyHavenImport/plugin.cfg")
+enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/PolyHavenImport/plugin.cfg")
 
 [global_group]
 

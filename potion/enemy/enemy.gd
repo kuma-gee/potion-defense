@@ -1,8 +1,12 @@
 class_name Enemy
 extends CharacterBody3D
 
+signal hit()
+
 @export var speed := 3.0
 @export var attack_anims: Array[String] = []
+@export var run_anim := "Running_A"
+@export var death_anim := "Death_C_Skeletons"
 @export var hit_box: HitBox
 @export var animation_player: AnimationPlayer
 @export var hurt_box: HurtBox
@@ -13,16 +17,22 @@ var is_attacking := false
 var knockback: Vector3
 
 func _ready() -> void:
-	animation_player.animation_finished.connect(func(_a):
-		hit_box.hit()
-		is_attacking = false
+	animation_player.animation_finished.connect(func(a):
+		if a == death_anim:
+			get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
+			return
+		
+		if a in attack_anims:
+			hit.emit()
+			is_attacking = false
 	)
 	hurt_box.knockbacked.connect(func(x): knockback = x)
-	hurt_box.died.connect(func():
-		queue_free()
-	)
-
+	hurt_box.died.connect(func(): animation_player.play(death_anim))
+	
 func _physics_process(delta: float) -> void:
+	if hurt_box.is_dead():
+		return
+	
 	# Apply knockback if present
 	var has_knockback = knockback.length() > 0.01
 	if has_knockback:
@@ -43,4 +53,4 @@ func _physics_process(delta: float) -> void:
 	var dir = -global_basis.z.normalized()
 	velocity = dir * speed
 	move_and_slide()
-	animation_player.play("Running_A")
+	animation_player.play(run_anim)

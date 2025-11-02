@@ -2,6 +2,7 @@
 class_name PlayParticleSystems
 extends Node3D
 
+@export var on_spawn := false
 @export var play_particles: bool = false: 
 	set(value):
 		if value:
@@ -17,14 +18,25 @@ extends Node3D
 		if value:
 			delays.clear()
 		cleanDelays = false
+@export var cleanup_after := 1.0
 
 var particle_systems: Array
 var running := false
 
+func _ready() -> void:
+	if on_spawn:
+		play()
+
 func play():
 	if running: return
 	play_particles = true
-
+	
+	var max_delay = 0.0
+	for d in delays.values():
+		if d > max_delay:
+			max_delay = d
+	
+	get_tree().create_timer(max_delay + cleanup_after).timeout.connect(func(): queue_free())
 
 func _find_particles():
 	particle_systems.clear()  # Always clear and re-detect

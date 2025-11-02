@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp3cr67lwt4i0"]
+
+[ext_resource type="Script" uid="uid://cbdkf46hrplhg" path="res://potion/enemy/status.gd" id="1_lp21h"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lp21h"]
+viewport_path = NodePath("Status/SubViewport")
+
+[node name="StatusRoot" type="Node3D" node_paths=PackedStringArray("container")]
+script = ExtResource("1_lp21h")
+container = NodePath("Status/SubViewport/CenterContainer/VBoxContainer")
+
+[node name="Status" type="Sprite3D" parent="."]
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = SubResource("ViewportTexture_lp21h")
+
+[node name="SubViewport" type="SubViewport" parent="Status"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="CenterContainer" type="CenterContainer" parent="Status/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Status/SubViewport/CenterContainer"]
+layout_mode = 2
