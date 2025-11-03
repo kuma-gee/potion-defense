@@ -1,23 +1,30 @@
 class_name WaveManager
 extends Node
 
+signal game_over()
 signal wave_started()
 signal wave_completed()
 
 @export var enemy_spawn_root: Node3D
 @export var wave_label: Label
+@export var ready_button: Button
 
 @export_category("Wave Settings")
 @export var base_enemies_per_wave: int = 5
 @export var enemies_increment_per_wave: int = 2
-@export var wave_break_duration: float = 3.0
-@export var spawn_interval: float = 1.0
+@export var base_groups_per_wave: int = 3
+@export var groups_increment_per_wave: int = 1
+@export var max_groups_per_wave: int = 8
+@export var group_spawn_interval_min: float = 5.0
+@export var group_spawn_interval_max: float = 15.0
+@export var spawn_interval_within_group: float = 0.5
+@export var final_wave_group_delay: float = 3.0
 
 @export_category("Enemy Resources")
 @export var wave_enemy_resources: Array[PackedScene] = []
 @export var lanes: Array[LaneReceiver] = []
 @export var spawn_timer: Timer
-@export var wave_break_timer: Timer
+@export var group_timer: Timer
 
 var enemies_to_spawn: int = 0
 var enemies_spawned_this_wave: int = 0:
@@ -33,52 +40,126 @@ var current_wave: int = 0:
 
 var active_enemies: Array[Node3D] = []
 var is_wave_active: bool = false
+var is_spawning_group: bool = false
+var groups_to_spawn: int = 0
+var groups_spawned: int = 0
+var enemies_in_current_group: int = 0
+var enemies_spawned_in_group: int = 0
+var is_final_group: bool = false
+var waiting_for_ready: bool = true
 
 func _ready() -> void:
-	wave_break_timer.timeout.connect(func(): start_wave())
 	spawn_timer.timeout.connect(_on_spawn_enemy)
+	group_timer.timeout.connect(_on_spawn_group)
+	
+	if ready_button:
+		ready_button.pressed.connect(_on_ready_button_pressed)
+		ready_button.text = "Start Wave 1"
+		ready_button.show()
 	
 	# Connect to enemy spawn root to track enemies
 	if enemy_spawn_root:
 		enemy_spawn_root.child_entered_tree.connect(_on_enemy_entered_tree)
 
 	for lane in lanes:
-		lane.destroyed.connect(func(): lanes.erase(lane))
+		lane.destroyed.connect(func():
+			lanes.erase(lane)
+			if lanes.is_empty():
+				game_over.emit()
+		)
 
 func _process(_delta: float) -> void:
-	if wave_break_timer.is_stopped(): return
-	wave_label.text = "%.2fs" % wave_break_timer.time_left
+	if waiting_for_ready:
+		return
+	
+	_update_wave_label()
 
 func _update_wave_label():
-	if wave_break_timer.is_stopped():
-		wave_label.text = "Wave %s - %s / %s" % [current_wave, enemies_spawned_this_wave, enemies_to_spawn]
+	if waiting_for_ready:
+		wave_label.text = "Ready for Wave %s" % (current_wave + 1)
+	elif is_wave_active:
+		var group_text = "Group %s/%s" % [groups_spawned, groups_to_spawn]
+		if is_final_group:
+			group_text = "Final Wave!"
+		wave_label.text = "Wave %s - %s - %s/%s enemies" % [current_wave, group_text, enemies_spawned_this_wave, enemies_to_spawn]
+	else:
+		wave_label.text = "Wave %s Complete!" % current_wave
+
+func _on_ready_button_pressed() -> void:
+	if waiting_for_ready:
+		start_wave()
 
 func start_wave() -> void:
-	# Calculate enemies for this wave
-	enemies_to_spawn = base_enemies_per_wave + (current_wave - 1) * enemies_increment_per_wave
-	enemies_spawned_this_wave = 0
-	enemies_killed_this_wave = 0
-	active_enemies.clear()
-	is_wave_active = true
+	waiting_for_ready = false
+	
+	if ready_button:
+		ready_button.hide()
+	
 	current_wave += 1
 	
-	print("Starting Wave %d with %d enemies" % [current_wave, enemies_to_spawn])
+	# Calculate groups and enemies for this wave
+	groups_to_spawn = min(base_groups_per_wave + (current_wave - 1) * groups_increment_per_wave, max_groups_per_wave)
+	enemies_to_spawn = base_enemies_per_wave + (current_wave - 1) * enemies_increment_per_wave
+	
+	enemies_spawned_this_wave = 0
+	enemies_killed_this_wave = 0
+	groups_spawned = 0
+	active_enemies.clear()
+	is_wave_active = true
+	is_final_group = false
+	
+	print("Starting Wave %d with %d enemies in %d groups" % [current_wave, enemies_to_spawn, groups_to_spawn])
 	wave_started.emit(current_wave, enemies_to_spawn)
 	
-	# Start spawning enemies
-	spawn_timer.wait_time = spawn_interval
-	spawn_timer.start()
+	# Start spawning first group immediately
+	_spawn_next_group()
 
 func stop_wave() -> void:
 	is_wave_active = false
 	spawn_timer.stop()
+	group_timer.stop()
+	is_spawning_group = false
+	waiting_for_ready = true
 	
 	_clear_all_enemies()
 	print("Wave system stopped")
+	
+	if ready_button:
+		ready_button.text = "Start Wave %s" % (current_wave + 1)
+		ready_button.show()
+
+func _spawn_next_group() -> void:
+	if groups_spawned >= groups_to_spawn:
+		return
+	
+	groups_spawned += 1
+	is_final_group = (groups_spawned == groups_to_spawn)
+	
+	# Calculate enemies for this group
+	var remaining_enemies = enemies_to_spawn - enemies_spawned_this_wave
+	var remaining_groups = groups_to_spawn - groups_spawned + 1
+	enemies_in_current_group = max(1, int(float(remaining_enemies) / float(remaining_groups)))
+	enemies_spawned_in_group = 0
+	
+	print("Spawning group %d/%d with ~%d enemies (Wave %d)" % [groups_spawned, groups_to_spawn, enemies_in_current_group, current_wave])
+	
+	# Start spawning enemies in this group
+	is_spawning_group = true
+	spawn_timer.wait_time = spawn_interval_within_group
+	spawn_timer.start()
+
+func _on_spawn_group() -> void:
+	if is_wave_active and groups_spawned < groups_to_spawn:
+		_spawn_next_group()
 
 func _on_spawn_enemy() -> void:
-	if not is_wave_active or enemies_spawned_this_wave >= enemies_to_spawn:
+	if not is_wave_active or not is_spawning_group:
 		spawn_timer.stop()
+		return
+	
+	if enemies_spawned_this_wave >= enemies_to_spawn:
+		spawn_timer.stop()
+		is_spawning_group = false
 		return
 	
 	if not enemy_spawn_root or wave_enemy_resources.is_empty():
@@ -104,7 +185,21 @@ func _on_spawn_enemy() -> void:
 	lane.enemies.append(enemy_instance)
 	enemy_spawn_root.add_child(enemy_instance)
 	enemies_spawned_this_wave += 1
-	print("Spawned enemy %d/%d for Wave %d" % [enemies_spawned_this_wave, enemies_to_spawn, current_wave])
+	enemies_spawned_in_group += 1
+	
+	print("Spawned enemy %d/%d (Group %d/%d, Wave %d)" % [enemies_spawned_this_wave, enemies_to_spawn, groups_spawned, groups_to_spawn, current_wave])
+	
+	# Check if current group is complete
+	if enemies_spawned_in_group >= enemies_in_current_group or enemies_spawned_this_wave >= enemies_to_spawn:
+		spawn_timer.stop()
+		is_spawning_group = false
+		
+		# Schedule next group if not the last one
+		if groups_spawned < groups_to_spawn and enemies_spawned_this_wave < enemies_to_spawn:
+			var delay = final_wave_group_delay if is_final_group else randf_range(group_spawn_interval_min, group_spawn_interval_max)
+			group_timer.wait_time = delay
+			group_timer.start()
+			print("Next group in %.1fs" % delay)
 
 func _on_enemy_entered_tree(enemy: Node) -> void:
 	if enemy is Node3D and is_wave_active:
@@ -140,10 +235,18 @@ func _on_enemy_removed(enemy: Node3D) -> void:
 func _on_wave_completed() -> void:
 	is_wave_active = false
 	spawn_timer.stop()
+	group_timer.stop()
+	is_spawning_group = false
+	waiting_for_ready = true
 	
 	print("Wave %d completed! Killed %d/%d enemies" % [current_wave, enemies_killed_this_wave, enemies_to_spawn])
 	wave_completed.emit(current_wave, enemies_killed_this_wave)
-	wave_break_timer.start()
+	
+	if ready_button:
+		ready_button.text = "Start Wave %s" % (current_wave + 1)
+		ready_button.show()
+	
+	_update_wave_label()
 
 func _clear_all_enemies() -> void:
 	"""Remove all active enemies"""

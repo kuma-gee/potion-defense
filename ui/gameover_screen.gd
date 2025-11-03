@@ -1,5 +1,5 @@
 class_name GameoverScreen
-extends ColorRect
+extends Control
 
 @export var restart_btn: Button
 
