@@ -38,8 +38,6 @@ func handle_interacted(actor: Node) -> void:
 	
 	if actor is FPSPlayer:
 		var player := actor as FPSPlayer
-		# Items are now handled automatically via ItemReceiver
-		# This is just for the mixing interaction
 		if not player.has_item() and mixing <= 0:
 			mixing_player = player
 			mixing += 1

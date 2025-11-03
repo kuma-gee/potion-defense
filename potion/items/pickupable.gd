@@ -4,6 +4,7 @@ extends RigidBody3D
 signal picked_up(item_type: ItemResource.Type, by: Node3D)
 
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
+@export var use_physics: bool = true
 @export var min_hold_distance: float = 1.0
 @export var max_hold_distance: float = 3.0
 @export var hold_scroll_speed: float = 0.2
@@ -22,10 +23,14 @@ var target_position: Vector3 = Vector3.ZERO
 var pickup_time := 0.0
 var invincible_time := 0.0
 var shooting := false
+var original_collision_layer: int = 0
+var original_collision_mask: int = 0
 
 func _ready() -> void:
 	_create_item_visual()
 	hold_distance = clamp(hold_distance, min_hold_distance, max_hold_distance)
+	original_collision_layer = collision_layer
+	original_collision_mask = collision_mask
 
 func _physics_process(delta: float) -> void:
 	if is_picked_up and holder:
@@ -75,6 +80,10 @@ func pickup_by(actor: Node3D) -> void:
 	is_picked_up = true
 	holder = actor
 	
+	# Disable collision layers
+	collision_layer = 0
+	collision_mask = 0
+	
 	# Disable collision with the holder
 	if actor is CharacterBody3D or actor is RigidBody3D:
 		add_collision_exception_with(actor)
@@ -91,6 +100,10 @@ func drop() -> void:
 		return
 	
 	is_picked_up = false
+	
+	# Re-enable collision layers
+	collision_layer = original_collision_layer
+	collision_mask = original_collision_mask
 	
 	# Re-enable collision
 	if holder and (holder is CharacterBody3D or holder is RigidBody3D):
@@ -112,21 +125,28 @@ func _update_held_physics(delta: float) -> void:
 	else:
 		target_position = holder.global_position + (-holder.global_transform.basis.z * hold_distance)
 	
-	# Calculate force to pull item to target position
-	var direction = target_position - global_position
-	var distance = direction.length()
-	
-	# Apply force with drag
-	var force = direction.normalized() * follow_strength * distance
-	var drag = linear_velocity * drag_factor
-	
-	linear_velocity += (force - drag) * delta
-	
-	# Dampen rotation
-	angular_velocity = angular_velocity.lerp(Vector3.ZERO, rotation_damping * delta)
-	
-	# Smoothly rotate to zero rotation
-	rotation = rotation.lerp(Vector3.ZERO, rotation_smoothness * delta)
+	if use_physics:
+		# Physics-based movement
+		var direction = target_position - global_position
+		var distance = direction.length()
+		
+		# Apply force with drag
+		var force = direction.normalized() * follow_strength * distance
+		var drag = linear_velocity * drag_factor
+		
+		linear_velocity += (force - drag) * delta
+		
+		# Dampen rotation
+		angular_velocity = angular_velocity.lerp(Vector3.ZERO, rotation_damping * delta)
+		
+		# Smoothly rotate to zero rotation
+		rotation = rotation.lerp(Vector3.ZERO, rotation_smoothness * delta)
+	else:
+		# Direct snappy movement
+		global_position = global_position.lerp(target_position, 20.0 * delta)
+		global_rotation = global_rotation.lerp(Vector3.ZERO, 15.0 * delta)
+		linear_velocity = Vector3.ZERO
+		angular_velocity = Vector3.ZERO
 
 func shoot():
 	shooting = true

@@ -63,7 +63,6 @@ func _update_liquid_color() -> void:
 		material.emission_enabled = false
 
 func on_hit() -> void:
-	# Spawn visual effect
 	var scene = EFFECT_SCENES.get(potion_type, null)
 	if scene:
 		var node = scene.instantiate()
@@ -71,25 +70,3 @@ func on_hit() -> void:
 		get_tree().current_scene.add_child(node)
 
 	hit.emit()
-
-func _spawn_status_effect_area() -> void:
-	if potion_type == ItemResource.Type.POTION_EMPTY:
-		return
-	
-	var hit_area_node = PotionHitArea.new()
-	hit_area_node.potion_type = potion_type
-	hit_area_node.global_position = global_position
-	hit_area_node.lifetime = 0.5
-	
-	# Add collision shape for the hit detection area
-	var collision_shape = CollisionShape3D.new()
-	var sphere_shape = SphereShape3D.new()
-	sphere_shape.radius = 2.0  # Adjust based on potion effect
-	collision_shape.shape = sphere_shape
-	hit_area_node.add_child(collision_shape)
-	
-	# Set collision layers for enemy/player detection
-	hit_area_node.collision_layer = 0
-	hit_area_node.collision_mask = 0b0011  # Detect layers 1 and 2 (player and enemy)
-	
-	get_tree().current_scene.add_child(hit_area_node)
