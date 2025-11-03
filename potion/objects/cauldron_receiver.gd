@@ -32,17 +32,20 @@ func handle_hovered(actor: Node) -> void:
 		current_hovering_player = actor
 		_update_label(actor)
 
-func handle_interacted(actor: Node) -> void:
-	if mixing > 0:
-		return
-	
-	if actor is FPSPlayer:
-		var player := actor as FPSPlayer
-		if not player.has_item() and mixing <= 0:
-			mixing_player = player
-			mixing += 1
-			if mixing_player:
-				mixing_player.freeze_player()
+func handle_interacted(actor: FPSPlayer) -> void:
+	if mixing > 0: return
+	if not actor: return
+
+	if actor.has_item():
+		var pickupable := actor.held_physical_item
+		if pickupable and can_accept_item(pickupable.item_type):
+			if handle_item_received(pickupable.item_type, pickupable):
+				actor.release_physical_item().queue_free()
+	else:
+		mixing_player = actor
+		mixing += 1
+		if mixing_player:
+			mixing_player.freeze_player()
 
 func handle_released(_actor: Node) -> void:
 	mixing -= 1

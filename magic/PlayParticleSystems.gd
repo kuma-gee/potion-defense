@@ -24,7 +24,7 @@ var particle_systems: Array
 var running := false
 
 func _ready() -> void:
-	if on_spawn:
+	if on_spawn and not Engine.is_editor_hint():
 		play()
 
 func play():

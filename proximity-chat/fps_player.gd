@@ -115,10 +115,12 @@ func pickup_item(pickupable: Pickupable) -> void:
 func has_item() -> bool:
 	return held_physical_item != null
 
-func release_physical_item() -> void:
+func release_physical_item():
+	var item = held_physical_item
 	if held_physical_item:
 		held_physical_item.drop()
 		held_physical_item = null
+	return item
 
 func freeze_player() -> void:
 	is_frozen = true

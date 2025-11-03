@@ -14,7 +14,6 @@ radius = 1.8132439
 [node name="FrostArea" type="Node3D"]
 
 [node name="BlueBeamImpact" parent="." instance=ExtResource("1_wa712")]
-on_spawn = true
 
 [node name="HitBox" type="Area3D" parent="."]
 collision_layer = 0

@@ -422,7 +422,6 @@ color_ramp = SubResource("GradientTexture1D_bjukh")
 alpha_curve = SubResource("CurveTexture_2mp5q")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6p4q2"]
-load_path = "res://.godot/imported/ImpactMark01.png-850d8897f19f6ee6e5a3b50197d4eac9.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vpcs"]
 render_priority = -1
@@ -489,6 +488,7 @@ delays = {
 [node name="OuterRing" type="GPUParticles3D" parent="."]
 visible = false
 material_override = SubResource("ShaderMaterial_u0anr")
+emitting = false
 amount = 1
 lifetime = 2.0
 one_shot = true
@@ -589,6 +589,7 @@ draw_pass_1 = ExtResource("12_5xh20")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_6p4q2")
+emitting = false
 amount = 1
 lifetime = 1.89
 one_shot = true
@@ -600,6 +601,7 @@ draw_pass_1 = SubResource("QuadMesh_nb1nt")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_1vpcs")
+emitting = false
 amount = 1
 lifetime = 4.5
 one_shot = true
@@ -611,6 +613,7 @@ draw_pass_1 = SubResource("QuadMesh_nb1nt")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_mqgew")
+emitting = false
 amount = 1
 lifetime = 6.0
 one_shot = true

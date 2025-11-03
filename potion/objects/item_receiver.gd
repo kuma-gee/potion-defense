@@ -13,20 +13,20 @@ signal item_rejected(item_type: ItemResource.Type, pickupable: Pickupable)
 
 func _ready() -> void:
 	super()
-	body_entered.connect(_on_body_entered)
-	interacted.connect(_on_interacted)
+	#body_entered.connect(_on_body_entered)
+	# interacted.connect(_on_interacted)
 
-func _on_interacted(actor: Node) -> void:
-	if not accept_held_items:
-		return
+# func _on_interacted(actor: Node) -> void:
+# 	if not accept_held_items:
+# 		return
 	
-	if actor is FPSPlayer:
-		var player := actor as FPSPlayer
-		if player.held_physical_item:
-			var pickupable := player.held_physical_item
+# 	if actor is FPSPlayer:
+# 		var player := actor as FPSPlayer
+# 		if player.held_physical_item:
+# 			var pickupable := player.held_physical_item
 			
-			if _should_accept_pickupable(pickupable):
-				_process_pickupable(pickupable)
+# 			if _should_accept_pickupable(pickupable):
+# 				_process_pickupable(pickupable)
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Pickupable:

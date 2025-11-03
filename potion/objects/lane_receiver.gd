@@ -7,6 +7,7 @@ signal destroyed()
 @export var spawn_distance := 50
 @export var hurt_box: HurtBox
 @export var aiming_system: TrajectoryAimingSystem
+@export var shoot_force: float = 20.0
 
 var potion: Pickupable
 var enemies = []
@@ -61,13 +62,29 @@ func handle_hovered(_actor: Node) -> void:
 		else:
 			label.text = ""
 
-func handle_interacted(_actor: Node) -> void:
-	if potion != null and aiming_system and not aiming_system.is_aiming:
-		aiming_system.start_aiming(potion)
+func handle_interacted(actor: FPSPlayer) -> void:
+	if potion != null:
+		_shoot_potion_straight(actor)
+	elif actor and actor.has_item():
+		var player := actor as FPSPlayer
+		if _can_place_potion(player):
+			var pickupable := player.held_physical_item
+			if pickupable and can_accept_item(pickupable.item_type):
+				handle_item_received(pickupable.item_type, pickupable)
+				player.release_physical_item()
+
+func _physics_process(delta: float) -> void:
+	if potion:
+		_snap_center(potion)
+
+func _snap_center(pickupable: RigidBody3D):
+	pickupable.global_position = global_position + Vector3.UP
+	pickupable.global_rotation = Vector3.ZERO
+	pickupable.linear_velocity = Vector3.ZERO
+	pickupable.angular_velocity = Vector3.ZERO
 
 func handle_released(_actor: Node) -> void:
-	if aiming_system:
-		aiming_system.check_fire_on_release()
+	pass
 
 func _on_force_changed(_force: float) -> void:
 	if label and aiming_system:
@@ -86,6 +103,21 @@ func _on_projectile_fired(force: float) -> void:
 func _on_aiming_cancelled() -> void:
 	if label:
 		label.text = "Shoot" if potion != null else ""
+
+func _shoot_potion_straight(_actor: Node) -> void:
+	if not potion:
+		return
+	
+	var shoot_direction := global_transform.basis.z
+	
+	# if _actor is FPSPlayer:
+	# 	var player := _actor as FPSPlayer
+	# 	if player.camera:
+	# 		shoot_direction = -player.camera.global_transform.basis.z
+	
+	potion.apply_central_impulse(shoot_direction.normalized() * shoot_force)
+	potion.shoot()
+	potion = null
 
 func _can_place_potion(player: FPSPlayer) -> bool:
 	if not player.has_item():

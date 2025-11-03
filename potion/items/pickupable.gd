@@ -73,10 +73,10 @@ func interact(actor: Node3D) -> void:
 	pickup_by(actor)
 	
 func pickup_by(actor: Node3D) -> void:
-	if is_picked_up:
+	if is_picked_up or shooting:
 		return
 	
-	shooting = false
+	# shooting = false
 	is_picked_up = true
 	holder = actor
 	
@@ -105,7 +105,7 @@ func drop() -> void:
 	collision_layer = original_collision_layer
 	collision_mask = original_collision_mask
 	
-	# Re-enable collision
+	# Re-enable collision 
 	if holder and (holder is CharacterBody3D or holder is RigidBody3D):
 		remove_collision_exception_with(holder)
 	
@@ -151,6 +151,7 @@ func _update_held_physics(delta: float) -> void:
 func shoot():
 	shooting = true
 	invincible_time = 0.1
+	gravity_scale = 0.0
 
 func can_pickup() -> bool:
 	return not is_picked_up

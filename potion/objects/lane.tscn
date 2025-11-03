@@ -61,12 +61,6 @@ billboard = 1
 no_depth_test = true
 text = "Load"
 
-[node name="TrajectoryAimingSystem" type="Marker3D" parent="." node_paths=PackedStringArray("impact_indicator", "trajectory_node")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8560338, 0)
-script = ExtResource("3_trajectory")
-impact_indicator = NodePath("../ImpactIndicator")
-trajectory_node = NodePath("../Trajectory")
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0
 
@@ -112,12 +106,21 @@ show_percentage = false
 script = ExtResource("5_85vib")
 hurt_box = NodePath("../../../../Hurtbox")
 
+[node name="TrajectoryAimingSystem" type="Marker3D" parent="." node_paths=PackedStringArray("impact_indicator", "trajectory_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8560338, 0)
+visible = false
+script = ExtResource("3_trajectory")
+impact_indicator = NodePath("../ImpactIndicator")
+trajectory_node = NodePath("../Trajectory")
+
 [node name="ImpactIndicator" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_5t2j1")
 cast_shadow = 0
 mesh = SubResource("QuadMesh_85vib")
 
 [node name="Trajectory" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_67lsy")
 cast_shadow = 0
 mesh = SubResource("ImmediateMesh_67lsy")
