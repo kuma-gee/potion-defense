@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=22 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
 [ext_resource type="PackedScene" uid="uid://d0305dj7tcnuc" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_1.gltf" id="2_174p6"]
 [ext_resource type="PackedScene" uid="uid://dwepgd5dhngl5" path="res://potion/enemy/mage.tscn" id="3_atkst"]
+[ext_resource type="PackedScene" uid="uid://jmryrw5iwdq5" path="res://potion/enemy/rogue.tscn" id="3_ev7ur"]
 [ext_resource type="PackedScene" uid="uid://d2o0g25w8c8la" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_2.gltf" id="3_po1gq"]
 [ext_resource type="PackedScene" uid="uid://0bxr3phl6apo" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_3.gltf" id="4_6xdoe"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="4_qliwp"]
@@ -28,15 +29,15 @@ script = ExtResource("19_fqivl")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 wave_label = NodePath("../CanvasLayer/Wave")
 ready_button = NodePath("../CanvasLayer/Control/Ready")
-wave_enemy_resources = Array[PackedScene]([ExtResource("3_atkst")])
+wave_enemy_resources = Array[PackedScene]([ExtResource("3_atkst"), ExtResource("3_ev7ur"), null, null])
 lanes = [NodePath("../Lanes/Lane"), NodePath("../Lanes/Lane2"), NodePath("../Lanes/Lane3"), NodePath("../Lanes/Lane4")]
 spawn_timer = NodePath("SpawnTimer")
-group_timer = NodePath("WaveBreakTimer")
+group_timer = NodePath("EnemyGroupTimer")
 metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
 
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
-[node name="WaveBreakTimer" type="Timer" parent="WaveManager"]
+[node name="EnemyGroupTimer" type="Timer" parent="WaveManager"]
 wait_time = 10.0
 one_shot = true
 
@@ -162,10 +163,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.631706, 0, -4.4636407)
 
 [node name="Chest" parent="." instance=ExtResource("8_domfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -0.8844453)
-
-[node name="Chest5" parent="." instance=ExtResource("8_domfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4258847, 0, -2.367082)
-item = 8
 
 [node name="Chest2" parent="." instance=ExtResource("8_domfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -1.8844453)
@@ -413,5 +410,20 @@ offset_top = 16.0
 offset_right = 24.0
 offset_bottom = 24.0
 text = "Ready"
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/CenterContainer"]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/PanelContainer"]
+layout_mode = 2
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]

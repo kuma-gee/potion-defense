@@ -24,14 +24,13 @@ func can_accept_item(item_type: ItemResource.Type) -> bool:
 	# Only accept ingredients, not potions
 	return not ItemResource.is_potion(item_type) and not ItemResource.is_empty_potion(item_type)
 
-func handle_item_received(item_type: ItemResource.Type, pickupable: Pickupable) -> bool:
-	# Add to collection
+func handle_item_received(item_type: ItemResource.Type) -> bool:
 	collected_items.append(item_type)
 	print("Collected ingredient: %s (Total: %d)" % [ItemResource.build_name(item_type), collected_items.size()])
 	return true
 
-func _on_item_received(item_type: ItemResource.Type, _pickupable: Pickupable) -> void:
+func _on_item_received(item_type: ItemResource.Type) -> void:
 	print("Successfully received: %s" % ItemResource.build_name(item_type))
 
-func _on_item_rejected(item_type: ItemResource.Type, _pickupable: Pickupable) -> void:
+func _on_item_rejected(item_type: ItemResource.Type) -> void:
 	print("Rejected item: %s" % ItemResource.build_name(item_type))

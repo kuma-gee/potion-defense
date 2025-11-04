@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbpop2ylo0vfo"]
+[gd_scene load_steps=10 format=3 uid="uid://bbpop2ylo0vfo"]
 
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_rajcq"]
 [ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="2_xjqrh"]
@@ -17,13 +17,9 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xtrx3"]
-viewport_path = NodePath("Status/SubViewport")
-
 [node name="Skeleton" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_rajcq")
-speed = 2.5
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Minion/HitBox")
 animation_player = NodePath("Skeleton_Minion/AnimationPlayer")
@@ -63,7 +59,6 @@ metadata/_custom_type_script = "uid://bn80he875obc8"
 
 [node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_rkmq4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
-texture = SubResource("ViewportTexture_xtrx3")
 status_manager = NodePath("../StatusEffectManager")
 
 [editable path="Skeleton_Minion"]

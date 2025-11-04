@@ -1,9 +1,5 @@
 class_name CauldronReceiver
-extends ItemReceiver
-
-signal potion_filled(potion_type: ItemResource.Type)
-signal ingredient_added(item_type: ItemResource.Type)
-signal potion_added(potion_type: ItemResource.Type)
+extends RayInteractable
 
 @export var mix_item_per_item := 0.5
 @export var potion_amount := 4
@@ -21,7 +17,7 @@ var mixing := 0:
 			_unfreeze_mixing_player()
 
 func _ready() -> void:
-	super()
+	super ()
 	hovered.connect(func(a: Node): handle_hovered(a))
 	unhovered.connect(func(_a: Node): current_hovering_player = null)
 	interacted.connect(func(a: Node): handle_interacted(a))
@@ -32,20 +28,26 @@ func handle_hovered(actor: Node) -> void:
 		current_hovering_player = actor
 		_update_label(actor)
 
-func handle_interacted(actor: FPSPlayer) -> void:
+func handle_interacted(actor: Node) -> void:
 	if mixing > 0: return
-	if not actor: return
+	if not (actor is FPSPlayer): return
+	
+	var player := actor as FPSPlayer
+	
+	if player.has_item():
+		var item = player.release_item()
+		items.append(item)
+		print("Added ingredient to cauldron: %s" % ItemResource.build_name(item))
+	elif not items.is_empty():
+		if _is_only_potions():
+			player.pickup_item(items.pop_back())
+		else:
+			mixing_player = player
+			mixing += 1
+			if mixing_player:
+				mixing_player.freeze_player()
 
-	if actor.has_item():
-		var pickupable := actor.held_physical_item
-		if pickupable and can_accept_item(pickupable.item_type):
-			if handle_item_received(pickupable.item_type, pickupable):
-				actor.release_physical_item().queue_free()
-	else:
-		mixing_player = actor
-		mixing += 1
-		if mixing_player:
-			mixing_player.freeze_player()
+	_update_label(player)
 
 func handle_released(_actor: Node) -> void:
 	mixing -= 1
@@ -64,63 +66,11 @@ func _process(delta: float) -> void:
 			mixing = 0
 			_mix_items()
 
-func can_accept_item(_item_type: ItemResource.Type) -> bool:
-	# Don't accept items while mixing
-	if mixing > 0:
-		return false
-	
-	return true
-
-func _release_item(holder: FPSPlayer, pickupable: Pickupable):
-	if ItemResource.is_potion(pickupable.item_type):
-		return
-	
-	super(holder, pickupable)
-
-func handle_item_received(item_type: ItemResource.Type, pickupable: Pickupable) -> bool:
-	# Handle empty potion bottles (filling)
-	if item_type == ItemResource.Type.POTION_EMPTY:
-		if not items.is_empty() and _is_only_potions():
-			var potion_type = items.pop_back()
-			pickupable.set_item_type(potion_type)
-			#pickupable.linear_velocity = Vector3.UP * 5.0
-			
-			potion_filled.emit(potion_type)
-			_update_label_if_hovering()
-			
-			print("Filled bottle with: %s (%d left)" % [ItemResource.build_name(potion_type), items.size()])
-		return false  # Don't remove the pickupable
-	
-	# Handle potions being put back into cauldron
-	if ItemResource.is_potion(item_type):
-		items.append(item_type)
-		pickupable.set_item_type(ItemResource.Type.POTION_EMPTY)
-		#pickupable.linear_velocity = Vector3.UP * 5.0
-		
-		potion_added.emit(item_type)
-		_update_label_if_hovering()
-		
-		print("Added potion to cauldron: %s" % ItemResource.build_name(item_type))
-		return false  # Don't remove, converted to empty bottle
-	
-	# Handle regular ingredients
-	items.append(item_type)
-	
-	ingredient_added.emit(item_type)
-	_update_label_if_hovering()
-	
-	print("Added ingredient to cauldron: %s" % ItemResource.build_name(item_type))
-	return true  # Remove the pickupable
-
 func _is_only_potions() -> bool:
 	for i in items:
 		if not ItemResource.is_potion(i):
 			return false
 	return true
-
-func _update_label_if_hovering() -> void:
-	if current_hovering_player:
-		_update_label(current_hovering_player)
 
 func _update_label(player: FPSPlayer) -> void:
 	if not label:
@@ -134,18 +84,20 @@ func _update_label(player: FPSPlayer) -> void:
 		return
 	
 	if player.has_item():
-		if player.held_physical_item:
-			var held_item_type = player.held_physical_item.item_type
-			if ItemResource.is_empty_potion(held_item_type):
-				if not items.is_empty() and _is_only_potions():
-					label.text = "Fill (%d left)" % items.size()
-				elif not items.is_empty() and not _is_only_potions():
-					label.text = "Invalid Potion"
-			else:
-				label.text = "Put in"
+		var held_item_type = player.held_item_type as ItemResource.Type
+		if ItemResource.is_empty_potion(held_item_type):
+			if not items.is_empty() and _is_only_potions():
+				label.text = "Fill (%d left)" % items.size()
+			elif not items.is_empty() and not _is_only_potions():
+				label.text = "Invalid Potion"
+		else:
+			label.text = "Put in"
 	elif not items.is_empty():
 		if _is_only_potions():
-			label.text = "Mix (%d potions)" % items.size()
+			if player.has_item():
+				label.text = "Put in (%d potions)" % items.size()
+			else:
+				label.text = "Take (%d potions)" % items.size()
 		else:
 			label.text = "Mix"
 

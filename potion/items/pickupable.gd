@@ -148,10 +148,11 @@ func _update_held_physics(delta: float) -> void:
 		linear_velocity = Vector3.ZERO
 		angular_velocity = Vector3.ZERO
 
-func shoot():
+func shoot(force: Vector3):
 	shooting = true
 	invincible_time = 0.1
 	gravity_scale = 0.0
+	apply_central_impulse(force)
 
 func can_pickup() -> bool:
 	return not is_picked_up

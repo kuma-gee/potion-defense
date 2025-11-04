@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0w5c27p08lp6"]
+[gd_scene load_steps=10 format=3 uid="uid://d0w5c27p08lp6"]
 
 [ext_resource type="PackedScene" uid="uid://csgnjx147ai2w" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Warrior.glb" id="1_22bvo"]
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_x44yb"]
@@ -17,13 +17,10 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_6edpb"]
-viewport_path = NodePath("Status/SubViewport")
-
 [node name="Warrior" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_x44yb")
-speed = 2.5
+speed = 0.5
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Warrior/HitBox")
 animation_player = NodePath("Skeleton_Warrior/AnimationPlayer")
@@ -153,7 +150,6 @@ metadata/_custom_type_script = "uid://bn80he875obc8"
 
 [node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_gvykr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
-texture = SubResource("ViewportTexture_6edpb")
 status_manager = NodePath("../StatusEffectManager")
 
 [connection signal="hit" from="." to="Skeleton_Warrior/HitBox" method="hit"]

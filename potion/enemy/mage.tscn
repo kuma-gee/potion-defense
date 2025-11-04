@@ -23,7 +23,6 @@ radius = 0.4165039
 [node name="Rogue" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_d8e8n")
-speed = 2.0
 attack_anims = Array[String](["1H_Ranged_Shoot"])
 hit_box = NodePath("Skeleton_Mage/HitBox")
 animation_player = NodePath("Skeleton_Mage/AnimationPlayer")

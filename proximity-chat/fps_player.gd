@@ -25,11 +25,10 @@ var drop_button_held: bool = false
 var drop_charge_time: float = 0.0
 var is_frozen: bool = false
 
-var held_physical_item: Pickupable = null:
+var held_item_type: int = -1:
 	set(v):
-		held_physical_item = v
-		#item_placeholder.visible = v != null
-		item_label.text = "%s" % ItemResource.build_name(v.item_type) if v != null else ""
+		held_item_type = v
+		item_label.text = "%s" % ItemResource.build_name(v) if v >= 0 else ""
 
 func get_interact_collision_point():
 	if interact_ray.is_colliding():
@@ -105,21 +104,16 @@ func _physics_process(delta):
 	ground_spring_cast.apply_gravity(self, delta)
 	move_and_slide()
 
-func pickup_item(pickupable: Pickupable) -> void:
-	if held_physical_item:
-		held_physical_item.drop()
-	
-	held_physical_item = pickupable
+func pickup_item(item_type: ItemResource.Type) -> void:
+	held_item_type = item_type as int
 	item_placeholder.visible = false
 
 func has_item() -> bool:
-	return held_physical_item != null
+	return held_item_type >= 0
 
-func release_physical_item():
-	var item = held_physical_item
-	if held_physical_item:
-		held_physical_item.drop()
-		held_physical_item = null
+func release_item() -> int:
+	var item = held_item_type
+	held_item_type = -1
 	return item
 
 func freeze_player() -> void:
@@ -130,7 +124,7 @@ func unfreeze_player() -> void:
 	is_frozen = false
 
 func start_drop_charge() -> void:
-	if held_physical_item == null:
+	if not has_item():
 		return
 	
 	drop_button_held = true
@@ -155,14 +149,9 @@ func get_charge_percentage() -> float:
 		return 0.0
 	return clamp(drop_charge_time / throw_charge_time, 0.0, 1.0)
 
-func drop_item(charge_time: float = 0.0) -> void:
-	if held_physical_item == null:
+func drop_item(_charge_time: float = 0.0) -> void:
+	if not has_item():
 		return
 	
-	var throw_force = get_throw_force(charge_time)
-	var throw_direction = -global_transform.basis.z + Vector3.UP * 0.3
-	
-	held_physical_item.drop()
-	held_physical_item.linear_velocity = throw_direction.normalized() * throw_force
-	print("Threw physical item: %s (throw force: %.1f)" % [ItemResource.build_name(held_physical_item.item_type), throw_force])
-	held_physical_item = null
+	print("Dropped item: %s" % ItemResource.build_name(held_item_type))
+	held_item_type = -1

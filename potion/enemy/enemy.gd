@@ -3,9 +3,9 @@ extends CharacterBody3D
 
 signal hit()
 
-@export var speed := 3.0
+@export var speed := 1.0
 @export var attack_anims: Array[String] = []
-@export var run_anim := "Running_A"
+@export var run_anim := "Walking_D_Skeletons"
 @export var death_anim := "Death_C_Skeletons"
 @export var hit_box: HitBox
 @export var animation_player: AnimationPlayer
