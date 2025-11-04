@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgva0jspdrkae"]
+
+[ext_resource type="Script" uid="uid://j8o43jdkdgu4" path="res://potion/ui/item_button.gd" id="1_cfvfc"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_qhbtw"]
+
+[node name="ItemButton" type="TextureButton" node_paths=PackedStringArray("texture", "label")]
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("1_cfvfc")
+texture = NodePath("MarginContainer/TextureRect")
+label = NodePath("Label")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_qhbtw")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Test"
+horizontal_alignment = 1

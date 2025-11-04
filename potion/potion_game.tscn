@@ -1,13 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=29 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
+[ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://d0305dj7tcnuc" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_1.gltf" id="2_174p6"]
-[ext_resource type="PackedScene" uid="uid://dwepgd5dhngl5" path="res://potion/enemy/mage.tscn" id="3_atkst"]
-[ext_resource type="PackedScene" uid="uid://jmryrw5iwdq5" path="res://potion/enemy/rogue.tscn" id="3_ev7ur"]
+[ext_resource type="Script" uid="uid://bh2kij0kebasu" path="res://potion/enemy/resources/enemy_resource.gd" id="3_16d2i"]
 [ext_resource type="PackedScene" uid="uid://d2o0g25w8c8la" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_2.gltf" id="3_po1gq"]
 [ext_resource type="PackedScene" uid="uid://0bxr3phl6apo" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_3.gltf" id="4_6xdoe"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="4_qliwp"]
+[ext_resource type="Resource" uid="uid://b8ujitv2y52po" path="res://potion/enemy/resources/mage_resource.tres" id="4_rmnmn"]
+[ext_resource type="Resource" uid="uid://di67w6t0nqyiv" path="res://potion/enemy/resources/rogue_resource.tres" id="5_ux70s"]
 [ext_resource type="PackedScene" uid="uid://cjaquapo804m2" path="res://assets/fantasy/Exports/glTF/Chandelier.gltf" id="6_7xbj5"]
+[ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="6_kfjfp"]
+[ext_resource type="Resource" uid="uid://bawmjv8tyfdjy" path="res://potion/enemy/resources/warrior_resource.tres" id="7_e2yce"]
 [ext_resource type="PackedScene" uid="uid://bib5i83omj08y" path="res://assets/fantasy/Exports/glTF/Workbench.gltf" id="7_v3l23"]
 [ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/objects/chest.tscn" id="8_domfe"]
 [ext_resource type="PackedScene" uid="uid://dec244j10bhon" path="res://potion/objects/trash.tscn" id="8_fqivl"]
@@ -20,16 +24,22 @@
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://proximity-chat/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://wmkgnnq04t5v" path="res://potion/objects/lane.tscn" id="18_vaceq"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
-[ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://ui/gameover_screen.gd" id="20_kavja"]
+[ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
+[ext_resource type="Script" uid="uid://p37xhunyyh2r" path="res://potion/ui/wave_setup.gd" id="22_1w3wt"]
+[ext_resource type="PackedScene" uid="uid://cgva0jspdrkae" path="res://potion/ui/item_button.tscn" id="23_1w3wt"]
+[ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
 
-[node name="PotionBase" type="Node3D"]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_setup", "items_node")]
+script = ExtResource("1_1w3wt")
+wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
+items_node = NodePath("Items")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "wave_label", "ready_button", "lanes", "spawn_timer", "group_timer")]
 script = ExtResource("19_fqivl")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 wave_label = NodePath("../CanvasLayer/Wave")
 ready_button = NodePath("../CanvasLayer/Control/Ready")
-wave_enemy_resources = Array[PackedScene]([ExtResource("3_atkst"), ExtResource("3_ev7ur"), null, null])
+enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("4_rmnmn"), ExtResource("5_ux70s"), ExtResource("6_kfjfp"), ExtResource("7_e2yce")])
 lanes = [NodePath("../Lanes/Lane"), NodePath("../Lanes/Lane2"), NodePath("../Lanes/Lane3"), NodePath("../Lanes/Lane4")]
 spawn_timer = NodePath("SpawnTimer")
 group_timer = NodePath("EnemyGroupTimer")
@@ -161,19 +171,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.617, 0, 3.497)
 [node name="Bed_Twin12" parent="." instance=ExtResource("9_wg4qq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.631706, 0, -4.4636407)
 
-[node name="Chest" parent="." instance=ExtResource("8_domfe")]
+[node name="Items" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -0.8844453)
 
-[node name="Chest2" parent="." instance=ExtResource("8_domfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -1.8844453)
+[node name="Chest" parent="Items" instance=ExtResource("8_domfe")]
+
+[node name="Chest2" parent="Items" instance=ExtResource("8_domfe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 item = 1
 
-[node name="Chest3" parent="." instance=ExtResource("8_domfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -2.8844452)
+[node name="Chest3" parent="Items" instance=ExtResource("8_domfe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9999999)
 item = 2
 
-[node name="Chest4" parent="." instance=ExtResource("8_domfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -3.8844452)
+[node name="Chest4" parent="Items" instance=ExtResource("8_domfe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 item = 3
 
 [node name="Barrel_Holder2" parent="." instance=ExtResource("13_imf3w")]
@@ -411,19 +423,63 @@ offset_right = 24.0
 offset_bottom = 24.0
 text = "Ready"
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+[node name="WaveSetup" type="CenterContainer" parent="CanvasLayer/Control" node_paths=PackedStringArray("item_select_grid", "selected_items_container", "finish_button")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("22_1w3wt")
+item_select_grid = NodePath("PanelContainer/VBoxContainer/HBoxContainer/GridContainer")
+selected_items_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer")
+item_button_scene = ExtResource("23_1w3wt")
+finish_button = NodePath("PanelContainer/VBoxContainer/Button")
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/WaveSetup"]
 custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/WaveSetup/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/WaveSetup/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/WaveSetup/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Finish"
+
+[node name="UnlockedItem" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("texture_rect", "label")]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.6745098)
+script = ExtResource("25_16d2i")
+texture_rect = NodePath("CenterContainer/VBoxContainer/TextureRect")
+label = NodePath("CenterContainer/VBoxContainer/Label")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/UnlockedItem"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/UnlockedItem/CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]

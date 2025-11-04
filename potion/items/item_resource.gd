@@ -19,10 +19,10 @@ enum Type {
 }
 
 const RECIPIES = {
-	Type.POTION_FIRE_BOMB: [Type.RED_HERB, Type.SULFUR],
-	Type.POTION_ICE_SHARD: [Type.BLUE_CRYSTAL, Type.WATER],
-	Type.POTION_POISON_CLOUD: [Type.GREEN_MOSS, Type.SPIDER_VENOM],
-	Type.POTION_PARALYSIS: [Type.WHITE_FLOWER, Type.SPRING_WATER],
+	Type.POTION_FIRE_BOMB: {Type.RED_HERB: 1, Type.SULFUR: 1},
+	Type.POTION_ICE_SHARD: {Type.BLUE_CRYSTAL: 1, Type.WATER: 1},
+	Type.POTION_POISON_CLOUD: {Type.GREEN_MOSS: 1, Type.SPIDER_VENOM: 1},
+	Type.POTION_PARALYSIS: {Type.WHITE_FLOWER: 1, Type.SPRING_WATER: 1},
 }
 
 # Map item types to their 3D scenes
@@ -55,18 +55,26 @@ static func is_potion(type: ItemResource.Type):
 static func build_name(type: ItemResource.Type):
 	return Type.keys()[type].to_lower().replace("_", " ").capitalize()
 
+static func get_image_path(type: ItemResource.Type) -> String:
+	return "res://potion/items/images/%s.png" % build_name(type).to_lower().replace(" ", "_")
+
 static func find_recipe(items: Array):
 	for result in RECIPIES.keys():
 		var required_items = RECIPIES[result]
-		if required_items.size() != items.size():
-			continue
-
+		
+		var item_counts: Dictionary = {}
+		for item in items:
+			item_counts[item] = item_counts.get(item, 0) + 1
+		
 		var all_found = true
-		for item in required_items:
-			if not item in items:
+		for item_type in required_items.keys():
+			var required_count = required_items[item_type]
+			var available_count = item_counts.get(item_type, 0)
+			
+			if available_count < required_count:
 				all_found = false
 				break
-
+		
 		if all_found:
 			return result
 

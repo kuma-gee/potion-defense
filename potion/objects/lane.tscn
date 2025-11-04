@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://clopmtbpgy4fn" path="res://potion/objects/lane_receiver.gd" id="3_lane_receiver"]
 [ext_resource type="Script" uid="uid://pc0deefjlj2h" path="res://potion/objects/trajectory_aiming_system.gd" id="3_trajectory"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_utd16"]
-[ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/hp_bar.gd" id="5_85vib"]
+[ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/ui/hp_bar.gd" id="5_85vib"]
 [ext_resource type="Shader" uid="uid://crddsivq5r6ss" path="res://shader/impact_circle.gdshader" id="6_67lsy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqivl"]
@@ -45,8 +45,6 @@ script = ExtResource("3_lane_receiver")
 spawn_distance = 25
 hurt_box = NodePath("Hurtbox")
 aiming_system = NodePath("TrajectoryAimingSystem")
-snap_offset = Vector3(0, 0.5, 0)
-auto_remove_item = false
 label = NodePath("Label3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

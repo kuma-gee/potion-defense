@@ -2,14 +2,15 @@ class_name WaveManager
 extends Node
 
 signal game_over()
-signal wave_started()
-signal wave_completed()
+signal wave_started(wave: int)
+signal wave_completed(wave: int)
 
 @export var enemy_spawn_root: Node3D
 @export var wave_label: Label
 @export var ready_button: Button
 
 @export_category("Wave Settings")
+@export var start_wave: int = 1
 @export var base_enemies_per_wave: int = 5
 @export var enemies_increment_per_wave: int = 2
 @export var base_groups_per_wave: int = 3
@@ -21,7 +22,7 @@ signal wave_completed()
 @export var final_wave_group_delay: float = 3.0
 
 @export_category("Enemy Resources")
-@export var wave_enemy_resources: Array[PackedScene] = []
+@export var enemy_resources: Array[EnemyResource] = []
 @export var lanes: Array[LaneReceiver] = []
 @export var spawn_timer: Timer
 @export var group_timer: Timer
@@ -49,12 +50,14 @@ var is_final_group: bool = false
 var waiting_for_ready: bool = true
 
 func _ready() -> void:
+	current_wave = start_wave - 1
+	
 	spawn_timer.timeout.connect(_on_spawn_enemy)
 	group_timer.timeout.connect(_on_spawn_group)
 	
 	if ready_button:
 		ready_button.pressed.connect(_on_ready_button_pressed)
-		ready_button.text = "Start Wave 1"
+		ready_button.text = "Start Wave %d" % start_wave
 		ready_button.show()
 	
 	# Connect to enemy spawn root to track enemies
@@ -87,9 +90,9 @@ func _update_wave_label():
 
 func _on_ready_button_pressed() -> void:
 	if waiting_for_ready:
-		start_wave()
+		begin_wave()
 
-func start_wave() -> void:
+func begin_wave() -> void:
 	waiting_for_ready = false
 	
 	if ready_button:
@@ -109,7 +112,7 @@ func start_wave() -> void:
 	is_final_group = false
 	
 	print("Starting Wave %d with %d enemies in %d groups" % [current_wave, enemies_to_spawn, groups_to_spawn])
-	wave_started.emit(current_wave, enemies_to_spawn)
+	wave_started.emit(current_wave)
 	
 	# Start spawning first group immediately
 	_spawn_next_group()
@@ -162,14 +165,26 @@ func _on_spawn_enemy() -> void:
 		is_spawning_group = false
 		return
 	
-	if not enemy_spawn_root or wave_enemy_resources.is_empty():
+	if not enemy_spawn_root or enemy_resources.is_empty():
 		push_error("WaveManager: Missing enemy spawn root or enemy resources")
 		return
 	
-	# Pick a random enemy resource
-	var enemy_resource = wave_enemy_resources.pick_random() as PackedScene
+	# Get available enemies for current wave
+	var available_enemies: Array[EnemyResource] = []
+	for enemy_res in enemy_resources:
+		# Check if enemy is available in this wave
+		if enemy_res.from_wave <= current_wave and (enemy_res.until_wave == -1 or enemy_res.until_wave >= current_wave):
+			available_enemies.append(enemy_res)
+	
+	if available_enemies.is_empty():
+		push_error("WaveManager: No available enemies for wave %d" % current_wave)
+		return
+	
+	# Pick a random available enemy
+	var enemy_res = available_enemies.pick_random()
+	var enemy_resource = enemy_res.scene
 	if not enemy_resource:
-		push_error("WaveManager: Invalid enemy resource")
+		push_error("WaveManager: Invalid enemy scene in resource")
 		return
 	
 	# Spawn the enemy
@@ -182,6 +197,8 @@ func _on_spawn_enemy() -> void:
 	if not lane: return
 	
 	enemy_instance.position = lane.get_spawn_position()
+	enemy_instance.resource = enemy_res
+
 	lane.enemies.append(enemy_instance)
 	enemy_spawn_root.add_child(enemy_instance)
 	enemies_spawned_this_wave += 1
@@ -240,7 +257,7 @@ func _on_wave_completed() -> void:
 	waiting_for_ready = true
 	
 	print("Wave %d completed! Killed %d/%d enemies" % [current_wave, enemies_killed_this_wave, enemies_to_spawn])
-	wave_completed.emit(current_wave, enemies_killed_this_wave)
+	wave_completed.emit(current_wave)
 	
 	if ready_button:
 		ready_button.text = "Start Wave %s" % (current_wave + 1)

@@ -1,8 +1,6 @@
 class_name Enemy
 extends CharacterBody3D
 
-signal hit()
-
 @export var speed := 1.0
 @export var attack_anims: Array[String] = []
 @export var run_anim := "Walking_D_Skeletons"
@@ -11,10 +9,12 @@ signal hit()
 @export var animation_player: AnimationPlayer
 @export var hurt_box: HurtBox
 @export var knockback_resistance := 5.0
+@export var projectile_spawn: SpawnAttack
 
 # Animation Tree doesnt work?
 var is_attacking := false
 var knockback: Vector3
+var resource: EnemyResource
 
 func _ready() -> void:
 	animation_player.animation_finished.connect(func(a):
@@ -23,11 +23,18 @@ func _ready() -> void:
 			return
 		
 		if a in attack_anims:
-			hit.emit()
+			if resource.projectile:
+				projectile_spawn.spawn(resource.projectile)
+			else:
+				hit_box.hit()
 			is_attacking = false
 	)
 	hurt_box.knockbacked.connect(func(x): knockback = x)
 	hurt_box.died.connect(func(): animation_player.play(death_anim))
+
+	speed = resource.speed
+	hit_box.damage = resource.damage
+	hurt_box.set_max_health(resource.health)
 	
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():

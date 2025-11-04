@@ -140,6 +140,4 @@ metadata/_custom_type_script = "uid://bn80he875obc8"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
 status_manager = NodePath("../StatusEffectManager")
 
-[connection signal="hit" from="." to="SpawnAttack" method="spawn"]
-
 [editable path="Skeleton_Mage"]

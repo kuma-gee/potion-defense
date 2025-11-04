@@ -2,13 +2,16 @@ extends RigidBody3D
 
 @export var speed: float = 10.0
 @export var hit_box: HitBox
-@export var delay_trails_start: float = 0.1
+@export var delay_trails_start: float = 0.2
 @export var hit_effect: PackedScene
 
 var trails = []
+var resource: ProjectileResource
 
 func _ready() -> void:
 	hit_box.area_entered.connect(func(_a): _on_hit())
+	speed = resource.speed
+	hit_box.damage = resource.damage
 
 	for child in get_children():
 		if child is GPUTrail3D:

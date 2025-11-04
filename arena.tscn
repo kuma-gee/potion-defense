@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://dhmgpcwqho5h4" path="res://spawn_manager.gd" id="5_fu4bq"]
 [ext_resource type="Texture2D" uid="uid://cx5et81xum38w" path="res://assets/fantasy/Textures/T_Trim_Props_BaseColor.png" id="5_n068f"]
 [ext_resource type="PackedScene" uid="uid://bpb0k1s4thvtb" path="res://ui/upgrade_item.tscn" id="5_sbb53"]
-[ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://ui/gameover_screen.gd" id="6_pbtuc"]
+[ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="6_pbtuc"]
 
 [sub_resource type="Environment" id="Environment_yokb4"]
 glow_enabled = true
