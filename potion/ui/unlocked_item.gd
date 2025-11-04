@@ -17,11 +17,13 @@ func _ready() -> void:
 
 func unlocked_item(item: ItemResource.Type):
 	texture_rect.texture = ResourceLoader.load(ItemResource.get_image_path(item))
-	label.text = "Unlocked: %s" % ItemResource.build_name(item)
+	label.text = "%s" % ItemResource.build_name(item)
 	grab_focus()
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_viewport().gui_release_focus()
 
-	get_viewport().set_input_as_handled()
+	# Leave release, so players actually stop
+	if event.is_pressed():
+		get_viewport().set_input_as_handled()

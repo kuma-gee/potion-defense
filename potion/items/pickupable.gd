@@ -33,18 +33,17 @@ func _ready() -> void:
 	original_collision_mask = collision_mask
 
 func _physics_process(delta: float) -> void:
-	if is_picked_up and holder:
-		pickup_time += delta
-		_update_held_physics(delta)
-
-		# Allow player to adjust hold_distance with scrollwheel
-		_handle_scroll_input()
-	else:
-		pickup_time = 0
+	#if is_picked_up and holder:
+		#pickup_time += delta
+		##_update_held_physics(delta)
+#
+		## Allow player to adjust hold_distance with scrollwheel
+		##_handle_scroll_input()
+	#else:
+		#pickup_time = 0
 		
 	if invincible_time > 0:
 		invincible_time -= delta
-		print(invincible_time)
 	
 func _handle_scroll_input() -> void:
 	if not holder: return
@@ -66,11 +65,13 @@ func _create_item_visual() -> void:
 		if item_instance is Potion:
 			var potion := item_instance as Potion
 			potion.set_potion_type(item_type)
+			potion.hit.connect(func(): queue_free())
 	else:
 		push_warning("No scene defined for item type: %s" % ItemResource.build_name(item_type))
 
 func interact(actor: Node3D) -> void:
-	pickup_by(actor)
+	#pickup_by(actor)
+	pass
 	
 func pickup_by(actor: Node3D) -> void:
 	if is_picked_up or shooting:
@@ -158,85 +159,86 @@ func can_pickup() -> bool:
 	return not is_picked_up
 
 # Call this to change the item type after instantiation
-func set_item_type(new_type: ItemResource.Type) -> void:
-	var old_type = item_type
-	item_type = new_type
-	
-	if is_inside_tree():
-		# Check if we can just update the existing potion visual
-		var old_was_potion = ItemResource.is_potion(old_type)
-		var new_is_potion = ItemResource.is_potion(new_type)
-		
-		if old_was_potion and new_is_potion and item_node:
-			# Just update the existing potion's type
-			var visual = item_node
-			if visual is Potion:
-				var potion := visual as Potion
-				potion.set_potion_type(new_type)
-		else:
-			# Need to recreate the visual
-			_create_item_visual()
+#func set_item_type(new_type: ItemResource.Type) -> void:
+	#var old_type = item_type
+	#item_type = new_type
+	#
+	#if is_inside_tree():
+		## Check if we can just update the existing potion visual
+		#var old_was_potion = ItemResource.is_potion(old_type)
+		#var new_is_potion = ItemResource.is_potion(new_type)
+		#
+		#if old_was_potion and new_is_potion and item_node:
+			## Just update the existing potion's type
+			#var visual = item_node
+			#if visual is Potion:
+				#var potion := visual as Potion
+				#potion.set_potion_type(new_type)
+		#else:
+			## Need to recreate the visual
+			#_create_item_visual()
 
-func _should_break() -> bool:
-	if is_picked_up and pickup_time < pickup_time_break_threshold:
-		return false
-	
-	var threshold = break_force_threshold
-	if item_type == ItemResource.Type.POTION_EMPTY:
-		threshold *= 2
-	
-	var potion = item_node as Potion
-	if potion.is_hitting_enemy():
-		threshold /= 2
-	
-	var is_hitting = _is_colliding() or potion.is_hitting_enemy()
-	var l = linear_velocity.length()
-	
-	return (l > threshold or shooting) and is_hitting
+#func _should_break() -> bool:
+	#if is_picked_up and pickup_time < pickup_time_break_threshold:
+		#return false
+	#
+	#var threshold = break_force_threshold
+	#if item_type == ItemResource.Type.POTION_EMPTY:
+		#threshold *= 2
+	#
+	#var potion = item_node as Potion
+	#if potion.is_hitting_enemy():
+		#threshold /= 2
+	#
+	#var is_hitting = _is_colliding() or potion.is_hitting_enemy()
+	#var l = linear_velocity.length()
+	#
+	#return (l > threshold or shooting) and is_hitting
 
-func _is_colliding() -> bool:
-	return get_contact_count() > 0
-
+#func _is_colliding() -> bool:
+	#return get_contact_count() > 0
+#
 func _break_potion() -> void:
 	if item_node and item_node is Potion:
 		var potion := item_node as Potion
 		potion.on_hit()
 
-	queue_free()
-
-var was_colliding := false
+#var was_colliding := false
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var contact_count: int = state.get_contact_count()
 	
 	if not ItemResource.is_potion(item_type) or invincible_time > 0: return
 
-	if is_picked_up and pickup_time < pickup_time_break_threshold:
-		return
+	if contact_count > 0:
+		_break_potion()
+		
+	#if is_picked_up and pickup_time < pickup_time_break_threshold:
+		#return
 	
-	var threshold = get_break_threshold()
+	#var threshold = get_break_threshold()
 	#print("Pickup: %s, time: %s, speed: %s, collision: %s, hit: %s" % [is_picked_up, pickup_time, state.linear_velocity.length(), contact_count, item_node.is_hitting_enemy()])
 
-	if shooting and item_node.is_hitting_enemy():
-		_break_potion()
-		return
+	#if shooting and item_node.is_hitting_enemy():
+		#_break_potion()
+		#return
 	
-	for i in range(contact_count):
-		var impulse_vec := state.get_contact_impulse(i)
-		if impulse_vec.length() > threshold:
-			_break_potion()
-			break
-		
-		if state.linear_velocity.length() > threshold:
-			_break_potion()
-			break
+	#for i in range(contact_count):
+		#var impulse_vec := state.get_contact_impulse(i)
+		#if impulse_vec.length() > threshold:
+			#_break_potion()
+			#break
+		#
+		#if state.linear_velocity.length() > threshold:
+			#_break_potion()
+			#break
 
-func get_break_threshold():
-	var threshold = break_force_threshold
-	if item_type == ItemResource.Type.POTION_EMPTY:
-		threshold *= 2
-
-	if item_node and item_node is Potion and (item_node as Potion).is_hitting_enemy():
-		threshold /= 2
-
-	return threshold;
+#func get_break_threshold():
+	#var threshold = break_force_threshold
+	#if item_type == ItemResource.Type.POTION_EMPTY:
+		#threshold *= 2
+#
+	#if item_node and item_node is Potion and (item_node as Potion).is_hitting_enemy():
+		#threshold /= 2
+#
+	#return threshold;

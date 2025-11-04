@@ -2,15 +2,13 @@ class_name WaveManager
 extends Node
 
 signal game_over()
-signal wave_started(wave: int)
-signal wave_completed(wave: int)
+signal wave_started()
+signal wave_completed()
 
 @export var enemy_spawn_root: Node3D
 @export var wave_label: Label
-@export var ready_button: Button
 
 @export_category("Wave Settings")
-@export var start_wave: int = 1
 @export var base_enemies_per_wave: int = 5
 @export var enemies_increment_per_wave: int = 2
 @export var base_groups_per_wave: int = 3
@@ -50,15 +48,8 @@ var is_final_group: bool = false
 var waiting_for_ready: bool = true
 
 func _ready() -> void:
-	current_wave = start_wave - 1
-	
 	spawn_timer.timeout.connect(_on_spawn_enemy)
 	group_timer.timeout.connect(_on_spawn_group)
-	
-	if ready_button:
-		ready_button.pressed.connect(_on_ready_button_pressed)
-		ready_button.text = "Start Wave %d" % start_wave
-		ready_button.show()
 	
 	# Connect to enemy spawn root to track enemies
 	if enemy_spawn_root:
@@ -88,17 +79,9 @@ func _update_wave_label():
 	else:
 		wave_label.text = "Wave %s Complete!" % current_wave
 
-func _on_ready_button_pressed() -> void:
-	if waiting_for_ready:
-		begin_wave()
-
-func begin_wave() -> void:
+func begin_wave(wave: int) -> void:
 	waiting_for_ready = false
-	
-	if ready_button:
-		ready_button.hide()
-	
-	current_wave += 1
+	current_wave = wave
 	
 	# Calculate groups and enemies for this wave
 	groups_to_spawn = min(base_groups_per_wave + (current_wave - 1) * groups_increment_per_wave, max_groups_per_wave)
@@ -112,7 +95,7 @@ func begin_wave() -> void:
 	is_final_group = false
 	
 	print("Starting Wave %d with %d enemies in %d groups" % [current_wave, enemies_to_spawn, groups_to_spawn])
-	wave_started.emit(current_wave)
+	wave_started.emit()
 	
 	# Start spawning first group immediately
 	_spawn_next_group()
@@ -127,10 +110,6 @@ func stop_wave() -> void:
 	_clear_all_enemies()
 	print("Wave system stopped")
 	
-	if ready_button:
-		ready_button.text = "Start Wave %s" % (current_wave + 1)
-		ready_button.show()
-
 func _spawn_next_group() -> void:
 	if groups_spawned >= groups_to_spawn:
 		return
@@ -257,11 +236,7 @@ func _on_wave_completed() -> void:
 	waiting_for_ready = true
 	
 	print("Wave %d completed! Killed %d/%d enemies" % [current_wave, enemies_killed_this_wave, enemies_to_spawn])
-	wave_completed.emit(current_wave)
-	
-	if ready_button:
-		ready_button.text = "Start Wave %s" % (current_wave + 1)
-		ready_button.show()
+	wave_completed.emit()
 	
 	_update_wave_label()
 

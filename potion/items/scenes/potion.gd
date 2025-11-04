@@ -30,6 +30,7 @@ const POTION_EMISSIONS = {
 
 func _ready() -> void:
 	_update_liquid_color()
+	hit_area.area_entered.connect(func(_a): on_hit())
 
 func is_hitting_enemy():
 	return hit_area.has_overlapping_areas()

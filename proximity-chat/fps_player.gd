@@ -71,10 +71,10 @@ func _ready():
 				interact_ray.interact(self)
 			elif event.is_action_released("interact"):
 				interact_ray.release(self)
-			elif event.is_action_pressed("drop_item"):
-				start_drop_charge()
-			elif event.is_action_released("drop_item"):
-				release_drop_item()
+			#elif event.is_action_pressed("drop_item"):
+				#start_drop_charge()
+			#elif event.is_action_released("drop_item"):
+				#release_drop_item()
 	)
 
 func _physics_process(delta):

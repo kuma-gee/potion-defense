@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_qhbtw"]
 
 [node name="ItemButton" type="TextureButton" node_paths=PackedStringArray("texture", "label")]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(128, 128)
 script = ExtResource("1_cfvfc")
 texture = NodePath("MarginContainer/TextureRect")
 label = NodePath("Label")

@@ -12,6 +12,7 @@ signal knockbacked(force)
 		health_changed.emit()
 		
 		if health <= 0:
+			monitorable = false
 			died.emit()
 
 func set_max_health(new_max_health: int):

@@ -6,8 +6,9 @@
 
 [node name="Pickupable" type="RigidBody3D"]
 collision_layer = 32800
-collision_mask = 32775
+collision_mask = 32769
 physics_material_override = SubResource("PhysicsMaterial_4e6pr")
+gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_pickupable")
