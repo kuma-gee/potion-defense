@@ -4,22 +4,25 @@ extends CharacterBody3D
 @export var SPEED = 8.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
 
-@export_category("Item Dropping")
-@export var min_throw_force: float = 0.0
-@export var max_throw_force: float = 10.0
-@export var throw_charge_time: float = 1.0
+# @export_category("Item Dropping")
+# @export var min_throw_force: float = 0.0
+# @export var max_throw_force: float = 10.0
+# @export var throw_charge_time: float = 1.0
 
 @export var interact_ray: InteractRay
 @export var camera: Camera3D
 @export var camera_root: Node3D
 @export var body: Node3D
 @export var item_label: Label
+@export var hand: Area3D
+
+@export var anim: AnimationTree
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
 
-var drop_button_held: bool = false
-var drop_charge_time: float = 0.0
+# var drop_button_held: bool = false
+# var drop_charge_time: float = 0.0
 var is_frozen: bool = false
 
 var held_item_type: int = -1:
@@ -39,19 +42,13 @@ func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	# if Networking.has_network():
-	# 	var is_authority = is_multiplayer_authority()
-	# 	camera.current = is_authority
-	# 	set_process_unhandled_input(is_authority)
-	# 	set_physics_process(is_authority)
-	# else:
 	camera.current = true
 	body.hide()
 	
 	# hand.released.connect(func(): camera.current = true)
 	player_input.input_event.connect(func(event: InputEvent):
-		if is_frozen:
-			return
+		#if is_frozen:
+			#return
 		
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
@@ -65,14 +62,15 @@ func _ready():
 			elif event.is_action_pressed("ui_cancel"):
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
 			elif event.is_action_pressed("interact"):
-				interact_ray.interact(self)
+				hand.interact(self)
 			elif event.is_action_released("interact"):
-				interact_ray.release(self)
+				hand.release(self)
 			#elif event.is_action_pressed("drop_item"):
 				#start_drop_charge()
 			#elif event.is_action_released("drop_item"):
 				#release_drop_item()
 	)
+
 
 func _physics_process(delta):
 	if is_frozen:
@@ -80,8 +78,8 @@ func _physics_process(delta):
 		return
 	
 	# Update drop charge if button is held
-	if drop_button_held:
-		drop_charge_time = min(drop_charge_time + delta, throw_charge_time)
+	# if drop_button_held:
+	# 	drop_charge_time = min(drop_charge_time + delta, throw_charge_time)
 	
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -98,6 +96,13 @@ func _physics_process(delta):
 		velocity.x = lerp(velocity.x, direction.x * _speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * _speed, delta * 3.0)
 
+	if velocity.length() > 0.1:
+		var target_direction = velocity.normalized()
+		var current_forward = -body.global_transform.basis.z
+		var angle = current_forward.signed_angle_to(target_direction, Vector3.UP)
+		body.rotate_y(angle * delta * 10.0)
+
+	anim.set("parameters/Move/blend_amount", input_dir.length())
 	ground_spring_cast.apply_gravity(self, delta)
 	move_and_slide()
 

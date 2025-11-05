@@ -234,7 +234,7 @@ shape = SubResource("BoxShape3D_jjj4w")
 transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, -6)
 material_override = ExtResource("12_pnone")
 use_collision = true
-size = Vector3(12, 0.101, 12)
+size = Vector3(6, 0.5, 12)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, 73)
@@ -244,12 +244,14 @@ size = Vector3(12, 0.101, 12)
 
 [node name="Top" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9368224, 0)
+visible = false
 material_override = ExtResource("12_pnone")
 use_collision = true
 size = Vector3(12, 0.101, 12)
 
 [node name="Top2" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9368224, 12)
+visible = false
 material_override = ExtResource("12_pnone")
 use_collision = true
 size = Vector3(12, 0.101, 12)
@@ -270,25 +272,25 @@ size = Vector3(15.02832, 2.4345703, 1.8774414)
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, 6, -0.06317747, 0)
 material_override = ExtResource("12_pnone")
 use_collision = true
-size = Vector3(12, 0.101, 12)
+size = Vector3(6, 0.5, 12)
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, 6, -0.06317747, 12)
 material_override = ExtResource("12_pnone")
 use_collision = true
-size = Vector3(12, 0.101, 12)
+size = Vector3(6, 0.5, 12)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 0)
 material_override = ExtResource("12_pnone")
 use_collision = true
-size = Vector3(12, 0.101, 12)
+size = Vector3(6, 0.5, 12)
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 12)
 material_override = ExtResource("12_pnone")
 use_collision = true
-size = Vector3(12, 0.101, 12)
+size = Vector3(6, 0.5, 12)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 0)
@@ -548,5 +550,11 @@ stretch_mode = 5
 layout_mode = 2
 text = "Test"
 horizontal_alignment = 1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-2.1855692e-08, 0.86602545, -0.49999997, 3.7855173e-08, 0.49999997, 0.86602545, 1, 1.7763568e-15, -4.371139e-08, -13.940432, 24.656734, 5.0527344)
+current = true
+fov = 30.0
+size = 10.832689
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
