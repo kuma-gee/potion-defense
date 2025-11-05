@@ -9,10 +9,10 @@ var current_hovering_player: FPSPlayer = null
 var mixing_player: FPSPlayer = null
 var required_time := 0.0
 var time := 0.0
-var mixing := 0:
+var mixing := false:
 	set(v):
-		mixing = max(v, 0)
-		if mixing == 0:
+		mixing = v
+		if not mixing:
 			time = 0.0
 			_unfreeze_mixing_player()
 
@@ -29,7 +29,7 @@ func handle_hovered(actor: Node) -> void:
 		_update_label(actor)
 
 func handle_interacted(actor: Node) -> void:
-	if mixing > 0: return
+	if mixing: return
 	if not (actor is FPSPlayer): return
 	
 	var player := actor as FPSPlayer
@@ -43,19 +43,18 @@ func handle_interacted(actor: Node) -> void:
 			player.pickup_item(items.pop_back())
 		else:
 			mixing_player = player
-			mixing += 1
+			mixing = true
 			if mixing_player:
 				mixing_player.freeze_player()
 
 	_update_label(player)
 
 func handle_released(_actor: Node) -> void:
-	mixing -= 1
-	if mixing <= 0:
-		_unfreeze_mixing_player()
+	if mixing:
+		mixing = false
 
 func _process(delta: float) -> void:
-	if mixing > 0:
+	if mixing:
 		time += delta
 		required_time = mix_item_per_item * items.size()
 		
@@ -78,7 +77,7 @@ func _update_label(player: FPSPlayer) -> void:
 	
 	label.text = ""
 	
-	if mixing > 0:
+	if mixing:
 		var remaining_time: float = max(0.0, required_time - time)
 		label.text = "Mixing... %.1fs" % remaining_time
 		return
@@ -121,3 +120,12 @@ func _mix_items() -> void:
 		return
 	
 	# TODO: explode
+
+func reset():
+	items.clear()
+	mixing = 0
+	time = 0.0
+	required_time = 0.0
+	_unfreeze_mixing_player()
+	if current_hovering_player:
+		_update_label(current_hovering_player)

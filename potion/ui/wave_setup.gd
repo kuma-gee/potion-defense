@@ -10,20 +10,28 @@ signal selected_items(items: Array)
 @export var finish_button: Button
 
 var items := []
-var limit := 0
+var ingredient_resources: Array[ItemResource] = []
 
 func _ready() -> void:
 	hide()
 
-	for item in ItemResource.Type.values():
-		if ItemResource.is_potion(item):
-			continue
-
-		var item_button = _create_item_button(item)
-		item_button.pressed.connect(func(t = item):
-			_on_item_button_pressed(t)
-		)
-		item_select_grid.add_child(item_button)
+	# Load all ingredient resources from the resources folder
+	var dir = DirAccess.open("res://potion/items/resources/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with("_resource.tres") and file_name != "potion_empty_resource.tres":
+				var resource_path = "res://potion/items/resources/" + file_name
+				var resource = load(resource_path) as ItemResource
+				if resource:
+					ingredient_resources.append(resource)
+					var item_button = _create_item_button(resource)
+					item_button.pressed.connect(func():
+						_on_item_button_pressed(resource)
+					)
+					item_select_grid.add_child(item_button)
+			file_name = dir.get_next()
 	
 	finish_button.pressed.connect(func():
 		selected_items.emit(items)
@@ -32,37 +40,43 @@ func _ready() -> void:
 
 func show_for_items(unlocked: Array):
 	for item in item_select_grid.get_children():
-		item.locked = not item.type in unlocked
+		item.locked = not item.res.type in unlocked
 	show()
 
-func _on_item_button_pressed(item_type: ItemResource.Type) -> void:
-	if items.size() >= limit or item_type in items:
+func _on_item_button_pressed(item: ItemResource) -> void:
+	if items.size() >= selected_items_container.get_child_count(): #or item_type in items:
 		return
 
-	items.append(item_type)
-	var item_button = _create_item_button(item_type)
-	item_button.pressed.connect(func():
-		items.erase(item_type)
-		item_button.queue_free()
-		_update_ingredient_label()
-	)
-	selected_items_container.add_child(item_button)
-	_update_ingredient_label()
+	for c in selected_items_container.get_children():
+		if c.res == null:
+			c.res = item
+			items.append(item)
+			break
 	
-func _create_item_button(item_type: ItemResource.Type) -> ItemButton:
+	_update_ingredient_label()
+
+func _create_item_button(item: ItemResource) -> ItemButton:
 	var item_button = item_button_scene.instantiate() as ItemButton
-	item_button.type = item_type
+	item_button.res = item
 	return item_button
 
-func setup_initial_items(initial_items: Array) -> void:
+func setup_initial_items(initial_items: Array, available_slots: int) -> void:
 	items.clear()
 	for c in selected_items_container.get_children():
 		selected_items_container.queue_free()
 	
-	limit = initial_items.size()
+	for i in available_slots:
+		var item_button = _create_item_button(null)
+		item_button.pressed.connect(func():
+			items.erase(item_button.res)
+			item_button.res = null
+			_update_ingredient_label()
+		)
+		selected_items_container.add_child(item_button)
+	
 	for item in initial_items:
 		_on_item_button_pressed(item)
 
 func _update_ingredient_label():
-	ingredient_label.text = "Ingredients %s/%s" % [items.size(), limit]
+	ingredient_label.text = "Ingredients %s/%s" % [items.size(), selected_items_container.get_child_count()]
 	

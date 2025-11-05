@@ -69,3 +69,9 @@ func _can_place_potion(player: FPSPlayer) -> bool:
 
 func get_spawn_position() -> Vector3:
 	return global_position + global_transform.basis.z.normalized() * spawn_distance
+
+func reset():
+	if potion:
+		potion.queue_free()
+		potion = null
+	potion_type = -1

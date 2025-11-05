@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var initial_items: Array[ItemResource] = []
+
 @export var wave_manager: WaveManager
 @export var wave_setup: WaveSetup
 @export var items_node: Node3D
@@ -22,19 +24,15 @@ func _ready() -> void:
 	start_game()
 
 func _setup_items() -> void:
-	var initial_items = []
-	for item in items_node.get_children():
-		if item is Chest:
-			initial_items.append((item as Chest).item)
-	
-	wave_setup.setup_initial_items(initial_items)
+	wave_setup.setup_initial_items(initial_items, items_node.get_child_count())
+	_on_items_selected(initial_items)
 
 func _on_items_selected(items: Array) -> void:
 	for i in items_node.get_child_count():
 		var child = items_node.get_child(i) as Chest
 		if not child: continue
 
-		child.item = items[i] if i < items.size() else -1
+		child.item = items[i] if i < items.size() else null
 	
 	start_game()
 
@@ -43,6 +41,10 @@ func start_game():
 
 func _on_wave_completed() -> void:
 	wave += 1
+
+	for node in get_tree().get_nodes_in_group("resetable"):
+		if node.has_method("reset"):
+			node.reset()
 	
 	if wave in NEW_ITEMS_FOR_WAVE:
 		var new_item = NEW_ITEMS_FOR_WAVE[wave]

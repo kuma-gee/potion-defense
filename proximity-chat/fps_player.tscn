@@ -42,7 +42,7 @@ shader_parameter/border_smoothness = 0.05600000266
 shader_parameter/circle_color = Color(1, 1, 1, 1)
 shader_parameter/background_color = Color(0, 0, 0, 0)
 
-[node name="FPSPlayer" type="CharacterBody3D" node_paths=PackedStringArray("interact_ray", "camera", "camera_root", "body", "hold_position", "item_placeholder", "item_label")]
+[node name="FPSPlayer" type="CharacterBody3D" node_paths=PackedStringArray("interact_ray", "camera", "camera_root", "body", "item_label") groups=["resetable"]]
 collision_layer = 2
 script = ExtResource("1_krq8x")
 SPEED = 5.0
@@ -50,8 +50,6 @@ interact_ray = NodePath("CameraRoot/Camera3D/RayCast3D")
 camera = NodePath("CameraRoot/Camera3D")
 camera_root = NodePath("CameraRoot")
 body = NodePath("CollisionShape3D")
-hold_position = NodePath("CameraRoot/Camera3D/HoldPosition")
-item_placeholder = NodePath("CameraRoot/Camera3D/HoldPosition/CSGBox3D")
 item_label = NodePath("CanvasLayer/Label")
 
 [node name="PlayerInput" type="Node" parent="."]
@@ -81,14 +79,6 @@ collision_mask = 32768
 collide_with_areas = true
 script = ExtResource("4_ffq0p")
 player = NodePath("../../..")
-
-[node name="HoldPosition" type="Marker3D" parent="CameraRoot/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46627957, -0.20286894, -0.38936043)
-visible = false
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CameraRoot/Camera3D/HoldPosition"]
-visible = false
-size = Vector3(0.2, 0.2, 0.2)
 
 [node name="ProximityAudioPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2577047, 0)
@@ -130,14 +120,15 @@ icon_texture = NodePath(".")
 one_shot = true
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -33.0
+offset_left = -16.5
 offset_top = -23.0
-grow_horizontal = 0
+offset_right = 16.5
+grow_horizontal = 2
 grow_vertical = 0
 text = "Test"
 horizontal_alignment = 2

@@ -9,10 +9,11 @@ size = Vector3(0.8, 0.8, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ertou"]
 size = Vector3(0.8408203, 0.8135376, 0.8654785)
 
-[node name="Chest" type="Area3D" node_paths=PackedStringArray("label")]
+[node name="Chest" type="Area3D" node_paths=PackedStringArray("static_collision", "label")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_e0v3a")
+static_collision = NodePath("StaticBody3D/CollisionShape3D")
 label = NodePath("Label3D")
 
 [node name="Crate_Wooden5" parent="." instance=ExtResource("1_ertou")]
@@ -28,6 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4020462, 0)
 shape = SubResource("BoxShape3D_domfe")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41471332, 0)

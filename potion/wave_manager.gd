@@ -57,9 +57,9 @@ func _ready() -> void:
 
 	for lane in lanes:
 		lane.destroyed.connect(func():
-			lanes.erase(lane)
-			if lanes.is_empty():
-				game_over.emit()
+			game_over.emit()
+			# lanes.erase(lane)
+			# if lanes.is_empty():
 		)
 
 func _process(_delta: float) -> void:

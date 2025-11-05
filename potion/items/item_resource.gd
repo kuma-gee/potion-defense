@@ -38,25 +38,31 @@ const ITEM_SCENES = {
 	Type.POTION_EMPTY: preload("res://potion/items/scenes/potion_empty.tscn"),
 }
 
-static func get_item_scene(type: ItemResource.Type) -> PackedScene:
-	if is_potion(type):
+@export var type: Type = Type.RED_HERB
+@export var name: String = ""
+@export var description: String = ""
+@export var max_capacity: int = 4
+@export var restore_time: float = 5.0
+
+static func get_item_scene(t: ItemResource.Type) -> PackedScene:
+	if is_potion(t):
 		return ITEM_SCENES[Type.POTION_EMPTY]
 
-	if type in ITEM_SCENES:
-		return ITEM_SCENES[type]
+	if t in ITEM_SCENES:
+		return ITEM_SCENES[t]
 	return null
 
-static func is_empty_potion(type: ItemResource.Type):
-	return type == Type.POTION_EMPTY
+static func is_empty_potion(t: ItemResource.Type):
+	return t == Type.POTION_EMPTY
 
-static func is_potion(type: ItemResource.Type):
-	return build_name(type).begins_with("Potion")
+static func is_potion(t: ItemResource.Type):
+	return build_name(t).begins_with("Potion")
 
-static func build_name(type: ItemResource.Type):
-	return Type.keys()[type].to_lower().replace("_", " ").capitalize()
+static func build_name(t: ItemResource.Type):
+	return Type.keys()[t].to_lower().replace("_", " ").capitalize()
 
-static func get_image_path(type: ItemResource.Type) -> String:
-	return "res://potion/items/images/%s.png" % build_name(type).to_lower().replace(" ", "_")
+static func get_image_path(t: ItemResource.Type) -> String:
+	return "res://potion/items/images/%s.png" % build_name(t).to_lower().replace(" ", "_")
 
 static func find_recipe(items: Array):
 	for result in RECIPIES.keys():

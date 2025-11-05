@@ -26,6 +26,7 @@ enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons
 [global_group]
 
 enemy=""
+resetable=""
 
 [input]
 
