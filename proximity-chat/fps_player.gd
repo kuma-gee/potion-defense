@@ -15,7 +15,6 @@ extends CharacterBody3D
 @export var body: Node3D
 @export var item_label: Label
 @export var hand: Area3D
-
 @export var anim: AnimationTree
 
 @onready var player_input: PlayerInput = $PlayerInput
@@ -62,9 +61,9 @@ func _ready():
 			elif event.is_action_pressed("ui_cancel"):
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
 			elif event.is_action_pressed("interact"):
-				hand.interact(self)
+				interact_ray.interact(self)
 			elif event.is_action_released("interact"):
-				hand.release(self)
+				interact_ray.release(self)
 			#elif event.is_action_pressed("drop_item"):
 				#start_drop_charge()
 			#elif event.is_action_released("drop_item"):

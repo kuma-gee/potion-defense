@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ilyxdpyc7dxn" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Rogue.glb" id="2_d850n"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="3_ud810"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_frjyh"]
-[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status_effect_manager.gd" id="5_ud810"]
+[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_ud810"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_frjyh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ujkhk"]

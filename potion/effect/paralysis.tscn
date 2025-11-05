@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cckgdr5i01p5d"]
+
+[ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="5_snyn5"]
+[ext_resource type="Resource" uid="uid://b6w7padwbttts" path="res://potion/effect/status/paralysis_effect.tres" id="6_iocld"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ikj7i"]
+radius = 1.8132439
+
+[node name="Paralysis" type="Node3D"]
+
+[node name="Paralysis" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("5_snyn5")
+lifetime = 1.0
+effect = ExtResource("6_iocld")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Paralysis"]
+shape = SubResource("SphereShape3D_ikj7i")

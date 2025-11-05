@@ -61,3 +61,6 @@ func _physics_process(delta: float) -> void:
 	velocity = dir * speed
 	move_and_slide()
 	animation_player.play(run_anim)
+
+func take_damage(dmg: int):
+	hurt_box.health -= dmg

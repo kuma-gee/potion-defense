@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvrm4vmap3w15"]
+
+[ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://magic/aoe_cylinder.tres" id="1_661yy"]
+[ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="2_2hc7j"]
+[ext_resource type="Texture2D" uid="uid://c36t3itic1ivn" path="res://assets/particles/course/RingTex.png" id="2_661yy"]
+[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="4_bt0kg"]
+[ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="5_0452k"]
+[ext_resource type="Resource" uid="uid://bbx7rvmj262xi" path="res://potion/effect/status/poison_effect.tres" id="6_0452k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_661yy"]
+render_priority = 0
+shader = ExtResource("1_661yy")
+shader_parameter/Scale = Vector2(1, 1)
+shader_parameter/Speed = Vector2(0.02, 0)
+shader_parameter/Texture = ExtResource("2_661yy")
+shader_parameter/Mask = ExtResource("2_2hc7j")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ikj7i"]
+radius = 1.8132439
+
+[node name="PoisonArea" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_661yy")
+mesh = ExtResource("4_bt0kg")
+
+[node name="Poison" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("5_0452k")
+lifetime = 10.0
+effect = ExtResource("6_0452k")
+tick_interval = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Poison"]
+shape = SubResource("SphereShape3D_ikj7i")

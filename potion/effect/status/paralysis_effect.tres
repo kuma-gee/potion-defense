@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ParalysisEffect" load_steps=2 format=3 uid="uid://b6w7padwbttts"]
+
+[ext_resource type="Script" uid="uid://jctb3q1f4quw" path="res://potion/effect/status/paralysis_effect.gd" id="1_186em"]
+
+[resource]
+script = ExtResource("1_186em")
+metadata/_custom_type_script = "uid://jctb3q1f4quw"

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://coo8mxuebhccj" path="res://magic/projectile.tscn" id="6_ut6fv"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="7_18d5k"]
 [ext_resource type="PackedScene" uid="uid://cfoo8o7cqicqx" path="res://magic/muzzle.tscn" id="7_1215r"]
-[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status_effect_manager.gd" id="8_fntyg"]
+[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="8_fntyg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ujkhk"]
 size = Vector3(1, 1, 0.56640625)
