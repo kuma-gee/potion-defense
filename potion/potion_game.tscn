@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=46 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
@@ -27,15 +27,23 @@
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://proximity-chat/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://wmkgnnq04t5v" path="res://potion/objects/lane.tscn" id="18_vaceq"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
+[ext_resource type="Script" uid="uid://c12k0yjtjh3rm" path="res://potion/recipe_book.gd" id="20_f4yaa"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://p37xhunyyh2r" path="res://potion/ui/wave_setup.gd" id="22_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://cgva0jspdrkae" path="res://potion/ui/item_button.tscn" id="23_1w3wt"]
 [ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
 [ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="29_kfjfp"]
+[ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
+[ext_resource type="Texture2D" uid="uid://w8xwxpot3wg1" path="res://assets/recipes/Page_1.png" id="36_33pbe"]
+[ext_resource type="Texture2D" uid="uid://cf1qeyh63xxdj" path="res://assets/recipes/Page_2.png" id="37_v3yac"]
+[ext_resource type="Texture2D" uid="uid://bjsvlfsh166j6" path="res://assets/recipes/Page_3.png" id="38_8yxqf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjj4w"]
 size = Vector3(0.52246094, 1.249054, 0.4482422)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3yac"]
+bg_color = Color(0.32172796, 0.32172796, 0.32172787, 1)
 
 [sub_resource type="Gradient" id="Gradient_e2yce"]
 offsets = PackedFloat32Array(0, 0.31034482)
@@ -52,6 +60,12 @@ shader_parameter/strength = 7.54
 shader_parameter/smoothing = -0.66
 shader_parameter/size = 1.7
 shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
+bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
+
+[sub_resource type="Environment" id="Environment_f4yaa"]
+background_mode = 1
 
 [node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_manager", "wave_setup", "items_node", "unlocked_item")]
 script = ExtResource("1_1w3wt")
@@ -85,13 +99,13 @@ one_shot = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.892634, 0, 5.5121093)
 
 [node name="Lane2" parent="Lanes" instance=ExtResource("18_vaceq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8926339, 0, 5.5121093)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8055298, 0.009325504, 5.5137315)
 
 [node name="Lane3" parent="Lanes" instance=ExtResource("18_vaceq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.107366, 0, 5.5121093)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9617425, 0, 5.5121093)
 
 [node name="Lane4" parent="Lanes" instance=ExtResource("18_vaceq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.107366, 0, 5.5121093)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6442804, 0, 5.5121093)
 
 [node name="Cauldron" parent="." instance=ExtResource("4_qliwp")]
 
@@ -217,16 +231,26 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.46
 [node name="Barrel_Holder3" parent="." instance=ExtResource("13_imf3w")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.46066, 0, 0.5807309)
 
-[node name="RecipeBook" type="Area3D" parent="."]
+[node name="RecipeBook" type="Area3D" parent="." node_paths=PackedStringArray("container", "label")]
 transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.9088984, 0, -0.9247377)
 collision_layer = 32768
 collision_mask = 0
+script = ExtResource("20_f4yaa")
+container = NodePath("../CanvasLayer/Control/Recipes")
+label = NodePath("Label3D")
 
 [node name="BookStand2" parent="RecipeBook" instance=ExtResource("14_tbha6")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RecipeBook"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89766556, 0)
 shape = SubResource("BoxShape3D_jjj4w")
+
+[node name="Label3D" type="Label3D" parent="RecipeBook"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3215493, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "Test"
 
 [node name="Walls" type="Node3D" parent="."]
 
@@ -280,6 +304,12 @@ material_override = ExtResource("12_pnone")
 use_collision = true
 size = Vector3(6, 0.5, 12)
 
+[node name="CSGBox3D13" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, 6, -0.06317747, 24)
+material_override = ExtResource("12_pnone")
+use_collision = true
+size = Vector3(6, 0.5, 12)
+
 [node name="CSGBox3D4" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 0)
 material_override = ExtResource("12_pnone")
@@ -292,6 +322,12 @@ material_override = ExtResource("12_pnone")
 use_collision = true
 size = Vector3(6, 0.5, 12)
 
+[node name="CSGBox3D12" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 24)
+material_override = ExtResource("12_pnone")
+use_collision = true
+size = Vector3(6, 0.5, 12)
+
 [node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 0)
 material_override = ExtResource("12_pnone")
@@ -300,6 +336,18 @@ size = Vector3(12, 0.101, 12)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 12)
+material_override = ExtResource("12_pnone")
+use_collision = true
+size = Vector3(12, 0.101, 12)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 24)
+material_override = ExtResource("12_pnone")
+use_collision = true
+size = Vector3(12, 0.101, 12)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 36)
 material_override = ExtResource("12_pnone")
 use_collision = true
 size = Vector3(12, 0.101, 12)
@@ -430,7 +478,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7058824)
+color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("20_kavja")
 restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
 
@@ -460,7 +508,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7058824)
+color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("22_1w3wt")
 item_select_grid = NodePath("WaveSetup/PanelContainer/VBoxContainer/HBoxContainer/GridContainer")
 selected_items_container = NodePath("WaveSetup/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer")
@@ -480,6 +528,7 @@ mouse_filter = 0
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup"]
 custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3yac")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer"]
 layout_mode = 2
@@ -513,7 +562,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7058824)
+color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("25_16d2i")
 texture_rect = NodePath("CenterContainer/VBoxContainer/TextureRect")
 label = NodePath("CenterContainer/VBoxContainer/Label")
@@ -551,10 +600,82 @@ layout_mode = 2
 text = "Test"
 horizontal_alignment = 1
 
+[node name="Recipes" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("recipe_page", "next_page_btn", "prev_page_btn", "page_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.50980395)
+script = ExtResource("34_bo5nf")
+recipe_page = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/TextureRect")
+next_page_btn = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Next")
+prev_page_btn = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Prev")
+page_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Page")
+recipes = Array[Texture2D]([ExtResource("36_33pbe"), ExtResource("37_v3yac"), ExtResource("38_8yxqf")])
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Recipes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/Recipes/CenterContainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("36_33pbe")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Prev" type="Button" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "Prev"
+
+[node name="Page" type="Label" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 5
+text = "0/0"
+horizontal_alignment = 1
+
+[node name="Next" type="Button" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "Next"
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-2.1855692e-08, 0.86602545, -0.49999997, 3.7855173e-08, 0.49999997, 0.86602545, 1, 1.7763568e-15, -4.371139e-08, -13.940432, 24.656734, 5.0527344)
 current = true
 fov = 30.0
 size = 10.832689
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f4yaa")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
+light_energy = 0.4
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]

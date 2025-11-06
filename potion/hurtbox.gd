@@ -17,7 +17,7 @@ signal knockbacked(force)
 
 func set_max_health(new_max_health: int):
 	max_health = new_max_health
-	health = clamp(health, 0, max_health)
+	health = new_max_health
 	health_changed.emit()
 
 func hit(dmg: int, knockback = Vector3.ZERO):

@@ -8,6 +8,6 @@
 script = ExtResource("1_0rn2h")
 scene = ExtResource("2_7h4j5")
 from_wave = 6
-speed = 0.8
+speed = 0.5
 name = "Mage"
 projectile = ExtResource("1_8g2qf")
