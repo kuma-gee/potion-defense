@@ -10,6 +10,7 @@ const PICKUPABLE = preload("uid://bryjvapfcc2mh")
 @export var aiming_system: TrajectoryAimingSystem
 @export var shoot_force: float = 20.0
 
+var wave_start_health := 0
 var potion: Pickupable = null
 var potion_type: int = -1
 var enemies = []
@@ -24,12 +25,18 @@ func _ready() -> void:
 					e.queue_free()
 			enemies.clear()
 			destroyed.emit()
-			queue_free()
+			hide()
 		)
 	
 	interacted.connect(handle_interacted)
 	hovered.connect(handle_hovered)
-		
+
+func start():
+	wave_start_health = hurt_box.health
+
+func is_destroyed():
+	return hurt_box.is_dead()
+
 func handle_hovered(_actor: Node) -> void:
 	if _actor is FPSPlayer:
 		var player := _actor as FPSPlayer
@@ -70,8 +77,11 @@ func _can_place_potion(player: FPSPlayer) -> bool:
 func get_spawn_position() -> Vector3:
 	return global_position + global_transform.basis.z.normalized() * spawn_distance
 
-func reset():
+func reset(restore = false):
 	if potion:
 		potion.queue_free()
 		potion = null
 	potion_type = -1
+	
+	if restore:
+		hurt_box.health = wave_start_health

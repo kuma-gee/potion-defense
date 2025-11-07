@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=47 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_0t5rt"]
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
@@ -38,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://w8xwxpot3wg1" path="res://assets/recipes/Page_1.png" id="36_33pbe"]
 [ext_resource type="Texture2D" uid="uid://cf1qeyh63xxdj" path="res://assets/recipes/Page_2.png" id="37_v3yac"]
 [ext_resource type="Texture2D" uid="uid://bjsvlfsh166j6" path="res://assets/recipes/Page_3.png" id="38_8yxqf"]
+[ext_resource type="Script" uid="uid://b8p0l6hclg7fb" path="res://potion/ui/pause.gd" id="39_v3yac"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjj4w"]
 size = Vector3(0.52246094, 1.249054, 0.4482422)
@@ -67,27 +68,29 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="Environment" id="Environment_f4yaa"]
 background_mode = 1
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_manager", "wave_setup", "items_node", "unlocked_item")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_manager", "wave_setup", "items_node", "unlocked_item", "pause")]
 script = ExtResource("1_1w3wt")
 initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_bo5nf"), ExtResource("4_f4yaa")])
 wave_manager = NodePath("WaveManager")
 wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
 items_node = NodePath("Items")
 unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
+pause = NodePath("CanvasLayer/Control/Pause")
 
-[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "wave_label", "lanes", "spawn_timer", "group_timer")]
+[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "wave_label", "lanes", "spawn_timer", "wave_timer")]
 script = ExtResource("19_fqivl")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 wave_label = NodePath("../CanvasLayer/Wave")
+spawn_enemy_count = 3
 enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("4_rmnmn"), ExtResource("5_ux70s"), ExtResource("6_kfjfp"), ExtResource("7_e2yce")])
 lanes = [NodePath("../Lanes/Lane"), NodePath("../Lanes/Lane2"), NodePath("../Lanes/Lane3"), NodePath("../Lanes/Lane4")]
 spawn_timer = NodePath("SpawnTimer")
-group_timer = NodePath("EnemyGroupTimer")
+wave_timer = NodePath("WaveTimer")
 metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
 
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
-[node name="EnemyGroupTimer" type="Timer" parent="WaveManager"]
+[node name="WaveTimer" type="Timer" parent="WaveManager"]
 wait_time = 10.0
 one_shot = true
 
@@ -472,6 +475,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Gameover" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("restart_btn")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -502,6 +506,7 @@ layout_mode = 2
 text = "Restart"
 
 [node name="WaveSetup" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("item_select_grid", "selected_items_container", "ingredient_label", "finish_button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -664,6 +669,43 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
+
+[node name="Pause" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "continue_btn", "restart_btn")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.50980395)
+script = ExtResource("39_v3yac")
+game = NodePath("../../..")
+continue_btn = NodePath("CenterContainer/VBoxContainer/Continue")
+restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Pause/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Continue" type="Button" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Restart" type="Button" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-2.1855692e-08, 0.86602545, -0.49999997, 3.7855173e-08, 0.49999997, 0.86602545, 1, 1.7763568e-15, -4.371139e-08, -13.940432, 24.656734, 5.0527344)

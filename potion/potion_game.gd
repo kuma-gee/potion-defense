@@ -1,3 +1,4 @@
+class_name PotionGame
 extends Node3D
 
 @export var initial_items: Array[ItemResource] = []
@@ -6,10 +7,11 @@ extends Node3D
 @export var wave_setup: WaveSetup
 @export var items_node: Node3D
 @export var unlocked_item: UnlockedItem
+@export var pause: Pause
 
 const NEW_ITEMS_FOR_WAVE = {
 	1: ItemResource.Type.BLUE_CRYSTAL,
-	3: ItemResource.Type.GREEN_MOSS,
+	5: ItemResource.Type.GREEN_MOSS,
 }
 
 var wave = 0
@@ -21,7 +23,10 @@ func _ready() -> void:
 	wave_setup.selected_items.connect(_on_items_selected)
 	
 	_setup_items()
-	start_game()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and wave_manager.is_wave_active:
+		pause.pause()
 
 func _setup_items() -> void:
 	wave_setup.setup_initial_items(initial_items, items_node.get_child_count())
@@ -38,13 +43,14 @@ func _on_items_selected(items: Array) -> void:
 
 func start_game():
 	wave_manager.begin_wave(wave)
+	
+	for node in get_tree().get_nodes_in_group("resetable"):
+		if node.has_method("start"):
+			node.start()
 
 func _on_wave_completed() -> void:
 	wave += 1
-
-	for node in get_tree().get_nodes_in_group("resetable"):
-		if node.has_method("reset"):
-			node.reset()
+	_reset_objects()
 	
 	if wave in NEW_ITEMS_FOR_WAVE:
 		var new_item = NEW_ITEMS_FOR_WAVE[wave]
@@ -52,3 +58,13 @@ func _on_wave_completed() -> void:
 		unlocked_item.unlocked_item(new_item)
 	else:
 		wave_setup.show_for_items(unlocked_items)
+
+func _reset_objects(restore = false):
+	for node in get_tree().get_nodes_in_group("resetable"):
+		if node.has_method("reset"):
+			node.reset(restore)
+
+func stop_wave():
+	wave_manager.stop_wave()
+	_reset_objects(true)
+	wave_setup.show_for_items(unlocked_items)

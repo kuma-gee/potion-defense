@@ -121,7 +121,7 @@ func _mix_items() -> void:
 	
 	# TODO: explode
 
-func reset():
+func reset(_restore = false):
 	items.clear()
 	mixing = 0
 	time = 0.0

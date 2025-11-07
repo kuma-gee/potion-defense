@@ -11,4 +11,4 @@ func _ready() -> void:
 
 func _update_health():
 	value = hurt_box.health
-	show()
+	visible = not hurt_box.max_health == hurt_box.health

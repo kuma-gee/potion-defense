@@ -123,7 +123,7 @@ func freeze_player() -> void:
 func unfreeze_player() -> void:
 	is_frozen = false
 
-func reset():
+func reset(_restore = false):
 	held_item_type = -1
 	is_frozen = false
 

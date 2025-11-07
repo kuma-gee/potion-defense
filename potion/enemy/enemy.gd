@@ -1,6 +1,8 @@
 class_name Enemy
 extends CharacterBody3D
 
+const GROUP = "Enemy"
+
 @export var speed := 1.0
 @export var attack_anims: Array[String] = []
 @export var run_anim := "Walking_D_Skeletons"
@@ -17,6 +19,7 @@ var knockback: Vector3
 var resource: EnemyResource
 
 func _ready() -> void:
+	add_to_group(GROUP)
 	animation_player.animation_finished.connect(func(a):
 		if a == death_anim:
 			get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
