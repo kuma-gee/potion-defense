@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://c3mcqueui0db2"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Texture2D" uid="uid://bafapapfyvrcy" path="res://assets/items/Items_Charcoal.png" id="2_mwvs1"]
+
+[resource]
+script = ExtResource("1_item_res")
+type = 1
+name = "Charcoal"
+description = "A combustible yellow powder for fire potions"
+texture = ExtResource("2_mwvs1")

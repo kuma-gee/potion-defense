@@ -25,11 +25,11 @@ extends CharacterBody3D
 
 var is_frozen: bool = false
 
-var held_item_type: int = -1:
+var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
-		item_label.text = "%s" % ItemResource.build_name(v) if v >= 0 else ""
-		item_texture.texture = load(ItemResource.get_image_path(v)) if v >= 0 else null
+		item_label.text = held_item_type.name if held_item_type else ""
+		item_texture.texture = held_item_type.texture if held_item_type else null
 
 func get_interact_collision_point():
 	if interact_ray.is_colliding():
@@ -49,7 +49,7 @@ func toggle_camera():
 	ui.visible = camera.current
 
 func _ready():
-	held_item_type = -1
+	held_item_type = null
 	toggle_camera()
 	
 	player_input.input_event.connect(func(event: InputEvent):
@@ -115,15 +115,15 @@ func _physics_process(delta):
 	ground_spring_cast.apply_gravity(self, delta)
 	move_and_slide()
 
-func pickup_item(item_type: ItemResource.Type) -> void:
-	held_item_type = item_type as int
+func pickup_item(item_type: ItemResource) -> void:
+	held_item_type = item_type
 
 func has_item() -> bool:
-	return held_item_type >= 0
+	return held_item_type != null
 
-func release_item() -> int:
+func release_item() -> ItemResource:
 	var item = held_item_type
-	held_item_type = -1
+	held_item_type = null
 	return item
 
 func freeze_player() -> void:
@@ -134,7 +134,7 @@ func unfreeze_player() -> void:
 	is_frozen = false
 
 func reset(_restore = false):
-	held_item_type = -1
+	held_item_type = null
 	is_frozen = false
 
 # func start_drop_charge() -> void:

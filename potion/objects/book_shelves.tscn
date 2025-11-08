@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cug6trk5qkmxr"]
+
+[ext_resource type="PackedScene" uid="uid://dheuvvb1m3wjn" path="res://assets/fantasy/Exports/glTF/Bookcase_2.gltf" id="1_yv3vu"]
+[ext_resource type="PackedScene" uid="uid://d0305dj7tcnuc" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_1.gltf" id="2_dsktu"]
+[ext_resource type="PackedScene" uid="uid://d2o0g25w8c8la" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_2.gltf" id="3_epl8u"]
+[ext_resource type="PackedScene" uid="uid://0bxr3phl6apo" path="res://assets/fantasy/Exports/glTF/BookGroup_Medium_3.gltf" id="4_4q40j"]
+
+[node name="Shelves" type="Node3D"]
+
+[node name="Bookcase_22" parent="." instance=ExtResource("1_yv3vu")]
+
+[node name="BookGroup_Medium_12" parent="Bookcase_22" instance=ExtResource("2_dsktu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9205468, 0.049963057)
+
+[node name="BookGroup_Medium_22" parent="Bookcase_22/BookGroup_Medium_12" instance=ExtResource("3_epl8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3801788, 0)
+
+[node name="BookGroup_Medium_23" parent="Bookcase_22/BookGroup_Medium_12" instance=ExtResource("3_epl8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1633861, 0)
+
+[node name="BookGroup_Medium_32" parent="Bookcase_22/BookGroup_Medium_12" instance=ExtResource("4_4q40j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75543773, 0)

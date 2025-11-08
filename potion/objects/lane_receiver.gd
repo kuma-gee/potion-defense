@@ -51,13 +51,14 @@ func handle_interacted(actor: FPSPlayer) -> void:
 	if not actor: return
 
 	if _can_place_potion(actor):
-		potion_type = actor.release_item()
+		potion_type = actor.release_item().type
 		potion = PICKUPABLE.instantiate()
 		potion.item_type = potion_type as ItemResource.Type
 		potion.position = global_position + Vector3.UP
 		get_tree().current_scene.add_child(potion)
-	elif potion_type >= 0:
 		_shoot_potion_straight(actor)
+	#elif potion_type >= 0:
+		#_shoot_potion_straight(actor)
 
 func _shoot_potion_straight(_actor: Node) -> void:
 	if potion_type < 0 or not potion:
@@ -71,8 +72,8 @@ func _can_place_potion(player: FPSPlayer) -> bool:
 	if not player.has_item():
 		return false
 	
-	var item_type = player.held_item_type as ItemResource.Type
-	return ItemResource.is_potion(item_type) and potion_type < 0
+	var item = player.held_item_type
+	return ItemResource.is_potion(item.type) and potion_type < 0
 
 func get_spawn_position() -> Vector3:
 	return global_position + global_transform.basis.z.normalized() * spawn_distance

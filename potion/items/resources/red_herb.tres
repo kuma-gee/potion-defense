@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://61d6yq6b1l8q"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Texture2D" uid="uid://cgxv7ohrngroe" path="res://assets/items/Items_RedHerb.png" id="2_lk23c"]
+
+[resource]
+script = ExtResource("1_item_res")
+name = "Red Herb"
+description = "A fiery red herb used for fire potions"
+texture = ExtResource("2_lk23c")

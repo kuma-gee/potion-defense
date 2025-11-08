@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dacyc21swomek"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Texture2D" uid="uid://cau5djogpv4y7" path="res://assets/items/Items_PotionPoison.png" id="2_jva1f"]
+
+[resource]
+script = ExtResource("1_item_res")
+type = 8
+name = "Poison Cloud"
+texture = ExtResource("2_jva1f")

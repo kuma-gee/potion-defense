@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://q0cknwi7bfqk"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Texture2D" uid="uid://b5ivvv0bb8c20" path="res://assets/items/Items_PotionParalysis.png" id="2_leki3"]
+
+[resource]
+script = ExtResource("1_item_res")
+type = 9
+name = "Paralysis"
+texture = ExtResource("2_leki3")

@@ -36,11 +36,10 @@ func handle_interacted(actor: Node) -> void:
 	
 	if player.has_item():
 		var item = player.release_item()
-		items.append(item)
-		print("Added ingredient to cauldron: %s" % ItemResource.build_name(item))
+		items.append(item.type)
 	elif not items.is_empty():
 		if _is_only_potions():
-			player.pickup_item(items.pop_back())
+			player.pickup_item(ItemResource.get_resource(items.pop_back()))
 		else:
 			mixing_player = player
 			mixing = true
@@ -83,14 +82,14 @@ func _update_label(player: FPSPlayer) -> void:
 		return
 	
 	if player.has_item():
-		var held_item_type = player.held_item_type as ItemResource.Type
-		if ItemResource.is_empty_potion(held_item_type):
-			if not items.is_empty() and _is_only_potions():
-				label.text = "Fill (%d left)" % items.size()
-			elif not items.is_empty() and not _is_only_potions():
-				label.text = "Invalid Potion"
-		else:
-			label.text = "Put in"
+		#var held_item_type = player.held_item_type
+		#if ItemResource.is_empty_potion(held_item_type):
+			#if not items.is_empty() and _is_only_potions():
+				#label.text = "Fill (%d left)" % items.size()
+			#elif not items.is_empty() and not _is_only_potions():
+				#label.text = "Invalid Potion"
+		#else:
+		label.text = "Put in"
 	elif not items.is_empty():
 		if _is_only_potions():
 			if player.has_item():

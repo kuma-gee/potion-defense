@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://pi03sfcu5jp1"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Texture2D" uid="uid://cvbj3eedw25fw" path="res://assets/items/Items_SpiderVenom.png" id="2_qx8le"]
+
+[resource]
+script = ExtResource("1_item_res")
+type = 3
+name = "Spider venom"
+description = "Pure crystalline water for ice potions"
+texture = ExtResource("2_qx8le")

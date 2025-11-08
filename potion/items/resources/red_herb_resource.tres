@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://potion/items/item_resource.gd" id="1_item_res"]
-
-[resource]
-script = ExtResource("1_item_res")
-type = 0
-name = "Red Herb"
-description = "A fiery red herb used for fire potions"

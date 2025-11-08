@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b66tlb7y3fgx7"]
+
+[ext_resource type="Script" uid="uid://c12k0yjtjh3rm" path="res://potion/recipe_book.gd" id="1_p1uc1"]
+[ext_resource type="PackedScene" uid="uid://bumrn5bmi4nnl" path="res://assets/fantasy/Exports/glTF/BookStand.gltf" id="2_4i5nb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jjj4w"]
+size = Vector3(0.52246094, 1.249054, 0.4482422)
+
+[node name="RecipeBook" type="Area3D" node_paths=PackedStringArray("container", "label")]
+transform = Transform3D(-4.371138e-08, 0, -1, 0, 1, 0, 1, 0, -4.371138e-08, 0, 0, 0)
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_p1uc1")
+container = NodePath("")
+label = NodePath("Label3D")
+
+[node name="BookStand2" parent="." instance=ExtResource("2_4i5nb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89766556, 0)
+shape = SubResource("BoxShape3D_jjj4w")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3215493, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "Test"

@@ -21,7 +21,7 @@ func _ready() -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if file_name.ends_with("_resource.tres") and file_name != "potion_empty_resource.tres":
+			if file_name.ends_with(".tres") and not file_name.begins_with("potion"):
 				var resource_path = "res://potion/items/resources/" + file_name
 				var resource = load(resource_path) as ItemResource
 				if resource:
@@ -42,6 +42,7 @@ func show_for_items(unlocked: Array):
 	for item in item_select_grid.get_children():
 		item.locked = not item.res.type in unlocked
 	show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _on_item_button_pressed(item: ItemResource) -> void:
 	if items.size() >= selected_items_container.get_child_count(): #or item_type in items:

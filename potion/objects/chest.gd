@@ -40,7 +40,7 @@ func _give_item(player: FPSPlayer) -> void:
 		print("Player already has an item")
 		return
 	
-	player.pickup_item(item.type)
+	player.pickup_item(item)
 	print("Gave item from chest: %s" % item.name)
 	current_capacity -= 1
 	timer.start(item.restore_time)

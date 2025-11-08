@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://c0xkrts0rugr3"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Texture2D" uid="uid://c3iyvk6sov1ap" path="res://assets/items/Items_PotionFrost.png" id="2_ipncs"]
+
+[resource]
+script = ExtResource("1_item_res")
+type = 6
+name = "Frost Nova"
+texture = ExtResource("2_ipncs")

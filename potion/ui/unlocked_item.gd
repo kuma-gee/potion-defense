@@ -5,6 +5,7 @@ extends FocusDialog
 @export var label: Label
 
 func unlocked_item(item: ItemResource.Type):
-	texture_rect.texture = ResourceLoader.load(ItemResource.get_image_path(item))
-	label.text = "%s" % ItemResource.build_name(item)
+	var res = ItemResource.get_resource(item)
+	texture_rect.texture = res.texture
+	label.text = "%s" % res.name
 	grab_focus()

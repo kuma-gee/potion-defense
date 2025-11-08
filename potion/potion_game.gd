@@ -10,12 +10,13 @@ extends Node3D
 @export var pause: Pause
 
 const NEW_ITEMS_FOR_WAVE = {
-	1: ItemResource.Type.BLUE_CRYSTAL,
-	5: ItemResource.Type.GREEN_MOSS,
+	2: ItemResource.Type.ICE_SHARD,
+	4: ItemResource.Type.SPIDER_VENOM,
+	6: ItemResource.Type.VULCANIC_ASH,
 }
 
 var wave = 0
-var unlocked_items := [ItemResource.Type.RED_HERB, ItemResource.Type.SULFUR]
+var unlocked_items := [ItemResource.Type.RED_HERB, ItemResource.Type.CHARCOAL]
 
 func _ready() -> void:
 	wave_manager.wave_completed.connect(_on_wave_completed)
@@ -49,7 +50,7 @@ func start_game():
 			node.start()
 
 func _on_wave_completed() -> void:
-	wave += 1
+	wave += 10
 	_reset_objects()
 	
 	if wave in NEW_ITEMS_FOR_WAVE:

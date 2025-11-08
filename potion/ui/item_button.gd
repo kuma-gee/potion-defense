@@ -10,7 +10,7 @@ var res: ItemResource:
 		texture.visible = res != null
 		label.visible = texture.visible
 		if res:
-			texture.texture = ResourceLoader.load(ItemResource.get_image_path(res.type))
+			texture.texture = res.texture
 			label.text = res.name
 		
 var locked := false:

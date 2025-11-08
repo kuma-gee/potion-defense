@@ -3,29 +3,27 @@ extends CollisionShape3D
 
 signal hit()
 
-@export var potion_type := ItemResource.Type.POTION_EMPTY
+@export var potion_type := ItemResource.Type.POTION_FIRE_BOMB
 @export var liquid_mesh: MeshInstance3D
 @onready var hit_area: Area3D = $HitArea
 
 const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://bnh078xxhjtqf"),
-	ItemResource.Type.POTION_ICE_SHARD: preload("uid://df2iboydwrtbj"),
+	ItemResource.Type.POTION_FROST_NOVA: preload("uid://df2iboydwrtbj"),
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cvrm4vmap3w15"),
 	ItemResource.Type.POTION_PARALYSIS: preload("uid://cckgdr5i01p5d"),
 }
 
 const POTION_COLORS = {
-	ItemResource.Type.POTION_EMPTY: Color(1.0, 1.0, 1.0, 0.1),  # Almost transparent white
 	ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.3, 0.0, 0.8),  # Orange/Red
-	ItemResource.Type.POTION_ICE_SHARD: Color(0.3, 0.7, 1.0, 0.8),  # Cyan/Blue
+	ItemResource.Type.POTION_FROST_NOVA: Color(0.3, 0.7, 1.0, 0.8),  # Cyan/Blue
 	ItemResource.Type.POTION_POISON_CLOUD: Color(0.2, 0.8, 0.2, 0.8),  # Green
 	ItemResource.Type.POTION_PARALYSIS: Color(0.8, 0.8, 0.3, 0.8),  # Yellow
 }
 
 const POTION_EMISSIONS = {
-	ItemResource.Type.POTION_EMPTY: Color(0.0, 0.0, 0.0, 0.0),  # No emission
 	ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.5, 0.0, 1.0),  # Orange glow
-	ItemResource.Type.POTION_ICE_SHARD: Color(0.5, 0.8, 1.0, 1.0),  # Blue glow
+	ItemResource.Type.POTION_FROST_NOVA: Color(0.5, 0.8, 1.0, 1.0),  # Blue glow
 	ItemResource.Type.POTION_POISON_CLOUD: Color(0.3, 1.0, 0.3, 1.0),  # Green glow
 	ItemResource.Type.POTION_PARALYSIS: Color(1.0, 1.0, 0.5, 1.0),  # Yellow glow
 }
