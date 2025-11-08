@@ -4,30 +4,32 @@ extends CharacterBody3D
 @export var SPEED = 8.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
 
-# @export_category("Item Dropping")
-# @export var min_throw_force: float = 0.0
-# @export var max_throw_force: float = 10.0
-# @export var throw_charge_time: float = 1.0
-
-@export var interact_ray: InteractRay
 @export var camera: Camera3D
 @export var camera_root: Node3D
-@export var body: Node3D
-@export var item_label: Label
-@export var hand: Area3D
+
 @export var anim: AnimationTree
+@export var body: Node3D
+
+@export_category("Top down")
+@export var hand: Area3D
+@export var item_sprite: Sprite3D
+@export var item_texture: TextureRect
+
+@export_category("First person")
+@export var interact_ray: InteractRay
+@export var ui: CanvasLayer
+@export var item_label: Label
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
 
-# var drop_button_held: bool = false
-# var drop_charge_time: float = 0.0
 var is_frozen: bool = false
 
 var held_item_type: int = -1:
 	set(v):
 		held_item_type = v
 		item_label.text = "%s" % ItemResource.build_name(v) if v >= 0 else ""
+		item_texture.texture = load(ItemResource.get_image_path(v)) if v >= 0 else null
 
 func get_interact_collision_point():
 	if interact_ray.is_colliding():
@@ -37,39 +39,46 @@ func get_interact_collision_point():
 func get_camera_point():
 	return interact_ray.global_position
 
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
+#func _enter_tree():
+	#set_multiplayer_authority(name.to_int())
+
+func toggle_camera():
+	camera.current = not camera.current
+	body.visible = not camera.current
+	item_sprite.visible = not camera.current
+	ui.visible = camera.current
 
 func _ready():
-	camera.current = true
-	body.hide()
+	held_item_type = -1
+	toggle_camera()
 	
-	# hand.released.connect(func(): camera.current = true)
 	player_input.input_event.connect(func(event: InputEvent):
-		#if is_frozen:
-			#return
+		if event.is_action_pressed("switch_view"):
+			toggle_camera()
 		
-		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-			if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		if camera.current:
+			if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+				if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			else:
+				if event is InputEventMouseMotion:
+					var sens = mouse_sensitivity
+					rotate_y(-event.relative.x * sens.x)
+					camera_root.rotate_x(-event.relative.y * sens.y)
+					camera_root.rotation.x = clamp(camera_root.rotation.x, deg_to_rad(-70), deg_to_rad(70))
+				elif event.is_action_pressed("ui_cancel"):
+					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
+				elif event.is_action_pressed("interact"):
+					interact_ray.interact(self)
+				elif event.is_action_released("interact"):
+					interact_ray.release(self)
 		else:
-			if event is InputEventMouseMotion:
-				var sens = mouse_sensitivity
-				rotate_y(-event.relative.x * sens.x)
-				camera_root.rotate_x(-event.relative.y * sens.y)
-				camera_root.rotation.x = clamp(camera_root.rotation.x, deg_to_rad(-70), deg_to_rad(70))
-			elif event.is_action_pressed("ui_cancel"):
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
-			elif event.is_action_pressed("interact"):
-				interact_ray.interact(self)
+			if event.is_action_pressed("interact"):
+				hand.interact(self)
 			elif event.is_action_released("interact"):
-				interact_ray.release(self)
-			#elif event.is_action_pressed("drop_item"):
-				#start_drop_charge()
-			#elif event.is_action_released("drop_item"):
-				#release_drop_item()
-	)
+				hand.release(self)
 
+	)
 
 func _physics_process(delta):
 	if is_frozen:
@@ -81,7 +90,8 @@ func _physics_process(delta):
 	# 	drop_charge_time = min(drop_charge_time + delta, throw_charge_time)
 	
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	var direction = (transform.basis * input) if camera.current else input.rotated(Vector3.UP, -PI/2)
 	var _speed = SPEED
 	
 	if ground_spring_cast.is_grounded():

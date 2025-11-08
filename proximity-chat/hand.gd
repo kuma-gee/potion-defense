@@ -17,6 +17,9 @@ func _process(_delta: float) -> void:
 		if a is RayInteractable:
 			last_collider = a
 			break
+			
+	if get_overlapping_areas().is_empty():
+		last_collider = null
 
 func interact(actor) -> void:
 	for a in get_overlapping_areas():
