@@ -12,8 +12,8 @@ extends Node3D
 @export var recipe_ui: RecipeBookUI
 
 const NEW_ITEMS_FOR_WAVE = {
-	2: ItemResource.Type.ICE_SHARD,
-	4: ItemResource.Type.SPIDER_VENOM,
+	1: ItemResource.Type.ICE_SHARD,
+	3: ItemResource.Type.SPIDER_VENOM,
 	6: ItemResource.Type.VULCANIC_ASH,
 }
 

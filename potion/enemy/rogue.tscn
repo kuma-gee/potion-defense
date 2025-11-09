@@ -40,10 +40,11 @@ metadata/_custom_type_script = "uid://cuspqvicid1n2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
 shape = SubResource("BoxShape3D_ujkhk")
 
-[node name="HurtBox" type="Area3D" parent="."]
+[node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("status_manager")]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("4_frjyh")
+status_manager = NodePath("../StatusEffectManager")
 max_health = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]

@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://yp8jmq5o37s5" path="res://player/states/state_machine.gd" id="4_x5dnw"]
 [ext_resource type="Script" uid="uid://bd8cabvemw6g1" path="res://obstacles/enemies/jump_area.gd" id="4_xlsoj"]
 [ext_resource type="Script" uid="uid://b6ak5s0kwtpbg" path="res://obstacles/enemies/jump_attack.gd" id="7_xlsoj"]
-[ext_resource type="PackedScene" uid="uid://ljm1s4uvbr4c" path="res://VFX/Scenes/VFX_Earth_Ring.tscn" id="8_uo61u"]
+[ext_resource type="PackedScene" uid="uid://ljm1s4uvbr4c" path="res://VFX-Stone/Scenes/VFX_Earth_Ring.tscn" id="8_uo61u"]
 [ext_resource type="Script" uid="uid://d4nenix06s4w3" path="res://util/CameraShake.gd" id="10_qvkyp"]
 [ext_resource type="PackedScene" uid="uid://bfgfb221ebj27" path="res://obstacles/scenes/hit_box.tscn" id="10_r6ogx"]
 

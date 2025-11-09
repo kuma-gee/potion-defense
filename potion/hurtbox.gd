@@ -5,6 +5,7 @@ signal died()
 signal health_changed()
 signal knockbacked(force)
 
+@export var status_manager: StatusEffectManager
 @export var max_health := 10
 @onready var health := max_health:
 	set(v):

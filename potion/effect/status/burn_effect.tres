@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DpsEffect" load_steps=2 format=3 uid="uid://5adf235ow25d"]
+
+[ext_resource type="Script" uid="uid://77byp8giveus" path="res://potion/effect/status/dps_effect.gd" id="1_n2f0k"]
+
+[resource]
+script = ExtResource("1_n2f0k")
+damage_per_tick = 5.0
+duration = 1.0
+metadata/_custom_type_script = "uid://77byp8giveus"

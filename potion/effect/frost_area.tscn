@@ -1,16 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://df2iboydwrtbj"]
+[gd_scene load_steps=13 format=3 uid="uid://df2iboydwrtbj"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://magic/blue_beam_impact.tscn" id="1_wa712"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="2_o8fgn"]
 [ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="3_ke0aa"]
 [ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/status/ice_shard_slow_effect.tres" id="4_esewq"]
 [ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="5_4ak11"]
 [ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://magic/aoe_cylinder.tres" id="5_qgqhl"]
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="6_n7i8s"]
 [ext_resource type="Texture2D" uid="uid://beve0cca3foj1" path="res://assets/particles/course/CylinderTex.png" id="7_tgqho"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_ke0aa"]
-radius = 1.547238
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o8fgn"]
 radius = 1.8132439
@@ -63,17 +59,6 @@ _data = {
 [node name="FrostArea" type="Node3D"]
 
 [node name="BlueBeamImpact" parent="." instance=ExtResource("1_wa712")]
-
-[node name="HitBox" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 128
-script = ExtResource("2_o8fgn")
-force = 5
-on_init = true
-metadata/_custom_type_script = "uid://cuspqvicid1n2"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
-shape = SubResource("SphereShape3D_ke0aa")
 
 [node name="FreezeArea" type="Area3D" parent="."]
 collision_layer = 0

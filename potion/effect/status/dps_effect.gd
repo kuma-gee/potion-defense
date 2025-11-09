@@ -3,10 +3,6 @@ extends StatusEffect
 
 @export var damage_per_tick: float = 1.0
 
-func _init(p_duration: float = 5.0, p_damage_per_tick: float = 1.0) -> void:
-	super._init(p_duration, 1.0)
-	damage_per_tick = p_damage_per_tick
-
 func get_effect_type() -> String:
 	return "burn"
 

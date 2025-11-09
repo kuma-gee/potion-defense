@@ -12,20 +12,23 @@ const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FROST_NOVA: preload("uid://df2iboydwrtbj"),
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cvrm4vmap3w15"),
 	ItemResource.Type.POTION_PARALYSIS: preload("uid://cckgdr5i01p5d"),
+	ItemResource.Type.POTION_BLIZZARD: preload("uid://c684oj6gh0t68"),
+	ItemResource.Type.POTION_LAVA_FIELD: preload("uid://vb3dg7vbbfqm"),
+	ItemResource.Type.POTION_LIGHTNING: preload("uid://d1n4byccvwsct"),
 }
 
 const POTION_COLORS = {
-	ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.3, 0.0, 0.8),  # Orange/Red
-	ItemResource.Type.POTION_FROST_NOVA: Color(0.3, 0.7, 1.0, 0.8),  # Cyan/Blue
-	ItemResource.Type.POTION_POISON_CLOUD: Color(0.2, 0.8, 0.2, 0.8),  # Green
-	ItemResource.Type.POTION_PARALYSIS: Color(0.8, 0.8, 0.3, 0.8),  # Yellow
+	#ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.3, 0.0, 0.8),  # Orange/Red
+	#ItemResource.Type.POTION_FROST_NOVA: Color(0.3, 0.7, 1.0, 0.8),  # Cyan/Blue
+	#ItemResource.Type.POTION_POISON_CLOUD: Color(0.2, 0.8, 0.2, 0.8),  # Green
+	#ItemResource.Type.POTION_PARALYSIS: Color(0.8, 0.8, 0.3, 0.8),  # Yellow
 }
 
 const POTION_EMISSIONS = {
-	ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.5, 0.0, 1.0),  # Orange glow
-	ItemResource.Type.POTION_FROST_NOVA: Color(0.5, 0.8, 1.0, 1.0),  # Blue glow
-	ItemResource.Type.POTION_POISON_CLOUD: Color(0.3, 1.0, 0.3, 1.0),  # Green glow
-	ItemResource.Type.POTION_PARALYSIS: Color(1.0, 1.0, 0.5, 1.0),  # Yellow glow
+	#ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.5, 0.0, 1.0),  # Orange glow
+	#ItemResource.Type.POTION_FROST_NOVA: Color(0.5, 0.8, 1.0, 1.0),  # Blue glow
+	#ItemResource.Type.POTION_POISON_CLOUD: Color(0.3, 1.0, 0.3, 1.0),  # Green glow
+	#ItemResource.Type.POTION_PARALYSIS: Color(1.0, 1.0, 0.5, 1.0),  # Yellow glow
 }
 
 func _ready() -> void:

@@ -38,7 +38,10 @@ func _ready() -> void:
 	speed = resource.speed
 	hit_box.damage = resource.damage
 	hurt_box.set_max_health(resource.health)
-	
+
+func get_original_speed():
+	return resource.speed
+
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
 		return

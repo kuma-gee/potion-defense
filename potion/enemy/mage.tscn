@@ -20,7 +20,7 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[node name="Rogue" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box", "projectile_spawn")]
+[node name="Mage" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box", "projectile_spawn")]
 collision_layer = 4
 script = ExtResource("1_d8e8n")
 attack_anims = Array[String](["1H_Ranged_Shoot"])
@@ -113,10 +113,11 @@ metadata/_custom_type_script = "uid://cuspqvicid1n2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
 shape = SubResource("BoxShape3D_ujkhk")
 
-[node name="HurtBox" type="Area3D" parent="."]
+[node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("status_manager")]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("4_18d5k")
+status_manager = NodePath("../StatusEffectManager")
 max_health = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]

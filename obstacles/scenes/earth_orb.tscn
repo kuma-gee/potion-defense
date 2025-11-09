@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dbultd6qr5567"]
 
 [ext_resource type="Script" uid="uid://bq3sjitr5nutm" path="res://obstacles/scenes/earth_orb.gd" id="1_1x1u8"]
-[ext_resource type="PackedScene" uid="uid://lx5pf8ubx1cd" path="res://VFX/Scenes/VFX_Earth_UniProjectile.tscn" id="1_hsp7c"]
-[ext_resource type="PackedScene" uid="uid://cp7uclpeoymbl" path="res://VFX/Scenes/VFX_Earth_hit2.tscn" id="2_11jd5"]
+[ext_resource type="PackedScene" uid="uid://lx5pf8ubx1cd" path="res://VFX-Stone/Scenes/VFX_Earth_UniProjectile.tscn" id="1_hsp7c"]
+[ext_resource type="PackedScene" uid="uid://cp7uclpeoymbl" path="res://VFX-Stone/Scenes/VFX_Earth_hit2.tscn" id="2_11jd5"]
 [ext_resource type="PackedScene" uid="uid://bfgfb221ebj27" path="res://obstacles/scenes/hit_box.tscn" id="3_c5su6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_11jd5"]
