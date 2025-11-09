@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqsb8dcdmlb48"]
+
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_mspm8"]
+[ext_resource type="Script" uid="uid://dx1kpfl74qbru" path="res://potion/ui/cauldron_item.gd" id="2_bojww"]
+
+[node name="CauldronItem" type="TextureRect"]
+custom_minimum_size = Vector2(64, 64)
+texture = ExtResource("1_mspm8")
+expand_mode = 2
+stretch_mode = 5
+script = ExtResource("2_bojww")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "2x"

@@ -13,6 +13,9 @@ func _ready() -> void:
 	
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	start_btn.pressed.connect(func():
+		if player_root.get_child_count() == 0:
+			return
+		
 		hide()
 		get_tree().paused = false
 		game_started.emit()
