@@ -2,12 +2,14 @@ class_name PotionGame
 extends Node3D
 
 @export var initial_items: Array[ItemResource] = []
+@export var map_root: Node3D
+@export var map_scene: PackedScene
 
 @export var wave_manager: WaveManager
 @export var wave_setup: WaveSetup
-@export var items_node: Node3D
 @export var unlocked_item: UnlockedItem
 @export var pause: Pause
+@export var recipe_ui: RecipeBookUI
 
 const NEW_ITEMS_FOR_WAVE = {
 	2: ItemResource.Type.ICE_SHARD,
@@ -15,6 +17,7 @@ const NEW_ITEMS_FOR_WAVE = {
 	6: ItemResource.Type.VULCANIC_ASH,
 }
 
+var map: Map
 var wave = 0
 var unlocked_items := [ItemResource.Type.RED_HERB, ItemResource.Type.CHARCOAL]
 
@@ -22,20 +25,26 @@ func _ready() -> void:
 	wave_manager.wave_completed.connect(_on_wave_completed)
 	unlocked_item.closed.connect(func(): wave_setup.show_for_items(unlocked_items))
 	wave_setup.selected_items.connect(_on_items_selected)
-	
-	_setup_items()
+	_setup_map()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and wave_manager.is_wave_active:
 		pause.pause()
 
 func _setup_items() -> void:
-	wave_setup.setup_initial_items(initial_items, items_node.get_child_count())
+	wave_setup.setup_initial_items(initial_items, map.items.get_child_count())
 	_on_items_selected(initial_items)
 
+func _setup_map():
+	map = map_scene.instantiate() as Map
+	map_root.add_child(map)
+	wave_manager.setup(map.lanes)
+	map.recipe_book.interacted.connect(func(_a): recipe_ui.grab_focus())
+	_setup_items()
+
 func _on_items_selected(items: Array) -> void:
-	for i in items_node.get_child_count():
-		var child = items_node.get_child(i) as Chest
+	for i in map.items.get_child_count():
+		var child = map.items.get_child(i) as Chest
 		if not child: continue
 
 		child.item = items[i] if i < items.size() else null

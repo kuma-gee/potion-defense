@@ -6,12 +6,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjj4w"]
 size = Vector3(0.52246094, 1.249054, 0.4482422)
 
-[node name="RecipeBook" type="Area3D" node_paths=PackedStringArray("container", "label")]
+[node name="RecipeBook" type="Area3D" node_paths=PackedStringArray("label")]
 transform = Transform3D(-4.371138e-08, 0, -1, 0, 1, 0, 1, 0, -4.371138e-08, 0, 0, 0)
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_p1uc1")
-container = NodePath("")
 label = NodePath("Label3D")
 
 [node name="BookStand2" parent="." instance=ExtResource("2_4i5nb")]
@@ -25,4 +24,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3215493, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
-text = "Test"
+text = "Open Recipe Book"

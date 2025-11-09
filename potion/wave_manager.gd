@@ -21,7 +21,7 @@ signal wave_completed()
 
 @export_category("Enemy Resources")
 @export var enemy_resources: Array[EnemyResource] = []
-@export var lanes: Array[LaneReceiver] = []
+@export var lane_root: Node3D
 @export var spawn_timer: Timer
 @export var wave_timer: Timer
 
@@ -47,7 +47,9 @@ func _ready() -> void:
 	if enemy_spawn_root:
 		enemy_spawn_root.child_entered_tree.connect(_on_enemy_entered_tree)
 
-	for lane in lanes:
+func setup(node: Node3D):
+	lane_root = node
+	for lane in lane_root.get_children():
 		lane.destroyed.connect(func():
 			game_over.emit()
 		)
@@ -151,7 +153,7 @@ func _spawn_single_enemy() -> void:
 		return
 	
 	print("Availabe enemies %s" % available_enemies.size())
-	var valid_lanes = lanes.filter(func(x): return not x.is_destroyed())
+	var valid_lanes = lane_root.get_children().filter(func(x): return not x.is_destroyed())
 	if valid_lanes.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
 		return
@@ -160,7 +162,7 @@ func _spawn_single_enemy() -> void:
 	if left_to_spawn <= 0:
 		return
 
-	var lane_spawn_count = randi_range(1, max(min(valid_lanes.size(), left_to_spawn), 3))
+	var lane_spawn_count = randi_range(1, min(valid_lanes.size() - 1, left_to_spawn, 1))
 	valid_lanes.shuffle()
 	for i in range(lane_spawn_count):
 		var lane = valid_lanes[i]
