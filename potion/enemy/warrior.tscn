@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0w5c27p08lp6"]
+[gd_scene load_steps=11 format=3 uid="uid://d0w5c27p08lp6"]
 
 [ext_resource type="PackedScene" uid="uid://csgnjx147ai2w" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Warrior.glb" id="1_22bvo"]
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_x44yb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_b0un1"]
 [ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_k76b1"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_gvykr"]
+[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="7_gvykr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a31gv"]
 size = Vector3(1, 1, 0.56640625)
@@ -152,5 +153,8 @@ metadata/_custom_type_script = "uid://bn80he875obc8"
 [node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_gvykr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
 status_manager = NodePath("../StatusEffectManager")
+
+[node name="DamageLabel" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("7_gvykr")]
+hurt_box = NodePath("../HurtBox")
 
 [editable path="Skeleton_Warrior"]

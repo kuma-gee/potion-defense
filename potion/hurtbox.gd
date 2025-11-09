@@ -3,6 +3,7 @@ extends Area3D
 
 signal died()
 signal health_changed()
+signal damaged(dmg)
 signal knockbacked(force)
 
 @export var status_manager: StatusEffectManager
@@ -23,7 +24,7 @@ func set_max_health(new_max_health: int):
 
 func hit(dmg: int, knockback = Vector3.ZERO):
 	health -= dmg
-	
+	damaged.emit(dmg)
 	if knockback:
 		knockbacked.emit(knockback)
 

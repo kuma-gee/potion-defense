@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwepgd5dhngl5"]
+[gd_scene load_steps=14 format=3 uid="uid://dwepgd5dhngl5"]
 
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_d8e8n"]
 [ext_resource type="PackedScene" uid="uid://cvb6005pohejp" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Mage.glb" id="2_qw62i"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="7_18d5k"]
 [ext_resource type="PackedScene" uid="uid://cfoo8o7cqicqx" path="res://magic/muzzle.tscn" id="7_1215r"]
 [ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="8_fntyg"]
+[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="10_t2m1k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ujkhk"]
 size = Vector3(1, 1, 0.56640625)
@@ -141,5 +142,9 @@ metadata/_custom_type_script = "uid://bn80he875obc8"
 [node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("7_18d5k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
 status_manager = NodePath("../StatusEffectManager")
+
+[node name="DamageLabel" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("10_t2m1k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4190378, -0.16383338)
+hurt_box = NodePath("../HurtBox")
 
 [editable path="Skeleton_Mage"]

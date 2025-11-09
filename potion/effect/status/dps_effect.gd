@@ -4,7 +4,7 @@ extends StatusEffect
 @export var damage_per_tick: float = 1.0
 
 func get_effect_type() -> String:
-	return "burn"
+	return "dps"
 
 func on_apply() -> void:
 	print("%s is now burning!" % target.name)

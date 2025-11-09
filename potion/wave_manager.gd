@@ -55,7 +55,7 @@ func setup(node: Node3D):
 		)
 
 func _enemy_spawn_count():
-	return spawn_enemy_count + log(current_wave + 1) * 10
+	return spawn_enemy_count + floor((log(current_wave + 1) / log(10)) * 10)
 
 func _process(_delta: float) -> void:
 	if waiting_for_ready or not is_wave_active:
@@ -162,7 +162,7 @@ func _spawn_single_enemy() -> void:
 	if left_to_spawn <= 0:
 		return
 
-	var lane_spawn_count = randi_range(1, min(valid_lanes.size() - 1, left_to_spawn, 1))
+	var lane_spawn_count = randi_range(1, min(valid_lanes.size(), left_to_spawn, 1))
 	valid_lanes.shuffle()
 	for i in range(lane_spawn_count):
 		var lane = valid_lanes[i]
