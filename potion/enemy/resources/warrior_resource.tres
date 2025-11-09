@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_0rn2h")
 scene = ExtResource("2_w3e8h")
-from_wave = 2
+from_wave = 5
 health = 120
 speed = 0.5
 damage = 8

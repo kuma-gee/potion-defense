@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_0rn2h")
 scene = ExtResource("2_m5b9p")
+from_wave = 3
 health = 50
 damage = 2
 name = "Rogue"

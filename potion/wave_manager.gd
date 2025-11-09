@@ -10,7 +10,6 @@ signal wave_completed()
 
 @export_category("Wave Settings")
 @export var spawn_enemy_count: int = 4
-@export var spawn_enemy_increase: int = 2
 @export var spawn_interval_min: float = 2.0
 @export var spawn_interval_max: float = 4.0
 
@@ -54,7 +53,7 @@ func _ready() -> void:
 		)
 
 func _enemy_spawn_count():
-	return spawn_enemy_count + current_wave * spawn_enemy_increase
+	return spawn_enemy_count + log(current_wave + 1) * 10
 
 func _process(_delta: float) -> void:
 	if waiting_for_ready or not is_wave_active:
@@ -112,7 +111,7 @@ func _on_wave_time_expired() -> void:
 	print("Wave %d time expired! Starting final wave with %d enemies" % [current_wave, final_wave_enemy_count])
 	spawn_timer.stop()
 
-	if current_wave < final_wave_from_wave:
+	if true or current_wave < final_wave_from_wave:
 		print("Final wave not triggered until wave %d" % final_wave_from_wave)
 		return
 
@@ -151,6 +150,7 @@ func _spawn_single_enemy() -> void:
 		push_error("WaveManager: No available enemies for wave %d" % current_wave)
 		return
 	
+	print("Availabe enemies %s" % available_enemies.size())
 	var valid_lanes = lanes.filter(func(x): return not x.is_destroyed())
 	if valid_lanes.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
@@ -160,7 +160,7 @@ func _spawn_single_enemy() -> void:
 	if left_to_spawn <= 0:
 		return
 
-	var lane_spawn_count = randi_range(1, min(valid_lanes.size(), left_to_spawn))
+	var lane_spawn_count = randi_range(1, max(min(valid_lanes.size(), left_to_spawn), 3))
 	valid_lanes.shuffle()
 	for i in range(lane_spawn_count):
 		var lane = valid_lanes[i]

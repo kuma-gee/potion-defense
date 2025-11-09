@@ -50,7 +50,7 @@ func start_game():
 			node.start()
 
 func _on_wave_completed() -> void:
-	wave += 10
+	wave += 1
 	_reset_objects()
 	
 	if wave in NEW_ITEMS_FOR_WAVE:

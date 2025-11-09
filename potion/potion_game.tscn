@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
 [ext_resource type="Script" uid="uid://bh2kij0kebasu" path="res://potion/enemy/resources/enemy_resource.gd" id="3_16d2i"]
-[ext_resource type="Resource" path="res://potion/items/resources/red_herb.tres" id="3_41urv"]
-[ext_resource type="Resource" path="res://potion/items/resources/charcoal.tres" id="4_41urv"]
+[ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="3_41urv"]
+[ext_resource type="Resource" uid="uid://c3mcqueui0db2" path="res://potion/items/resources/charcoal.tres" id="4_41urv"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="4_qliwp"]
 [ext_resource type="Resource" uid="uid://b8ujitv2y52po" path="res://potion/enemy/resources/mage_resource.tres" id="4_rmnmn"]
 [ext_resource type="Resource" uid="uid://di67w6t0nqyiv" path="res://potion/enemy/resources/rogue_resource.tres" id="5_ux70s"]
@@ -72,7 +72,7 @@ script = ExtResource("19_fqivl")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 wave_label = NodePath("../CanvasLayer/Wave")
 spawn_enemy_count = 3
-enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("4_rmnmn"), ExtResource("5_ux70s"), ExtResource("6_kfjfp"), ExtResource("7_e2yce")])
+enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("6_kfjfp"), ExtResource("5_ux70s"), ExtResource("7_e2yce"), ExtResource("4_rmnmn")])
 lanes = [NodePath("../Lanes/Lane"), NodePath("../Lanes/Lane2"), NodePath("../Lanes/Lane3"), NodePath("../Lanes/Lane4")]
 spawn_timer = NodePath("SpawnTimer")
 wave_timer = NodePath("WaveTimer")
@@ -92,7 +92,7 @@ one_shot = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.892634, 0, 5.5121093)
 
 [node name="Lane2" parent="Lanes" instance=ExtResource("18_vaceq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8055298, 0.009325504, 5.5137315)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.972708, 0.009325504, 5.5137315)
 
 [node name="Lane3" parent="Lanes" instance=ExtResource("18_vaceq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9617425, 0, 5.5121093)
@@ -215,13 +215,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9999999)
 [node name="Chest4" parent="Items" instance=ExtResource("8_domfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="RecipeBook" parent="." instance=ExtResource("18_h4d31")]
+[node name="RecipeBook" parent="." node_paths=PackedStringArray("container") instance=ExtResource("18_h4d31")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.44349, 0, 1.9062808)
+container = NodePath("../CanvasLayer/Control/Recipes")
 
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, -6)
+material_override = ExtResource("12_pnone")
+use_collision = true
+size = Vector3(6, 0.5, 12)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, 5.4721127)
+visible = false
 material_override = ExtResource("12_pnone")
 use_collision = true
 size = Vector3(6, 0.5, 12)
