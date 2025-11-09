@@ -28,8 +28,9 @@ func _ready() -> void:
 	_setup_map()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and wave_manager.is_wave_active:
-		pause.pause()
+	if wave_manager.is_wave_active:
+		if event.is_action_pressed("pause"):
+			pause.pause()
 
 func _setup_items() -> void:
 	wave_setup.setup_initial_items(initial_items, map.items.get_child_count())

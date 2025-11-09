@@ -17,5 +17,5 @@ var locked := false:
 	set(v):
 		locked = v
 		label.visible = not locked
-		modulate = Color.DIM_GRAY if locked else Color.WHITE
+		modulate = Color(0.2,0.2,0.2) if locked else Color.WHITE
 		disabled = locked

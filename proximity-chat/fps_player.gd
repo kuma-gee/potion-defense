@@ -10,6 +10,9 @@ extends CharacterBody3D
 @export var anim: AnimationTree
 @export var body: Node3D
 
+@export var colors: Array[Color] = []
+@export var color_ring: ColorRect
+
 @export_category("Top down")
 @export var hand: Area3D
 @export var item_sprite: Sprite3D
@@ -23,8 +26,8 @@ extends CharacterBody3D
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
 
+var player_num := 0
 var is_frozen: bool = false
-
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
@@ -42,15 +45,17 @@ func get_camera_point():
 #func _enter_tree():
 	#set_multiplayer_authority(name.to_int())
 
-func toggle_camera():
-	camera.current = not camera.current
+func toggle_camera(value = not camera.current):
+	camera.current = value
 	body.visible = not camera.current
 	item_sprite.visible = not camera.current
 	ui.visible = camera.current
 
 func _ready():
+	player_input.set_for_id(name)
+	color_ring.color = colors[player_num % colors.size()]
 	held_item_type = null
-	toggle_camera()
+	toggle_camera(false)
 	
 	player_input.input_event.connect(func(event: InputEvent):
 		if event.is_action_pressed("switch_view"):

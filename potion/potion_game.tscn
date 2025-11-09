@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=31 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://p37xhunyyh2r" path="res://potion/ui/wave_setup.gd" id="22_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://cgva0jspdrkae" path="res://potion/ui/item_button.tscn" id="23_1w3wt"]
+[ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
 [ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="29_kfjfp"]
@@ -83,8 +84,6 @@ one_shot = true
 [node name="PlayerRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6690073)
 
-[node name="FPSPlayer" parent="PlayerRoot" instance=ExtResource("17_ho6vn")]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Wave" type="Label" parent="CanvasLayer"]
@@ -138,6 +137,7 @@ layout_mode = 2
 text = "Restart"
 
 [node name="WaveSetup" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("item_select_grid", "selected_items_container", "ingredient_label", "finish_button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -310,6 +310,7 @@ size_flags_vertical = 8
 text = "Next"
 
 [node name="Pause" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "continue_btn", "restart_btn")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -345,6 +346,43 @@ text = "Continue"
 [node name="Restart" type="Button" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
+
+[node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("start_btn", "player_root", "joined_label")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.50980395)
+script = ExtResource("24_8mtc6")
+start_btn = NodePath("CenterContainer/VBoxContainer2/Start")
+player_root = NodePath("../../../PlayerRoot")
+player_scene = ExtResource("17_ho6vn")
+joined_label = NodePath("CenterContainer/VBoxContainer2/Joined")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/PlayerJoin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/PlayerJoin/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Press button to join"
+
+[node name="Joined" type="Label" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Joined"
+
+[node name="Start" type="Button" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Start"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f4yaa")

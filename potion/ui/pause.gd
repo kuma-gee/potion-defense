@@ -17,6 +17,10 @@ func _ready() -> void:
 		get_tree().paused = visible
 	)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and (event.is_action_pressed("pause") or event.is_action_pressed("back")):
+		close()
+
 func pause() -> void:
 	show()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

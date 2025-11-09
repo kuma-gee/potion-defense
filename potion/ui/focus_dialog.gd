@@ -16,7 +16,7 @@ func _ready() -> void:
 	)
 
 func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("back"):
 		get_viewport().gui_release_focus()
 
 	# Leave release, so players actually stop
