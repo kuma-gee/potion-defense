@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://di67w6t0nqyiv" path="res://potion/enemy/resources/rogue_resource.tres" id="5_ux70s"]
 [ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="6_kfjfp"]
 [ext_resource type="Resource" uid="uid://bawmjv8tyfdjy" path="res://potion/enemy/resources/warrior_resource.tres" id="7_e2yce"]
+[ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://proximity-chat/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
@@ -18,7 +19,6 @@
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
 [ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
-[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="29_kfjfp"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
 [ext_resource type="Texture2D" uid="uid://w8xwxpot3wg1" path="res://assets/recipes/Page_1.png" id="36_33pbe"]
 [ext_resource type="Texture2D" uid="uid://cf1qeyh63xxdj" path="res://assets/recipes/Page_2.png" id="37_v3yac"]
@@ -199,7 +199,6 @@ layout_mode = 2
 text = " Recipes "
 
 [node name="UnlockedItem" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("texture_rect", "label")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -235,8 +234,10 @@ text = "UNLOCKED"
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
-texture = ExtResource("29_kfjfp")
+texture = ExtResource("17_8mtc6")
+expand_mode = 2
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
@@ -390,6 +391,7 @@ environment = SubResource("Environment_f4yaa")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
 light_energy = 0.4
+metadata/_edit_lock_ = true
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
 [connection signal="pressed" from="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2/Recipes" to="CanvasLayer/Control/Recipes" method="grab_focus"]

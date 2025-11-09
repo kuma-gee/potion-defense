@@ -6,6 +6,9 @@ extends RayInteractable
 @export var item_container: Control
 @export var item_scene: PackedScene
 
+@export var success_anim: AnimationPlayer
+@export var failure_anim: AnimationPlayer
+
 var items: Array = []
 var current_hovering_player: FPSPlayer = null
 var mixing_player: FPSPlayer = null
@@ -153,9 +156,10 @@ func _mix_items() -> void:
 			_update_label(current_hovering_player)
 		
 		print("Mixed: %s" % [items])
+		success_anim.play("init")
 		return
 	
-	# TODO: explode
+	failure_anim.play("hit")
 
 func reset(_restore = false):
 	_clear_items()
