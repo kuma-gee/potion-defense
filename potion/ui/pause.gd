@@ -9,8 +9,8 @@ func _ready() -> void:
 	hide()
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	restart_btn.pressed.connect(func():
-		game.stop_wave()
 		close()
+		game.stop_wave()
 	)
 	continue_btn.pressed.connect(func(): close())
 	visibility_changed.connect(func():
@@ -27,4 +27,3 @@ func pause() -> void:
 
 func close():
 	hide()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

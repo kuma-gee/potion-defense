@@ -83,7 +83,6 @@ one_shot = true
 [node name="MapRoot" type="Node3D" parent="."]
 
 [node name="PlayerRoot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6690073)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -220,6 +219,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/UnlockedItem/CenterContainer"]
+visible = false
 material = SubResource("ShaderMaterial_077x5")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
@@ -349,7 +349,7 @@ text = "Continue"
 layout_mode = 2
 text = "Restart"
 
-[node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("start_btn", "player_root", "joined_label")]
+[node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "start_btn", "player_root", "joined_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -358,6 +358,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("24_8mtc6")
+game = NodePath("../../..")
 start_btn = NodePath("CenterContainer/VBoxContainer2/Start")
 player_root = NodePath("../../../PlayerRoot")
 player_scene = ExtResource("17_ho6vn")

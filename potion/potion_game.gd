@@ -43,8 +43,6 @@ func _setup_map():
 	wave_manager.setup(map.lanes)
 	map.recipe_book.interacted.connect(func(_a): recipe_ui.grab_focus())
 	_setup_items()
-	
-	player_root.global_position = map.spawn_point.global_position
 
 func _on_items_selected(items: Array) -> void:
 	for i in map.items.get_child_count():

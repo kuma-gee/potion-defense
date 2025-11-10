@@ -15,8 +15,6 @@ radius = 0.33984375
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("3_7dfx0")
-snap_to_center = false
-accept_held_items = false
 label = NodePath("Label3D")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
@@ -38,3 +36,5 @@ text = "Trash"
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42835698, 0)
 shape = SubResource("CylinderShape3D_dvhsj")
+
+[editable path="Barrel2"]

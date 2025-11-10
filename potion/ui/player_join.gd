@@ -2,6 +2,7 @@ extends Control
 
 signal game_started()
 
+@export var game: PotionGame
 @export var start_btn: BaseButton
 @export var player_root: Node3D
 @export var player_scene: PackedScene
@@ -35,6 +36,7 @@ func _spawn_player(event: InputEvent) -> void:
 	var player = player_scene.instantiate() as FPSPlayer
 	player.name = id
 	player.player_num = player_root.get_child_count()
+	player.position = game.map.spawn_points[player.player_num].global_position if player.player_num < game.map.spawn_points.size() else Vector3.ZERO
 	player_root.add_child(player)
 	_update()
 
