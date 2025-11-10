@@ -75,3 +75,6 @@ static func find_recipe(items: Array):
 			return result
 
 	return null
+
+func is_potion_item():
+	return ItemResource.is_potion(type)

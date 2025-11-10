@@ -7,20 +7,33 @@ signal interacted(actor)
 signal released(actor)
 
 @export var label: Label3D
+@export var sprite: Sprite3D
 
 func _ready() -> void:
-	label.hide()
+	if label:
+		label.hide()
+	if sprite:
+		sprite.hide()
 
 func hover(actor):
 	hovered.emit(actor)
-	label.show()
+	if label:
+		label.show()
+	if sprite:
+		sprite.show()
 
 func unhover(actor):
 	unhovered.emit(actor)
-	label.hide()
+	if label:
+		label.hide()
+	if sprite:
+		sprite.hide()
 
 func interact(actor):
-	label.hide()
+	if label:
+		label.hide()
+	if sprite:
+		sprite.hide()
 	interacted.emit(actor)
 
 func release(actor):

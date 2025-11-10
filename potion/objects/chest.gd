@@ -1,6 +1,8 @@
 class_name Chest
 extends RayInteractable
 
+@export var item_view: CauldronItem
+@export var timer_label: Label3D
 @export var static_collision: CollisionShape3D
 @export var item: ItemResource:
 	set(v):
@@ -12,6 +14,7 @@ extends RayInteractable
 
 		if is_inside_tree():
 			label.text = item.name if item else ""
+			item_view.type = item.type if item else -1
 
 var timer: Timer = Timer.new()
 var current_capacity := 0
@@ -32,6 +35,14 @@ func _ready() -> void:
 			_give_item(actor as FPSPlayer)
 	)
 
+func _process(_delta: float) -> void:
+	if label.visible and not timer.is_stopped() and item:
+		timer_label.visible = true
+		var time_left = timer.time_left
+		timer_label.text = "Restock: %.1fs" % time_left
+	else:
+		timer_label.visible = false
+
 func _give_item(player: FPSPlayer) -> void:
 	if not item or (current_capacity <= 0 and item.max_capacity > 0):
 		return
@@ -43,4 +54,6 @@ func _give_item(player: FPSPlayer) -> void:
 	player.pickup_item(item)
 	print("Gave item from chest: %s" % item.name)
 	current_capacity -= 1
-	timer.start(item.restore_time)
+
+	if timer.is_stopped():
+		timer.start(item.restore_time)

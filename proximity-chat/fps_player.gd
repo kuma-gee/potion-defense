@@ -141,36 +141,3 @@ func unfreeze_player() -> void:
 func reset(_restore = false):
 	held_item_type = null
 	is_frozen = false
-
-# func start_drop_charge() -> void:
-# 	if not has_item():
-# 		return
-	
-# 	drop_button_held = true
-# 	drop_charge_time = 0.0
-
-# func release_drop_item() -> void:
-# 	if not drop_button_held:
-# 		return
-	
-# 	drop_button_held = false
-# 	drop_item(drop_charge_time)
-# 	drop_charge_time = 0.0
-
-# func get_throw_force(charge_time: float) -> float:
-# 	# Calculate throw force based on how long the button was held
-# 	var charge_ratio = clamp(charge_time / throw_charge_time, 0.0, 1.0)
-# 	return lerp(min_throw_force, max_throw_force, charge_ratio)
-
-# func get_charge_percentage() -> float:
-# 	# Returns the current charge percentage (0.0 to 1.0)
-# 	if not drop_button_held:
-# 		return 0.0
-# 	return clamp(drop_charge_time / throw_charge_time, 0.0, 1.0)
-
-# func drop_item(_charge_time: float = 0.0) -> void:
-# 	if not has_item():
-# 		return
-	
-# 	print("Dropped item: %s" % ItemResource.build_name(held_item_type))
-# 	held_item_type = -1

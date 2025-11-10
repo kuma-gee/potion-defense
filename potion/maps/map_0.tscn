@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/objects/chest.tscn" id="6_2on60"]
 [ext_resource type="PackedScene" uid="uid://b66tlb7y3fgx7" path="res://potion/objects/recipe_book.tscn" id="7_utij6"]
 [ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="8_p427w"]
-[ext_resource type="PackedScene" uid="uid://c5wdkaplydpfi" path="res://assets/fantasy/Exports/glTF/Shelf_Arch.gltf" id="9_53xa3"]
+[ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/objects/storage.tscn" id="10_1yaw1"]
 
 [node name="Map01" type="Node3D" node_paths=PackedStringArray("lanes", "items", "recipe_book")]
 script = ExtResource("1_0thdf")
@@ -220,11 +220,11 @@ material_override = ExtResource("8_p427w")
 use_collision = true
 size = Vector3(8, 0.101, 8)
 
-[node name="Shelf_Arch2" parent="." instance=ExtResource("9_53xa3")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.06026244, 0, 3.6811147)
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0.86602545, -0.49999997, 0, 0.49999997, 0.86602545, 1, 3.7855173e-08, -2.1855692e-08, -9.879478, 21.32521, 5.401044)
 current = true
 fov = 30.0
 size = 10.832689
+
+[node name="Storage" parent="." instance=ExtResource("10_1yaw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6384163)
