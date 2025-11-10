@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dx1kpfl74qbru" path="res://potion/ui/cauldron_item.gd" id="2_bojww"]
 
 [node name="CauldronItem" type="TextureRect"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 64)
 texture = ExtResource("1_mspm8")
 expand_mode = 2
 stretch_mode = 5

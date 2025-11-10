@@ -111,10 +111,12 @@ func _physics_process(delta):
 		velocity.z = lerp(velocity.z, direction.z * _speed, delta * 3.0)
 
 	if velocity.length() > 0.1:
-		var target_direction = velocity.normalized()
+		var target_direction = direction.normalized()
 		var current_forward = -body.global_transform.basis.z
 		var angle = current_forward.signed_angle_to(target_direction, Vector3.UP)
 		body.rotate_y(angle * delta * 10.0)
+		#var pos = Vector3(body.global_position.x, 0, body.global_position.z)
+		#body.basis = body.global_basis.looking_at(pos + direction)
 
 	anim.set("parameters/Move/blend_amount", input_dir.length())
 	ground_spring_cast.apply_gravity(self, delta)

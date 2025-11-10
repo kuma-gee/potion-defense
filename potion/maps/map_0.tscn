@@ -10,11 +10,12 @@
 [ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="8_p427w"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/objects/storage.tscn" id="10_1yaw1"]
 
-[node name="Map01" type="Node3D" node_paths=PackedStringArray("lanes", "items", "recipe_book")]
+[node name="Map01" type="Node3D" node_paths=PackedStringArray("lanes", "items", "recipe_book", "spawn_point")]
 script = ExtResource("1_0thdf")
 lanes = NodePath("Lanes")
 items = NodePath("Items")
 recipe_book = NodePath("RecipeBook")
+spawn_point = NodePath("SpawnPoint")
 
 [node name="Lanes" type="Node3D" parent="."]
 
@@ -25,8 +26,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.972708, 0.009325504, 3.5137
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9617425, 0, 3.5121093)
 
 [node name="Cauldron" parent="." instance=ExtResource("3_5kqim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75824165)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1008213, 0.57564807)
+light_color = Color(1, 0.75686276, 0.6509804, 1)
+light_energy = 2.0
+omni_range = 8.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1008213, 0.57564807)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
 light_energy = 2.0
@@ -100,10 +108,10 @@ light_energy = 0.3
 omni_range = 8.0
 
 [node name="Trash" parent="." instance=ExtResource("5_faay0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1582687, 0, 2.4242132)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1582687, 0, 2.0021942)
 
 [node name="Items" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3242106, 0, -0.39528286)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.9682183, 0, -3.610941)
 
 [node name="Chest" parent="Items" instance=ExtResource("6_2on60")]
 
@@ -117,7 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9999999)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
 [node name="RecipeBook" parent="." instance=ExtResource("7_utij6")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.3784375, 0, 1.3428733)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.2364082, 0, 0.00706625)
 
 [node name="Walls" type="Node3D" parent="."]
 
@@ -228,3 +236,6 @@ size = 10.832689
 
 [node name="Storage" parent="." instance=ExtResource("10_1yaw1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6384163)
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1278806)

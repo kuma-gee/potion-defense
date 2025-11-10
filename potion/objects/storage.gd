@@ -7,6 +7,7 @@ extends RayInteractable
 var storage := []
 
 func _ready() -> void:
+	super()
 	hovered.connect(func(a: FPSPlayer): label.text = "Storage" if _can_store(a) else ("Take" if storage.size() > 0 else ""))
 	interacted.connect(func(actor: Node):
 		if actor is FPSPlayer:
@@ -46,3 +47,7 @@ func _update_items_list() -> void:
 		tex.custom_minimum_size = Vector2(32, 32)
 		tex.texture = item.texture
 		items_list.add_child(tex)
+
+func reset(_restore = false):
+	storage = []
+	_update_items_list()

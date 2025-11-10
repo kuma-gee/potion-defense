@@ -20,8 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://cdga0j4g0dlx3" path="res://VFX-Puff/Textures/T_basic1_vfx.PNG" id="16_nv7qt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
-height = 0.22631836
-radius = 0.4111328
+height = 0.42089844
+radius = 0.5258789
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_te68b"]
 render_priority = 0

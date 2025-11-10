@@ -9,7 +9,7 @@ size = Vector3(1, 1.659668, 0.41625977)
 [sub_resource type="ViewportTexture" id="ViewportTexture_egoj2"]
 viewport_path = NodePath("Items/SubViewport")
 
-[node name="Storage" type="Area3D" node_paths=PackedStringArray("items_list", "label", "sprite")]
+[node name="Storage" type="Area3D" node_paths=PackedStringArray("items_list", "label", "sprite") groups=["resetable"]]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_egoj2")

@@ -50,11 +50,12 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="Environment" id="Environment_f4yaa"]
 background_mode = 1
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "wave_manager", "wave_setup", "unlocked_item", "pause", "recipe_ui")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "pause", "recipe_ui")]
 script = ExtResource("1_1w3wt")
 initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_41urv"), ExtResource("4_41urv")])
 map_root = NodePath("MapRoot")
 map_scene = ExtResource("5_1w3wt")
+player_root = NodePath("PlayerRoot")
 wave_manager = NodePath("WaveManager")
 wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
 unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
