@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="UpgradeResource" load_steps=2 format=3 uid="uid://dx3ma43ua3dru"]
-
-[ext_resource type="Script" uid="uid://kjqp3a3rhjre" path="res://upgrades/upgrade_resource.gd" id="1_hrhp7"]
-
-[resource]
-script = ExtResource("1_hrhp7")
-name = "HIT_PULSE"
-description = "On hit creates a shockwave that repels obstacles and enemies"
-metadata/_custom_type_script = "uid://kjqp3a3rhjre"

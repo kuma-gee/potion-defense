@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="UpgradeResource" load_steps=2 format=3 uid="uid://b6gjg3l0djixk"]
-
-[ext_resource type="Script" uid="uid://kjqp3a3rhjre" path="res://upgrades/upgrade_resource.gd" id="1_0q1rh"]
-
-[resource]
-script = ExtResource("1_0q1rh")
-name = "SHIELD"
-description = "Recoverable one hit shield"
-metadata/_custom_type_script = "uid://kjqp3a3rhjre"

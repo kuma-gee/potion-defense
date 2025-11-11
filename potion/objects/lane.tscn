@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cphqgua11ges1" path="res://assets/fantasy/Exports/glTF/Stall_Empty.gltf" id="1_f2kob"]
 [ext_resource type="Script" uid="uid://clopmtbpgy4fn" path="res://potion/objects/lane_receiver.gd" id="3_lane_receiver"]
 [ext_resource type="Script" uid="uid://pc0deefjlj2h" path="res://potion/objects/trajectory_aiming_system.gd" id="3_trajectory"]
-[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_utd16"]
+[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_utd16"]
 [ext_resource type="Script" uid="uid://b0f2hsgvrrpc" path="res://potion/ui/hp_bar.gd" id="5_85vib"]
 [ext_resource type="Shader" uid="uid://crddsivq5r6ss" path="res://shader/impact_circle.gdshader" id="6_67lsy"]
 

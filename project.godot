@@ -15,10 +15,6 @@ run/main_scene="uid://bquyk6n7heynp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-UpgradeManager="*res://upgrades/upgrade_manager.gd"
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/PolyHavenImport/plugin.cfg")

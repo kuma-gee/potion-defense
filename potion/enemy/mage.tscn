@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_d8e8n"]
 [ext_resource type="PackedScene" uid="uid://cvb6005pohejp" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Mage.glb" id="2_qw62i"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="3_ut6fv"]
-[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_18d5k"]
+[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_ut6fv"]
+[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_18d5k"]
 [ext_resource type="Script" uid="uid://qmx6dl6rikwy" path="res://potion/enemy/spawn_attack.gd" id="5_qw62i"]
 [ext_resource type="PackedScene" uid="uid://coo8mxuebhccj" path="res://magic/projectile.tscn" id="6_ut6fv"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="7_18d5k"]

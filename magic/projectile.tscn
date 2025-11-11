@@ -1,7 +1,7 @@
 [gd_scene load_steps=116 format=3 uid="uid://coo8mxuebhccj"]
 
 [ext_resource type="Script" uid="uid://bhawalqspdmmi" path="res://magic/projectile.gd" id="1_1a6fe"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="1_knh3y"]
+[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="1_knh3y"]
 [ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://magic/aoe_cylinder.tres" id="2_6iuyt"]
 [ext_resource type="PackedScene" uid="uid://cks0bq5iy4uc2" path="res://magic/impact.tscn" id="2_m2v2a"]
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="3_kk68n"]

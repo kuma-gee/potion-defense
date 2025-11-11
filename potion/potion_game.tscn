@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="6_kfjfp"]
 [ext_resource type="Resource" uid="uid://bawmjv8tyfdjy" path="res://potion/enemy/resources/warrior_resource.tres" id="7_e2yce"]
 [ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
-[ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://proximity-chat/fps_player.tscn" id="17_ho6vn"]
+[ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://p37xhunyyh2r" path="res://potion/ui/wave_setup.gd" id="22_1w3wt"]
@@ -351,7 +351,6 @@ layout_mode = 2
 text = "Restart"
 
 [node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "start_btn", "player_root", "joined_label")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

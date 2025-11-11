@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://csgnjx147ai2w" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Warrior.glb" id="1_22bvo"]
 [ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_x44yb"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="3_a31gv"]
-[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://potion/hurtbox.gd" id="4_b0un1"]
+[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_a31gv"]
+[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_b0un1"]
 [ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_k76b1"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_gvykr"]
 [ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="7_gvykr"]

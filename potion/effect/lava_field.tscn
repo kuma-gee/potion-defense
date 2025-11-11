@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://vb3dg7vbbfqm"]
 
 [ext_resource type="PackedScene" uid="uid://bwlhnbmg4j1i3" path="res://VFX-Explosion/Scenes/VFX_Explosion_B.tscn" id="1_fe2bk"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://obstacles/helper/hit_box.gd" id="2_4o1lu"]
+[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="2_4o1lu"]
 [ext_resource type="Texture2D" uid="uid://bukspvtc00y22" path="res://VFX-Explosion/Textures/T_cracks_05.PNG" id="3_ytbix"]
 [ext_resource type="Texture2D" uid="uid://bpcjtmqdmimdv" path="res://VFX-Explosion/Textures/T_cracks_05_e.jpg" id="4_xvctv"]
 [ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="5_7xnc4"]
