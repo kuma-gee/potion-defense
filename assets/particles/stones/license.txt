@@ -1,8 +1,0 @@
-Model Information:
-* title:	Stylized Rocks - Stones
-* source:	https://sketchfab.com/3d-models/stylized-rocks-stones-227f8f5ae1a34b9a82c98068fa07503c
-* author:	lelu_vfx (https://sketchfab.com/lelu_vfx)
-
-Model License:
-* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
-* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
