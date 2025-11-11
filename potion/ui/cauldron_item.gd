@@ -1,12 +1,15 @@
 class_name CauldronItem
 extends TextureRect
 
+var item: ItemResource
 var type: ItemResource.Type:
 	set(v):
 		type = v
 		if type >= 0:
-			texture = ItemResource.get_resource(type).texture
+			item = ItemResource.get_resource(type)
+			texture = item.texture
 		else:
+			item = null
 			texture = null
 
 var count := 0:

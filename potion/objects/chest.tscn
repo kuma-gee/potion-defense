@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c464j778ehuwc"]
+[gd_scene load_steps=8 format=3 uid="uid://c464j778ehuwc"]
 
 [ext_resource type="Script" uid="uid://boasiuy183xm3" path="res://potion/objects/chest.gd" id="1_e0v3a"]
 [ext_resource type="PackedScene" uid="uid://c2nbusd5p0wbq" path="res://assets/fantasy/Exports/glTF/Crate_Wooden.gltf" id="1_ertou"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_nlx63"]
+[ext_resource type="Texture2D" uid="uid://cgxv7ohrngroe" path="res://assets/items/Items_RedHerb.png" id="4_qsvvy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_domfe"]
 size = Vector3(0.8, 0.8, 0.8)
@@ -13,10 +14,11 @@ size = Vector3(0.8408203, 0.8135376, 0.8654785)
 [sub_resource type="ViewportTexture" id="ViewportTexture_nlx63"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
-[node name="Chest" type="Area3D" node_paths=PackedStringArray("item_view", "timer_label", "static_collision", "label", "sprite")]
+[node name="Chest" type="Area3D" node_paths=PackedStringArray("decal", "item_view", "timer_label", "static_collision", "label", "sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_e0v3a")
+decal = NodePath("Decal")
 item_view = NodePath("Sprite3D/SubViewport/CenterContainer/CauldronItem")
 timer_label = NodePath("Restock")
 static_collision = NodePath("StaticBody3D/CollisionShape3D")
@@ -25,14 +27,22 @@ sprite = NodePath("Sprite3D")
 
 [node name="Crate_Wooden5" parent="." instance=ExtResource("1_ertou")]
 
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.84697884, 0)
+size = Vector3(0.5, 0.1, 0.5)
+texture_albedo = ExtResource("4_qsvvy")
+cull_mask = 1048573
+
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6535338, 0)
+layers = 2
 billboard = 1
 no_depth_test = true
 text = "Stuff"
 
 [node name="Restock" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19465339, 0)
+layers = 2
 billboard = 1
 no_depth_test = true
 text = "Stuff"

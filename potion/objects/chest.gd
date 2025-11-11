@@ -1,6 +1,7 @@
 class_name Chest
 extends RayInteractable
 
+@export var decal: Decal
 @export var item_view: CauldronItem
 @export var timer_label: Label3D
 @export var static_collision: CollisionShape3D
@@ -15,18 +16,24 @@ extends RayInteractable
 		if is_inside_tree():
 			label.text = item.name if item else ""
 			item_view.type = item.type if item else -1
+			if item_view.item:
+				decal.texture_albedo = item_view.item.texture
 
 var timer: Timer = Timer.new()
 var current_capacity := 0
 
 func _ready() -> void:
 	super()
+	timer_label.hide()
 
 	add_child(timer)
 	timer.one_shot = true
 	timer.timeout.connect(func():
-		if current_capacity < (item.max_capacity if item else 0):
+		var max_cap = get_max_capacity()
+		if current_capacity < max_cap:
 			current_capacity += 1
+			if current_capacity < max_cap:
+				timer.start(item.restore_time)
 	)
 
 	hovered.connect(func(_a): label.text = ("%s (%s/%s)" % [item.name, current_capacity, item.max_capacity]) if item else "")
@@ -34,6 +41,9 @@ func _ready() -> void:
 		if actor is FPSPlayer:
 			_give_item(actor as FPSPlayer)
 	)
+
+func get_max_capacity():
+	return item.max_capacity if item else 0
 
 func _process(_delta: float) -> void:
 	if label.visible and not timer.is_stopped() and item:

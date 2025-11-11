@@ -63,6 +63,7 @@ func start_game():
 func _on_wave_completed() -> void:
 	wave += 1
 	_reset_objects()
+	get_viewport().gui_release_focus()
 	
 	if wave in NEW_ITEMS_FOR_WAVE:
 		var new_item = NEW_ITEMS_FOR_WAVE[wave]

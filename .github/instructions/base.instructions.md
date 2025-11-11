@@ -11,7 +11,6 @@ applyTo: '**'
 
 ## Godot Guidelines
 
-- Provide step-by-step instructions to create Godot scene(s) instead of providing scene source code
 - Follow Godot's node naming conventions (PascalCase for nodes, snake_case for methods)
 - Use @onready annotations to access direct child nodes
 - Use @export annotations for nodes that are not direct children
