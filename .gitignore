@@ -7,4 +7,5 @@ assets/**/*.*
 # !assets/**/*.import
 # !assets/*.zip
 
+build/
 VFX*

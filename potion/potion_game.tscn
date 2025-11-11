@@ -199,6 +199,7 @@ layout_mode = 2
 text = " Recipes "
 
 [node name="UnlockedItem" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("texture_rect", "label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -350,6 +351,7 @@ layout_mode = 2
 text = "Restart"
 
 [node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "start_btn", "player_root", "joined_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
