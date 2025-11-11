@@ -42,7 +42,6 @@ omni_range = 8.0
 
 [node name="Chandelier2" parent="." instance=ExtResource("4_jxhno")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-visible = false
 
 [node name="Light" type="Node3D" parent="Chandelier2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
