@@ -21,8 +21,8 @@ func _ready() -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if file_name.ends_with(".tres") and not file_name.begins_with("potion"):
-				var resource_path = "res://potion/items/resources/" + file_name
+			var resource_path = "res://potion/items/resources/" + file_name
+			if ResourceLoader.exists(resource_path) and not file_name.begins_with("potion"):
 				var resource = load(resource_path) as ItemResource
 				if resource:
 					ingredient_resources.append(resource)

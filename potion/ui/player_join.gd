@@ -11,6 +11,7 @@ signal game_started()
 func _ready() -> void:
 	get_tree().paused = true
 	_update()
+	show()
 	
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	start_btn.pressed.connect(func():

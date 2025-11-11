@@ -15,6 +15,10 @@ run/main_scene="uid://bquyk6n7heynp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[editor]
+
+export/convert_text_resources_to_binary=false
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/PolyHavenImport/plugin.cfg")
