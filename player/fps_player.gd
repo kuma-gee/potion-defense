@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 const PICKUPABLE_SCENE = preload("res://potion/items/pickupable.tscn")
 
+signal died()
+
 @export var SPEED = 3.0
 @export var DASH_FORCE = 10.0
 @export var DASH_COOLDOWN = 1.0
@@ -11,9 +13,11 @@ const PICKUPABLE_SCENE = preload("res://potion/items/pickupable.tscn")
 @export var min_throw_force: float = 5.0
 @export var max_throw_force: float = 20.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
+@export var knockback_resistance := 5.0
 
 @export var camera: Camera3D
 @export var camera_root: Node3D
+@export var hurt_box: HurtBox
 
 @export var anim: AnimationTree
 @export var body: Node3D
@@ -43,6 +47,7 @@ var dash_cooldown_timer: float = 0.0
 var dash_duration: float = 0.0
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
+var knockback: Vector3
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
@@ -74,6 +79,10 @@ func _ready():
 	
 	if catch_area:
 		catch_area.body_entered.connect(_on_catch_area_body_entered)
+	
+	if hurt_box:
+		hurt_box.knockbacked.connect(func(x): knockback = x)
+		hurt_box.died.connect(func(): died.emit())
 	
 	player_input.input_event.connect(func(event: InputEvent):
 		if event.is_action_pressed("switch_view"):
@@ -123,6 +132,14 @@ func _physics_process(delta):
 	if is_frozen:
 		velocity = Vector3.ZERO
 		walk_vfx.emitting = false
+		return
+
+	var has_knockback = knockback.length() > 0.01
+	if has_knockback:
+		velocity = knockback
+		knockback = knockback.lerp(Vector3.ZERO, delta * 5.0)
+		ground_spring_cast.apply_gravity(self, delta)
+		move_and_slide()
 		return
 	
 	dash_cooldown_timer = max(0.0, dash_cooldown_timer - delta)
@@ -174,6 +191,17 @@ func _physics_process(delta):
 			if input_dir.length() > 0 and other_player.velocity.length() < 0.1:
 				other_player.velocity.x = push_direction.x * PUSH_FORCE
 				other_player.velocity.z = push_direction.z * PUSH_FORCE
+			
+			# Break potion if dashing into another player
+			if dash_duration > 0.0:
+				if has_item():
+					break_potion()
+				if other_player.has_item():
+					other_player.break_potion()
+		else:
+			# Break potion if dashing into a wall
+			if dash_duration > 0.0 and has_item():
+				break_potion()
 
 func pickup_item(item_type: ItemResource) -> void:
 	held_item_type = item_type
@@ -216,6 +244,15 @@ func throw_item() -> void:
 	
 	current_throw_force = 0.0
 	throw_button_held = false
+
+func break_potion() -> void:
+	if not has_item() or not held_item_type.is_potion_item():
+		return
+	
+	var broken_item = release_item()
+	var node = Potion.spawn_effect(broken_item.type, global_position)
+	if node:
+		get_tree().current_scene.add_child(node)
 
 func _on_catch_area_body_entered(caught_body: Node3D) -> void:
 	if not throw_button_held or has_item() or not caught_body is Pickupable:

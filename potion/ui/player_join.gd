@@ -34,12 +34,23 @@ func _spawn_player(event: InputEvent) -> void:
 			start_btn.pressed.emit()
 		return
 
-	var player = player_scene.instantiate() as FPSPlayer
-	player.name = id
-	player.player_num = player_root.get_child_count()
+	var player = _create_player(id, player_root.get_child_count())
 	player.position = game.map.spawn_points[player.player_num].global_position if player.player_num < game.map.spawn_points.size() else Vector3.ZERO
 	player_root.add_child(player)
 	_update()
+
+func _create_player(input_id: String, player_num: int):
+	var player = player_scene.instantiate() as FPSPlayer
+	player.name = input_id
+	player.player_num = player_num
+	player.position = game.map.spawn_points[player.player_num].global_position if player.player_num < game.map.spawn_points.size() else Vector3.ZERO
+	player.died.connect(func():
+		var new_player = _create_player(input_id, player_num)
+		new_player.position = player.global_position
+		player.queue_free()
+		player_root.add_child(new_player)
+	)
+	return player
 
 func _update():
 	joined_label.text = "Joined %s" % [player_root.get_child_count()]

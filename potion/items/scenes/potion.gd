@@ -67,10 +67,16 @@ func _update_liquid_color() -> void:
 		material.emission_enabled = false
 
 func on_hit() -> void:
-	var scene = EFFECT_SCENES.get(potion_type, null)
-	if scene:
-		var node = scene.instantiate()
-		node.position = global_position
+	var node = spawn_effect(potion_type, global_position)
+	if node:
 		get_tree().current_scene.add_child(node)
 
 	hit.emit()
+
+static func spawn_effect(type: ItemResource.Type, pos: Vector3) -> Node:
+	var scene = EFFECT_SCENES.get(type, null)
+	if scene:
+		var node = scene.instantiate()
+		node.position = pos
+		return node
+	return null

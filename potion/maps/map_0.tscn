@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://lym0kep4xafw"]
+[gd_scene load_steps=11 format=3 uid="uid://lym0kep4xafw"]
 
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_0thdf"]
 [ext_resource type="PackedScene" uid="uid://wmkgnnq04t5v" path="res://potion/objects/lane.tscn" id="2_1yaw1"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/objects/chest.tscn" id="6_2on60"]
 [ext_resource type="PackedScene" uid="uid://b66tlb7y3fgx7" path="res://potion/objects/recipe_book.tscn" id="7_utij6"]
 [ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="8_p427w"]
+[ext_resource type="Material" uid="uid://ddp5feyvc33f2" path="res://assets/textures/Wood Planks/2k/Wood Planks.tres" id="9_1yaw1"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/objects/storage.tscn" id="10_1yaw1"]
 
 [node name="Map01" type="Node3D" node_paths=PackedStringArray("lanes", "items", "recipe_book", "spawn_points")]
@@ -42,6 +43,7 @@ omni_range = 8.0
 
 [node name="Chandelier2" parent="." instance=ExtResource("4_jxhno")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+visible = false
 
 [node name="Light" type="Node3D" parent="Chandelier2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -214,7 +216,7 @@ size = Vector3(6, 0.5, 8.0078125)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 0)
-material_override = ExtResource("8_p427w")
+material_override = ExtResource("9_1yaw1")
 use_collision = true
 size = Vector3(8, 0.101, 8)
 
