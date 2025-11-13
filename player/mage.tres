@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ckvucuduvwgu1"]
+
+[ext_resource type="Shader" uid="uid://b00cumojqx6hy" path="res://player/toon.gdshader" id="1_4g36h"]
+[ext_resource type="Texture2D" uid="uid://pyd666f13u5o" path="res://assets/KayKit_Adventurers_1.0_FREE/Textures/mage_texture.png" id="2_6w5t5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4g36h")
+shader_parameter/ToonRampOffset = 0.5
+shader_parameter/ToonRampSmoothness = 0.05
+shader_parameter/ToonRampTinting = Color(0, 0, 0, 1)
+shader_parameter/RimPower = 1.0
+shader_parameter/RimCutOff = 0.5
+shader_parameter/RimSmoothness = 0.05
+shader_parameter/RimLightBrightness = 20.0
+shader_parameter/SubSurfDistortion = 1.0
+shader_parameter/SubSurfTint = Color(0, 0, 0, 1)
+shader_parameter/SubSurfBrightness = 3.0
+shader_parameter/SubSurfCutoff = 0.5
+shader_parameter/SubSurfSmoothness = 0.05
+shader_parameter/Texture = ExtResource("2_6w5t5")
