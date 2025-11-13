@@ -233,15 +233,15 @@ func release_item() -> ItemResource:
 	held_item_type = null
 	return item
 
-func dash_player(direction: Vector3 = Vector3.ZERO) -> void:
+func dash_player() -> void:
 	if dash_cooldown_timer > 0.0:
 		return
 	
 	var dash_dir = get_input_direction()
 	if dash_dir.length() < 0.1:
-		dash_dir = -body.global_transform.basis.z.normalized()
-	else:
-		body.look_at(body.global_position + dash_dir, Vector3.UP)
+		return
+	
+	body.look_at(body.global_position + dash_dir, Vector3.UP)
 
 	velocity.x = dash_dir.x * dash_force
 	velocity.z = dash_dir.z * dash_force

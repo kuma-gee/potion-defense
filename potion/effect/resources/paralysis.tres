@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="FreezeEffect" load_steps=2 format=3 uid="uid://iaaw6c4788ru"]
+
+[ext_resource type="Script" uid="uid://lwbhlqabwjhg" path="res://potion/effect/status/freeze_effect.gd" id="1_wiacu"]
+
+[resource]
+script = ExtResource("1_wiacu")
+effect_name = "paralysis"
+slow_multiplier = 0.0
+metadata/_custom_type_script = "uid://lwbhlqabwjhg"

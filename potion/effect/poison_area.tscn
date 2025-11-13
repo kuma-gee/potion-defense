@@ -1,10 +1,6 @@
-[gd_scene load_steps=67 format=3 uid="uid://cvrm4vmap3w15"]
+[gd_scene load_steps=63 format=3 uid="uid://cvrm4vmap3w15"]
 
 [ext_resource type="Script" uid="uid://ballhkvidthlg" path="res://potion/effect/poison_area.gd" id="1_2udlr"]
-[ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://magic/aoe_cylinder.tres" id="1_661yy"]
-[ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="2_2hc7j"]
-[ext_resource type="Texture2D" uid="uid://c36t3itic1ivn" path="res://assets/particles/course/RingTex.png" id="2_661yy"]
-[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="4_bt0kg"]
 [ext_resource type="Resource" uid="uid://bbx7rvmj262xi" path="res://potion/effect/resources/poison_effect.tres" id="6_0452k"]
 [ext_resource type="Shader" uid="uid://cbctxpf3ajcpc" path="res://VFX-Puff/Shaders/s_puff.tres" id="7_2udlr"]
 [ext_resource type="Texture2D" uid="uid://4yxd0gw486dx" path="res://VFX-Puff/Textures/T_PerlinNoise_Tiled.png" id="8_hx0xm"]
@@ -12,14 +8,7 @@
 [ext_resource type="Shader" uid="uid://bcu33wcle0gd3" path="res://VFX-Puff/Shaders/s_circle_shader.tres" id="12_luayk"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="13_hx0xm"]
 [ext_resource type="ArrayMesh" uid="uid://cy3yjp7gqf50v" path="res://VFX-Puff/Objects/sm_circular_plane1.obj" id="13_pnyr6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_661yy"]
-render_priority = 0
-shader = ExtResource("1_661yy")
-shader_parameter/Scale = Vector2(1, 1)
-shader_parameter/Speed = Vector2(0.02, 0)
-shader_parameter/Texture = ExtResource("2_661yy")
-shader_parameter/Mask = ExtResource("2_2hc7j")
+[ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="13_r6r3l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ikj7i"]
 radius = 1.8132439
@@ -427,11 +416,6 @@ _data = {
 [node name="PoisonArea" type="Node3D"]
 script = ExtResource("1_2udlr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-visible = false
-material_override = SubResource("ShaderMaterial_661yy")
-mesh = ExtResource("4_bt0kg")
-
 [node name="Poison" parent="." instance=ExtResource("13_hx0xm")]
 effect = ExtResource("6_0452k")
 
@@ -490,3 +474,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_k4m0j")
 }
 autoplay = "init"
+
+[node name="CleanupTimer" type="Timer" parent="." node_paths=PackedStringArray("status_area")]
+wait_time = 0.5
+script = ExtResource("13_r6r3l")
+status_area = NodePath("../Poison")
+metadata/_custom_type_script = "uid://opigy25i7yj7"

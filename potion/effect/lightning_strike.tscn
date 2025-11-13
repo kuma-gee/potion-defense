@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="5_6eqaq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_autr3"]
+radius = 1.5
 
-[node name="lightning_strike" type="Node3D" node_paths=PackedStringArray("hit_area", "anim")]
+[node name="lightning_strike" type="Node3D" node_paths=PackedStringArray("hit_area")]
 script = ExtResource("1_20n0e")
 hit_area = NodePath("HitBox2")
 status = ExtResource("2_qxs4d")
-anim = NodePath("HIT VFX/AnimationPlayer")
+hit_vfx_scene = ExtResource("3_d1dox")
 
 [node name="HitBox2" parent="." instance=ExtResource("5_6eqaq")]
 damage = 50
@@ -19,10 +20,3 @@ force = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox2"]
 shape = SubResource("SphereShape3D_autr3")
-
-[node name="HIT VFX" parent="." instance=ExtResource("3_d1dox")]
-
-[node name="AnimationPlayer" parent="HIT VFX" index="3"]
-autoplay = ""
-
-[editable path="HIT VFX"]

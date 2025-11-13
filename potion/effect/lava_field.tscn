@@ -1,13 +1,47 @@
-[gd_scene load_steps=8 format=3 uid="uid://vb3dg7vbbfqm"]
+[gd_scene load_steps=15 format=3 uid="uid://vb3dg7vbbfqm"]
 
 [ext_resource type="PackedScene" uid="uid://bwlhnbmg4j1i3" path="res://VFX-Explosion/Scenes/VFX_Explosion_B.tscn" id="1_fe2bk"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="2_7xnc4"]
-[ext_resource type="Texture2D" uid="uid://bukspvtc00y22" path="res://VFX-Explosion/Textures/T_cracks_05.PNG" id="3_ytbix"]
-[ext_resource type="Texture2D" uid="uid://bpcjtmqdmimdv" path="res://VFX-Explosion/Textures/T_cracks_05_e.jpg" id="4_xvctv"]
+[ext_resource type="Shader" uid="uid://w0bufmmr0a1o" path="res://magic/fire_shader.tres" id="3_7xnc4"]
+[ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="4_rc6a1"]
+[ext_resource type="Texture2D" uid="uid://d16r5p580hv6t" path="res://assets/particles/course/Flame01.png" id="5_48w40"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="5_xvctv"]
+[ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="8_48w40"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ye34d"]
 radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0trrt"]
+render_priority = 0
+shader = ExtResource("3_7xnc4")
+shader_parameter/Texture = ExtResource("5_48w40")
+shader_parameter/DissolveTiling = Vector2(1, 1)
+shader_parameter/DissolveSpeed = Vector2(0, 0.7)
+shader_parameter/Dissolve = ExtResource("4_rc6a1")
+shader_parameter/DissolveAmount = 0.90000004275
+
+[sub_resource type="Curve" id="Curve_7xnc4"]
+_data = [Vector2(0, 0), 0.0, 8.8049755, 0, 0, Vector2(0.27044025, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rc6a1"]
+curve = SubResource("Curve_7xnc4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_48w40"]
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 1
+emission_sphere_radius = 3.0
+angle_min = -360.0
+angle_max = 360.00003
+gravity = Vector3(0, 0, 0)
+damping_min = 1.5000001
+damping_max = 2.5
+scale_min = 0.75
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_rc6a1")
+color = Color(3.5, 2, 1.5, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_kdbow"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7xnc4"]
 radius = 3.0
@@ -22,17 +56,25 @@ on_init = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("SphereShape3D_ye34d")
 
-[node name="Decal" type="Decal" parent="."]
-size = Vector3(11, 0.5, 11)
-texture_albedo = ExtResource("3_ytbix")
-texture_emission = ExtResource("4_xvctv")
-emission_energy = 0.0
-modulate = Color(0.917574, 0.470996, 0, 1)
-albedo_mix = 0.0
+[node name="Fire" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_0trrt")
+amount = 120
+lifetime = 3.0
+explosiveness = 0.2
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_48w40")
+draw_pass_1 = SubResource("QuadMesh_kdbow")
 
 [node name="Lava" parent="." instance=ExtResource("5_xvctv")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lava"]
 shape = SubResource("SphereShape3D_7xnc4")
+
+[node name="CleanupTimer" type="Timer" parent="." node_paths=PackedStringArray("status_area", "nodes")]
+wait_time = 2.0
+one_shot = true
+script = ExtResource("8_48w40")
+status_area = NodePath("../Lava")
+nodes = [NodePath("../Fire")]
 
 [editable path="explosion_B"]

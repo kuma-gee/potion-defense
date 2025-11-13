@@ -13,8 +13,8 @@ signal knockbacked(force)
 		health = clamp(v, 0, max_health)
 		health_changed.emit()
 		
-		if health <= 0:
-			monitorable = false
+		if is_dead():
+			set_deferred("monitorable", false)
 			died.emit()
 
 func set_max_health(new_max_health: int):
@@ -23,6 +23,9 @@ func set_max_health(new_max_health: int):
 	health_changed.emit()
 
 func hit(dmg: int, knockback = Vector3.ZERO):
+	if is_dead():
+		return
+	
 	health -= dmg
 	damaged.emit(dmg)
 	if knockback:

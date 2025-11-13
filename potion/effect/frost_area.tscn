@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://df2iboydwrtbj"]
+[gd_scene load_steps=14 format=3 uid="uid://df2iboydwrtbj"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://magic/blue_beam_impact.tscn" id="1_wa712"]
 [ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/ice_slow.tres" id="4_esewq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="6_n7i8s"]
 [ext_resource type="Texture2D" uid="uid://beve0cca3foj1" path="res://assets/particles/course/CylinderTex.png" id="7_tgqho"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="8_n7i8s"]
+[ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="8_tgqho"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o8fgn"]
 radius = 1.8132439
@@ -76,3 +77,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_tgqho")
 }
 autoplay = "start"
+
+[node name="CleanupTimer" type="Timer" parent="." node_paths=PackedStringArray("status_area", "nodes")]
+script = ExtResource("8_tgqho")
+status_area = NodePath("../FreezeArea")
+nodes = [NodePath("../MeshInstance3D")]
+metadata/_custom_type_script = "uid://opigy25i7yj7"

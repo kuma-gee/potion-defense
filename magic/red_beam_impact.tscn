@@ -627,7 +627,6 @@ color_ramp = SubResource("GradientTexture1D_8t24w")
 alpha_curve = SubResource("CurveTexture_jlld2")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6p4q2"]
-load_path = "res://.godot/imported/ImpactMark01.png-850d8897f19f6ee6e5a3b50197d4eac9.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vpcs"]
 render_priority = -1

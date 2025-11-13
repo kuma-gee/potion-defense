@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c684oj6gh0t68"]
+[gd_scene load_steps=24 format=3 uid="uid://c684oj6gh0t68"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://magic/blue_beam_impact.tscn" id="1_0xjk3"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="2_xr23e"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="5_fnmtw"]
 [ext_resource type="Texture2D" uid="uid://beve0cca3foj1" path="res://assets/particles/course/CylinderTex.png" id="6_xr23e"]
 [ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="7_6bwcj"]
+[ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="10_6bwcj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fnmtw"]
 radius = 2.2
@@ -156,3 +157,8 @@ draw_pass_1 = SubResource("CapsuleMesh_it33x")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
 size = Vector3(4.6416016, 0.14428711, 4.201172)
+
+[node name="CleanupTimer" type="Timer" parent="." node_paths=PackedStringArray("status_area", "nodes")]
+script = ExtResource("10_6bwcj")
+status_area = NodePath("../Frost")
+nodes = [NodePath("../GPUParticles3D"), NodePath("../MeshInstance3D")]

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DpsEffect" load_steps=2 format=3 uid="uid://bbx7rvmj262xi"]
 
-[ext_resource type="Script" uid="uid://77byp8giveus" path="res://potion/effect/status/dps_effect.gd" id="1_g8ioa"]
+[ext_resource type="Script" uid="uid://77byp8giveus" path="res://potion/effect/status/dps_effect.gd" id="1_ddg4i"]
 
 [resource]
-script = ExtResource("1_g8ioa")
+script = ExtResource("1_ddg4i")
 effect_name = "poison"
-damage_per_tick = 5.0
+damage_per_tick = 5
 metadata/_custom_type_script = "uid://77byp8giveus"
