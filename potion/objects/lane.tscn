@@ -11,7 +11,7 @@
 size = Vector3(0.96777344, 0.24975586, 0.82714844)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2kob"]
-size = Vector3(1.7907715, 0.82829285, 0.80249023)
+size = Vector3(1.7907715, 0.35197067, 0.80249023)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fyuo5"]
 
@@ -63,12 +63,12 @@ text = "Load"
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41365814, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17549706, 0)
 shape = SubResource("BoxShape3D_f2kob")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8475059, -0.22905588)
-collision_layer = 8
+collision_layer = 16
 collision_mask = 0
 script = ExtResource("4_utd16")
 max_health = 100

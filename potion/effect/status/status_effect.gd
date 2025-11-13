@@ -8,14 +8,14 @@ signal finished()
 
 var time_remaining: float = 0.0
 var tick_timer: float = 0.0
-var target: Node = null
+var target: Character = null
 
 func _init(p_duration: float = 5.0, p_tick_interval: float = 1.0) -> void:
 	duration = p_duration
 	tick_interval = p_tick_interval
 	time_remaining = duration
 
-func apply(p_target: Node) -> void:
+func apply(p_target: Character) -> void:
 	target = p_target
 	time_remaining = duration
 	tick_timer = 0.0

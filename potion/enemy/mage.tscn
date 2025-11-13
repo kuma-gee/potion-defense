@@ -21,14 +21,14 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[node name="Mage" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box", "projectile_spawn")]
+[node name="Mage" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "projectile_spawn", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_d8e8n")
 attack_anims = Array[String](["1H_Ranged_Shoot"])
 hit_box = NodePath("Skeleton_Mage/HitBox")
 animation_player = NodePath("Skeleton_Mage/AnimationPlayer")
-hurt_box = NodePath("HurtBox")
 projectile_spawn = NodePath("SpawnAttack")
+hurt_box = NodePath("HurtBox")
 
 [node name="Skeleton_Mage" parent="." instance=ExtResource("2_qw62i")]
 transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, 0, 0)

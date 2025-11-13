@@ -1,25 +1,22 @@
 class_name FPSPlayer
-extends CharacterBody3D
+extends Character
 
 const PICKUPABLE_SCENE = preload("res://potion/items/pickupable.tscn")
 
 signal died()
 
-@export var SPEED = 3.0
-@export var DASH_FORCE = 10.0
-@export var DASH_COOLDOWN = 1.0
-@export var PUSH_FORCE = 5.0
+@export var dash_force = 10.0
+@export var dash_cooldown = 0.5
+@export var push_force = 2.0
 @export var throw_charge_time: float = 1.0
 @export var min_throw_force: float = 5.0
 @export var max_throw_force: float = 20.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
-@export var knockback_resistance := 5.0
 
 @export var camera: Camera3D
 @export var camera_root: Node3D
-@export var hurt_box: HurtBox
 
-@export var anim: AnimationTree
+@export var anim: PlayerAnim
 @export var body: Node3D
 @export var walk_vfx: GPUParticles3D
 @export var dash_vfx: GPUParticles3D
@@ -40,14 +37,16 @@ signal died()
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
+@onready var death_timer: Timer = $DeathTimer
 
+var input_id := ""
 var player_num := 0
 var is_frozen: bool = false
 var dash_cooldown_timer: float = 0.0
 var dash_duration: float = 0.0
+
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
-var knockback: Vector3
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
@@ -62,9 +61,6 @@ func get_interact_collision_point():
 func get_camera_point():
 	return interact_ray.global_position
 
-#func _enter_tree():
-	#set_multiplayer_authority(name.to_int())
-
 func toggle_camera(value = not camera.current):
 	camera.current = value
 	body.visible = not camera.current
@@ -72,17 +68,18 @@ func toggle_camera(value = not camera.current):
 	ui.visible = camera.current
 
 func _ready():
-	player_input.set_for_id(name)
+	super()
+	player_input.set_for_id(input_id)
 	color_ring.color = colors[player_num % colors.size()]
 	held_item_type = null
 	toggle_camera(false)
 	
-	if catch_area:
-		catch_area.body_entered.connect(_on_catch_area_body_entered)
-	
-	if hurt_box:
-		hurt_box.knockbacked.connect(func(x): knockback = x)
-		hurt_box.died.connect(func(): died.emit())
+	catch_area.body_entered.connect(_on_catch_area_body_entered)
+	hurt_box.died.connect(func():
+		anim.died()
+		death_timer.start()
+	)
+	death_timer.timeout.connect(func(): died.emit())
 	
 	player_input.input_event.connect(func(event: InputEvent):
 		if event.is_action_pressed("switch_view"):
@@ -104,42 +101,39 @@ func _ready():
 					interact_ray.interact(self)
 				elif event.is_action_released("interact"):
 					interact_ray.release(self)
-				elif event.is_action_pressed("dash"):
-					dash_player()
-				elif event.is_action_pressed("drop_item"):
-					throw_button_held = true
-				elif event.is_action_released("drop_item"):
-					throw_button_held = false
-					if has_item():
-						throw_item()
 		else:
 			if event.is_action_pressed("interact"):
 				hand.interact(self)
 			elif event.is_action_released("interact"):
 				hand.release(self)
-			elif event.is_action_pressed("dash"):
-				dash_player()
-			elif event.is_action_pressed("drop_item"):
-				throw_button_held = true
-			elif event.is_action_released("drop_item"):
-				throw_button_held = false
-				if has_item():
-					throw_item()
-
+				
+		if event.is_action_pressed("dash"):
+			dash_player()
+		elif event.is_action_pressed("drop_item"):
+			throw_button_held = true
+		elif event.is_action_released("drop_item"):
+			throw_item()
+			throw_button_held = false
+		elif event.is_action_pressed("back") and throw_button_held:
+			throw_button_held = false
+			current_throw_force = 0.0
 	)
 
+
+func get_input_direction() -> Vector3:
+	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	var direction = (transform.basis * input) if camera.current else input.rotated(Vector3.UP, -PI/2)
+	return direction
+
 func _physics_process(delta):
-	if is_frozen:
+	if is_frozen or hurt_box.is_dead():
 		velocity = Vector3.ZERO
 		walk_vfx.emitting = false
 		return
 
-	var has_knockback = knockback.length() > 0.01
-	if has_knockback:
-		velocity = knockback
-		knockback = knockback.lerp(Vector3.ZERO, delta * 5.0)
-		ground_spring_cast.apply_gravity(self, delta)
-		move_and_slide()
+	if apply_knockback(delta):
+		walk_vfx.emitting = false
 		return
 	
 	dash_cooldown_timer = max(0.0, dash_cooldown_timer - delta)
@@ -150,12 +144,10 @@ func _physics_process(delta):
 	else:
 		current_throw_force = 0.0
 	
-	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var input = Vector3(input_dir.x, 0, input_dir.y).normalized()
-	var direction = (transform.basis * input) if camera.current else input.rotated(Vector3.UP, -PI/2)
-	var _speed = SPEED
-	walk_vfx.emitting = input_dir.length() > 0
-	
+	var direction = get_input_direction()
+	var _speed = get_actual_speed()
+	walk_vfx.emitting = direction.length() > 0
+
 	if dash_duration <= 0.0:
 		if ground_spring_cast.is_grounded():
 			if direction:
@@ -173,10 +165,8 @@ func _physics_process(delta):
 		var current_forward = -body.global_transform.basis.z
 		var angle = current_forward.signed_angle_to(target_direction, Vector3.UP)
 		body.rotate_y(angle * delta * 10.0)
-		#var pos = Vector3(body.global_position.x, 0, body.global_position.z)
-		#body.basis = body.global_basis.looking_at(pos + direction)
 
-	anim.set("parameters/Move/blend_amount", input_dir.length())
+	anim.update_move(direction)
 	ground_spring_cast.apply_gravity(self, delta)
 	move_and_slide()
 	
@@ -186,22 +176,29 @@ func _physics_process(delta):
 		
 		if collider is FPSPlayer:
 			var other_player = collider as FPSPlayer
-			var push_direction = (global_position - other_player.global_position).normalized()
+			push_other_player(other_player)
 			
-			if input_dir.length() > 0 and other_player.velocity.length() < 0.1:
-				other_player.velocity.x = push_direction.x * PUSH_FORCE
-				other_player.velocity.z = push_direction.z * PUSH_FORCE
-			
-			# Break potion if dashing into another player
+			# Break potion only if dashing and facing each other
 			if dash_duration > 0.0:
 				if has_item():
 					break_potion()
-				if other_player.has_item():
-					other_player.break_potion()
+				else:
+					var my_forward = -body.global_transform.basis.z
+					var other_forward = -other_player.body.global_transform.basis.z
+					var facing_dot = my_forward.dot(other_forward)
+					
+					if facing_dot < -0.6 and other_player.has_item():
+						other_player.break_potion()
 		else:
-			# Break potion if dashing into a wall
 			if dash_duration > 0.0 and has_item():
 				break_potion()
+
+func push_other_player(other_player: FPSPlayer) -> void:
+	var push_direction = (other_player.global_position - global_position).normalized()
+
+	if velocity.length() > 0 and other_player.velocity.length() < 0.1:
+		other_player.velocity.x = push_direction.x * push_force
+		other_player.velocity.z = push_direction.z * push_force
 
 func pickup_item(item_type: ItemResource) -> void:
 	held_item_type = item_type
@@ -214,19 +211,24 @@ func release_item() -> ItemResource:
 	held_item_type = null
 	return item
 
-func dash_player() -> void:
+func dash_player(direction: Vector3 = Vector3.ZERO) -> void:
 	if dash_cooldown_timer > 0.0:
 		return
 	
-	var current_forward = -body.global_transform.basis.z.normalized()
-	velocity.x = current_forward.x * DASH_FORCE
-	velocity.z = current_forward.z * DASH_FORCE
+	var dash_dir = get_input_direction()
+	if dash_dir.length() < 0.1:
+		dash_dir = -body.global_transform.basis.z.normalized()
+	else:
+		body.look_at(body.global_position + dash_dir, Vector3.UP)
+
+	velocity.x = dash_dir.x * dash_force
+	velocity.z = dash_dir.z * dash_force
 	dash_duration = 0.2
-	dash_cooldown_timer = DASH_COOLDOWN
+	dash_cooldown_timer = dash_cooldown
 	dash_vfx.emitting = true
 
 func throw_item() -> void:
-	if not has_item():
+	if not has_item() or not throw_button_held:
 		return
 	
 	var item = release_item()
@@ -237,10 +239,10 @@ func throw_item() -> void:
 	pickupable.item_type = item.type
 	
 	var throw_position = get_camera_point() if camera.current else hand.global_position + Vector3.UP * 0.5
-	pickupable.global_position = throw_position
+	pickupable.position = throw_position
 	
 	get_tree().current_scene.add_child(pickupable)
-	pickupable.shoot(throw_direction.normalized() * actual_force)
+	pickupable.apply_central_impulse(throw_direction.normalized() * actual_force)
 	
 	current_throw_force = 0.0
 	throw_button_held = false

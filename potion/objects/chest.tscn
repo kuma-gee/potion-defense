@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://boasiuy183xm3" path="res://potion/objects/chest.gd" id="1_e0v3a"]
 [ext_resource type="PackedScene" uid="uid://c2nbusd5p0wbq" path="res://assets/fantasy/Exports/glTF/Crate_Wooden.gltf" id="1_ertou"]
-[ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_nlx63"]
 [ext_resource type="Texture2D" uid="uid://cgxv7ohrngroe" path="res://assets/items/Items_RedHerb.png" id="4_qsvvy"]
+[ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="5_fdcvu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_domfe"]
 size = Vector3(0.8, 0.8, 0.8)
@@ -11,19 +11,19 @@ size = Vector3(0.8, 0.8, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ertou"]
 size = Vector3(0.8408203, 0.8135376, 0.8654785)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_nlx63"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_uplw3"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Chest" type="Area3D" node_paths=PackedStringArray("decal", "item_view", "timer_label", "static_collision", "label", "sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_e0v3a")
 decal = NodePath("Decal")
-item_view = NodePath("Sprite3D/SubViewport/CenterContainer/CauldronItem")
+item_view = NodePath("ItemPopup")
 timer_label = NodePath("Restock")
 static_collision = NodePath("StaticBody3D/CollisionShape3D")
 label = NodePath("Label3D")
-sprite = NodePath("Sprite3D")
+sprite = NodePath("ItemPopup")
 
 [node name="Crate_Wooden5" parent="." instance=ExtResource("1_ertou")]
 
@@ -58,28 +58,6 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41471332, 0)
 shape = SubResource("BoxShape3D_ertou")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3623693, 0)
-billboard = 1
-double_sided = false
-no_depth_test = true
-texture = SubResource("ViewportTexture_nlx63")
-
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-transparent_bg = true
-size = Vector2i(128, 128)
-
-[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CauldronItem" parent="Sprite3D/SubViewport/CenterContainer" instance=ExtResource("3_nlx63")]
-layout_mode = 2
-
-[node name="Label" parent="Sprite3D/SubViewport/CenterContainer/CauldronItem" index="0"]
-visible = false
-
-[editable path="Sprite3D/SubViewport/CenterContainer/CauldronItem"]
+[node name="ItemPopup" parent="." instance=ExtResource("5_fdcvu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9465942, 0)
+texture = SubResource("ViewportTexture_uplw3")

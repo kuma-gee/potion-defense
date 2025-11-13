@@ -198,21 +198,21 @@ transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.37
 visible = false
 material_override = ExtResource("8_p427w")
 use_collision = true
-size = Vector3(6, 0.5, 8.0078125)
+size = Vector3(20, 0.5, 8.0078125)
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -4, -0.063, 8)
 visible = false
 material_override = ExtResource("8_p427w")
 use_collision = true
-size = Vector3(6, 0.5, 8.0078125)
+size = Vector3(20, 0.5, 8.0078125)
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -4, -0.063, 16)
 visible = false
 material_override = ExtResource("8_p427w")
 use_collision = true
-size = Vector3(6, 0.5, 8.0078125)
+size = Vector3(20, 0.5, 8.0078125)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 0)

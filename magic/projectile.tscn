@@ -774,7 +774,7 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_7bl33")
 shader_parameter/tex = ExtResource("7_1a6fe")
-shader_parameter/uv_offset = Vector2(0.6939705, 0)
+shader_parameter/uv_offset = Vector2(0.6302217, 0)
 shader_parameter/color_ramp = SubResource("GradientTexture1D_1a6fe")
 shader_parameter/curve = SubResource("CurveTexture_da1m0")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
@@ -797,7 +797,7 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_7bl33")
 shader_parameter/tex = ExtResource("7_1a6fe")
-shader_parameter/uv_offset = Vector2(0.5551846, 0)
+shader_parameter/uv_offset = Vector2(0.5041799, 0)
 shader_parameter/color_ramp = SubResource("GradientTexture1D_m2v2a")
 shader_parameter/curve = SubResource("CurveTexture_da1m0")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
@@ -919,7 +919,7 @@ metadata/_custom_type_script = "uid://c2h6lbi78perg"
 
 [node name="HitBox" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 16
 script = ExtResource("1_knh3y")
 damage = 5
 metadata/_custom_type_script = "uid://cuspqvicid1n2"

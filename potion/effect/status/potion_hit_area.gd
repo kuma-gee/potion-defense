@@ -29,8 +29,7 @@ func _process(delta: float) -> void:
 				_apply_status_effect_to_target(area)
 
 func _apply_status_effect_to_target(target: HurtBox) -> void:
-	if not target or not target.status_manager:
+	if not target or not target.status_manager or not effect:
 		return
-	
-	if effect:
-		target.status_manager.apply_effect(effect)
+
+	target.status_manager.apply_effect(effect)

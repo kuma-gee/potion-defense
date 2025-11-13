@@ -29,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _spawn_player(event: InputEvent) -> void:
 	var id = PlayerInput.create_id(event)
-	if player_root.has_node(id):
+	if _has_player_with_id(id):
 		if event.is_action_pressed("ready"):
 			start_btn.pressed.emit()
 		return
@@ -41,7 +41,7 @@ func _spawn_player(event: InputEvent) -> void:
 
 func _create_player(input_id: String, player_num: int):
 	var player = player_scene.instantiate() as FPSPlayer
-	player.name = input_id
+	player.input_id = input_id
 	player.player_num = player_num
 	player.position = game.map.spawn_points[player.player_num].global_position if player.player_num < game.map.spawn_points.size() else Vector3.ZERO
 	player.died.connect(func():
@@ -54,3 +54,9 @@ func _create_player(input_id: String, player_num: int):
 
 func _update():
 	joined_label.text = "Joined %s" % [player_root.get_child_count()]
+
+func _has_player_with_id(input_id: String) -> bool:
+	for player in player_root.get_children():
+		if player.input_id == input_id:
+			return true
+	return false

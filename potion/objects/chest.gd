@@ -2,7 +2,7 @@ class_name Chest
 extends RayInteractable
 
 @export var decal: Decal
-@export var item_view: CauldronItem
+@export var item_view: ItemPopup
 @export var timer_label: Label3D
 @export var static_collision: CollisionShape3D
 @export var item: ItemResource:
@@ -15,9 +15,8 @@ extends RayInteractable
 
 		if is_inside_tree():
 			label.text = item.name if item else ""
-			item_view.type = item.type if item else -1
-			if item_view.item:
-				decal.texture_albedo = item_view.item.texture
+			item_view.set_type(item.type if item else -1)
+			decal.texture_albedo = item_view.get_item_texture()
 
 var timer: Timer = Timer.new()
 var current_capacity := 0

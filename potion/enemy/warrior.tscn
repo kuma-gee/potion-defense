@@ -21,10 +21,10 @@ radius = 0.4165039
 [node name="Warrior" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_x44yb")
-speed = 0.5
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Warrior/HitBox")
 animation_player = NodePath("Skeleton_Warrior/AnimationPlayer")
+speed = 0.5
 hurt_box = NodePath("HurtBox")
 
 [node name="Skeleton_Warrior" parent="." instance=ExtResource("1_22bvo")]
@@ -124,7 +124,7 @@ autoplay = "Running_A"
 [node name="HitBox" type="Area3D" parent="Skeleton_Warrior"]
 transform = Transform3D(1.25, 0, 2.1316282e-14, 0, 1.25, 0, -2.1316282e-14, 0, 1.25, -3.2600347e-08, 1.101941, 0.8798975)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 16
 script = ExtResource("3_a31gv")
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 

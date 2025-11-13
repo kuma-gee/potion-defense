@@ -1,17 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://bryjvapfcc2mh"]
+[gd_scene load_steps=7 format=3 uid="uid://bryjvapfcc2mh"]
 
 [ext_resource type="Script" uid="uid://b5wpkniyftdno" path="res://potion/items/pickupable.gd" id="1_pickupable"]
+[ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="2_5qq00"]
+[ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="3_4w043"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4e6pr"]
 
-[node name="Pickupable" type="RigidBody3D"]
-collision_layer = 32800
-collision_mask = 32769
+[sub_resource type="SphereShape3D" id="SphereShape3D_5qq00"]
+radius = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4w043"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Pickupable" type="RigidBody3D" node_paths=PackedStringArray("item_pop", "interactable")]
+collision_layer = 32
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_4e6pr")
-gravity_scale = 0.0
+lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_pickupable")
-use_physics = false
-follow_strength = 100.0
-drag_factor = 20.0
+item_pop = NodePath("ItemPopup")
+interactable = NodePath("RayInteractable")
+
+[node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("sprite")]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("2_5qq00")
+sprite = NodePath("../ItemPopup")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
+shape = SubResource("SphereShape3D_5qq00")
+
+[node name="ItemPopup" parent="." instance=ExtResource("3_4w043")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0637207, 0)
+texture = SubResource("ViewportTexture_4w043")

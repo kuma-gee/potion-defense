@@ -28,18 +28,12 @@ const RECIPIES = {
 	Type.POTION_LIGHTNING: {Type.POTION_PARALYSIS: 1, Type.CHARCOAL: 1},
 }
 
-# Map item types to their 3D scenes
-const POTION = preload("res://potion/items/scenes/potion_empty.tscn")
 
 @export var type: Type = Type.RED_HERB
 @export var name: String = ""
 @export var max_capacity: int = 4
 @export var restore_time: float = 5.0
 @export var texture: Texture2D
-
-# TODO: remove
-static func get_item_scene(_t: ItemResource.Type) -> PackedScene:
-	return POTION
 
 static func is_potion(t: ItemResource.Type):
 	return build_name(t).begins_with("Potion")

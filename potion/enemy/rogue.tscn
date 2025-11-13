@@ -21,10 +21,10 @@ radius = 0.4165039
 [node name="Rogue" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
 script = ExtResource("1_d850n")
-speed = 2.0
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Rogue/HitBox")
 animation_player = NodePath("Skeleton_Rogue/AnimationPlayer")
+speed = 2.0
 hurt_box = NodePath("HurtBox")
 
 [node name="Skeleton_Rogue" parent="." instance=ExtResource("2_d850n")]
@@ -33,7 +33,7 @@ transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0
 [node name="HitBox" type="Area3D" parent="Skeleton_Rogue"]
 transform = Transform3D(1.25, 0, 2.1316282e-14, 0, 1.25, 0, -2.1316282e-14, 0, 1.25, -3.2600347e-08, 1.101941, 0.8798975)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 16
 script = ExtResource("3_ud810")
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 

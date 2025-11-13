@@ -1,8 +1,7 @@
 class_name Pickupable
 extends RigidBody3D
 
-# signal picked_up(item_type: ItemResource.Type, by: Node3D)
-
+@export var item_pop: ItemPopup
 @export var item_type: ItemResource.Type = ItemResource.Type.RED_HERB
 @export var interactable: RayInteractable
 # @export var use_physics: bool = true
@@ -24,9 +23,13 @@ var shooting := false
 # var original_collision_layer: int = 0
 # var original_collision_mask: int = 0
 
+const DEFAULT_ITEM = preload("uid://b83q7mgugu7sr")
+const POTION_EMPTY = preload("uid://b36xk56a0wmoo")
+
 func _ready() -> void:
 	_create_item_visual()
 	interactable.interacted.connect(pickup_by)
+	
 	# hold_distance = clamp(hold_distance, min_hold_distance, max_hold_distance)
 	# original_collision_layer = collision_layer
 	# original_collision_mask = collision_mask
@@ -45,14 +48,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _create_item_visual() -> void:
+	var item_scene = POTION_EMPTY if ItemResource.is_potion(item_type) else DEFAULT_ITEM
+	var item = item_scene.instantiate()
+	add_child(item)
+	item_node = item
+	item_pop.set_type(item_type)
+	
 	if ItemResource.is_potion(item_type):
-		var item_scene = ItemResource.get_item_scene(item_type)
-		var potion = item_scene.instantiate() as Potion
-		add_child(potion)
-		item_node = potion
-
-		potion.set_potion_type(item_type)
-		potion.hit.connect(func(): queue_free())
+		item.set_potion_type(item_type)
+		item.hit.connect(func(): queue_free())
 
 # func interact(actor: Node3D) -> void:
 # 	pickup_by(actor)
@@ -62,7 +66,8 @@ func pickup_by(actor: Node3D) -> void:
 		return
 	
 	if actor.has_method("pickup_item"):
-		actor.pickup_item(item_type)
+		var res = ItemResource.get_resource(item_type)
+		actor.pickup_item(res)
 	
 	queue_free()
 
@@ -134,9 +139,7 @@ func break_potion() -> void:
 		potion.on_hit()
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	var contact_count: int = state.get_contact_count()
-	
 	if not ItemResource.is_potion(item_type) or invincible_time > 0: return
 
-	if contact_count > 0:
+	if state.get_contact_count() > 0:
 		break_potion()
