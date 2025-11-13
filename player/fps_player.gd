@@ -6,6 +6,7 @@ const PICKUPABLE_SCENE = preload("res://potion/items/pickupable.tscn")
 @export var SPEED = 3.0
 @export var DASH_FORCE = 10.0
 @export var DASH_COOLDOWN = 1.0
+@export var PUSH_FORCE = 5.0
 @export var throw_charge_time: float = 1.0
 @export var min_throw_force: float = 5.0
 @export var max_throw_force: float = 20.0
@@ -161,6 +162,18 @@ func _physics_process(delta):
 	anim.set("parameters/Move/blend_amount", input_dir.length())
 	ground_spring_cast.apply_gravity(self, delta)
 	move_and_slide()
+	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		
+		if collider is FPSPlayer:
+			var other_player = collider as FPSPlayer
+			var push_direction = (global_position - other_player.global_position).normalized()
+			
+			if input_dir.length() > 0 and other_player.velocity.length() < 0.1:
+				other_player.velocity.x = push_direction.x * PUSH_FORCE
+				other_player.velocity.z = push_direction.z * PUSH_FORCE
 
 func pickup_item(item_type: ItemResource) -> void:
 	held_item_type = item_type
@@ -209,9 +222,6 @@ func _on_catch_area_body_entered(caught_body: Node3D) -> void:
 		return
 	
 	var pickupable = caught_body as Pickupable
-	if pickupable.is_picked_up:
-		return
-	
 	var item_resource = ItemResource.get_resource(pickupable.item_type)
 	pickup_item(item_resource)
 	pickupable.queue_free()
