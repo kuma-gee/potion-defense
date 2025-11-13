@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=32 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cgva0jspdrkae" path="res://potion/ui/item_button.tscn" id="23_1w3wt"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
+[ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="25_rmnmn"]
 [ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
 [ext_resource type="Texture2D" uid="uid://w8xwxpot3wg1" path="res://assets/recipes/Page_1.png" id="36_33pbe"]
@@ -395,6 +396,11 @@ environment = SubResource("Environment_f4yaa")
 transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
 light_energy = 0.4
 metadata/_edit_lock_ = true
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_rmnmn")
+volume_db = -20.0
+autoplay = true
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
 [connection signal="pressed" from="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2/Recipes" to="CanvasLayer/Control/Recipes" method="grab_focus"]

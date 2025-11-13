@@ -117,8 +117,30 @@ func _ready():
 		elif event.is_action_pressed("back") and throw_button_held:
 			throw_button_held = false
 			current_throw_force = 0.0
+			
+		_debug_potion_spawn(event)
 	)
 
+func _debug_potion_spawn(event: InputEvent):
+	if not event is InputEventKey: return
+	var key = event as InputEventKey
+	
+	if not key.shift_pressed: return
+		
+	if key.keycode == KEY_1:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
+	elif key.keycode == KEY_2:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FROST_NOVA)
+	elif key.keycode == KEY_3:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
+	elif key.keycode == KEY_4:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_POISON_CLOUD)
+	elif key.keycode == KEY_5:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_PARALYSIS)
+	elif key.keycode == KEY_6:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_LAVA_FIELD)
+	elif key.keycode == KEY_7:
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_LIGHTNING)
 
 func get_input_direction() -> Vector3:
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")

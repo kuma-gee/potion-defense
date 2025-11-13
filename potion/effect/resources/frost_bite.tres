@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="DpsEffect" load_steps=2 format=3 uid="uid://cwmb41fcvh6br"]
 
-[ext_resource type="Script" uid="uid://77byp8giveus" path="res://potion/effect/status/dps_effect.gd" id="1_rl1le"]
+[ext_resource type="Script" uid="uid://77byp8giveus" path="res://potion/effect/status/dps_effect.gd" id="1_n3cnq"]
 
 [resource]
-script = ExtResource("1_rl1le")
+script = ExtResource("1_n3cnq")
+effect_name = "frost"
 damage_per_tick = 2.0
 duration = 3.0
 metadata/_custom_type_script = "uid://77byp8giveus"

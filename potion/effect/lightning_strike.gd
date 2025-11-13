@@ -1,8 +1,7 @@
 extends Node3D
 
 @export var chain_count := 3
-@export var hit_area: Area3D
-@export var damage := 1
+@export var hit_area: HitBox
 @export var status: StatusEffect
 @export var anim: AnimationPlayer
 
@@ -12,7 +11,7 @@ func _ready() -> void:
 	while chain_count > 0:
 		var target = _get_closest_target()
 		if not target: break
-		target.hit(damage)
+		target.hit(hit_area.damage)
 		if status:
 			target.status_manager.apply_status_effect(status)
 

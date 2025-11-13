@@ -5,12 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="2_2hc7j"]
 [ext_resource type="Texture2D" uid="uid://c36t3itic1ivn" path="res://assets/particles/course/RingTex.png" id="2_661yy"]
 [ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="4_bt0kg"]
-[ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="5_0452k"]
-[ext_resource type="Resource" uid="uid://bbx7rvmj262xi" path="res://potion/effect/status/poison_effect.tres" id="6_0452k"]
+[ext_resource type="Resource" uid="uid://bbx7rvmj262xi" path="res://potion/effect/resources/poison_effect.tres" id="6_0452k"]
 [ext_resource type="Shader" uid="uid://cbctxpf3ajcpc" path="res://VFX-Puff/Shaders/s_puff.tres" id="7_2udlr"]
 [ext_resource type="Texture2D" uid="uid://4yxd0gw486dx" path="res://VFX-Puff/Textures/T_PerlinNoise_Tiled.png" id="8_hx0xm"]
 [ext_resource type="Shader" uid="uid://btvblokfccc5b" path="res://VFX-Puff/Shaders/s_puff_putliner.tres" id="9_hx0xm"]
 [ext_resource type="Shader" uid="uid://bcu33wcle0gd3" path="res://VFX-Puff/Shaders/s_circle_shader.tres" id="12_luayk"]
+[ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="13_hx0xm"]
 [ext_resource type="ArrayMesh" uid="uid://cy3yjp7gqf50v" path="res://VFX-Puff/Objects/sm_circular_plane1.obj" id="13_pnyr6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_661yy"]
@@ -432,13 +432,8 @@ visible = false
 material_override = SubResource("ShaderMaterial_661yy")
 mesh = ExtResource("4_bt0kg")
 
-[node name="Poison" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 6
-script = ExtResource("5_0452k")
-lifetime = 10.0
+[node name="Poison" parent="." instance=ExtResource("13_hx0xm")]
 effect = ExtResource("6_0452k")
-tick_interval = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Poison"]
 shape = SubResource("SphereShape3D_ikj7i")
@@ -495,5 +490,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_k4m0j")
 }
 autoplay = "init"
-
-[connection signal="finished" from="Poison" to="." method="queue_free"]

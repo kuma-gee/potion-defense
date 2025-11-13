@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://vb3dg7vbbfqm"]
+[gd_scene load_steps=8 format=3 uid="uid://vb3dg7vbbfqm"]
 
 [ext_resource type="PackedScene" uid="uid://bwlhnbmg4j1i3" path="res://VFX-Explosion/Scenes/VFX_Explosion_B.tscn" id="1_fe2bk"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="2_4o1lu"]
+[ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="2_7xnc4"]
 [ext_resource type="Texture2D" uid="uid://bukspvtc00y22" path="res://VFX-Explosion/Textures/T_cracks_05.PNG" id="3_ytbix"]
 [ext_resource type="Texture2D" uid="uid://bpcjtmqdmimdv" path="res://VFX-Explosion/Textures/T_cracks_05_e.jpg" id="4_xvctv"]
-[ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="5_7xnc4"]
-[ext_resource type="Resource" uid="uid://5adf235ow25d" path="res://potion/effect/status/burn_effect.tres" id="6_7xnc4"]
+[ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="5_xvctv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ye34d"]
 radius = 3.0
@@ -17,14 +16,8 @@ radius = 3.0
 
 [node name="explosion_B" parent="." instance=ExtResource("1_fe2bk")]
 
-[node name="HitBox" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 128
-script = ExtResource("2_4o1lu")
-damage = 80
-force = 5
+[node name="HitBox" parent="." instance=ExtResource("2_7xnc4")]
 on_init = true
-metadata/_custom_type_script = "uid://cuspqvicid1n2"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("SphereShape3D_ye34d")
@@ -37,17 +30,9 @@ emission_energy = 0.0
 modulate = Color(0.917574, 0.470996, 0, 1)
 albedo_mix = 0.0
 
-[node name="Lava" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 6
-script = ExtResource("5_7xnc4")
-lifetime = 10.0
-effect = ExtResource("6_7xnc4")
-tick_interval = 1.0
+[node name="Lava" parent="." instance=ExtResource("5_xvctv")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lava"]
 shape = SubResource("SphereShape3D_7xnc4")
-
-[connection signal="finished" from="Lava" to="." method="queue_free"]
 
 [editable path="explosion_B"]

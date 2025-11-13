@@ -22,7 +22,7 @@ func _ready() -> void:
 func _gui_input(event: InputEvent) -> void:
 	super(event)
 
-	if event.is_action_pressed("ui_left") or event.is_action_pressed("scroll_up") or event.is_action_pressed("move_left"):
+	if event.is_action_pressed("ui_left") or event.is_action_pressed("move_left"):
 		current_page -= 1
-	elif event.is_action_pressed("ui_right") or event.is_action_pressed("scroll_down") or event.is_action_pressed("move_right"):
+	elif event.is_action_pressed("ui_right") or event.is_action_pressed("move_right"):
 		current_page += 1

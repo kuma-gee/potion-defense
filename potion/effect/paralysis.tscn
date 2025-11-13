@@ -2,10 +2,10 @@
 
 [ext_resource type="Shader" uid="uid://cbctxpf3ajcpc" path="res://VFX-Puff/Shaders/s_puff.tres" id="3_q3uy4"]
 [ext_resource type="Texture2D" uid="uid://4yxd0gw486dx" path="res://VFX-Puff/Textures/T_PerlinNoise_Tiled.png" id="4_snyn5"]
-[ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="5_snyn5"]
 [ext_resource type="Shader" uid="uid://btvblokfccc5b" path="res://VFX-Puff/Shaders/s_puff_putliner.tres" id="5_uyo5v"]
-[ext_resource type="Resource" uid="uid://b6w7padwbttts" path="res://potion/effect/status/paralysis_effect.tres" id="6_iocld"]
+[ext_resource type="Resource" uid="uid://b6w7padwbttts" path="res://potion/effect/resources/paralysis_effect.tres" id="6_iocld"]
 [ext_resource type="Shader" uid="uid://bcu33wcle0gd3" path="res://VFX-Puff/Shaders/s_circle_shader.tres" id="8_6hamw"]
+[ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="8_30e8u"]
 [ext_resource type="ArrayMesh" uid="uid://cy3yjp7gqf50v" path="res://VFX-Puff/Objects/sm_circular_plane1.obj" id="9_0ugi1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ikj7i"]
@@ -369,14 +369,12 @@ _data = {
 
 [node name="Paralysis" type="Node3D"]
 
-[node name="Paralysis" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 6
-script = ExtResource("5_snyn5")
+[node name="StatusArea" parent="." instance=ExtResource("8_30e8u")]
 lifetime = 1.0
 effect = ExtResource("6_iocld")
+tick_interval = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Paralysis"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StatusArea"]
 shape = SubResource("SphereShape3D_ikj7i")
 
 [node name="VFX_Puff_styleB" type="Node3D" parent="."]

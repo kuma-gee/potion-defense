@@ -32,8 +32,8 @@ func apply_knockback(delta: float) -> bool:
 func get_knockback_force(knockback: Vector3) -> Vector3:
 	return knockback
 
-func damage(amount: float) -> void:
-	hurt_box.damage(amount)
+func damage(amount: int) -> void:
+	hurt_box.hit(amount)
 
 func slow(type: String, factor: float) -> void:
 	if factor >= 1.0:

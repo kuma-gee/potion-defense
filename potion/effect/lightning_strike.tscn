@@ -1,24 +1,23 @@
 [gd_scene load_steps=6 format=3 uid="uid://d1n4byccvwsct"]
 
 [ext_resource type="Script" uid="uid://cf0ylrw7d038a" path="res://potion/effect/lightning_strike.gd" id="1_20n0e"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="1_autr3"]
-[ext_resource type="Resource" uid="uid://b6w7padwbttts" path="res://potion/effect/status/paralysis_effect.tres" id="2_qxs4d"]
+[ext_resource type="Resource" uid="uid://b6w7padwbttts" path="res://potion/effect/resources/paralysis_effect.tres" id="2_qxs4d"]
 [ext_resource type="PackedScene" uid="uid://bj3cgi2csord" path="res://VFX-Puff/Scenes/VFX_puff_big.tscn" id="3_d1dox"]
+[ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="5_6eqaq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_autr3"]
 
 [node name="lightning_strike" type="Node3D" node_paths=PackedStringArray("hit_area", "anim")]
 script = ExtResource("1_20n0e")
-hit_area = NodePath("HitBox")
-damage = 50
+hit_area = NodePath("HitBox2")
 status = ExtResource("2_qxs4d")
 anim = NodePath("HIT VFX/AnimationPlayer")
 
-[node name="HitBox" type="Area3D" parent="."]
-script = ExtResource("1_autr3")
-metadata/_custom_type_script = "uid://cuspqvicid1n2"
+[node name="HitBox2" parent="." instance=ExtResource("5_6eqaq")]
+damage = 50
+force = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox2"]
 shape = SubResource("SphereShape3D_autr3")
 
 [node name="HIT VFX" parent="." instance=ExtResource("3_d1dox")]
