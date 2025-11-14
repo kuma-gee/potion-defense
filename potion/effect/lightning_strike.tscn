@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d1n4byccvwsct"]
 
 [ext_resource type="Script" uid="uid://cf0ylrw7d038a" path="res://potion/effect/lightning_strike.gd" id="1_20n0e"]
-[ext_resource type="Resource" uid="uid://b6w7padwbttts" path="res://potion/effect/resources/paralysis_effect.tres" id="2_qxs4d"]
+[ext_resource type="Resource" uid="uid://iaaw6c4788ru" path="res://potion/effect/resources/paralysis.tres" id="2_qxs4d"]
 [ext_resource type="PackedScene" uid="uid://bj3cgi2csord" path="res://VFX-Puff/Scenes/VFX_puff_big.tscn" id="3_d1dox"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="5_6eqaq"]
 
