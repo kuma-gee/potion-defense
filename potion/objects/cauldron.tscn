@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=79 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://b3e3wgyhn8qnp" path="res://assets/fantasy/Exports/glTF/Cauldron.gltf" id="2_scje4"]
 [ext_resource type="Shader" uid="uid://msi4tojnjwwh" path="res://VFX-Fire/Shaders/s_shader_Fire.tres" id="3_1rqmf"]
@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cdga0j4g0dlx3" path="res://VFX-Puff/Textures/T_basic1_vfx.PNG" id="16_nv7qt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
-height = 0.42089844
+height = 0.65527344
 radius = 0.5258789
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_te68b"]
@@ -121,6 +121,17 @@ data = PackedVector3Array(0, 0.2606, -0.2157, 0.078899994, 0.3272, -0.2947, 0, 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mp46c"]
 viewport_path = NodePath("CurrentItem/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ndv3"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7m8g"]
+bg_color = Color(0, 0.7145237, 0.42062968, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjfyn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjfyn"]
+bg_color = Color(1, 0.274294, 0.5899518, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cev4c"]
 render_priority = 1
@@ -407,18 +418,19 @@ _data = {
 &"hit": SubResource("Animation_hoqvr")
 }
 
-[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "label") groups=["resetable"]]
+[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "progress", "overheat_progress", "success_anim", "failure_anim") groups=["resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
-item_container = NodePath("CurrentItem/SubViewport/CenterContainer/HBoxContainer")
+item_container = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients")
 item_scene = ExtResource("3_mp46c")
+progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
+overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
 failure_anim = NodePath("HIT VFX/AnimationPlayer")
-label = NodePath("Label3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66971207, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55252457, 0)
 shape = SubResource("CylinderShape3D_27tcb")
 
 [node name="ZeldaFire" type="Node3D" parent="."]
@@ -468,6 +480,7 @@ omni_range = 4.416
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6535338, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 text = "Stuff"
@@ -480,7 +493,7 @@ text = "Stuff"
 shape = SubResource("ConcavePolygonShape3D_27tcb")
 
 [node name="CurrentItem" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6933575, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0964718, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
@@ -496,8 +509,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CurrentItem/SubViewport/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CurrentItem/SubViewport/CenterContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="Ingredients" type="HBoxContainer" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_2ndv3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_k7m8g")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="Overheat" type="ProgressBar" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_jjfyn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jjfyn")
+max_value = 1.0
+value = 0.2
+show_percentage = false
 
 [node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6094227, 0)
@@ -569,5 +609,13 @@ draw_pass_1 = SubResource("QuadMesh_38exi")
 libraries = {
 &"": SubResource("AnimationLibrary_wanpx")
 }
+
+[node name="OverheatTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="OverheatStartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [editable path="Cauldron2"]

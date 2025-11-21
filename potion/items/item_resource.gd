@@ -48,7 +48,7 @@ static func get_resource(t: ItemResource.Type) -> ItemResource:
 	var res_path = "res://potion/items/resources/%s.tres" % build_name(t).to_lower().replace(" ", "_")
 	return ResourceLoader.load(res_path) as ItemResource
 
-static func find_recipe(items: Array):
+static func find_potential_recipe(items: Array, exact = false):
 	for result in RECIPIES.keys():
 		var required_items = RECIPIES[result]
 		
@@ -57,13 +57,29 @@ static func find_recipe(items: Array):
 			item_counts[item] = item_counts.get(item, 0) + 1
 		
 		var all_found = true
-		for item_type in required_items.keys():
-			var required_count = required_items[item_type]
-			var available_count = item_counts.get(item_type, 0)
-			
-			if available_count < required_count:
-				all_found = false
-				break
+		
+		if exact:
+			for item_type in required_items.keys():
+				if not item_counts.has(item_type):
+					all_found = false
+					break
+					
+				var required_count = required_items[item_type]
+				var available_count = item_counts.get(item_type)
+				if available_count != required_count:
+					all_found = false
+					break
+		else:
+			for item_type in item_counts.keys():
+				if not required_items.has(item_type):
+					all_found = false
+					break
+				
+				var required_count = required_items[item_type]
+				var available_count = item_counts.get(item_type)
+				if available_count > required_count:
+					all_found = false
+					break
 		
 		if all_found:
 			return result
