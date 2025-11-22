@@ -15,7 +15,7 @@ func _ready() -> void:
 	)
 
 func _can_store(player: FPSPlayer) -> bool:
-	return player.has_item() and player.held_item_type.is_potion_item() and storage.size() < max_capacity
+	return player.has_item() and storage.size() < max_capacity and (storage.is_empty() or storage[0].type == player.held_item_type.type)
 
 
 func _handle_interaction(player: FPSPlayer) -> void:

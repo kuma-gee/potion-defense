@@ -2,7 +2,7 @@ extends RayInteractable
 
 @export var item_processing: Dictionary[ItemResource.Type, ItemResource.Type] = {}
 @export var automatic := false
-@export var progress: ProgressBar
+@export var progress: Node3D
 
 @onready var process_timer: Timer = $ProcessTimer
 @onready var overheat_timer: Timer = $OverheatTimer

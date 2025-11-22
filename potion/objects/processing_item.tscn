@@ -1,22 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://rlhxkq2nl4mv"]
+[gd_scene load_steps=6 format=3 uid="uid://rlhxkq2nl4mv"]
 
 [ext_resource type="Script" uid="uid://bqsff2afky16f" path="res://potion/objects/processing_item.gd" id="1_8aror"]
-[ext_resource type="Script" uid="uid://dr57ykcggbku2" path="res://potion/objects/timer_progress.gd" id="2_w3be1"]
+[ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/objects/progress.tscn" id="2_ccjue"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="3_ccjue"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8aror"]
-viewport_path = NodePath("Sprite3D/SubViewport")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aror"]
-bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3be1"]
-bg_color = Color(0, 0.627905, 0.9827295, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8aror"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccjue"]
-bg_color = Color(0.7173537, 0.15396485, 0.16913271, 1)
+[sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
+viewport_path = NodePath("Progress/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
 viewport_path = NodePath("SubViewport")
@@ -25,7 +14,7 @@ viewport_path = NodePath("SubViewport")
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_8aror")
-progress = NodePath("Sprite3D/SubViewport/CenterContainer/Progress")
+progress = NodePath("Progress")
 label = NodePath("Label3D")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
@@ -41,51 +30,14 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Progress" parent="." instance=ExtResource("2_ccjue")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0873187, 0)
-billboard = 1
-double_sided = false
-no_depth_test = true
-texture = SubResource("ViewportTexture_8aror")
+texture = SubResource("ViewportTexture_mrer8")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-transparent_bg = true
-size = Vector2i(128, 128)
-
-[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Progress" type="ProgressBar" parent="Sprite3D/SubViewport/CenterContainer" node_paths=PackedStringArray("timer")]
-custom_minimum_size = Vector2(80, 10)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/background = SubResource("StyleBoxFlat_8aror")
-theme_override_styles/fill = SubResource("StyleBoxFlat_w3be1")
-max_value = 1.0
-value = 0.5
-show_percentage = false
-script = ExtResource("2_w3be1")
+[node name="Progress" parent="Progress/SubViewport/CenterContainer" index="0" node_paths=PackedStringArray("timer")]
 timer = NodePath("../../../../ProcessTimer")
 
-[node name="Overheat" type="ProgressBar" parent="Sprite3D/SubViewport/CenterContainer/Progress" node_paths=PackedStringArray("timer")]
-custom_minimum_size = Vector2(80, 10)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxEmpty_8aror")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ccjue")
-max_value = 1.0
-value = 0.2
-show_percentage = false
-script = ExtResource("2_w3be1")
+[node name="Overheat" parent="Progress/SubViewport/CenterContainer/Progress" index="0" node_paths=PackedStringArray("timer")]
 timer = NodePath("../../../../../OverheatTimer")
 
 [node name="ItemPopup" parent="." instance=ExtResource("3_ccjue")]
@@ -98,3 +50,8 @@ billboard = 1
 double_sided = false
 no_depth_test = true
 text = "Test"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[editable path="Progress"]

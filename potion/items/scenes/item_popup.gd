@@ -2,6 +2,10 @@ class_name ItemPopup
 extends Sprite3D
 
 @export var cauldron_item: CauldronItem
+@onready var sub_viewport: SubViewport = $SubViewport
+
+func _ready() -> void:
+	texture = sub_viewport.get_texture()
 
 func set_type(type: ItemResource.Type):
 	cauldron_item.type = type

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv1a0h2dlytsf"]
+[gd_scene load_steps=6 format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/objects/processing_item.tscn" id="1_vmpsg"]
 [ext_resource type="PackedScene" uid="uid://bib5i83omj08y" path="res://assets/fantasy/Exports/glTF/Workbench.gltf" id="2_jp6c7"]
@@ -6,8 +6,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(1.4648438, 1, 1.0927734)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vv5mg"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
+viewport_path = NodePath("Progress/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Crusher" instance=ExtResource("1_vmpsg")]
 item_processing = Dictionary[int, int]({
@@ -23,8 +26,13 @@ shape = SubResource("BoxShape3D_vv5mg")
 [node name="ProcessTimer" parent="." index="2"]
 wait_time = 2.0
 
-[node name="Sprite3D" parent="." index="5"]
-texture = SubResource("ViewportTexture_vv5mg")
+[node name="Progress" parent="." index="5"]
+texture = SubResource("ViewportTexture_mrer8")
+
+[node name="ItemPopup" parent="." index="6"]
+texture = SubResource("ViewportTexture_ccjue")
 
 [node name="Label3D" parent="." index="7"]
-text = "Cut"
+text = "Crush"
+
+[editable path="Progress"]

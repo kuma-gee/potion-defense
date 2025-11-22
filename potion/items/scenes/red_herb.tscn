@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://devp4ralvjicb"]
+[gd_scene load_steps=5 format=3 uid="uid://devp4ralvjicb"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_46km1"]
-size = Vector3(0.2890625, 0.43554688, 0.107666016)
+[ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_5k4g1"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_herb"]
 top_radius = 0.05
@@ -11,20 +10,30 @@ height = 0.3
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_herb"]
 albedo_color = Color(0.8, 0.1, 0.1, 1)
 
-[node name="RedHerbVisual" type="CollisionShape3D"]
-shape = SubResource("BoxShape3D_46km1")
+[sub_resource type="SphereShape3D" id="SphereShape3D_5k4g1"]
+radius = 0.42922992
+
+[node name="RedHerbVisual" type="Area3D"]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_5k4g1")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10229693, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15590526, 0)
 mesh = SubResource("CylinderMesh_herb")
 surface_material_override/0 = SubResource("StandardMaterial3D_herb")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.09770307, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.35590526, 0)
 mesh = SubResource("CylinderMesh_herb")
 surface_material_override/0 = SubResource("StandardMaterial3D_herb")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.047703072, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.30590528, 0)
 mesh = SubResource("CylinderMesh_herb")
 surface_material_override/0 = SubResource("StandardMaterial3D_herb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25677764, 0)
+shape = SubResource("SphereShape3D_5k4g1")

@@ -8,27 +8,33 @@ signal died()
 @export var health_bar: Range
 
 @export var progress: Range
+@export var overheat_progress: Range
 @export var mix_time_per_item := 4.0
 @export var mixing_speed_increase := 1.5
+@export var overheat_time := 6.0
+@export var overheat_decrease := -1.0
 
 @export var success_anim: AnimationPlayer
 @export var failure_anim: AnimationPlayer
 
-@onready var overheat_timer: Timer = $OverheatTimer
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var hurt_box: HurtBox = $HurtBox
 
 var items: Array = []
 var mixing_player: FPSPlayer = null
 
+var overheat := 0.0:
+	set(v):
+		overheat = v
+		overheat_progress.value = v
+
 var overheating := false:
 	set(v):
 		overheating = v
 		if not overheating:
-			overheat_timer.stop()
 			overheat_start_timer.stop()
-		elif overheat_timer.is_stopped():
-			overheat_timer.start()
+		else:
+			overheat = 0.0
 
 var finished := false
 var required_time := 0.0:
@@ -54,6 +60,7 @@ func _ready() -> void:
 	_clear_items()
 	_reset_values()
 	
+	overheat_progress.max_value = overheat_time
 	health_bar.value = hurt_box.max_health
 	health_bar.max_value = hurt_box.max_health
 	hurt_box.health_changed.connect(func(): health_bar.value = hurt_box.health)
@@ -63,7 +70,6 @@ func _ready() -> void:
 	interacted.connect(func(a: Node): handle_interacted(a))
 	released.connect(func(a: Node): handle_released(a))
 	overheat_start_timer.timeout.connect(func(): overheating = true)
-	overheat_timer.timeout.connect(func(): _failed_potion())
 
 func handle_interacted(actor: Node) -> void:
 	if not (actor is FPSPlayer): return
@@ -119,6 +125,11 @@ func handle_released(_actor: Node) -> void:
 
 func _process(delta: float) -> void:
 	if items.is_empty(): return
+	
+	if overheating:
+		overheat += delta * (1.0 if not mixing else overheat_decrease)
+		if overheat >= overheat_time:
+			_failed_potion()
 	
 	time += delta * (1.0 if not mixing else mixing_speed_increase)
 	if time >= required_time and not finished:
@@ -178,6 +189,7 @@ func reset(_restore = false):
 func _reset_values():
 	required_time = 0.0
 	time = 0.0
+	overheat = 0.0
 	overheating = false
 	mixing = false
 	finished = false

@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtsb8nyoqgtva"]
+
+[ext_resource type="Script" uid="uid://cmepfcskobeh5" path="res://potion/objects/progress.gd" id="1_hwe1q"]
+[ext_resource type="Script" uid="uid://dr57ykcggbku2" path="res://potion/objects/timer_progress.gd" id="1_r0bsg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r0bsg"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aror"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3be1"]
+bg_color = Color(0, 0.627905, 0.9827295, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8aror"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccjue"]
+bg_color = Color(0.7173537, 0.15396485, 0.16913271, 1)
+
+[node name="Progress" type="Sprite3D"]
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = SubResource("ViewportTexture_r0bsg")
+script = ExtResource("1_hwe1q")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="CenterContainer" type="CenterContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Progress" type="ProgressBar" parent="SubViewport/CenterContainer"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_8aror")
+theme_override_styles/fill = SubResource("StyleBoxFlat_w3be1")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+script = ExtResource("1_r0bsg")
+hide_on_stop = true
+
+[node name="Overheat" type="ProgressBar" parent="SubViewport/CenterContainer/Progress"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_8aror")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ccjue")
+max_value = 1.0
+value = 0.2
+show_percentage = false
+script = ExtResource("1_r0bsg")

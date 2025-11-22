@@ -6,5 +6,4 @@
 [resource]
 script = ExtResource("1_xocsk")
 type = 4
-name = "Ice Shard Crushed"
 texture = ExtResource("2_1ghko")

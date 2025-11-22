@@ -58,6 +58,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if nav_agent.is_navigation_finished():
+		print("Finished")
 		return
 	
 	var sp = get_actual_speed()
@@ -66,6 +67,7 @@ func _physics_process(delta: float) -> void:
 	var direction = (next_position - global_position).normalized()
 	velocity.x = direction.x * sp
 	velocity.z = direction.z * sp
+	print(direction)
 	
 	if direction:
 		look_at(global_position + direction, Vector3.UP)

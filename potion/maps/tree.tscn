@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://dlc5pt3hyp5a7"]
+
+[ext_resource type="Script" uid="uid://btr5pkknrh4rx" path="res://potion/maps/tree.gd" id="1_bycdv"]
+[ext_resource type="PackedScene" uid="uid://ckw25baigld5f" path="res://assets/halloween/gltf/tree_pine_orange_large.gltf" id="1_ioofe"]
+[ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/wood.tres" id="2_blib2"]
+[ext_resource type="PackedScene" uid="uid://b5p6icvdgres2" path="res://assets/halloween/gltf/tree_pine_orange_medium.gltf" id="2_bycdv"]
+[ext_resource type="PackedScene" uid="uid://q2bonogo8bd6" path="res://assets/halloween/gltf/tree_pine_orange_small.gltf" id="3_blib2"]
+[ext_resource type="PackedScene" uid="uid://bmq6wt05aqdry" path="res://assets/halloween/gltf/tree_pine_yellow_large.gltf" id="4_0itfb"]
+[ext_resource type="PackedScene" uid="uid://c5agmrpy8db0n" path="res://assets/halloween/gltf/tree_pine_yellow_medium.gltf" id="5_t10dn"]
+[ext_resource type="PackedScene" uid="uid://ps8aby4rvwra" path="res://assets/halloween/gltf/tree_pine_yellow_small.gltf" id="6_xiywl"]
+[ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/objects/progress.tscn" id="9_0itfb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bycdv"]
+height = 5.2543945
+radius = 1.5224609
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0itfb"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0itfb"]
+height = 5.4780273
+
+[node name="Tree" type="Area3D"]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_bycdv")
+resource = ExtResource("2_blib2")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="tree_pine_orange_large2" parent="." instance=ExtResource("1_ioofe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50994897, 0)
+visible = false
+
+[node name="tree_pine_orange_medium2" parent="." instance=ExtResource("2_bycdv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50994897, 0)
+
+[node name="tree_pine_orange_small2" parent="." instance=ExtResource("3_blib2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50994897, 0)
+visible = false
+
+[node name="tree_pine_yellow_large2" parent="." instance=ExtResource("4_0itfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50994897, 0)
+visible = false
+
+[node name="tree_pine_yellow_medium2" parent="." instance=ExtResource("5_t10dn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50994897, 0)
+visible = false
+
+[node name="tree_pine_yellow_small2" parent="." instance=ExtResource("6_xiywl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50994897, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7152555, 0)
+shape = SubResource("CylinderShape3D_bycdv")
+
+[node name="Progress" parent="." instance=ExtResource("9_0itfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1269586, 0)
+texture = SubResource("ViewportTexture_0itfb")
+
+[node name="Progress" parent="Progress/SubViewport/CenterContainer" index="0" node_paths=PackedStringArray("timer")]
+timer = NodePath("../../../../ProcessTimer")
+
+[node name="ProcessTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7629395, 0)
+shape = SubResource("CylinderShape3D_0itfb")
+
+[editable path="Progress"]

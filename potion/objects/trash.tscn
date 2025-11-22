@@ -8,8 +8,8 @@ height = 0.8180176
 radius = 0.27441406
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dvhsj"]
-height = 0.78132325
-radius = 0.33984375
+height = 1.295935
+radius = 0.53271484
 
 [node name="Trash" type="Area3D" node_paths=PackedStringArray("label")]
 collision_layer = 32768
@@ -23,9 +23,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44670415, 0)
 shape = SubResource("CylinderShape3D_trash_receiver")
 
 [node name="Barrel2" parent="." instance=ExtResource("2_7f4qr")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0654136, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.527648, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
@@ -34,7 +35,7 @@ text = "Trash"
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42835698, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68566287, 0)
 shape = SubResource("CylinderShape3D_dvhsj")
 
 [editable path="Barrel2"]
