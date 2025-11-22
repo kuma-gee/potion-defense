@@ -10,6 +10,8 @@ const GROUP = "Enemy"
 @export var animation_player: AnimationPlayer
 @export var projectile_spawn: SpawnAttack
 
+@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
+
 # Animation Tree doesnt work?
 var is_attacking := false
 var resource: EnemyResource
@@ -36,6 +38,9 @@ func _ready() -> void:
 	hit_box.damage = resource.damage
 	hurt_box.set_max_health(resource.health)
 
+func set_target(pos: Vector3):
+	nav_agent.target_position = pos
+
 func get_original_speed():
 	return resource.speed
 
@@ -52,8 +57,21 @@ func _physics_process(delta: float) -> void:
 			is_attacking = true
 		return
 
-	var dir = -global_basis.z.normalized()
-	velocity = dir * get_actual_speed()
+	if nav_agent.is_navigation_finished():
+		return
+	
+	var sp = get_actual_speed()
+	var next_position = nav_agent.get_next_path_position()
+	next_position.y = global_position.y
+	var direction = (next_position - global_position).normalized()
+	velocity.x = direction.x * sp
+	velocity.z = direction.z * sp
+	
+	if direction:
+		look_at(global_position + direction, Vector3.UP)
+
+	#var dir = -global_basis.z.normalized()
+	#velocity = dir * get_actual_speed()
 	move_and_slide()
 	animation_player.play(run_anim)
 

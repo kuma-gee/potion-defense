@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=84 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://b3e3wgyhn8qnp" path="res://assets/fantasy/Exports/glTF/Cauldron.gltf" id="2_scje4"]
 [ext_resource type="Shader" uid="uid://msi4tojnjwwh" path="res://VFX-Fire/Shaders/s_shader_Fire.tres" id="3_1rqmf"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://c1l1681okctdm" path="res://VFX-Fire/Shaders/s_basic_typeA7.tres" id="6_x105m"]
 [ext_resource type="Texture2D" uid="uid://c4vxu813b4djt" path="res://VFX-Fire/Textures/T_VFX_Noise_B4.PNG" id="7_c0e5a"]
 [ext_resource type="Texture2D" uid="uid://b1euwaxxfiweh" path="res://VFX-Fire/Textures/T_FireBall1.png" id="8_fodno"]
+[ext_resource type="Script" uid="uid://dr57ykcggbku2" path="res://potion/objects/timer_progress.gd" id="10_2ndv3"]
 [ext_resource type="Shader" uid="uid://cb3y8ejyuuhn3" path="res://VFX-Puff/Shaders/s_simple_wmask.tres" id="10_jjfyn"]
 [ext_resource type="Texture2D" uid="uid://dwrhoyfs10hb0" path="res://VFX-Puff/Textures/T_VFX_sSmoke.jpg" id="11_2ndv3"]
 [ext_resource type="Shader" uid="uid://cbctxpf3ajcpc" path="res://VFX-Puff/Shaders/s_puff.tres" id="11_wc7jp"]
@@ -18,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://djtd4uc4abq6f" path="res://VFX-Puff/Textures/T_VFX_Glo31.png" id="14_ek1wr"]
 [ext_resource type="Shader" uid="uid://bc0h30a246uhg" path="res://VFX-Puff/Shaders/s_simple2.tres" id="15_k7m8g"]
 [ext_resource type="Texture2D" uid="uid://cdga0j4g0dlx3" path="res://VFX-Puff/Textures/T_basic1_vfx.PNG" id="16_nv7qt"]
+[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
 height = 0.65527344
@@ -418,14 +420,23 @@ _data = {
 &"hit": SubResource("Animation_hoqvr")
 }
 
-[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "progress", "overheat_progress", "success_anim", "failure_anim") groups=["resetable"]]
+[sub_resource type="SphereShape3D" id="SphereShape3D_k7m8g"]
+radius = 0.6346844
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv7qt"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1wr"]
+bg_color = Color(0, 0.72253454, 0.28125608, 1)
+
+[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "progress", "success_anim", "failure_anim") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
 item_container = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients")
 item_scene = ExtResource("3_mp46c")
+health_bar = NodePath("CanvasLayer/MarginContainer/ProgressBar")
 progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
-overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
 failure_anim = NodePath("HIT VFX/AnimationPlayer")
 
@@ -519,7 +530,7 @@ max_value = 1.0
 value = 0.5
 show_percentage = false
 
-[node name="Overheat" type="ProgressBar" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress"]
+[node name="Overheat" type="ProgressBar" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress" node_paths=PackedStringArray("timer")]
 custom_minimum_size = Vector2(80, 10)
 layout_mode = 0
 offset_right = 80.0
@@ -529,6 +540,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_jjfyn")
 max_value = 1.0
 value = 0.2
 show_percentage = false
+script = ExtResource("10_2ndv3")
+timer = NodePath("../../../../../../OverheatTimer")
 
 [node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6094227, 0)
@@ -602,10 +615,46 @@ libraries = {
 }
 
 [node name="OverheatTimer" type="Timer" parent="."]
+wait_time = 6.0
 one_shot = true
 
 [node name="OverheatStartTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
+
+[node name="HurtBox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6235945, 0)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_k7m8g")
+max_health = 100
+metadata/_custom_type_script = "uid://bav8mlr6l6106"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
+shape = SubResource("SphereShape3D_k7m8g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(600, 40)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_right = 300.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_nv7qt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ek1wr")
+value = 29.52
+show_percentage = false
 
 [editable path="Cauldron2"]

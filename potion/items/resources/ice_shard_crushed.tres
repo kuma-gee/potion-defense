@@ -6,6 +6,5 @@
 [resource]
 script = ExtResource("1_xocsk")
 type = 4
-name = "Vulcanic Ash"
-description = "Toxic green moss for poison potions"
+name = "Ice Shard Crushed"
 texture = ExtResource("2_1ghko")

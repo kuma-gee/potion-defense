@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_item_res")
-type = 10
+type = 30
 name = "Lava Field"
 texture = ExtResource("2_qvbof")

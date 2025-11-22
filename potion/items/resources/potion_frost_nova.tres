@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_item_res")
-type = 6
+type = 26
 name = "Frost Nova"
 texture = ExtResource("2_ipncs")

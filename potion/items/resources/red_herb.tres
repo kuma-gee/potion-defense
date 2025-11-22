@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("1_item_res")
 name = "Red Herb"
-description = "A fiery red herb used for fire potions"
+max_capacity = null
+restore_time = null
 texture = ExtResource("2_lk23c")

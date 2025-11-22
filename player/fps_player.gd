@@ -126,7 +126,7 @@ func _debug_potion_spawn(event: InputEvent):
 	var key = event as InputEventKey
 	
 	if not key.shift_pressed: return
-		
+	
 	if key.keycode == KEY_1:
 		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
 	elif key.keycode == KEY_2:
@@ -145,7 +145,7 @@ func _debug_potion_spawn(event: InputEvent):
 func get_input_direction() -> Vector3:
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var input = Vector3(input_dir.x, 0, input_dir.y).normalized()
-	var direction = (transform.basis * input) if camera.current else input.rotated(Vector3.UP, -PI/2)
+	var direction = (transform.basis * input) if camera.current else input
 	return direction
 
 func _physics_process(delta):

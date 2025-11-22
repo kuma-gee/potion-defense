@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_item_res")
-type = 7
+type = 27
 name = "Blizzard"
 texture = ExtResource("2_s5fdh")

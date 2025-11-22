@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx72tgxiybaif"]
+
+[ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/objects/processing_item.tscn" id="1_7uo5f"]
+[ext_resource type="PackedScene" uid="uid://dbehxexagmtbs" path="res://assets/fantasy/Exports/glTF/Pot_1_Lid.gltf" id="2_ua5y3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vs360"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7uo5f"]
+
+[node name="Oven" instance=ExtResource("1_7uo5f")]
+item_processing = Dictionary[int, int]({
+5: 1
+})
+automatic = true
+
+[node name="Pot_1_Lid2" parent="." index="0" instance=ExtResource("2_ua5y3")]
+transform = Transform3D(2, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Sprite3D" parent="." index="4"]
+texture = SubResource("ViewportTexture_vs360")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="5"]
+shape = SubResource("SphereShape3D_7uo5f")
+
+[node name="Label3D" parent="." index="7"]
+text = "Burn"

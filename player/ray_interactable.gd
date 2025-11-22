@@ -15,27 +15,27 @@ func _ready() -> void:
 	if sprite:
 		sprite.hide()
 
-func hover(actor):
+func hover(actor: FPSPlayer):
 	hovered.emit(actor)
 	if label:
 		label.show()
 	if sprite:
 		sprite.show()
 
-func unhover(actor):
+func unhover(actor: FPSPlayer):
 	unhovered.emit(actor)
 	if label:
 		label.hide()
 	if sprite:
 		sprite.hide()
 
-func interact(actor):
+func interact(actor: FPSPlayer):
 	if label:
 		label.hide()
 	if sprite:
 		sprite.hide()
 	interacted.emit(actor)
 
-func release(actor):
+func release(actor: FPSPlayer):
 	released.emit(actor)
 	

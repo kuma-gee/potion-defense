@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_item_res")
-type = 8
+type = 28
 name = "Poison Cloud"
 texture = ExtResource("2_jva1f")

@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_item_res")
-type = 5
+type = 25
 name = "Fire Bomb"
 texture = ExtResource("2_tih24")

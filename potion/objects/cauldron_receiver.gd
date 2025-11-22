@@ -1,11 +1,13 @@
 class_name CauldronReceiver
 extends RayInteractable
 
+signal died()
+
 @export var item_container: Control
 @export var item_scene: PackedScene
+@export var health_bar: Range
 
 @export var progress: Range
-@export var overheat_progress: Range
 @export var mix_time_per_item := 4.0
 @export var mixing_speed_increase := 1.5
 
@@ -14,6 +16,7 @@ extends RayInteractable
 
 @onready var overheat_timer: Timer = $OverheatTimer
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
+@onready var hurt_box: HurtBox = $HurtBox
 
 var items: Array = []
 var mixing_player: FPSPlayer = null
@@ -21,12 +24,10 @@ var mixing_player: FPSPlayer = null
 var overheating := false:
 	set(v):
 		overheating = v
-		overheat_progress.value = 0.0
 		if not overheating:
 			overheat_timer.stop()
 			overheat_start_timer.stop()
 		elif overheat_timer.is_stopped():
-			overheat_progress.max_value = overheat_timer.wait_time
 			overheat_timer.start()
 
 var finished := false
@@ -46,10 +47,18 @@ var mixing := false:
 		if not mixing:
 			_unfreeze_mixing_player()
 
+var destroyed := false
+
 func _ready() -> void:
 	super()
 	_clear_items()
 	_reset_values()
+	
+	health_bar.value = hurt_box.max_health
+	health_bar.max_value = hurt_box.max_health
+	hurt_box.health_changed.connect(func(): health_bar.value = hurt_box.health)
+	hurt_box.died.connect(func(): died.emit())
+	died.connect(func(): destroyed = true)
 	
 	interacted.connect(func(a: Node): handle_interacted(a))
 	released.connect(func(a: Node): handle_released(a))
@@ -71,7 +80,7 @@ func handle_interacted(actor: Node) -> void:
 	elif not items.is_empty():
 		if _is_only_potions():
 			var item = items.pop_back()
-			_clear_items()
+			reset()
 			player.pickup_item(ItemResource.get_resource(item))
 		elif not mixing:
 			mixing_player = player
@@ -110,9 +119,6 @@ func handle_released(_actor: Node) -> void:
 
 func _process(delta: float) -> void:
 	if items.is_empty(): return
-	
-	if not overheat_timer.is_stopped():
-		overheat_progress.value = overheat_timer.wait_time - overheat_timer.time_left
 	
 	time += delta * (1.0 if not mixing else mixing_speed_increase)
 	if time >= required_time and not finished:

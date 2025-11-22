@@ -3,14 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="1_01chs"]
 [ext_resource type="Script" uid="uid://cnoab8glkh17g" path="res://potion/items/scenes/item_popup.gd" id="1_1dpwh"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_01chs"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_1dpwh"]
 viewport_path = NodePath("SubViewport")
 
 [node name="ItemPopup" type="Sprite3D" node_paths=PackedStringArray("cauldron_item")]
 billboard = 1
 double_sided = false
 no_depth_test = true
-texture = SubResource("ViewportTexture_01chs")
+texture = SubResource("ViewportTexture_1dpwh")
 script = ExtResource("1_1dpwh")
 cauldron_item = NodePath("SubViewport/CenterContainer/CauldronItem")
 

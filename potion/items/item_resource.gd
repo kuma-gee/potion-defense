@@ -6,7 +6,29 @@ enum Type {
 	CHARCOAL, # Explosion
 	ICE_SHARD, # Frost (Slow)
 	SPIDER_VENOM, # Poison (DPS)
-	VULCANIC_ASH,
+	ICE_SHARD_CRUSHED,
+
+	# So the enum values of the recipies dont change everytime
+	WOOD,
+	PLACEHOLDER_2,
+	PLACEHOLDER_3,
+	PLACEHOLDER_4,
+	PLACEHOLDER_5,
+	PLACEHOLDER_6,
+	PLACEHOLDER_7,
+	PLACEHOLDER_8,
+	PLACEHOLDER_9,
+	PLACEHOLDER_10,
+	PLACEHOLDER_11,
+	PLACEHOLDER_12,
+	PLACEHOLDER_13,
+	PLACEHOLDER_14,
+	PLACEHOLDER_15,
+	PLACEHOLDER_16,
+	PLACEHOLDER_17,
+	PLACEHOLDER_18,
+	PLACEHOLDER_19,
+	PLACEHOLDER_20,
 	
 	POTION_FIRE_BOMB,
 	POTION_FROST_NOVA,
@@ -15,25 +37,34 @@ enum Type {
 	POTION_PARALYSIS,
 	POTION_LAVA_FIELD,
 	POTION_LIGHTNING,
+	PLACEHOLDER_21,
+	PLACEHOLDER_22,
+	PLACEHOLDER_23,
+	PLACEHOLDER_24,
+	PLACEHOLDER_25,
+	PLACEHOLDER_26,
 }
 
 const RECIPIES = {
 	Type.POTION_FIRE_BOMB: {Type.RED_HERB: 1, Type.CHARCOAL: 1},
 	Type.POTION_FROST_NOVA: {Type.ICE_SHARD: 2},
 	Type.POTION_POISON_CLOUD: {Type.RED_HERB: 1, Type.ICE_SHARD: 1, Type.SPIDER_VENOM: 1},
-	Type.POTION_PARALYSIS: {Type.ICE_SHARD: 2, Type.VULCANIC_ASH: 1},
+	# Type.POTION_PARALYSIS: {Type.ICE_SHARD: 2, Type.VULCANIC_ASH: 1},
 
 	Type.POTION_BLIZZARD: {Type.POTION_FROST_NOVA: 1, Type.SPIDER_VENOM: 1},
-	Type.POTION_LAVA_FIELD: {Type.POTION_FIRE_BOMB: 1, Type.VULCANIC_ASH: 1},
+	# Type.POTION_LAVA_FIELD: {Type.POTION_FIRE_BOMB: 1, Type.VULCANIC_ASH: 1},
 	Type.POTION_LIGHTNING: {Type.POTION_PARALYSIS: 1, Type.CHARCOAL: 1},
 }
 
 
 @export var type: Type = Type.RED_HERB
-@export var name: String = ""
 @export var max_capacity: int = 4
 @export var restore_time: float = 5.0
 @export var texture: Texture2D
+
+var name: String = "":
+	get():
+		return build_name(type)
 
 static func is_potion(t: ItemResource.Type):
 	return build_name(t).begins_with("Potion")

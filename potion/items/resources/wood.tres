@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://cspcf2cuasl1w"]
+
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_17g6l"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="2_rw8rt"]
+
+[resource]
+script = ExtResource("1_17g6l")
+type = 5
+name = "Wood"
+texture = ExtResource("2_rw8rt")
+metadata/_custom_type_script = "uid://b8r3wk16v6bq7"

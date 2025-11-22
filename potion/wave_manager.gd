@@ -6,25 +6,25 @@ signal wave_started()
 signal wave_completed()
 
 @export var enemy_spawn_root: Node3D
-@export var wave_label: Label
+#@export var wave_label: Label
 
 @export_category("Wave Settings")
 @export var spawn_enemy_count: int = 4
 @export var spawn_interval_min: float = 2.0
 @export var spawn_interval_max: float = 4.0
 
-@export_category("Final Wave Settings")
-@export var final_wave_from_wave: int = 3
-@export var final_wave_spawn_delay := 2.0
-@export var final_wave_enemy_count: int = 10
-@export var final_wave_spawn_interval: float = 0.5
+#@export_category("Final Wave Settings")
+#@export var final_wave_from_wave: int = 3
+#@export var final_wave_spawn_delay := 2.0
+#@export var final_wave_enemy_count: int = 10
+#@export var final_wave_spawn_interval: float = 0.5
 
 @export_category("Enemy Resources")
 @export var enemy_resources: Array[EnemyResource] = []
-@export var lane_root: Node3D
 @export var spawn_timer: Timer
 @export var wave_timer: Timer
 
+var lane_root: Node3D
 var enemies_spawned_this_wave: int = 0:
 	set(v):
 		enemies_spawned_this_wave = v
@@ -39,6 +39,8 @@ var is_wave_active: bool = false
 var is_final_wave: bool = false
 var waiting_for_ready: bool = true
 
+var cauldrons := []
+
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_enemy)
 	wave_timer.timeout.connect(_on_wave_time_expired)
@@ -49,10 +51,19 @@ func _ready() -> void:
 
 func setup(node: Node3D):
 	lane_root = node
-	for lane in lane_root.get_children():
-		lane.destroyed.connect(func():
-			game_over.emit()
+	cauldrons = get_tree().get_nodes_in_group("cauldron")
+	for c in cauldrons:
+		c.died.connect(func():
+			cauldrons.erase(c)
+			if cauldrons.is_empty():
+				game_over.emit()
 		)
+	#lane_root = node
+	#if lane_root:
+		#for lane in lane_root.get_children():
+			#lane.destroyed.connect(func():
+				#game_over.emit()
+			#)
 
 func _enemy_spawn_count():
 	return spawn_enemy_count + floor((log(current_wave + 1) / log(10)) * 10)
@@ -64,15 +75,16 @@ func _process(_delta: float) -> void:
 	_update_wave_label()
 
 func _update_wave_label():
-	if waiting_for_ready:
-		wave_label.text = "Ready for Wave %s" % (current_wave + 1)
-	elif is_wave_active:
-		if is_final_wave:
-			wave_label.text = "FINAL WAVE! - %s enemies remaining" % final_wave_enemy_count
-		else:
-			wave_label.text = "Wave %d - %s enemies remaining" % [current_wave, _enemy_spawn_count() - enemies_spawned_this_wave]
-	else:
-		wave_label.text = "Wave %s Complete!" % current_wave
+	pass
+	#if waiting_for_ready:
+		#wave_label.text = "Ready for Wave %s" % (current_wave + 1)
+	#elif is_wave_active:
+		#if is_final_wave:
+			#wave_label.text = "FINAL WAVE! - %s enemies remaining" % final_wave_enemy_count
+		#else:
+			#wave_label.text = "Wave %d - %s enemies remaining" % [current_wave, _enemy_spawn_count() - enemies_spawned_this_wave]
+	#else:
+		#wave_label.text = "Wave %s Complete!" % current_wave
 
 func begin_wave(wave: int) -> void:
 	waiting_for_ready = false
@@ -110,20 +122,20 @@ func _on_wave_time_expired() -> void:
 	if not is_wave_active:
 		return
 	
-	print("Wave %d time expired! Starting final wave with %d enemies" % [current_wave, final_wave_enemy_count])
 	spawn_timer.stop()
+	#print("Wave %d time expired! Starting final wave with %d enemies" % [current_wave, final_wave_enemy_count])
 
-	if true or current_wave < final_wave_from_wave:
-		print("Final wave not triggered until wave %d" % final_wave_from_wave)
-		return
-
-	is_final_wave = true
-	await get_tree().create_timer(final_wave_spawn_delay).timeout
-	
-	for i in range(final_wave_enemy_count):
-		spawn_timer.start(final_wave_spawn_interval)
-		await spawn_timer.timeout
-		_spawn_single_enemy()
+	#if true or current_wave < final_wave_from_wave:
+		#print("Final wave not triggered until wave %d" % final_wave_from_wave)
+		#return
+#
+	#is_final_wave = true
+	#await get_tree().create_timer(final_wave_spawn_delay).timeout
+	#
+	#for i in range(final_wave_enemy_count):
+		#spawn_timer.start(final_wave_spawn_interval)
+		#await spawn_timer.timeout
+		#_spawn_single_enemy()
 
 func _on_spawn_enemy() -> void:
 	if not is_wave_active:
@@ -153,7 +165,7 @@ func _spawn_single_enemy() -> void:
 		return
 	
 	print("Availabe enemies %s" % available_enemies.size())
-	var valid_lanes = lane_root.get_children().filter(func(x): return not x.is_destroyed())
+	var valid_lanes =  lane_root.get_children()
 	if valid_lanes.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
 		return
@@ -162,6 +174,7 @@ func _spawn_single_enemy() -> void:
 	if left_to_spawn <= 0:
 		return
 
+	var targets = cauldrons.filter(func(c): return is_instance_valid(c) and not c.destroyed)
 	var lane_spawn_count = randi_range(1, min(valid_lanes.size(), left_to_spawn, 1))
 	valid_lanes.shuffle()
 	for i in range(lane_spawn_count):
@@ -169,11 +182,12 @@ func _spawn_single_enemy() -> void:
 		var enemy_res = available_enemies.pick_random()
 		var enemy_resource = enemy_res.scene
 		var enemy_instance = enemy_resource.instantiate() as Node3D
-		enemy_instance.position = lane.get_spawn_position()
+		enemy_instance.position = lane.global_position
 		enemy_instance.resource = enemy_res
 		
-		lane.enemies.append(enemy_instance)
+		#lane.enemies.append(enemy_instance)
 		enemy_spawn_root.add_child(enemy_instance)
+		enemy_instance.set_target(targets.pick_random().global_position)
 
 	enemies_spawned_this_wave += lane_spawn_count
 	

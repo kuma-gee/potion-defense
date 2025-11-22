@@ -1,15 +1,12 @@
-[gd_scene load_steps=31 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=28 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
 [ext_resource type="Script" uid="uid://bh2kij0kebasu" path="res://potion/enemy/resources/enemy_resource.gd" id="3_16d2i"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="3_41urv"]
 [ext_resource type="Resource" uid="uid://c3mcqueui0db2" path="res://potion/items/resources/charcoal.tres" id="4_41urv"]
-[ext_resource type="Resource" uid="uid://b8ujitv2y52po" path="res://potion/enemy/resources/mage_resource.tres" id="4_rmnmn"]
-[ext_resource type="PackedScene" uid="uid://lym0kep4xafw" path="res://potion/maps/map_0.tscn" id="5_1w3wt"]
-[ext_resource type="Resource" uid="uid://di67w6t0nqyiv" path="res://potion/enemy/resources/rogue_resource.tres" id="5_ux70s"]
+[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="5_16d2i"]
 [ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="6_kfjfp"]
-[ext_resource type="Resource" uid="uid://bawmjv8tyfdjy" path="res://potion/enemy/resources/warrior_resource.tres" id="7_e2yce"]
 [ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
@@ -48,11 +45,12 @@ shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "pause", "recipe_ui")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_label", "map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "pause", "recipe_ui")]
 script = ExtResource("1_1w3wt")
+wave_label = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/Wave")
 initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_41urv"), ExtResource("4_41urv")])
 map_root = NodePath("MapRoot")
-map_scene = ExtResource("5_1w3wt")
+map_scene = ExtResource("5_16d2i")
 player_root = NodePath("PlayerRoot")
 wave_manager = NodePath("WaveManager")
 wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
@@ -60,12 +58,13 @@ unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
 pause = NodePath("CanvasLayer/Control/Pause")
 recipe_ui = NodePath("CanvasLayer/Control/Recipes")
 
-[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "wave_label", "spawn_timer", "wave_timer")]
+[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "spawn_timer", "wave_timer")]
 script = ExtResource("19_fqivl")
 enemy_spawn_root = NodePath("../EnemiesRoot")
-wave_label = NodePath("../CanvasLayer/Wave")
-spawn_enemy_count = 50
-enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("6_kfjfp"), ExtResource("5_ux70s"), ExtResource("7_e2yce"), ExtResource("4_rmnmn")])
+spawn_enemy_count = 5
+spawn_interval_min = 3.0
+spawn_interval_max = 6.0
+enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("6_kfjfp")])
 spawn_timer = NodePath("SpawnTimer")
 wave_timer = NodePath("WaveTimer")
 metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
@@ -84,15 +83,31 @@ one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Wave" type="Label" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -21.5
-offset_right = 21.5
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Wave"
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -71.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Wave" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Wave 1/4"
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
