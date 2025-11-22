@@ -1,267 +1,100 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=6 format=3 uid="uid://cnblk6clkaeyh"]
 
+[ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
-[ext_resource type="PackedScene" uid="uid://wmkgnnq04t5v" path="res://potion/objects/lane.tscn" id="2_vravf"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="3_ubtl6"]
-[ext_resource type="PackedScene" uid="uid://cjaquapo804m2" path="res://assets/fantasy/Exports/glTF/Chandelier.gltf" id="4_46uui"]
-[ext_resource type="PackedScene" uid="uid://bib5i83omj08y" path="res://assets/fantasy/Exports/glTF/Workbench.gltf" id="5_io850"]
-[ext_resource type="PackedScene" uid="uid://cp82ox505xryk" path="res://assets/fantasy/Exports/glTF/CandleStick_Triple.gltf" id="6_ed6x5"]
 [ext_resource type="PackedScene" uid="uid://dec244j10bhon" path="res://potion/objects/trash.tscn" id="7_0cpyx"]
-[ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/objects/chest.tscn" id="8_d5uy5"]
-[ext_resource type="PackedScene" uid="uid://b66tlb7y3fgx7" path="res://potion/objects/recipe_book.tscn" id="9_hjkg3"]
-[ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="10_iq3fy"]
-[ext_resource type="PackedScene" uid="uid://c5wdkaplydpfi" path="res://assets/fantasy/Exports/glTF/Shelf_Arch.gltf" id="11_44ijc"]
 
-[node name="Map01" type="Node3D" node_paths=PackedStringArray("lanes", "items", "recipe_book")]
+[sub_resource type="Environment" id="Environment_cfgyr"]
+background_mode = 1
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.04
+volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
+
+[node name="map_01" type="Node3D"]
 script = ExtResource("1_f7537")
-lanes = NodePath("Lanes")
-items = NodePath("Items")
-recipe_book = NodePath("RecipeBook")
 
-[node name="Lanes" type="Node3D" parent="."]
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_1ce0p")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65525, 65530, 2, 65525, 65531, 2, 65525, 65532, 2, 65525, 65533, 2, 65525, 65534, 2, 65525, 65535, 2, 65525, 0, 2, 65525, 1, 2, 65525, 2, 2, 65525, 3, 2, 65525, 4, 2, 65525, 5, 2, 65525, 6, 2, 65525, 7, 2, 65526, 65530, 2, 65526, 65531, 2, 65526, 65532, 2, 65526, 65533, 2, 65526, 65534, 2, 65526, 65535, 2, 65526, 0, 2, 65526, 1, 2, 65526, 2, 2, 65526, 3, 2, 65526, 4, 2, 65526, 5, 2, 65526, 6, 2, 65526, 7, 2, 65527, 65530, 2, 65527, 65531, 2, 65527, 65532, 2, 65527, 65533, 2, 65527, 65534, 2, 65527, 65535, 2, 65527, 0, 2, 65527, 1, 2, 65527, 2, 2, 65527, 3, 2, 65527, 4, 2, 65527, 5, 2, 65527, 6, 2, 65527, 7, 2, 65528, 65530, 2, 65528, 65531, 2, 65528, 65532, 2, 65528, 65533, 2, 65528, 65534, 2, 65528, 65535, 2, 65528, 0, 2, 65528, 1, 2, 65528, 2, 2, 65528, 3, 2, 65528, 4, 2, 65528, 5, 2, 65528, 6, 2, 65528, 7, 2, 65529, 65530, 2, 65529, 65531, 2, 65529, 65532, 2, 65529, 65533, 2, 65529, 65534, 2, 65529, 65535, 2, 65529, 0, 2, 65529, 1, 2, 65529, 2, 2, 65529, 3, 2, 65529, 4, 2, 65529, 5, 2, 65529, 6, 2, 65529, 7, 2, 65530, 65530, 2, 65530, 65531, 2, 65530, 65532, 2, 65530, 65533, 2, 65530, 65534, 2, 65530, 65535, 2, 65530, 0, 2, 65530, 1, 2, 65530, 2, 2, 65530, 3, 2, 65530, 4, 2, 65530, 5, 2, 65530, 6, 2, 65530, 7, 2, 65531, 65530, 2, 65531, 65531, 2, 65531, 65532, 2, 65531, 65533, 2, 65531, 65534, 2, 65531, 65535, 2, 65531, 0, 2, 65531, 1, 2, 65531, 2, 2, 65531, 3, 2, 65531, 4, 2, 65531, 5, 2, 65531, 6, 2, 65531, 7, 2, 65532, 65530, 2, 65532, 65531, 2, 65532, 65532, 2, 65532, 65533, 2, 65532, 65534, 2, 65532, 65535, 2, 65532, 0, 2, 65532, 1, 2, 65532, 2, 2, 65532, 3, 2, 65532, 4, 2, 65532, 5, 2, 65532, 6, 2, 65532, 7, 2, 65533, 65530, 2, 65533, 65531, 2, 65533, 65532, 2, 65533, 65533, 2, 65533, 65534, 2, 65533, 65535, 2, 65533, 0, 2, 65533, 1, 2, 65533, 2, 2, 65533, 3, 2, 65533, 4, 2, 65533, 5, 2, 65533, 6, 2, 65533, 7, 2, 65534, 65530, 2, 65534, 65531, 2, 65534, 65532, 2, 65534, 65533, 2, 65534, 65534, 2, 65534, 65535, 2, 65534, 0, 2, 65534, 1, 2, 65534, 2, 2, 65534, 3, 2, 65534, 4, 2, 65534, 5, 2, 65534, 6, 2, 65534, 7, 2, 65535, 65530, 2, 65535, 65531, 2, 65535, 65532, 2, 65535, 65533, 2, 65535, 65534, 2, 65535, 65535, 2, 65535, 0, 2, 65535, 1, 2, 65535, 2, 2, 65535, 3, 2, 65535, 4, 2, 65535, 5, 2, 65535, 6, 2, 65535, 7, 2, 0, 65530, 2, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 65535, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 2, 1, 65530, 2, 1, 65531, 2, 1, 65532, 2, 1, 65533, 2, 1, 65534, 2, 1, 65535, 2, 1, 0, 2, 1, 1, 2, 1, 2, 2, 1, 3, 2, 1, 4, 2, 1, 5, 2, 1, 6, 2, 1, 7, 2, 2, 65530, 2, 2, 65531, 2, 2, 65532, 2, 2, 65533, 2, 2, 65534, 2, 2, 65535, 2, 2, 0, 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 2, 4, 2, 2, 5, 2, 2, 6, 2, 2, 7, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 65533, 2, 3, 65534, 2, 3, 65535, 2, 3, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 7, 2, 4, 65530, 2, 4, 65531, 2, 4, 65532, 2, 4, 65533, 2, 4, 65534, 2, 4, 65535, 2, 4, 0, 2, 4, 1, 2, 4, 2, 2, 4, 3, 2, 4, 4, 2, 4, 5, 2, 4, 6, 2, 4, 7, 2, 5, 65530, 2, 5, 65531, 2, 5, 65532, 2, 5, 65533, 2, 5, 65534, 2, 5, 65535, 2, 5, 0, 2, 5, 1, 2, 5, 2, 2, 5, 3, 2, 5, 4, 2, 5, 5, 2, 5, 6, 2, 5, 7, 2, 6, 65530, 2, 6, 65531, 2, 6, 65532, 2, 6, 65533, 2, 6, 65534, 2, 6, 65535, 2, 6, 0, 2, 6, 1, 2, 6, 2, 2, 6, 3, 2, 6, 4, 2, 6, 5, 2, 6, 6, 2, 6, 7, 2, 7, 65530, 2, 7, 65531, 2, 7, 65532, 2, 7, 65533, 2, 7, 65534, 2, 7, 65535, 2, 7, 0, 2, 7, 1, 2, 7, 2, 2, 7, 3, 2, 7, 4, 2, 7, 5, 2, 7, 6, 2, 7, 7, 2, 8, 65530, 2, 8, 65531, 2, 8, 65532, 2, 8, 65533, 2, 8, 65534, 2, 8, 65535, 2, 8, 0, 2, 8, 1, 2, 8, 2, 2, 8, 3, 2, 8, 4, 2, 8, 5, 2, 8, 6, 2, 8, 7, 2, 9, 65530, 2, 9, 65531, 2, 9, 65532, 2, 9, 65533, 2, 9, 65534, 2, 9, 65535, 2, 9, 0, 2, 9, 1, 2, 9, 2, 2, 9, 3, 2, 9, 4, 2, 9, 5, 2, 9, 6, 2, 9, 7, 2, 10, 65530, 2, 10, 65531, 2, 10, 65532, 2, 10, 65533, 2, 10, 65534, 2, 10, 65535, 2, 10, 0, 2, 10, 1, 2, 10, 2, 2, 10, 3, 2, 10, 4, 2, 10, 5, 2, 10, 6, 2, 10, 7, 2)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Lane" parent="Lanes" instance=ExtResource("2_vravf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.892634, 0, 5.5121093)
+[node name="GridMap2" type="GridMap" parent="."]
+mesh_library = ExtResource("1_1ce0p")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(0, 0, 10, 65535, 0, 1441801, 65535, 65535, 1441802, 0, 65535, 10, 65534, 65535, 1441801, 65534, 0, 655370, 1, 0, 9, 1, 65535, 655370, 1, 1, 655370, 0, 1, 9, 65535, 1, 10, 65534, 1, 9, 65534, 65534, 10, 65535, 65534, 1048586, 0, 65534, 9, 1, 65534, 1441801, 65535, 2, 1441801, 65535, 3, 1441801, 65535, 4, 1441801, 65535, 5, 1441804, 0, 5, 1441804, 0, 2, 1441801, 0, 3, 1441801, 0, 4, 1441801, 0, 6, 1441803, 65534, 4, 655361, 1, 4, 655361, 3, 4, 655361, 65532, 4, 655361, 3, 65532, 1, 1, 65532, 1, 65532, 65532, 1, 65534, 65532, 1, 65530, 4, 655361, 65529, 3, 1048577, 65529, 1, 1048577, 65529, 65535, 1048577, 65529, 65533, 1048577, 65530, 65532, 1, 5, 65532, 1, 6, 65533, 1441793, 6, 65535, 1441793, 6, 1, 1441793, 6, 3, 1441793, 5, 4, 655361, 65534, 5, 7, 1, 5, 7, 1, 65530, 4, 65530, 65530, 4, 8, 65531, 4, 8, 65534, 4, 6, 65530, 5, 65535, 65531, 655365, 65532, 65531, 655365, 8, 1, 655365, 65534, 65530, 655366, 3, 65531, 655366, 4, 65530, 655366, 65529, 65531, 655366, 65527, 65533, 655364, 65528, 65532, 655365, 9, 0, 655366, 7, 65533, 655366, 65531, 2, 655363, 4, 2, 655363, 4, 65534, 655363, 65531, 65534, 655363, 65535, 65533, 655369, 0, 65533, 1048585, 65535, 65532, 1441802, 0, 65532, 1048588, 0, 65531, 655371, 65533, 65535, 10, 65533, 0, 1441801, 2, 65535, 655370, 2, 0, 1048586, 65532, 0, 1441804, 3, 65535, 1048588, 3, 0, 1048587, 65532, 65535, 655369, 65531, 65535, 1441803, 4, 65535, 1441803, 2, 65534, 1441803, 65533, 65534, 655372, 65534, 2, 655371, 65530, 65533, 1048584, 65530, 65535, 1048584, 65530, 1, 1048584, 65530, 3, 1048584, 5, 65533, 1441800, 5, 65535, 1441800, 5, 1, 1441800, 5, 3, 1441800)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Lane2" parent="Lanes" instance=ExtResource("2_vravf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.972708, 0.009325504, 5.5137315)
-
-[node name="Lane3" parent="Lanes" instance=ExtResource("2_vravf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9617425, 0, 5.5121093)
-
-[node name="Lane4" parent="Lanes" instance=ExtResource("2_vravf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6442804, 0, 5.5121093)
-
-[node name="Cauldron" parent="." instance=ExtResource("3_ubtl6")]
-
-[node name="Chandelier2" parent="." instance=ExtResource("4_46uui")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Chandelier2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89917874, 0.57564807)
+[node name="OmniLight3D" type="OmniLight3D" parent="GridMap2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.1008213, 5.0691624)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
+light_energy = 2.0
 omni_range = 8.0
 
-[node name="Light" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
+[node name="OmniLight3D2" type="OmniLight3D" parent="GridMap2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.1008213, -2.9308376)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
+light_energy = 2.0
 omni_range = 8.0
 
-[node name="Light2" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(0.7076866, 0, 0.7065265, 0, 1, 0, -0.7065265, 0, 0.7076866, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
+[node name="OmniLight3D3" type="OmniLight3D" parent="GridMap2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.1008213, -2.9308376)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
+light_energy = 2.0
 omni_range = 8.0
 
-[node name="Light3" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(-0.022303432, 0, 0.99975127, 0, 1, 0, -0.99975127, 0, -0.022303432, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
+[node name="OmniLight3D4" type="OmniLight3D" parent="GridMap2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.1008213, 5.0691624)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
+light_energy = 2.0
 omni_range = 8.0
 
-[node name="Light4" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(-0.69787794, 0, 0.71621674, 0, 1, 0, -0.71621674, 0, -0.69787794, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
+[node name="OmniLight3D5" type="OmniLight3D" parent="GridMap2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.7428777, 12.074571)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
+light_energy = 2.0
 omni_range = 8.0
 
-[node name="Light5" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(-0.636711, 0, -0.77110255, 0, 1, 0, 0.77110255, 0, -0.636711, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
+[node name="OmniLight3D6" type="OmniLight3D" parent="GridMap2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.7428777, 12.074571)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
+light_energy = 2.0
 omni_range = 8.0
-
-[node name="Light6" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(-0.07520503, 0, -0.9971681, 0, 1, 0, 0.9971681, 0, -0.07520503, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
-light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
-omni_range = 8.0
-
-[node name="Light7" type="Node3D" parent="Chandelier2"]
-transform = Transform3D(0.71796834, 0, -0.6960758, 0, 1, 0, 0.6960758, 0, 0.71796834, 0, -1, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Chandelier2/Light7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
-light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.3
-omni_range = 8.0
-
-[node name="Workbench3" parent="." instance=ExtResource("5_io850")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5.2787824, 0, 1.2664042)
-
-[node name="CandleStick_Triple2" parent="Workbench3" instance=ExtResource("6_ed6x5")]
-transform = Transform3D(0.40162808, 0, -0.91580284, 0, 1, 0, 0.91580284, 0, 0.40162808, -0.61281085, 0.83296657, 0.1601119)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Workbench3/CandleStick_Triple2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48357642, 0)
-light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.2
-omni_range = 3.0
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Workbench3/CandleStick_Triple2"]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0.17385674, 0.3574953, 0.00054621696)
-light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.2
-omni_range = 3.0
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="Workbench3/CandleStick_Triple2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1740241, 0.36924446, 0.0019564629)
-light_color = Color(1, 0.75686276, 0.6509804, 1)
-light_energy = 0.2
-omni_range = 3.0
 
 [node name="Trash" parent="." instance=ExtResource("7_0cpyx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.617, 0, 3.497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9111636, 4.7683716e-07, -3.6293437)
 
-[node name="Items" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3242106, 0, -0.8844453)
-
-[node name="Chest" parent="Items" instance=ExtResource("8_d5uy5")]
-
-[node name="Chest2" parent="Items" instance=ExtResource("8_d5uy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="Chest3" parent="Items" instance=ExtResource("8_d5uy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9999999)
-
-[node name="Chest4" parent="Items" instance=ExtResource("8_d5uy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-
-[node name="RecipeBook" parent="." instance=ExtResource("9_hjkg3")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.44349, 0, 1.9062808)
-
-[node name="Walls" type="Node3D" parent="."]
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, -6)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, 5.4721127)
-visible = false
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, 73)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="Top" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9368224, 0)
-visible = false
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="Top2" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9368224, 12)
-visible = false
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -4.371139e-08, -1, -1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, -0.06317747, 6)
-visible = false
-material_override = ExtResource("10_iq3fy")
-size = Vector3(12, 0.101, 12)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Walls/CSGBox3D5"]
-transform = Transform3D(-4.371139e-08, 4.3711385e-08, 1, -4.371139e-08, 1, -4.371139e-08, -1, -4.3711385e-08, -4.371139e-08, -1.9941057, 1, -0.51651305)
-material_override = ExtResource("10_iq3fy")
-operation = 2
-size = Vector3(15.02832, 2.4345703, 1.8774414)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, 6, -0.06317747, 0)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, 6, -0.06317747, 12)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, 6, -0.06317747, 24)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 0)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 12)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 1, -4.3711385e-08, 4.3711392e-08, -4.371139e-08, 4.3711392e-08, 1, -6, -0.06317747, 24)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(6, 0.5, 12)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 0)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 12)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 24)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06317747, 36)
-material_override = ExtResource("10_iq3fy")
-use_collision = true
-size = Vector3(12, 0.101, 12)
-
-[node name="Shelf_Arch2" parent="." instance=ExtResource("11_44ijc")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.06026244, 0, 5.6811147)
+[node name="Cauldron" parent="." instance=ExtResource("3_ubtl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003143549, 0.0063118935, 0.008994579)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-2.1855692e-08, 0.86602545, -0.49999997, 3.7855173e-08, 0.49999997, 0.86602545, 1, 1.7763568e-15, -4.371139e-08, -13.940432, 24.656734, 5.0527344)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 36.766125, 31.795834)
 current = true
-fov = 30.0
+fov = 20.0
 size = 10.832689
+
+[node name="SpawnPoint3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="SpawnPoint4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="SpawnPoint5" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="SpawnPoint6" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cfgyr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
+light_color = Color(0.7607843, 0.84313726, 1, 1)
+light_energy = 0.1

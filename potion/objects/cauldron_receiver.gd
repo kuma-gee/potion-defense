@@ -6,7 +6,7 @@ extends RayInteractable
 
 @export var progress: Range
 @export var overheat_progress: Range
-@export var mix_time_per_item := 3.0
+@export var mix_time_per_item := 4.0
 @export var mixing_speed_increase := 1.5
 
 @export var success_anim: AnimationPlayer

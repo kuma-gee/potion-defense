@@ -250,7 +250,7 @@ func dash_player() -> void:
 	dash_vfx.emitting = true
 
 func throw_item() -> void:
-	if not has_item() or not throw_button_held:
+	if not throw_button_held or not has_item() or not held_item_type.is_potion_item():
 		return
 	
 	var item = release_item()

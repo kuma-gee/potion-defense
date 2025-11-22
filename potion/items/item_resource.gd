@@ -18,7 +18,7 @@ enum Type {
 }
 
 const RECIPIES = {
-	Type.POTION_FIRE_BOMB: {Type.RED_HERB: 2, Type.CHARCOAL: 1},
+	Type.POTION_FIRE_BOMB: {Type.RED_HERB: 1, Type.CHARCOAL: 1},
 	Type.POTION_FROST_NOVA: {Type.ICE_SHARD: 2},
 	Type.POTION_POISON_CLOUD: {Type.RED_HERB: 1, Type.ICE_SHARD: 1, Type.SPIDER_VENOM: 1},
 	Type.POTION_PARALYSIS: {Type.ICE_SHARD: 2, Type.VULCANIC_ASH: 1},
@@ -59,6 +59,7 @@ static func find_potential_recipe(items: Array, exact = false):
 		var all_found = true
 		
 		if exact:
+			# Loop required items to find the exact one
 			for item_type in required_items.keys():
 				if not item_counts.has(item_type):
 					all_found = false
@@ -70,6 +71,7 @@ static func find_potential_recipe(items: Array, exact = false):
 					all_found = false
 					break
 		else:
+			# Loop current items to check if valid recipes exist
 			for item_type in item_counts.keys():
 				if not required_items.has(item_type):
 					all_found = false

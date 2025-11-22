@@ -126,12 +126,12 @@ viewport_path = NodePath("CurrentItem/SubViewport")
 bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7m8g"]
-bg_color = Color(0, 0.7145237, 0.42062968, 1)
+bg_color = Color(0, 0.627905, 0.9827295, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjfyn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjfyn"]
-bg_color = Color(1, 0.274294, 0.5899518, 1)
+bg_color = Color(0.7173537, 0.15396485, 0.16913271, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cev4c"]
 render_priority = 1
@@ -453,15 +453,6 @@ randomness = 0.23
 process_material = SubResource("ParticleProcessMaterial_ek1wr")
 draw_pass_1 = SubResource("QuadMesh_ksn36")
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="ZeldaFire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.163287, 0)
-light_color = Color(0, 0.788, 1, 1)
-light_energy = 2.64551
-light_volumetric_fog_energy = 4.446
-light_specular = 0.992
-shadow_enabled = true
-omni_range = 3.0
-
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="ZeldaFire"]
 process_priority = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.148682, 0.256685, 0.0371953)
@@ -470,7 +461,7 @@ material_override = SubResource("ShaderMaterial_waqu2")
 mesh = SubResource("QuadMesh_qmn7e")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0561353, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12424132, 0)
 light_color = Color(1, 0.603922, 0, 1)
 light_energy = 8.94
 light_volumetric_fog_energy = 4.446
@@ -611,7 +602,6 @@ libraries = {
 }
 
 [node name="OverheatTimer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="OverheatStartTimer" type="Timer" parent="."]

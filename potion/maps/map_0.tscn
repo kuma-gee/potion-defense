@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://lym0kep4xafw"]
+[gd_scene load_steps=11 format=3 uid="uid://lym0kep4xafw"]
 
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_0thdf"]
 [ext_resource type="PackedScene" uid="uid://wmkgnnq04t5v" path="res://potion/objects/lane.tscn" id="2_1yaw1"]
@@ -10,23 +10,15 @@
 [ext_resource type="Material" uid="uid://ds2k5sf1fam5b" path="res://assets/textures/Brick Floor 003/4k/Brick Floor 003.tres" id="8_p427w"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/objects/storage.tscn" id="10_1yaw1"]
 
+[sub_resource type="Environment" id="Environment_0thdf"]
+background_mode = 1
+
 [node name="Map01" type="Node3D" node_paths=PackedStringArray("lanes", "items", "recipe_book", "spawn_points")]
 script = ExtResource("1_0thdf")
 lanes = NodePath("Lanes")
 items = NodePath("Items")
 recipe_book = NodePath("RecipeBook")
 spawn_points = [NodePath("SpawnPoint3"), NodePath("SpawnPoint4"), NodePath("SpawnPoint5"), NodePath("SpawnPoint6")]
-
-[node name="Lanes" type="Node3D" parent="."]
-
-[node name="Lane2" parent="Lanes" instance=ExtResource("2_1yaw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.172247, 0.009325504, 3.5137315)
-
-[node name="Lane3" parent="Lanes" instance=ExtResource("2_1yaw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2674997, 0, 3.5121093)
-
-[node name="Cauldron" parent="." instance=ExtResource("3_5kqim")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003143549, 0.0063118935, 0.008994579)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1008213, 0.57564807)
@@ -106,9 +98,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10082126, -0.5676792)
 light_color = Color(1, 0.75686276, 0.6509804, 1)
 light_energy = 0.3
 omni_range = 8.0
-
-[node name="Trash" parent="." instance=ExtResource("5_faay0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9111636, 4.7683716e-07, -3.6293437)
 
 [node name="Items" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.9682183, 0, -3.610941)
@@ -231,14 +220,26 @@ material_override = ExtResource("8_p427w")
 use_collision = true
 size = Vector3(8, 0.101, 8)
 
+[node name="Storage" parent="." instance=ExtResource("10_1yaw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6384163)
+visible = false
+
+[node name="Lanes" type="Node3D" parent="."]
+
+[node name="Lane2" parent="Lanes" instance=ExtResource("2_1yaw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.514)
+
+[node name="Trash" parent="." instance=ExtResource("5_faay0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9111636, 4.7683716e-07, -3.6293437)
+
+[node name="Cauldron" parent="." instance=ExtResource("3_5kqim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003143549, 0.0063118935, 0.008994579)
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0.86602545, -0.49999997, 0, 0.49999997, 0.86602545, 1, 3.7855173e-08, -2.1855692e-08, -9.879478, 21.32521, 5.401044)
 current = true
 fov = 30.0
 size = 10.832689
-
-[node name="Storage" parent="." instance=ExtResource("10_1yaw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6384163)
 
 [node name="SpawnPoint3" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
@@ -251,3 +252,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="SpawnPoint6" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
+visible = false
+light_energy = 0.4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0thdf")

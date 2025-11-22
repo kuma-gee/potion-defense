@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=31 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
@@ -47,9 +47,6 @@ shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
-
-[sub_resource type="Environment" id="Environment_f4yaa"]
-background_mode = 1
 
 [node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "pause", "recipe_ui")]
 script = ExtResource("1_1w3wt")
@@ -388,14 +385,6 @@ text = "Joined"
 [node name="Start" type="Button" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Start"
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_f4yaa")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
-light_energy = 0.4
-metadata/_edit_lock_ = true
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_rmnmn")
