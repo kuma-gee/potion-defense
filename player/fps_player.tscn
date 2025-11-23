@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bjemhxyjs5ne6"]
+[gd_scene load_steps=53 format=3 uid="uid://bjemhxyjs5ne6"]
 
 [ext_resource type="Script" uid="uid://b4aianeydif4r" path="res://player/fps_player.gd" id="1_krq8x"]
 [ext_resource type="Script" uid="uid://dqf4xy3u845o8" path="res://player/player_anim.gd" id="3_beoo4"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="14_pnd2s"]
 [ext_resource type="Shader" uid="uid://c55s46kns21a7" path="res://shader/circle_inner.gdshader" id="14_we0o2"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="16_3j2dy"]
+[ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="17_r8c67"]
+[ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/objects/progress.tscn" id="18_21wd0"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p2s12"]
 animation = &"Running_A"
@@ -209,7 +211,13 @@ shader_parameter/inner_color = Color(0, 0, 0, 0)
 height = 1.3515625
 radius = 0.27783203
 
-[node name="FPSPlayer" type="CharacterBody3D" node_paths=PackedStringArray("camera", "camera_root", "anim", "body", "walk_vfx", "dash_vfx", "color_ring", "hand", "item_sprite", "item_texture", "interact_ray", "ui", "item_label", "catch_area", "hurt_box") groups=["resetable"]]
+[sub_resource type="SphereShape3D" id="SphereShape3D_r8c67"]
+radius = 1.100371
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nky6h"]
+viewport_path = NodePath("SubViewport")
+
+[node name="FPSPlayer" type="CharacterBody3D" node_paths=PackedStringArray("camera", "camera_root", "anim", "body", "walk_vfx", "dash_vfx", "color_ring", "revive_progress", "revive_interact", "hand", "item_sprite", "item_texture", "interact_ray", "ui", "item_label", "catch_area", "hurt_box") groups=["resetable"]]
 collision_layer = 2
 collision_mask = 16391
 script = ExtResource("1_krq8x")
@@ -221,6 +229,8 @@ walk_vfx = NodePath("CollisionShape3D/WalkVFX")
 dash_vfx = NodePath("CollisionShape3D/DashVFX")
 colors = Array[Color]([Color(1, 0, 0, 1), Color(0, 0.5666666, 1, 1), Color(0.14999998, 1, 0, 1), Color(1, 0.95, 0, 1)])
 color_ring = NodePath("ColorRing/SubViewport/ColorRect")
+revive_progress = NodePath("Progress/SubViewport/CenterContainer/Progress")
+revive_interact = NodePath("RayInteractable")
 hand = NodePath("CollisionShape3D/Hand")
 item_sprite = NodePath("CurrentItem")
 item_texture = NodePath("CurrentItem/SubViewport/CenterContainer/TextureRect")
@@ -277,32 +287,32 @@ draw_pass_1 = SubResource("SphereMesh_7dtnb")
 transform = Transform3D(-0.6, 0, -9.059749e-08, 0, 0.6, 0, 9.059749e-08, 0, -0.6, 0, -0.7892079, 0.13384533)
 
 [node name="Skeleton3D" parent="CollisionShape3D/Mage/Rig" index="0"]
-bones/1/position = Vector3(0, 0.3871508, 0)
+bones/1/position = Vector3(0, 0.3685491, 0)
 bones/1/rotation = Quaternion(-1.11122625e-10, 0.043157753, 2.5724098e-09, 0.9990683)
 bones/2/rotation = Quaternion(-6.938893e-18, 7.1054274e-15, 4.93038e-32, 1)
 bones/3/rotation = Quaternion(8.271806e-25, 3.7252903e-09, -2.75506e-40, 1)
 bones/4/position = Vector3(0.21200736, 0.13413203, 7.9299625e-08)
-bones/4/rotation = Quaternion(-0.5561479, -0.06285159, -0.65317833, 0.5100073)
-bones/5/rotation = Quaternion(1.8322234e-08, -6.200061e-08, -0.47945789, 0.87756497)
-bones/7/rotation = Quaternion(-0.31820127, -0.32597688, 0.13753213, 0.8795295)
+bones/4/rotation = Quaternion(-0.5509617, -0.05655256, -0.6386262, 0.53422797)
+bones/5/rotation = Quaternion(2.0471981e-08, -6.520485e-08, -0.51507944, 0.8571425)
+bones/7/rotation = Quaternion(-0.32108137, -0.33906537, 0.14924645, 0.87158877)
 bones/8/position = Vector3(8.348433e-10, 0.096125185, -0.057500035)
-bones/8/rotation = Quaternion(0.001240863, 0.0012408415, -0.70253664, 0.71164554)
+bones/8/rotation = Quaternion(0.001096682, 0.0010966818, -0.7030693, 0.7111198)
 bones/11/position = Vector3(-0.21200737, 0.13413203, 8.6813984e-08)
-bones/11/rotation = Quaternion(-0.6151894, 0.08276047, 0.6262048, 0.47176298)
-bones/12/rotation = Quaternion(1.47694905e-08, 5.3411277e-08, 0.50337857, 0.864066)
-bones/14/rotation = Quaternion(-0.31654003, 0.30030072, -0.21913143, 0.8726989)
+bones/11/rotation = Quaternion(-0.60962653, 0.07710156, 0.6141471, 0.49521136)
+bones/12/rotation = Quaternion(3.919789e-08, 3.901077e-08, 0.5374671, 0.8432848)
+bones/14/rotation = Quaternion(-0.32019877, 0.31520504, -0.23145376, 0.8628719)
 bones/15/position = Vector3(-1.573599e-08, 0.096125126, -0.057499975)
-bones/15/rotation = Quaternion(0.0024870024, 0.0029293206, 0.7045193, 0.7096745)
+bones/15/rotation = Quaternion(0.0034258873, 0.0040351893, 0.7035373, 0.7106387)
 bones/18/rotation = Quaternion(-5.8060785e-11, -0.031341746, -1.880125e-09, 0.99950874)
 bones/21/position = Vector3(0.17094508, 0.1135872, 1.5994095e-08)
-bones/21/rotation = Quaternion(0.9931459, 0.08324841, 0.075093076, 0.03304736)
-bones/22/rotation = Quaternion(0.25315866, 6.431191e-08, -1.7676201e-07, 0.96742475)
-bones/23/rotation = Quaternion(-0.54747605, -0.20764825, 0.05252832, 0.80894566)
+bones/21/rotation = Quaternion(0.98935395, 0.08381679, 0.07888904, 0.08905122)
+bones/22/rotation = Quaternion(0.40030912, 5.973613e-08, -2.7368375e-07, 0.9163803)
+bones/23/rotation = Quaternion(-0.6242911, -0.20049372, 0.077728786, 0.75101346)
 bones/24/rotation = Quaternion(-9.740654e-09, 0.9203548, -0.39108446, 7.830904e-08)
 bones/25/position = Vector3(-0.17094508, 0.11358732, 1.557549e-08)
-bones/25/rotation = Quaternion(0.99615735, -0.03038609, 0.031087713, 0.07603124)
-bones/26/rotation = Quaternion(0.31771103, -6.3169004e-08, 2.2112155e-07, 0.9481876)
-bones/27/rotation = Quaternion(-0.5822884, 0.11418146, -0.0123039195, 0.8048301)
+bones/25/rotation = Quaternion(0.99116695, -0.033512812, 0.029746573, 0.124820486)
+bones/26/rotation = Quaternion(0.44389713, -5.9217342e-08, 3.1131938e-07, 0.8960779)
+bones/27/rotation = Quaternion(-0.6500898, 0.11237403, -0.023831377, 0.7511242)
 bones/28/rotation = Quaternion(3.035913e-08, 0.9203548, -0.39108446, -6.953383e-08)
 bones/29/rotation = Quaternion(0.7071068, -2.2930234e-07, -4.6055177e-08, 0.7071068)
 bones/30/position = Vector3(0.20218208, 0.025990263, 0.20518117)
@@ -320,37 +330,37 @@ bones/39/rotation = Quaternion(-1.05795515e-07, 0.39108434, 0.92035484, -2.58642
 bones/40/position = Vector3(-6.3112755e-09, 0.16565004, 2.7069498e-09)
 bones/41/rotation = Quaternion(1, 3.7652574e-09, 1.9487908e-07, 7.4505815e-09)
 bones/43/rotation = Quaternion(-0.7071068, -7.279511e-08, -7.279509e-08, 0.7071068)
-bones/44/position = Vector3(0.52084064, 0.7773204, -0.057637356)
+bones/44/position = Vector3(0.52084064, 0.7731701, -0.057637356)
 bones/44/rotation = Quaternion(0.7946267, -1.1175871e-07, 0.6070983, -5.9604645e-08)
 bones/45/rotation = Quaternion(-0.7071068, -7.279511e-08, -7.279509e-08, 0.7071068)
-bones/46/position = Vector3(-0.5108437, 0.7773203, 0.059736915)
+bones/46/position = Vector3(-0.5108437, 0.77317005, 0.059736915)
 bones/46/rotation = Quaternion(-0.7582528, -1.527369e-07, 0.65196073, -1.1175871e-08)
 
 [node name="Spellbook" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="0"]
-transform = Transform3D(-2.3063345e-05, 0.9648154, 0.26292562, -0.9999099, 0.003487209, -0.012883084, -0.013347049, -0.2629025, 0.96472925, 0.57744426, 0.62167925, 0.2367324)
+transform = Transform3D(-1.6396957e-07, 0.96483225, 0.26286328, -0.99992937, 0.0031020478, -0.011385457, -0.011800721, -0.26284504, 0.9647652, 0.57716286, 0.6189292, 0.23899764)
 visible = false
 
 [node name="Spellbook_open" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="1"]
-transform = Transform3D(-2.3063345e-05, 0.9648154, 0.26292562, -0.9999099, 0.003487209, -0.012883084, -0.013347049, -0.2629025, 0.96472925, 0.54580075, 0.6232297, 0.12062585)
+transform = Transform3D(-1.6396957e-07, 0.96483225, 0.26286328, -0.99992937, 0.0031020478, -0.011385457, -0.011800721, -0.26284504, 0.9647652, 0.54552686, 0.6202994, 0.122886784)
 visible = false
 
 [node name="1H_Wand" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="2"]
-transform = Transform3D(-0.0017416896, -0.15745899, 0.98752326, 0.99997246, -0.007292375, 0.0006006216, 0.0071072294, 0.98749816, 0.15746748, -0.4910628, 0.62923914, 0.10549775)
+transform = Transform3D(-0.002409457, -0.16030547, 0.9870638, 0.9999484, -0.010047726, 0.0008089165, 0.009788419, 0.9870157, 0.16032165, -0.49033847, 0.6264989, 0.107747816)
 visible = false
 
 [node name="2H_Staff" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="3"]
-transform = Transform3D(-0.0017416896, -0.15745899, 0.98752326, 0.99997246, -0.007292375, 0.0006006216, 0.0071072294, 0.98749816, 0.15746748, -0.4910628, 0.62923914, 0.10549775)
+transform = Transform3D(-0.002409457, -0.16030547, 0.9870638, 0.9999484, -0.010047726, 0.0008089165, 0.009788419, 0.9870157, 0.16032165, -0.49033847, 0.6264989, 0.107747816)
 visible = false
 
 [node name="Mage_Hat" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="4"]
-transform = Transform3D(0.9997204, -0.0061201924, 0.022840858, 1.3934147e-09, 0.96592575, 0.25881907, -0.023646597, -0.25874674, 0.96565574, -7.484195e-09, 1.7655876, -1.02479035e-07)
+transform = Transform3D(0.9997204, -0.0061201924, 0.022840858, 1.3934147e-09, 0.96592575, 0.25881907, -0.023646597, -0.25874674, 0.96565574, -7.484195e-09, 1.7469859, -1.02479035e-07)
 
 [node name="Mage_Hat" parent="CollisionShape3D/Mage/Rig/Skeleton3D/Mage_Hat" index="0"]
 transform = Transform3D(0.7999999, 0, -3.7252903e-09, -9.313226e-10, 0.7999998, 0, -1.8626451e-09, -2.9802322e-08, 0.7999999, 0.0014600605, 0.14409387, -0.025295258)
 material_override = ExtResource("6_beoo4")
 
 [node name="Mage_Cape" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="5"]
-transform = Transform3D(0.9962748, -5.1496167e-09, 0.08623532, 5.1304343e-09, 0.99999994, 4.4407705e-10, -0.08623532, 1.8800718e-15, 0.9962748, -1.2996955e-08, 1.197361, -1.01951365e-07)
+transform = Transform3D(0.9962748, -5.1496167e-09, 0.08623532, 5.1304343e-09, 0.99999994, 4.4407705e-10, -0.08623532, 1.8800718e-15, 0.9962748, -1.2996955e-08, 1.1787593, -1.01951365e-07)
 visible = false
 
 [node name="Mage_ArmLeft" parent="CollisionShape3D/Mage/Rig/Skeleton3D" index="6"]
@@ -497,12 +507,29 @@ metadata/_custom_type_script = "uid://bav8mlr6l6106"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("CylinderShape3D_pnd2s")
 
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 6.0
-one_shot = true
-
 [node name="StatusRoot" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("16_3j2dy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3297801, 0)
 status_manager = NodePath("../StatusEffectManager")
 
+[node name="RayInteractable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29256082, 0.34291774)
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("17_r8c67")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
+shape = SubResource("SphereShape3D_r8c67")
+
+[node name="Progress" parent="." instance=ExtResource("18_21wd0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3366375, 0)
+texture = SubResource("ViewportTexture_nky6h")
+
+[node name="Progress" parent="Progress/SubViewport/CenterContainer" index="0"]
+script = null
+
+[node name="Overheat" parent="Progress/SubViewport/CenterContainer/Progress" index="0"]
+visible = false
+
 [editable path="CollisionShape3D/Mage"]
+[editable path="Progress"]

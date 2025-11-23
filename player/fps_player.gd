@@ -24,6 +24,12 @@ signal died()
 @export var colors: Array[Color] = []
 @export var color_ring: ColorRect
 
+@export_category("Death")
+@export var death_time := 6.0
+@export var revive_assist_increase := 1.5
+@export var revive_progress: Range
+@export var revive_interact: RayInteractable
+
 @export_category("Top down")
 @export var hand: Area3D
 @export var item_sprite: Sprite3D
@@ -37,7 +43,11 @@ signal died()
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
-@onready var death_timer: Timer = $DeathTimer
+
+var death_timer := 0.0:
+	set(v):
+		death_timer = v
+		revive_progress.value = v
 
 var input_id := ""
 var player_num := 0
@@ -45,6 +55,7 @@ var is_frozen: bool = false
 var dash_cooldown_timer: float = 0.0
 var dash_duration: float = 0.0
 
+var reviving_player: FPSPlayer
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
 var held_item_type: ItemResource = null:
@@ -72,14 +83,24 @@ func _ready():
 	player_input.set_for_id(input_id)
 	color_ring.color = colors[player_num % colors.size()]
 	held_item_type = null
+	revive_progress.max_value = death_time
 	toggle_camera(false)
 	
+	revive_progress.hide()
+	revive_interact.interacted.connect(func(a):
+		if hurt_box.is_dead():
+			reviving_player = a
+	)
+	revive_interact.released.connect(func(a):
+		if a == reviving_player:
+			reviving_player = null
+	)
 	catch_area.body_entered.connect(_on_catch_area_body_entered)
 	hurt_box.died.connect(func():
+		reset()
+		revive_progress.show()
 		anim.died()
-		death_timer.start()
 	)
-	death_timer.timeout.connect(func(): died.emit())
 	
 	player_input.input_event.connect(func(event: InputEvent):
 		if event.is_action_pressed("switch_view"):
@@ -152,6 +173,12 @@ func _physics_process(delta):
 	if is_frozen or hurt_box.is_dead():
 		velocity = Vector3.ZERO
 		walk_vfx.emitting = false
+		
+		if hurt_box.is_dead():
+			death_timer += delta * 1.0 if not reviving_player else revive_assist_increase
+			if death_timer >= death_time:
+				death_timer = 0.0
+				died.emit()
 		return
 
 	if apply_knockback(delta):
@@ -302,3 +329,4 @@ func reset(_restore = false):
 	dash_cooldown_timer = 0.0
 	throw_button_held = false
 	current_throw_force = 0.0
+	death_timer = 0.0
