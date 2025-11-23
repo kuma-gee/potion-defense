@@ -2,6 +2,7 @@ extends ProgressBar
 
 @export var timer: Timer
 @export var hide_on_stop := false
+@export var reset_on_stopped := false
 
 func _ready() -> void:
 	value = 0.0
@@ -14,4 +15,5 @@ func _process(_d: float) -> void:
 	if timer and not timer.is_stopped():
 		value = 1.0 - timer.time_left / timer.wait_time
 	else:
-		value = 0.0
+		if reset_on_stopped:
+			value = 0.0

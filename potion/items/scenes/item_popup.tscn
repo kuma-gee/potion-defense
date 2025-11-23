@@ -1,10 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://byg2lnoey0c73"]
+[gd_scene load_steps=7 format=3 uid="uid://byg2lnoey0c73"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="1_01chs"]
 [ext_resource type="Script" uid="uid://cnoab8glkh17g" path="res://potion/items/scenes/item_popup.gd" id="1_1dpwh"]
+[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://shader/circle.gdshader" id="2_3rtps"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1dpwh"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3rtps"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xcqd2"]
+shader = ExtResource("2_3rtps")
+shader_parameter/radius = 0.5
+shader_parameter/border_smoothness = 0.01
+shader_parameter/circle_color = Color(1, 1, 1, 1)
+shader_parameter/background_color = Color(0, 0, 0, 0)
 
 [node name="ItemPopup" type="Sprite3D" node_paths=PackedStringArray("cauldron_item")]
 billboard = 1
@@ -12,7 +22,7 @@ double_sided = false
 no_depth_test = true
 texture = SubResource("ViewportTexture_1dpwh")
 script = ExtResource("1_1dpwh")
-cauldron_item = NodePath("SubViewport/CenterContainer/CauldronItem")
+cauldron_item = NodePath("SubViewport/CenterContainer/PanelContainer/MarginContainer/CauldronItem")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -25,10 +35,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CauldronItem" parent="SubViewport/CenterContainer" instance=ExtResource("1_01chs")]
+[node name="PanelContainer" type="PanelContainer" parent="SubViewport/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3rtps")
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport/CenterContainer/PanelContainer"]
+material = SubResource("ShaderMaterial_xcqd2")
 layout_mode = 2
 
-[node name="Label" parent="SubViewport/CenterContainer/CauldronItem" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="CauldronItem" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer" instance=ExtResource("1_01chs")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Label" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer/CauldronItem" index="0"]
 visible = false
 
-[editable path="SubViewport/CenterContainer/CauldronItem"]
+[editable path="SubViewport/CenterContainer/PanelContainer/MarginContainer/CauldronItem"]

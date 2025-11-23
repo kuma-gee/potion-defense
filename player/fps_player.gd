@@ -290,6 +290,7 @@ func _on_catch_area_body_entered(caught_body: Node3D) -> void:
 func freeze_player() -> void:
 	is_frozen = true
 	velocity = Vector3.ZERO
+	anim.casting()
 
 func unfreeze_player() -> void:
 	is_frozen = false

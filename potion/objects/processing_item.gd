@@ -9,6 +9,7 @@ extends RayInteractable
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var item_popup: ItemPopup = $ItemPopup
 
+var logger = KumaLog.new("Oven")
 var working_player: FPSPlayer
 var item: ItemResource:
 	set(v):
@@ -24,13 +25,27 @@ func _ready() -> void:
 	overheat_timer.timeout.connect(func(): _on_overheated())
 	
 func _on_processed():
+	if not item:
+		logger.warn("Processed empty item")
+		return
+	
 	var new_item = item_processing.get(item.type)
 	item = ItemResource.get_resource(new_item)
 	if automatic:
 		overheat_start_timer.start()
 
 func _on_overheated():
+	if not item:
+		logger.warn("Overheated on empty item")
+	if not automatic:
+		logger.warn("Overheated on non automatic station")
+	
+	reset()
+	
+func reset():
 	item = null
+	process_timer.stop()
+	overheat_start_timer.stop()
 
 func interact(actor: FPSPlayer):
 	if item != null:
@@ -40,15 +55,14 @@ func interact(actor: FPSPlayer):
 				process_timer.start()
 			else:
 				actor.pickup_item(item)
-				item = null
+				reset()
 		return
 	
 	if not actor.has_item(): return
 	
-	var i = actor.release_item()
-	if not item_processing.has(i.type): return
+	if not item_processing.has(actor.held_item_type.type): return
 	
-	item = i
+	item = actor.release_item()
 	if automatic:
 		process_timer.start()
 

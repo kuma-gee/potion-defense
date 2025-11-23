@@ -9,6 +9,7 @@ func _ready() -> void:
 
 func set_type(type: ItemResource.Type):
 	cauldron_item.type = type
+	visible = type >= 0
 
 func get_item_texture():
 	if not has_item(): return null

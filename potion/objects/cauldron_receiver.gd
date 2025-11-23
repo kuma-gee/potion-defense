@@ -31,10 +31,9 @@ var overheat := 0.0:
 var overheating := false:
 	set(v):
 		overheating = v
+		overheat = 0.0
 		if not overheating:
 			overheat_start_timer.stop()
-		else:
-			overheat = 0.0
 
 var finished := false
 var required_time := 0.0:

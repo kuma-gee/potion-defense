@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/objects/processing_item.tscn" id="1_vmpsg"]
-[ext_resource type="PackedScene" uid="uid://bib5i83omj08y" path="res://assets/fantasy/Exports/glTF/Workbench.gltf" id="2_jp6c7"]
+[ext_resource type="PackedScene" uid="uid://cvc0gceadkxp0" path="res://assets/fantasy/Exports/glTF/Table_Plate.gltf" id="2_vmpsg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
-size = Vector3(1.4648438, 1, 1.0927734)
+size = Vector3(0.80371094, 0.4440918, 0.7421875)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
 viewport_path = NodePath("Progress/SubViewport")
@@ -18,21 +18,28 @@ item_processing = Dictionary[int, int]({
 })
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45039105, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
 shape = SubResource("BoxShape3D_vv5mg")
 
-[node name="Workbench2" parent="." index="1" instance=ExtResource("2_jp6c7")]
+[node name="Table_Plate2" parent="." index="1" instance=ExtResource("2_vmpsg")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="ProcessTimer" parent="." index="2"]
 wait_time = 2.0
 
 [node name="Progress" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6930482, 0)
 texture = SubResource("ViewportTexture_mrer8")
 
+[node name="Overheat" parent="Progress/SubViewport/CenterContainer/Progress" index="0"]
+visible = false
+
 [node name="ItemPopup" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3122869, 0)
 texture = SubResource("ViewportTexture_ccjue")
 
 [node name="Label3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2129753, 0)
 text = "Crush"
 
 [editable path="Progress"]

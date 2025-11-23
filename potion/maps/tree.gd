@@ -21,9 +21,11 @@ func interact(actor: FPSPlayer):
 	if player: return
 	
 	player = actor
+	player.freeze_player()
 	process_timer.start()
 
 func release(actor: FPSPlayer):
 	if player != actor: return
+	player.unfreeze_player()
 	player = null
 	process_timer.stop()

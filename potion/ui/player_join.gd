@@ -20,6 +20,7 @@ func _ready() -> void:
 		
 		hide()
 		get_tree().paused = false
+		Events.game_started.emit()
 		game_started.emit()
 	)
 
