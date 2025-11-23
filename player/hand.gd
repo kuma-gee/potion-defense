@@ -25,8 +25,20 @@ func interact(actor) -> void:
 	for a in get_overlapping_areas():
 		if a is RayInteractable:
 			a.interact(actor)
+			break
 
 func release(actor):
 	for a in get_overlapping_areas():
 		if a is RayInteractable:
 			a.release(actor)
+
+func action(actor) -> void:
+	for a in get_overlapping_areas():
+		if a is RayInteractable:
+			a.action(actor)
+			break
+
+func action_released(actor) -> void:
+	for a in get_overlapping_areas():
+		if a is RayInteractable:
+			a.action_released(actor)

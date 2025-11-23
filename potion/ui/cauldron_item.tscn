@@ -1,16 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqsb8dcdmlb48"]
+[gd_scene load_steps=8 format=3 uid="uid://bqsb8dcdmlb48"]
 
-[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_mspm8"]
+[ext_resource type="Shader" uid="uid://brpxo4jool5jb" path="res://potion/ui/potion_ui.gdshader" id="1_ksfjx"]
+[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://shader/circle.gdshader" id="2_8qvv2"]
 [ext_resource type="Script" uid="uid://dx1kpfl74qbru" path="res://potion/ui/cauldron_item.gd" id="2_bojww"]
+[ext_resource type="Texture2D" uid="uid://df25uri316jim" path="res://assets/items/Items_Potion.png" id="2_ksfjx"]
 
-[node name="CauldronItem" type="TextureRect"]
-custom_minimum_size = Vector2(64, 64)
-texture = ExtResource("1_mspm8")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i48dj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umabc"]
+shader = ExtResource("2_8qvv2")
+shader_parameter/radius = 0.5
+shader_parameter/border_smoothness = 0.01
+shader_parameter/circle_color = Color(1, 1, 1, 1)
+shader_parameter/background_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qvv2"]
+shader = ExtResource("1_ksfjx")
+shader_parameter/enabled = true
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("texture_rect")]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i48dj")
+script = ExtResource("2_bojww")
+texture_rect = NodePath("MarginContainer/CauldronItem")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_umabc")
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="CauldronItem" type="TextureRect" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_8qvv2")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_ksfjx")
 expand_mode = 2
 stretch_mode = 5
-script = ExtResource("2_bojww")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="MarginContainer/CauldronItem"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

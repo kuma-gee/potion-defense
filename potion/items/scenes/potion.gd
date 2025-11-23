@@ -9,7 +9,7 @@ signal hit()
 
 const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://bnh078xxhjtqf"),
-	ItemResource.Type.POTION_FROST_NOVA: preload("uid://df2iboydwrtbj"),
+	ItemResource.Type.POTION_SLIME: preload("uid://df2iboydwrtbj"),
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cvrm4vmap3w15"),
 	ItemResource.Type.POTION_PARALYSIS: preload("uid://cckgdr5i01p5d"),
 	ItemResource.Type.POTION_BLIZZARD: preload("uid://c684oj6gh0t68"),

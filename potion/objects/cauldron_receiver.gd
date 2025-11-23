@@ -99,16 +99,16 @@ func _clear_items():
 	items.clear()
 
 func _add_item(item: ItemResource.Type):
-	var child = _find_item_for(item)
-	if not child:
-		child = _create_item_for(item)
+	#var child = _find_item_for(item)
+	#if not child:
+	_create_item_for(item)
 	
-	child.count += 1
+	#child.count += 1
 	items.append(item)
 
 func _create_item_for(item: ItemResource.Type):
 	var new_item = item_scene.instantiate()
-	new_item.type = item
+	new_item.item = ItemResource.get_resource(item)
 	item_container.add_child(new_item)
 	return new_item
 

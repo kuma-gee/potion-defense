@@ -32,8 +32,7 @@ signal died()
 
 @export_category("Top down")
 @export var hand: Area3D
-@export var item_sprite: Sprite3D
-@export var item_texture: TextureRect
+@export var item_texture: ItemPopup
 
 @export_category("First person")
 @export var interact_ray: InteractRay
@@ -62,7 +61,7 @@ var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
 		item_label.text = held_item_type.name if held_item_type else ""
-		item_texture.texture = held_item_type.texture if held_item_type else null
+		item_texture.set_item(v)
 
 func get_interact_collision_point():
 	if interact_ray.is_colliding():
@@ -75,7 +74,6 @@ func get_camera_point():
 func toggle_camera(value = not camera.current):
 	camera.current = value
 	body.visible = not camera.current
-	item_sprite.visible = not camera.current
 	ui.visible = camera.current
 
 func _ready():
@@ -99,6 +97,7 @@ func _ready():
 	hurt_box.died.connect(func():
 		reset()
 		revive_progress.show()
+		revive_interact.monitorable = true
 		anim.died()
 	)
 	
@@ -127,6 +126,10 @@ func _ready():
 				hand.interact(self)
 			elif event.is_action_released("interact"):
 				hand.release(self)
+			elif event.is_action_pressed("action"):
+				hand.action(self)
+			elif event.is_action_released("action"):
+				hand.action_released(self)
 				
 		if event.is_action_pressed("dash"):
 			dash_player()
@@ -151,7 +154,7 @@ func _debug_potion_spawn(event: InputEvent):
 	if key.keycode == KEY_1:
 		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
 	elif key.keycode == KEY_2:
-		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FROST_NOVA)
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_SLIME)
 	elif key.keycode == KEY_3:
 		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
 	elif key.keycode == KEY_4:

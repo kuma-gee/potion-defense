@@ -1,3 +1,4 @@
+class_name PickupableIngredient
 extends RayInteractable
 
 @export var type: ItemResource.Type = ItemResource.Type.RED_HERB

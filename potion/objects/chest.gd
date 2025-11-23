@@ -15,7 +15,7 @@ extends RayInteractable
 
 		if is_inside_tree():
 			label.text = item.name if item else ""
-			item_view.set_type(item.type if item else -1)
+			item_view.set_item(item)
 			decal.texture_albedo = item_view.get_item_texture()
 
 var timer: Timer = Timer.new()

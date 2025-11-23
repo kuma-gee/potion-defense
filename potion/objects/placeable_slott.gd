@@ -5,7 +5,7 @@ extends RayInteractable
 var item: ItemResource:
 	set(v):
 		item = v
-		item_popup.set_type(item.type if item else -1)
+		item_popup.set_item(item)
 
 func _ready() -> void:
 	super()

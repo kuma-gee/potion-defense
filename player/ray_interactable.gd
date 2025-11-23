@@ -39,3 +39,8 @@ func interact(actor: FPSPlayer):
 func release(actor: FPSPlayer):
 	released.emit(actor)
 	
+func action(actor: FPSPlayer):
+	pass
+
+func action_released(actor: FPSPlayer):
+	pass

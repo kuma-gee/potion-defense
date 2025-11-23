@@ -5,14 +5,14 @@ enum Type {
 	RED_HERB, # Fire
 	CHARCOAL, # Explosion
 	ICE_SHARD, # Frost (Slow)
-	SPIDER_VENOM, # Poison (DPS)
+	MUSHROOM, # Poison (DPS)
 	ICE_SHARD_CRUSHED,
 
 	# So the enum values of the recipies dont change everytime
 	WOOD,
-	PLACEHOLDER_2,
-	PLACEHOLDER_3,
-	PLACEHOLDER_4,
+	WOOD_CRUSHED,
+	RED_HERB_CRUSHED,
+	MUSHROOM_CRUSHED,
 	PLACEHOLDER_5,
 	PLACEHOLDER_6,
 	PLACEHOLDER_7,
@@ -31,7 +31,7 @@ enum Type {
 	PLACEHOLDER_20,
 	
 	POTION_FIRE_BOMB,
-	POTION_FROST_NOVA,
+	POTION_SLIME,
 	POTION_BLIZZARD,
 	POTION_POISON_CLOUD,
 	POTION_PARALYSIS,
@@ -46,16 +46,18 @@ enum Type {
 }
 
 const RECIPIES = {
-	Type.POTION_FIRE_BOMB: {Type.RED_HERB: 1, Type.CHARCOAL: 1},
-	Type.POTION_FROST_NOVA: {Type.ICE_SHARD: 2},
-	Type.POTION_POISON_CLOUD: {Type.RED_HERB: 1, Type.ICE_SHARD: 1, Type.SPIDER_VENOM: 1},
+	Type.POTION_FIRE_BOMB: {Type.RED_HERB_CRUSHED: 1, Type.CHARCOAL: 1},
+	Type.POTION_SLIME: {Type.WOOD_CRUSHED: 1, Type.RED_HERB_CRUSHED: 1},
+	Type.POTION_POISON_CLOUD: {Type.CHARCOAL: 1, Type.RED_HERB: 1, Type.MUSHROOM_CRUSHED: 1},
+
+	Type.POTION_BLIZZARD: {Type.CHARCOAL: 1, Type.RED_HERB: 1, Type.MUSHROOM_CRUSHED: 1},
+
+	# Type.POTION_LIGHTNING: {Type.POTION_PARALYSIS: 1, Type.CHARCOAL: 1},
+	# Type.POTION_BLIZZARD: {Type.POTION_SLIME: 1, Type.MUSHROOM: 1},
+
 	# Type.POTION_PARALYSIS: {Type.ICE_SHARD: 2, Type.VULCANIC_ASH: 1},
-
-	Type.POTION_BLIZZARD: {Type.POTION_FROST_NOVA: 1, Type.SPIDER_VENOM: 1},
 	# Type.POTION_LAVA_FIELD: {Type.POTION_FIRE_BOMB: 1, Type.VULCANIC_ASH: 1},
-	Type.POTION_LIGHTNING: {Type.POTION_PARALYSIS: 1, Type.CHARCOAL: 1},
 }
-
 
 @export var type: Type = Type.RED_HERB
 @export var max_capacity: int = 4
@@ -71,9 +73,6 @@ static func is_potion(t: ItemResource.Type):
 
 static func build_name(t: ItemResource.Type):
 	return Type.keys()[t].to_lower().replace("_", " ").capitalize()
-
-static func get_image_path(t: ItemResource.Type) -> String:
-	return "res://potion/items/images/%s.png" % build_name(t).to_lower().replace(" ", "_")
 
 static func get_resource(t: ItemResource.Type) -> ItemResource:
 	var res_path = "res://potion/items/resources/%s.tres" % build_name(t).to_lower().replace(" ", "_")

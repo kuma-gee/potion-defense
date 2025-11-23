@@ -2,7 +2,8 @@ class_name IngredientSpawnArea
 extends Area3D
 
 const SCENES = {
-	ItemResource.Type.RED_HERB: preload("res://potion/items/scenes/red_herb.tscn"),
+	ItemResource.Type.RED_HERB: preload("uid://devp4ralvjicb"),
+	ItemResource.Type.MUSHROOM: preload("uid://dc1f5ocm8nays"),
 }
 
 const MAX_SPAWN_ATTEMPTS := 10

@@ -15,7 +15,7 @@ var item: ItemResource:
 	set(v):
 		item = v
 		progress.visible = item != null
-		item_popup.set_type(item.type if item else -1)
+		item_popup.set_item(item)
 
 func _ready() -> void:
 	super()
@@ -31,6 +31,8 @@ func _on_processed():
 	
 	var new_item = item_processing.get(item.type)
 	item = ItemResource.get_resource(new_item)
+	action_released(working_player)
+	
 	if automatic:
 		overheat_start_timer.start()
 
@@ -50,23 +52,36 @@ func reset():
 func interact(actor: FPSPlayer):
 	if item != null:
 		if not actor.has_item():
-			if not automatic and item_processing.has(item.type):
-				working_player = actor
-				process_timer.start()
-			else:
-				actor.pickup_item(item)
-				reset()
+			actor.pickup_item(item)
+			reset()
 		return
 	
 	if not actor.has_item(): return
 	
-	if not item_processing.has(actor.held_item_type.type): return
-	
 	item = actor.release_item()
-	if automatic:
+	if automatic and _can_process():
 		process_timer.start()
+
+func _can_process() -> bool:
+	return item != null and item_processing.has(item.type)
 
 func release(actor: FPSPlayer):
 	if automatic: return
 	if working_player != actor: return
 	process_timer.stop()
+
+func action(actor: FPSPlayer):
+	if automatic: return
+	if not _can_process() or actor.has_item(): return
+
+	working_player = actor
+	working_player.freeze_player()
+	process_timer.start()
+
+func action_released(actor: FPSPlayer):
+	if working_player != actor: return
+	process_timer.stop()
+	
+	if working_player:
+		working_player.unfreeze_player()
+		working_player = null

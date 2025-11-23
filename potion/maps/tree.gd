@@ -11,6 +11,7 @@ func _ready() -> void:
 	process_timer.timeout.connect(func():
 		if player:
 			player.pickup_item(resource)
+			release(player)
 	)
 	
 	#var tree = trees.pick_random()

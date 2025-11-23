@@ -7,9 +7,9 @@ extends Sprite3D
 func _ready() -> void:
 	texture = sub_viewport.get_texture()
 
-func set_type(type: ItemResource.Type):
-	cauldron_item.type = type
-	visible = type >= 0
+func set_item(item: ItemResource):
+	cauldron_item.item = item
+	visible = item != null
 
 func get_item_texture():
 	if not has_item(): return null

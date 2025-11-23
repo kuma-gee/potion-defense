@@ -52,7 +52,7 @@ func _create_item_visual() -> void:
 	var item = item_scene.instantiate()
 	add_child(item)
 	item_node = item
-	item_pop.set_type(item_type)
+	item_pop.set_item(ItemResource.get_resource(item_type))
 	
 	if ItemResource.is_potion(item_type):
 		item.set_potion_type(item_type)
