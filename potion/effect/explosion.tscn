@@ -1,26 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnh078xxhjtqf"]
+[gd_scene load_steps=8 format=3 uid="uid://bnh078xxhjtqf"]
 
 [ext_resource type="PackedScene" uid="uid://csiavq076wjrx" path="res://magic/explosion_vfx.tscn" id="1_5prvb"]
+[ext_resource type="Script" uid="uid://cgrmgkjehdobf" path="res://potion/effect/explosion.gd" id="1_obbvw"]
 [ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="3_smxr1"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="3_ylwkm"]
+[ext_resource type="Script" uid="uid://bmxiv2l1dkflu" path="res://potion/effect/status/elemental_area.gd" id="4_smxr1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cmr3i"]
 radius = 1.2345346
 
-[node name="Explosion" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_smxr1"]
+
+[node name="Explosion" type="Node3D" node_paths=PackedStringArray("small_explosion_anim", "small_hitbox")]
+script = ExtResource("1_obbvw")
+small_explosion_anim = NodePath("ExplosionVFX/AnimationPlayer")
+small_hitbox = NodePath("SmallHit")
 
 [node name="ExplosionVFX" parent="." instance=ExtResource("1_5prvb")]
 
-[node name="HitBox2" parent="." instance=ExtResource("3_ylwkm")]
+[node name="AnimationPlayer" parent="ExplosionVFX" index="3"]
+autoplay = ""
+
+[node name="SmallHit" parent="." instance=ExtResource("3_ylwkm")]
 damage = 50
 force = 2
-on_init = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]
 shape = SubResource("SphereShape3D_cmr3i")
 
 [node name="CleanupTimer" type="Timer" parent="."]
 script = ExtResource("3_smxr1")
 metadata/_custom_type_script = "uid://opigy25i7yj7"
+
+[node name="ElementalArea" type="Area3D" parent="."]
+script = ExtResource("4_smxr1")
+element = 1
+metadata/_custom_type_script = "uid://bmxiv2l1dkflu"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElementalArea"]
+shape = SubResource("SphereShape3D_smxr1")
 
 [editable path="ExplosionVFX"]

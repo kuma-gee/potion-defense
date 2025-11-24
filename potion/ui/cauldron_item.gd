@@ -5,6 +5,8 @@ const POTION_COLORS = {
 	ItemResource.Type.POTION_FIRE_BOMB: Color.RED,
 	ItemResource.Type.POTION_SLIME: Color.CYAN,
 	ItemResource.Type.POTION_POISON_CLOUD: Color.GREEN,
+	ItemResource.Type.POTION_LIGHTNING: Color.YELLOW,
+	ItemResource.Type.POTION_BLIZZARD: Color.SKY_BLUE,
 }
 
 @export var texture_rect: TextureRect

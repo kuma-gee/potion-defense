@@ -29,8 +29,8 @@ func apply_knockback(delta: float) -> bool:
 
 	return has_knockback
 
-func get_knockback_force(knockback: Vector3) -> Vector3:
-	return knockback
+func get_knockback_force(knock: Vector3) -> Vector3:
+	return knock
 
 func damage(amount: int) -> void:
 	hurt_box.hit(amount)

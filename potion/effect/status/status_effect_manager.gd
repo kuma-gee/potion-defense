@@ -38,9 +38,10 @@ func apply_effect(effect: StatusEffect) -> void:
 		return
 	
 	# Add new effect
-	effect.apply(target)
-	active_effects.append(effect)
-	status_effect_applied.emit(effect)
+	var eff = effect.duplicate()
+	eff.apply(target)
+	active_effects.append(eff)
+	status_effect_applied.emit(eff)
 
 func remove_effect(effect: StatusEffect) -> void:
 	var idx = active_effects.find(effect)

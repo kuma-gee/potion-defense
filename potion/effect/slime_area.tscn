@@ -1,10 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://df2iboydwrtbj"]
+[gd_scene load_steps=26 format=3 uid="uid://df2iboydwrtbj"]
 
+[ext_resource type="Script" uid="uid://qunfxei2xxgu" path="res://potion/effect/slime_area.gd" id="1_kvyu1"]
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://magic/blue_beam_impact.tscn" id="1_mrx5l"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="2_kvyu1"]
+[ext_resource type="Resource" uid="uid://5adf235ow25d" path="res://potion/effect/resources/fire_burn.tres" id="3_4p8cb"]
 [ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/slime.tres" id="3_ohiju"]
 [ext_resource type="Shader" uid="uid://d2temwcsbcygy" path="res://potion/effect/slime.gdshader" id="4_b85ol"]
-[ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="5_tfcik"]
+[ext_resource type="Shader" uid="uid://w0bufmmr0a1o" path="res://magic/fire_shader.tres" id="7_tfcik"]
+[ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="8_4p8cb"]
+[ext_resource type="Texture2D" uid="uid://d16r5p580hv6t" path="res://assets/particles/course/Flame01.png" id="9_ei0rp"]
+[ext_resource type="Script" uid="uid://bmxiv2l1dkflu" path="res://potion/effect/status/elemental_area.gd" id="9_tfcik"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o8fgn"]
 radius = 1.9966397
@@ -49,17 +54,61 @@ _data = {
 &"start": SubResource("Animation_n7i8s")
 }
 
-[node name="SlimeArea" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4en2"]
+render_priority = 0
+shader = ExtResource("7_tfcik")
+shader_parameter/Texture = ExtResource("9_ei0rp")
+shader_parameter/DissolveTiling = Vector2(1, 1)
+shader_parameter/DissolveSpeed = Vector2(0, 0.7)
+shader_parameter/Dissolve = ExtResource("8_4p8cb")
+shader_parameter/DissolveAmount = 0.90000004275
+
+[sub_resource type="Curve" id="Curve_sqhpf"]
+_data = [Vector2(0, 0), 0.0, 8.8049755, 0, 0, Vector2(0.27044025, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rc6a1"]
+curve = SubResource("Curve_sqhpf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c8y1v"]
+emission_shape_scale = Vector3(1, 0, 1)
+emission_shape = 1
+emission_sphere_radius = 2.2
+angle_min = -360.0
+angle_max = 360.00003
+gravity = Vector3(0, 0, 0)
+damping_min = 1.5000001
+damping_max = 2.5
+scale_min = 0.75
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_rc6a1")
+color = Color(3.5, 2, 1.5, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_g8dqn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tfcik"]
+radius = 1.9966397
+
+[node name="SlimeArea" type="Node3D" node_paths=PackedStringArray("area_effect", "elemental", "fire_vfx", "cleanup_timer", "slime_mesh")]
+script = ExtResource("1_kvyu1")
+area_effect = NodePath("SlimeArea")
+elemental = NodePath("ElementalArea")
+fire_vfx = NodePath("Fire")
+cleanup_timer = NodePath("CleanupTimer")
+slime_mesh = NodePath("Slime")
+burn_dmg = ExtResource("3_4p8cb")
 
 [node name="BlueBeamImpact" parent="." instance=ExtResource("1_mrx5l")]
+on_spawn = false
 
-[node name="FreezeArea" parent="." instance=ExtResource("2_kvyu1")]
+[node name="SlimeArea" parent="." instance=ExtResource("2_kvyu1")]
+lifetime = 30.0
 effect = ExtResource("3_ohiju")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FreezeArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SlimeArea"]
 shape = SubResource("SphereShape3D_o8fgn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Slime" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_aubu4")
 mesh = SubResource("CylinderMesh_aubu4")
 
@@ -69,8 +118,24 @@ libraries = {
 }
 autoplay = "start"
 
-[node name="CleanupTimer" type="Timer" parent="." node_paths=PackedStringArray("status_area", "nodes")]
-script = ExtResource("5_tfcik")
-status_area = NodePath("../FreezeArea")
-nodes = [NodePath("../MeshInstance3D")]
-metadata/_custom_type_script = "uid://opigy25i7yj7"
+[node name="Fire" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14738584, 0)
+material_override = SubResource("ShaderMaterial_i4en2")
+emitting = false
+amount = 120
+lifetime = 3.0
+explosiveness = 0.2
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_c8y1v")
+draw_pass_1 = SubResource("QuadMesh_g8dqn")
+
+[node name="CleanupTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ElementalArea" type="Area3D" parent="."]
+script = ExtResource("9_tfcik")
+metadata/_custom_type_script = "uid://bmxiv2l1dkflu"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ElementalArea"]
+shape = SubResource("SphereShape3D_tfcik")

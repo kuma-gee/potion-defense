@@ -61,6 +61,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var sp = get_actual_speed()
+	print(sp, slow_effects.values())
 	var next_position = nav_agent.get_next_path_position()
 	next_position.y = global_position.y
 	var direction = (next_position - global_position).normalized()

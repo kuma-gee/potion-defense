@@ -11,9 +11,9 @@ const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://bnh078xxhjtqf"),
 	ItemResource.Type.POTION_SLIME: preload("uid://df2iboydwrtbj"),
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cvrm4vmap3w15"),
+	
 	ItemResource.Type.POTION_PARALYSIS: preload("uid://cckgdr5i01p5d"),
 	ItemResource.Type.POTION_BLIZZARD: preload("uid://c684oj6gh0t68"),
-	ItemResource.Type.POTION_LAVA_FIELD: preload("uid://vb3dg7vbbfqm"),
 	ItemResource.Type.POTION_LIGHTNING: preload("uid://d1n4byccvwsct"),
 }
 
@@ -67,11 +67,23 @@ func _update_liquid_color() -> void:
 		material.emission_enabled = false
 
 func on_hit() -> void:
-	var node = spawn_effect(potion_type, global_position)
+	var spawn_position = _get_ground_position()
+	var node = spawn_effect(potion_type, spawn_position)
 	if node:
 		get_tree().current_scene.add_child(node)
 
 	hit.emit()
+
+func _get_ground_position() -> Vector3:
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(global_position, global_position + Vector3.DOWN * 10.0, 1)
+	query.exclude = [get_parent()]
+	
+	var result = space_state.intersect_ray(query)
+	if result:
+		return result.position
+	
+	return global_position
 
 static func spawn_effect(type: ItemResource.Type, pos: Vector3) -> Node:
 	var scene = EFFECT_SCENES.get(type, null)
