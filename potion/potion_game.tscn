@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=25 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="6_kfjfp"]
 [ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
+[ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://p37xhunyyh2r" path="res://potion/ui/wave_setup.gd" id="22_1w3wt"]
@@ -18,10 +19,6 @@
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="25_rmnmn"]
 [ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
-[ext_resource type="Texture2D" uid="uid://w8xwxpot3wg1" path="res://assets/recipes/Page_1.png" id="36_33pbe"]
-[ext_resource type="Texture2D" uid="uid://cf1qeyh63xxdj" path="res://assets/recipes/Page_2.png" id="37_v3yac"]
-[ext_resource type="Texture2D" uid="uid://bjsvlfsh166j6" path="res://assets/recipes/Page_3.png" id="38_8yxqf"]
-[ext_resource type="Script" uid="uid://b8p0l6hclg7fb" path="res://potion/ui/pause.gd" id="39_v3yac"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3yac"]
 bg_color = Color(0.32172796, 0.32172796, 0.32172787, 1)
@@ -45,7 +42,7 @@ shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_label", "map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "pause", "recipe_ui")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_label", "map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "recipe_ui")]
 script = ExtResource("1_1w3wt")
 wave_label = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/Wave")
 initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_41urv"), ExtResource("4_41urv")])
@@ -55,7 +52,6 @@ player_root = NodePath("PlayerRoot")
 wave_manager = NodePath("WaveManager")
 wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
 unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
-pause = NodePath("CanvasLayer/Control/Pause")
 recipe_ui = NodePath("CanvasLayer/Control/Recipes")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "spawn_timer", "wave_timer")]
@@ -260,8 +256,7 @@ layout_mode = 2
 text = "Test"
 horizontal_alignment = 1
 
-[node name="Recipes" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("recipe_page", "next_page_btn", "prev_page_btn", "page_label")]
-visible = false
+[node name="Recipes" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("ingredient_container", "potion_item", "page_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -270,11 +265,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("34_bo5nf")
-recipe_page = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/TextureRect")
-next_page_btn = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Next")
-prev_page_btn = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Prev")
+item_scene = ExtResource("19_1w3wt")
+ingredient_container = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Ingredients")
+potion_item = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
 page_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Page")
-recipes = Array[Texture2D]([ExtResource("36_33pbe"), ExtResource("37_v3yac"), ExtResource("38_8yxqf")])
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Recipes"]
 layout_mode = 1
@@ -294,14 +288,34 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("36_33pbe")
-expand_mode = 3
-stretch_mode = 5
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="Ingredients" type="VBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Potion" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -325,45 +339,8 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
 
-[node name="Pause" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "continue_btn", "restart_btn")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.50980395)
-script = ExtResource("39_v3yac")
-game = NodePath("../../..")
-continue_btn = NodePath("CenterContainer/VBoxContainer/Continue")
-restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Pause"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Pause/CenterContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Paused"
-horizontal_alignment = 1
-
-[node name="Continue" type="Button" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Continue"
-
-[node name="Restart" type="Button" parent="CanvasLayer/Control/Pause/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Restart"
-
 [node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "start_btn", "player_root", "joined_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

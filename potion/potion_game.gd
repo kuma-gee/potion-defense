@@ -12,7 +12,7 @@ extends Node3D
 @export var wave_manager: WaveManager
 @export var wave_setup: WaveSetup
 @export var unlocked_item: UnlockedItem
-@export var pause: Pause
+#@export var pause: Pause
 @export var recipe_ui: RecipeBookUI
 
 const NEW_ITEMS_FOR_WAVE = {
@@ -37,7 +37,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if wave_manager.is_wave_active:
 		if event.is_action_pressed("pause"):
-			pause.pause()
+			recipe_ui.pause()
 
 func _setup_items() -> void:
 	#wave_setup.setup_initial_items(initial_items, map.items.get_child_count())

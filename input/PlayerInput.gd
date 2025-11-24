@@ -16,6 +16,10 @@ const Device = {
 var _device := Device.KEYBOARD
 var _logger = KumaLog.new("Player")
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PAUSED:
+		reset()
+
 func _set_joypad(is_joypad: bool):
 	joypad = is_joypad
 	

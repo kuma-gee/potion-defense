@@ -6,5 +6,5 @@
 script = ExtResource("1_83g0x")
 effect_name = "slime"
 slow_multiplier = 0.2
-duration = 2.0
+duration = 0.5
 metadata/_custom_type_script = "uid://lwbhlqabwjhg"
