@@ -1,12 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=23 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
-[ext_resource type="Script" uid="uid://bh2kij0kebasu" path="res://potion/enemy/resources/enemy_resource.gd" id="3_16d2i"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="3_41urv"]
 [ext_resource type="Resource" uid="uid://c3mcqueui0db2" path="res://potion/items/resources/charcoal.tres" id="4_41urv"]
 [ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="5_16d2i"]
-[ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="6_kfjfp"]
 [ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
@@ -42,9 +40,8 @@ shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("wave_label", "map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "recipe_ui")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "recipe_ui")]
 script = ExtResource("1_1w3wt")
-wave_label = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/Wave")
 initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_41urv"), ExtResource("4_41urv")])
 map_root = NodePath("MapRoot")
 map_scene = ExtResource("5_16d2i")
@@ -54,20 +51,17 @@ wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
 unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
 recipe_ui = NodePath("CanvasLayer/Control/Recipes")
 
-[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_root", "spawn_timer", "wave_timer")]
+[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
+wave_label = NodePath("../CanvasLayer/MarginContainer/PanelContainer/MarginContainer/Wave")
 enemy_spawn_root = NodePath("../EnemiesRoot")
-spawn_enemy_count = 5
-spawn_interval_min = 6.0
-spawn_interval_max = 10.0
-enemy_resources = Array[ExtResource("3_16d2i")]([ExtResource("6_kfjfp")])
 spawn_timer = NodePath("SpawnTimer")
-wave_timer = NodePath("WaveTimer")
+rest_timer = NodePath("RestTimer")
 metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
 
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
-[node name="WaveTimer" type="Timer" parent="WaveManager"]
+[node name="RestTimer" type="Timer" parent="WaveManager"]
 wait_time = 10.0
 one_shot = true
 

@@ -16,6 +16,7 @@ func _ready() -> void:
 
 func _small_explosion() -> void:
 	small_explosion_anim.play("start")
+	await get_tree().create_timer(0.1).timeout
 	small_hitbox.hit()
 
 # func _large_explosion() -> void:

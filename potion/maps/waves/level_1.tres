@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=4 format=3 uid="uid://bec8rjncqmwc8"]
+
+[ext_resource type="Script" uid="uid://bh2kij0kebasu" path="res://potion/enemy/resources/enemy_resource.gd" id="1_h2hi5"]
+[ext_resource type="Resource" uid="uid://qbua8j5nrtkt" path="res://potion/enemy/resources/skeleton_resource.tres" id="2_verh4"]
+[ext_resource type="Script" uid="uid://duah648hndjpr" path="res://potion/maps/waves/wave_resource.gd" id="3_xcsl1"]
+
+[resource]
+script = ExtResource("3_xcsl1")
+max_wave = 8
+min_enemy_count = 8
+max_enemy_count = 20
+spawn_interval_min = 1.0
+spawn_interval_max = 3.0
+enemy_resources = Array[ExtResource("1_h2hi5")]([ExtResource("2_verh4")])
+metadata/_custom_type_script = "uid://duah648hndjpr"

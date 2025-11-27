@@ -103,6 +103,7 @@ func _schedule_respawn() -> void:
 	if spawned_items.size() >= max_count:
 		return
 
-	if not respawn_timer.is_stopped():
+	if not respawn_timer.is_stopped() or not is_inside_tree():
 		return
+	
 	respawn_timer.start_random()
