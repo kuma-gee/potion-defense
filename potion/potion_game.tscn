@@ -40,16 +40,18 @@ shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "wave_manager", "wave_setup", "unlocked_item", "recipe_ui")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "souls_label", "wave_manager", "wave_setup", "unlocked_item", "recipe_ui", "player_join")]
 script = ExtResource("1_1w3wt")
 initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_41urv"), ExtResource("4_41urv")])
 map_root = NodePath("MapRoot")
 map_scene = ExtResource("5_16d2i")
 player_root = NodePath("PlayerRoot")
+souls_label = NodePath("CanvasLayer/MarginContainer2/PanelContainer/MarginContainer/Souls")
 wave_manager = NodePath("WaveManager")
 wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
 unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
 recipe_ui = NodePath("CanvasLayer/Control/Recipes")
+player_join = NodePath("CanvasLayer/Control/PlayerJoin")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -98,6 +100,28 @@ theme_override_constants/margin_bottom = 10
 [node name="Wave" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "Wave 1/4"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 99.0
+offset_bottom = 63.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Souls" type="Label" parent="CanvasLayer/MarginContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Souls: 0"
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -273,7 +297,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/Recipes/CenterContainer"]
-custom_minimum_size = Vector2(300, 500)
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
 
@@ -292,9 +316,9 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_constants/separation = 16
+theme_override_constants/separation = 32
 
-[node name="Ingredients" type="VBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Ingredients" type="HBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 8

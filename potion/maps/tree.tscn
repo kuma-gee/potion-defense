@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/objects/progress.tscn" id="9_0itfb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bycdv"]
-height = 5.2543945
-radius = 1.5224609
+height = 3.0344238
+radius = 1.1337891
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0itfb"]
 viewport_path = NodePath("SubViewport")
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://buns64rcufm7p"
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7152555, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6052701, 0)
 shape = SubResource("CylinderShape3D_bycdv")
 
 [node name="Progress" parent="." instance=ExtResource("9_0itfb")]

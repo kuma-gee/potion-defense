@@ -13,7 +13,7 @@ var current_page := 0:
 		page_label.text = "Page %d/%d" % [current_page + 1, pages.size()]
 		refresh_ingredients()
 
-func refresh_ingredients() -> void:	
+func refresh_ingredients() -> void:
 	for child in ingredient_container.get_children():
 		child.queue_free()
 

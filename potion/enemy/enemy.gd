@@ -2,6 +2,7 @@ class_name Enemy
 extends Character
 
 const GROUP = "Enemy"
+const SOUL = preload("uid://c0rmnm1ehb0qg")
 
 @export var attack_anims: Array[String] = []
 @export var run_anim := "Walking_D_Skeletons"
@@ -11,6 +12,7 @@ const GROUP = "Enemy"
 @export var projectile_spawn: SpawnAttack
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
 # Animation Tree doesnt work?
 var is_attacking := false
@@ -20,6 +22,7 @@ func _ready() -> void:
 	super()
 	add_to_group(GROUP)
 
+	hurt_box.died.connect(func(): _died())
 	animation_player.animation_finished.connect(func(a):
 		if a == death_anim:
 			get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
@@ -32,11 +35,20 @@ func _ready() -> void:
 				hit_box.hit()
 			is_attacking = false
 	)
-	hurt_box.died.connect(func(): animation_player.play(death_anim))
 
 	speed = resource.speed
 	hit_box.damage = resource.damage
 	hurt_box.set_max_health(resource.health)
+
+func _died():
+	animation_player.play(death_anim)
+	collision_shape_3d.set_deferred("disabled", true)
+	_spawn_soul()
+
+func _spawn_soul():
+	var node = SOUL.instantiate()
+	node.position = global_position
+	get_tree().current_scene.add_child(node)
 
 func set_target(pos: Vector3):
 	nav_agent.target_position = pos

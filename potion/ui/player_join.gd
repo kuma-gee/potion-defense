@@ -1,5 +1,7 @@
+class_name PlayerJoin
 extends Control
 
+signal soul_collected()
 signal game_started()
 
 @export var game: PotionGame
@@ -45,6 +47,7 @@ func _create_player(input_id: String, player_num: int):
 	player.input_id = input_id
 	player.player_num = player_num
 	player.position = game.map.spawn_points[player.player_num].global_position if player.player_num < game.map.spawn_points.size() else Vector3.ZERO
+	player.soul_collected.connect(func(): soul_collected.emit())
 	player.died.connect(func():
 		var new_player = _create_player(input_id, player_num)
 		new_player.position = player.global_position
