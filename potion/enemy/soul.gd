@@ -6,6 +6,5 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body is FPSPlayer:
-		var player: FPSPlayer = body
-		player.soul_collected.emit()
+		Events.soul_collected.emit()
 		queue_free()  # Remove the soul from the scene

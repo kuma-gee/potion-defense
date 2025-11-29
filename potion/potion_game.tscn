@@ -1,11 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=19 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
-[ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="3_41urv"]
-[ext_resource type="Resource" uid="uid://c3mcqueui0db2" path="res://potion/items/resources/charcoal.tres" id="4_41urv"]
-[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="5_16d2i"]
 [ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
+[ext_resource type="PackedScene" uid="uid://vs01asc8vgjy" path="res://potion/maps/level_select.tscn" id="17_21lj0"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
@@ -39,18 +36,10 @@ shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("map_root", "player_root", "souls_label", "wave_manager", "wave_setup", "unlocked_item", "recipe_ui", "player_join")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui")]
 script = ExtResource("1_1w3wt")
-initial_items = Array[ExtResource("2_jjj4w")]([ExtResource("3_41urv"), ExtResource("4_41urv")])
-map_root = NodePath("MapRoot")
-map_scene = ExtResource("5_16d2i")
-player_root = NodePath("PlayerRoot")
 souls_label = NodePath("CanvasLayer/MarginContainer2/PanelContainer/MarginContainer/Souls")
-wave_manager = NodePath("WaveManager")
-wave_setup = NodePath("CanvasLayer/Control/WaveSetup")
-unlocked_item = NodePath("CanvasLayer/Control/UnlockedItem")
 recipe_ui = NodePath("CanvasLayer/Control/Recipes")
-player_join = NodePath("CanvasLayer/Control/PlayerJoin")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -63,7 +52,6 @@ metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
 [node name="RestTimer" type="Timer" parent="WaveManager"]
-wait_time = 10.0
 one_shot = true
 
 [node name="EnemiesRoot" type="Node3D" parent="."]
@@ -71,6 +59,17 @@ one_shot = true
 [node name="MapRoot" type="Node3D" parent="."]
 
 [node name="PlayerRoot" type="Node3D" parent="."]
+
+[node name="LevelSelect" parent="." node_paths=PackedStringArray("spawn_points") instance=ExtResource("17_21lj0")]
+spawn_points = [NodePath("Spawn")]
+
+[node name="Spawn" type="Marker3D" parent="LevelSelect"]
+
+[node name="PlayerJoin" type="Node" parent="LevelSelect" node_paths=PackedStringArray("player_root", "spawn_points")]
+script = ExtResource("24_8mtc6")
+player_root = NodePath("../../PlayerRoot")
+player_scene = ExtResource("17_ho6vn")
+spawn_points = [NodePath("../Spawn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -355,45 +354,6 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
-
-[node name="PlayerJoin" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("game", "start_btn", "player_root", "joined_label")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.50980395)
-script = ExtResource("24_8mtc6")
-game = NodePath("../../..")
-start_btn = NodePath("CenterContainer/VBoxContainer2/Start")
-player_root = NodePath("../../../PlayerRoot")
-player_scene = ExtResource("17_ho6vn")
-joined_label = NodePath("CenterContainer/VBoxContainer2/Joined")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/PlayerJoin"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/PlayerJoin/CenterContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
-layout_mode = 2
-text = "Press button to join"
-
-[node name="Joined" type="Label" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
-layout_mode = 2
-text = "Joined"
-
-[node name="Start" type="Button" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
-layout_mode = 2
-text = "Start"
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
 [connection signal="pressed" from="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2/Recipes" to="CanvasLayer/Control/Recipes" method="grab_focus"]

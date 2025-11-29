@@ -163,6 +163,7 @@ metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
 visible = false
+layers = 524288
 mesh = SubResource("BoxMesh_vdyvj")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Boudary"]
@@ -172,6 +173,7 @@ metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D3"]
 visible = false
+layers = 524288
 mesh = SubResource("BoxMesh_vdyvj")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Boudary"]
@@ -181,6 +183,7 @@ metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D4"]
 visible = false
+layers = 524288
 mesh = SubResource("BoxMesh_vdyvj")
 
 [node name="B" type="CollisionShape3D" parent="Boudary"]
@@ -190,6 +193,7 @@ metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/B"]
 visible = false
+layers = 524288
 mesh = SubResource("BoxMesh_vdyvj")
 
 [node name="Oven" parent="." instance=ExtResource("5_2vkgj")]
@@ -228,7 +232,9 @@ environment = SubResource("Environment_cfgyr")
 transform = Transform3D(0.56079525, 0.802936, 0.20199716, 0.069515295, -0.2887716, 0.95487106, 0.8250312, -0.5214452, -0.21775798, 0.0665164, 7.7862263, 0)
 light_color = Color(0.7607843, 0.84313726, 1, 1)
 light_energy = 0.6
+light_cull_mask = 4294443007
 shadow_enabled = true
+shadow_caster_mask = 4294443007
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_vdyvj")

@@ -5,7 +5,6 @@ signal finished()
 
 @export var lifetime: float = 0.1
 @export var effect: StatusEffect
-@export var tick_interval: float = 0.0
 @export var lifetime_timer: Timer
 
 var is_finished := false
@@ -28,10 +27,10 @@ func _ready() -> void:
 	start_lifetime()
 
 func _process(delta: float) -> void:
-	if tick_interval > 0 and not is_finished:
+	if effect and effect.tick_interval > 0 and not is_finished:
 		tick_timer += delta
-		if tick_timer >= tick_interval:
-			tick_timer -= tick_interval
+		if tick_timer >= effect.tick_interval:
+			tick_timer -= effect.tick_interval
 
 			for area in get_overlapping_areas():
 				_apply_status_effect_to_target(area)
