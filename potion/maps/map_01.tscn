@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=22 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="3_ubtl6"]
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="4_f7537"]
 [ext_resource type="PackedScene" uid="uid://bx72tgxiybaif" path="res://potion/objects/oven.tscn" id="5_2vkgj"]
+[ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="9_vdyvj"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fg8lp"]
 vertices = PackedVector3Array(-12.975098, 0.5, -4.5998, -12.725098, 0.5, -5.0998, -13.225098, 0.5, -5.5998, -14.475098, 0.5, -4.8498, -23.975098, 0.5, -3.3498, -15.225098, 0.5, -3.3498, -15.225098, 0.5, -4.0998, -11.225098, 0.5, -7.8498, -10.475098, 0.5, -6.8498, -9.975098, 0.5, -7.0998, -9.975098, 0.5, -8.5998, -13.225098, 0.5, -7.0998, -12.475098, 0.5, -7.8498, -8.725098, 0.5, -17.5998, -23.975098, 0.5, -17.5998, -8.725098, 0.5, -9.0998, -7.2250977, 0.5, -7.0998, -7.7250977, 0.5, -6.5998, -6.2250977, 0.5, -5.8498, -5.4750977, 0.5, -6.8498, -7.2250977, 0.5, -8.3498, -3.9750977, 0.5, -6.8498, -3.4750977, 0.5, -6.0998, -1.9750977, 0.5, -6.8498, -2.2250977, 0.5, -8.3498, -7.9750977, 0.5, -9.0998, -1.4750977, 0.5, -9.0998, -0.72509766, 0.5, -9.0998, -0.72509766, 0.5, -17.5998, 0.27490234, 0.5, -6.8498, 1.0249023, 0.5, -6.3498, 1.5249023, 0.5, -7.0998, 0.52490234, 0.5, -8.5998, 3.2749023, 0.5, -7.0998, 5.5249023, 0.5, -8.8498, 3.7749023, 0.5, -6.3498, 5.7749023, 0.5, -7.0998, 6.7749023, 0.5, -9.5998, 6.7749023, 0.5, -17.5998, 8.274902, 0.5, -8.8498, 8.024902, 0.5, -7.3498, 10.274902, 0.5, -6.8498, 11.274902, 0.5, -7.8498, 11.024902, 0.5, -17.5998, 13.774902, 0.5, -4.5998, 14.274902, 0.5, -4.0998, 14.274902, 0.5, -5.0998, 13.024902, 0.5, -5.8498, 12.024902, 0.5, -5.0998, 12.274902, 0.5, -4.5998, 16.274902, 0.5, -5.8498, 17.024902, 0.5, -5.0998, 24.024902, 0.5, -4.3498, 17.024902, 0.5, -4.3498, 15.024902, 0.5, -5.8498, 13.024902, 0.5, -7.0998, 12.274902, 0.5, -7.8498, 24.024902, 0.5, -17.5998, 11.524902, 0.5, -3.8498, 11.024902, 0.5, -5.0998, 11.774902, 0.5, -2.3498, 10.274902, 0.5, -5.8498, 7.5249023, 0.5, -6.8498, 3.7749023, 0.5, -5.0998, 3.0249023, 0.5, -4.3498, 2.2749023, 0.5, -4.3498, 2.2749023, 0.5, 15.4002, 11.774902, 0.5, 15.4002, -12.475098, 0.5, -4.0998, -11.225098, 0.5, -5.0998, -9.225098, 0.5, -6.3498, -10.475098, 0.5, -5.8498, -5.9750977, 0.5, -4.5998, -12.475098, 0.5, -2.5998, -13.225098, 0.5, -2.0998, -13.225098, 0.5, 15.4002, -4.7250977, 0.5, 15.4002, -4.7250977, 0.5, -4.0998, -0.22509766, 0.5, -6.3498, 1.0249023, 0.5, -5.0998, -3.4750977, 0.5, -4.5998, -1.4750977, 0.5, -6.3498, 15.024902, 0.5, -3.0998, 14.274902, 0.5, -3.8498, 14.274902, 0.5, -2.5998, 13.524902, 0.5, -1.8498001, 16.524902, 0.5, -3.0998, 12.274902, 0.5, -1.8498001, 24.024902, 0.5, 15.4002, -14.475098, 0.5, -2.0998, -23.975098, 0.5, 15.4002)
@@ -18,7 +19,7 @@ agent_radius = 0.6
 size = Vector3(49.450195, 0.5161133, 34.442383)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fv6ge"]
-size = Vector3(20.914307, 1, 5.375)
+size = Vector3(10.329834, 1, 4.1152344)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0itfb"]
 viewport_path = NodePath("SubViewport")
@@ -79,8 +80,8 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="IngredientSpawnArea" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0670867)
-max_count = 8
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4846747, 0.34509182, 4.0670867)
+max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea"]
@@ -192,7 +193,7 @@ visible = false
 mesh = SubResource("BoxMesh_vdyvj")
 
 [node name="Oven" parent="." instance=ExtResource("5_2vkgj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9664524, 0.19553995, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0338707, 0.19553995, -2.9234838)
 
 [node name="Lanes" type="Node3D" parent="."]
 
@@ -224,8 +225,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003143549, -0.0063118935, 
 environment = SubResource("Environment_cfgyr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.49999997, 0.86602545, 0, 0.33318624, -0.19236514, 0.923029, 0.7993666, -0.46151447, -0.3847303, 0, 7.925477, 0)
+transform = Transform3D(0.56079525, 0.802936, 0.20199716, 0.069515295, -0.2887716, 0.95487106, 0.8250312, -0.5214452, -0.21775798, 0.0665164, 7.7862263, 0)
 light_color = Color(0.7607843, 0.84313726, 1, 1)
+light_energy = 0.6
+shadow_enabled = true
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_vdyvj")
+volume_db = -25.0
 
 [editable path="NavigationRegion3D/Trees/Tree"]
 [editable path="NavigationRegion3D/Trees/Tree/Progress"]

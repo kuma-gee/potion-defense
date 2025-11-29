@@ -58,6 +58,7 @@ var dash_duration: float = 0.0
 var reviving_player: FPSPlayer
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
+var mouse_position: Vector2 = Vector2.ZERO
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
@@ -71,6 +72,21 @@ func get_interact_collision_point():
 
 func get_camera_point():
 	return interact_ray.global_position
+
+func _get_mouse_world_position() -> Vector3:
+	var current_camera = get_viewport().get_camera_3d()
+	if not current_camera:
+		return global_position + Vector3.FORWARD
+	
+	var ray_origin = current_camera.project_ray_origin(mouse_position)
+	var ray_normal = current_camera.project_ray_normal(mouse_position)
+	
+	var plane = Plane(Vector3.UP, global_position.y)
+	var intersection = plane.intersects_ray(ray_origin, ray_normal)
+	
+	if intersection:
+		return intersection
+	return global_position + Vector3.FORWARD
 
 func toggle_camera(value = not camera.current):
 	camera.current = value
@@ -123,6 +139,8 @@ func _ready():
 				elif event.is_action_released("interact"):
 					interact_ray.release(self)
 		else:
+			if event is InputEventMouseMotion:
+				mouse_position = event.position
 			if event.is_action_pressed("interact"):
 				hand.interact(self)
 			elif event.is_action_released("interact"):
@@ -183,6 +201,7 @@ func _physics_process(delta):
 			if death_timer >= death_time:
 				death_timer = 0.0
 				died.emit()
+		walk_vfx.emitting = false
 		return
 
 	if apply_knockback(delta):
@@ -194,6 +213,12 @@ func _physics_process(delta):
 	
 	if throw_button_held and has_item():
 		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
+		
+		if not camera.current:
+			var mouse_world_pos = _get_mouse_world_position()
+			var direction_to_mouse = (mouse_world_pos - global_position).normalized()
+			if direction_to_mouse.length() > 0.1:
+				body.look_at(body.global_position + direction_to_mouse, Vector3.UP)
 	else:
 		current_throw_force = 0.0
 	
@@ -285,7 +310,16 @@ func throw_item() -> void:
 		return
 	
 	var item = release_item()
-	var throw_direction = -body.global_transform.basis.z
+	
+	var throw_direction: Vector3
+	if camera.current:
+		throw_direction = -body.global_transform.basis.z
+	else:
+		var mouse_world_pos = _get_mouse_world_position()
+		throw_direction = (mouse_world_pos - global_position).normalized()
+		if throw_direction.length() < 0.1:
+			throw_direction = -body.global_transform.basis.z
+	
 	var actual_force = min_throw_force + current_throw_force
 	
 	var pickupable: Pickupable = PICKUPABLE_SCENE.instantiate()

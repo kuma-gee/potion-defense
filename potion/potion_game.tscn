@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=22 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_jjj4w"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cgva0jspdrkae" path="res://potion/ui/item_button.tscn" id="23_1w3wt"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
-[ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="25_rmnmn"]
 [ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
 
@@ -395,11 +394,6 @@ text = "Joined"
 [node name="Start" type="Button" parent="CanvasLayer/Control/PlayerJoin/CenterContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Start"
-
-[node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("25_rmnmn")
-volume_db = -25.0
-autoplay = true
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
 [connection signal="pressed" from="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2/Recipes" to="CanvasLayer/Control/Recipes" method="grab_focus"]

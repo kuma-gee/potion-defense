@@ -129,6 +129,11 @@ func _process(delta: float) -> void:
 		overheat += delta * (1.0 if not mixing else overheat_decrease)
 		if overheat >= overheat_time:
 			_failed_potion()
+		elif overheat <= 0.0:
+			overheating = false
+			overheat = 0.0
+	elif finished and overheat_start_timer.is_stopped():
+		overheat_start_timer.start()
 	
 	time += delta * (1.0 if not mixing else mixing_speed_increase)
 	if time >= required_time and not finished:

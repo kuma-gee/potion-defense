@@ -16,6 +16,8 @@ var item: ItemResource:
 		item = v
 		progress.visible = item != null
 		item_popup.set_item(item)
+		if not item:
+			reset()
 
 func _ready() -> void:
 	super()
