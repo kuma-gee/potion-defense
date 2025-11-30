@@ -53,11 +53,12 @@ glow_enabled = true
 volumetric_fog_density = 0.03
 volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
 
-[node name="map_01" type="Node3D" node_paths=PackedStringArray("lanes", "spawn_points")]
+[node name="map_01" type="Node3D" node_paths=PackedStringArray("lanes", "spawn_points", "cauldrons")]
 script = ExtResource("1_f7537")
 lanes = NodePath("Lanes")
 spawn_points = [NodePath("Cauldron/SpawnPoint3"), NodePath("Cauldron/SpawnPoint4"), NodePath("Cauldron/SpawnPoint5"), NodePath("Cauldron/SpawnPoint6")]
 wave_resource = ExtResource("2_hjkg3")
+cauldrons = [NodePath("Cauldron")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_fg8lp")
@@ -80,20 +81,11 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="IngredientSpawnArea" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4846747, 0.34509182, 4.0670867)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.497093, 0.10006881, 4.178356)
 max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea"]
-shape = SubResource("BoxShape3D_fv6ge")
-
-[node name="IngredientSpawnArea2" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
-transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -4.3711385e-08, 8.471985, 0.038249016, 6.1067247)
-visible = false
-type = 3
-spawn_shape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea2"]
 shape = SubResource("BoxShape3D_fv6ge")
 
 [node name="Trees" type="Node3D" parent="NavigationRegion3D"]

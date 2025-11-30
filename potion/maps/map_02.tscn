@@ -49,8 +49,9 @@ glow_enabled = true
 volumetric_fog_density = 0.03
 volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
 
-[node name="map02" type="Node3D"]
+[node name="map02" type="Node3D" node_paths=PackedStringArray("cauldrons")]
 script = ExtResource("1_x4b2d")
+cauldrons = [NodePath("Cauldron")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_6o1gw")

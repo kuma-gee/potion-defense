@@ -1,45 +1,22 @@
-[gd_scene load_steps=19 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=10 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="17_8mtc6"]
 [ext_resource type="PackedScene" uid="uid://vs01asc8vgjy" path="res://potion/maps/level_select.tscn" id="17_21lj0"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
-[ext_resource type="Script" uid="uid://p37xhunyyh2r" path="res://potion/ui/wave_setup.gd" id="22_1w3wt"]
-[ext_resource type="PackedScene" uid="uid://cgva0jspdrkae" path="res://potion/ui/item_button.tscn" id="23_1w3wt"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
-[ext_resource type="Script" uid="uid://cy4rv80rahocd" path="res://potion/ui/unlocked_item.gd" id="25_16d2i"]
-[ext_resource type="Shader" uid="uid://bckxauf6c0xpr" path="res://shader/circle_rainbow.gdshader" id="29_e2yce"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3yac"]
-bg_color = Color(0.32172796, 0.32172796, 0.32172787, 1)
-
-[sub_resource type="Gradient" id="Gradient_e2yce"]
-offsets = PackedFloat32Array(0, 0.31034482)
-colors = PackedColorArray(1, 0.9333334, 0, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_077x5"]
-gradient = SubResource("Gradient_e2yce")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_077x5"]
-shader = ExtResource("29_e2yce")
-shader_parameter/speed = 1.0
-shader_parameter/count = 7.005
-shader_parameter/strength = 7.54
-shader_parameter/smoothing = -0.66
-shader_parameter/size = 1.7
-shader_parameter/color_gradient = SubResource("GradientTexture1D_077x5")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover")]
 script = ExtResource("1_1w3wt")
 souls_label = NodePath("CanvasLayer/MarginContainer2/PanelContainer/MarginContainer/Souls")
 recipe_ui = NodePath("CanvasLayer/Control/Recipes")
+gameover = NodePath("CanvasLayer/Control/Gameover")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -130,8 +107,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Gameover" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("restart_btn")]
-visible = false
+[node name="Gameover" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,6 +117,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("20_kavja")
 restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
+back_btn = NodePath("CenterContainer/VBoxContainer/Back")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Gameover"]
 layout_mode = 1
@@ -152,127 +129,24 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Gameover/CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Gameover"
+horizontal_alignment = 1
 
 [node name="Restart" type="Button" parent="CanvasLayer/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
 
-[node name="WaveSetup" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("item_select_grid", "selected_items_container", "ingredient_label", "finish_button")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.50980395)
-script = ExtResource("22_1w3wt")
-item_select_grid = NodePath("WaveSetup/PanelContainer/VBoxContainer/HBoxContainer/GridContainer")
-selected_items_container = NodePath("WaveSetup/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer")
-item_button_scene = ExtResource("23_1w3wt")
-ingredient_label = NodePath("WaveSetup/PanelContainer/VBoxContainer/HBoxContainer/Label")
-finish_button = NodePath("WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2/Next")
-
-[node name="WaveSetup" type="CenterContainer" parent="CanvasLayer/Control/WaveSetup"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup"]
-custom_minimum_size = Vector2(300, 500)
+[node name="Back" type="Button" parent="CanvasLayer/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_v3yac")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Next" type="Button" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Next Wave"
-
-[node name="Recipes" type="Button" parent="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = " Recipes "
-
-[node name="UnlockedItem" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("texture_rect", "label")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.50980395)
-script = ExtResource("25_16d2i")
-texture_rect = NodePath("CenterContainer/VBoxContainer/TextureRect")
-label = NodePath("CenterContainer/VBoxContainer/Label")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/UnlockedItem"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/UnlockedItem/CenterContainer"]
-visible = false
-material = SubResource("ShaderMaterial_077x5")
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/UnlockedItem/CenterContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="Label2" type="Label" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "UNLOCKED"
-horizontal_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 128)
-layout_mode = 2
-texture = ExtResource("17_8mtc6")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/UnlockedItem/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Test"
-horizontal_alignment = 1
+text = "Back to map"
 
 [node name="Recipes" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("ingredient_container", "potion_item", "page_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,4 +230,3 @@ size_flags_vertical = 8
 text = "Next"
 
 [connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
-[connection signal="pressed" from="CanvasLayer/Control/WaveSetup/WaveSetup/PanelContainer/VBoxContainer/HBoxContainer2/Recipes" to="CanvasLayer/Control/Recipes" method="grab_focus"]

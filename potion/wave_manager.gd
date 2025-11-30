@@ -24,7 +24,8 @@ var cauldrons := []
 var wave = 0:
 	set(v):
 		wave = v
-		wave_label.text = "Wave %s / %s" % [wave, wave_resource.max_wave]
+		if wave_resource:
+			wave_label.text = "Wave %s / %s" % [wave, wave_resource.max_wave]
 
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_enemy)
@@ -32,6 +33,8 @@ func _ready() -> void:
 	rest_timer.timeout.connect(next_wave)
 
 func setup(map: Map):
+	clear()
+	
 	lane_root = map.lanes
 	wave_resource = map.wave_resource
 	
@@ -39,7 +42,7 @@ func setup(map: Map):
 		push_error("WaveManager: No wave_resource found in map")
 		return
 
-	cauldrons = get_tree().get_nodes_in_group("cauldron")
+	cauldrons = map.cauldrons.duplicate()
 	for c in cauldrons:
 		c.died.connect(func():
 			cauldrons.erase(c)
@@ -122,7 +125,9 @@ func _spawn_single_enemy() -> void:
 			if dist < closest_distance:
 				closest_distance = dist
 				closest_target = t
-		enemy_instance.set_target(closest_target.global_position)
+		
+		if closest_target:
+			enemy_instance.set_target(closest_target.global_position)
 
 	enemies_spawned_this_wave += lane_spawn_count
 	print("Spawned enemy (total: %d, Wave %d)" % [enemies_spawned_this_wave, wave])
@@ -144,6 +149,15 @@ func _on_wave_completed() -> void:
 		all_waves_completed.emit()
 	else:
 		wave_completed.emit()
+
+func clear():
+	is_wave_active = false
+	is_final_wave = false
+	enemies_spawned_this_wave = 0
+	wave = 0
+	rest_timer.stop()
+	spawn_timer.stop()
+	_clear_all_enemies()
 
 func _clear_all_enemies() -> void:
 	"""Remove all active enemies"""

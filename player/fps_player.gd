@@ -3,7 +3,6 @@ extends Character
 
 const PICKUPABLE_SCENE = preload("res://potion/items/pickupable.tscn")
 
-signal soul_collected()
 signal died()
 
 @export var dash_force = 10.0

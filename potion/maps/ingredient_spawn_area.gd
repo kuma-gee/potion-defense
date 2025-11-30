@@ -21,6 +21,7 @@ var spawned_items: Array[Node3D] = []
 func _ready() -> void:
 	rng.randomize()
 	respawn_timer.timeout.connect(_on_respawn_timeout)
+	await get_tree().create_timer(0.1).timeout
 	_fill_to_max()
 
 func _fill_to_max() -> void:
