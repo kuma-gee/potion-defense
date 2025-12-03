@@ -9,13 +9,13 @@ extends Node3D
 @onready var player_root: Node3D = $PlayerRoot
 @onready var map_root: Node3D = $MapRoot
 @onready var level_select: Map = $LevelSelect
-@onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var in_game_canvas: CanvasLayer = $InGameCanvas
 
 var current_level: PackedScene
 var map: Map:
 	set(v):
 		map = v
-		canvas_layer.visible = map != null
+		in_game_canvas.visible = map != null
 		for child in map_root.get_children():
 			child.queue_free()
 		
@@ -61,9 +61,9 @@ func _setup_map():
 	wave_manager.setup(map)
 	_move_players_to_map(map)
 
-func _move_players_to_map(map: Map) -> void:
+func _move_players_to_map(m: Map) -> void:
 	for player in player_root.get_children():
 		if not player is FPSPlayer: continue
 
 		player.reset()
-		player.global_position = map.get_spawn_position(player.player_num)
+		player.global_position = m.get_spawn_position(player.player_num)

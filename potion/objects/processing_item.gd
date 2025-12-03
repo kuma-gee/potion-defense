@@ -3,14 +3,16 @@ extends RayInteractable
 @export var item_processing: Dictionary[ItemResource.Type, ItemResource.Type] = {}
 @export var automatic := false
 @export var progress: Node3D
+@export var process_time: float = 3.0
 
-@onready var process_timer: Timer = $ProcessTimer
 @onready var overheat_timer: Timer = $OverheatTimer
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var item_popup: ItemPopup = $ItemPopup
 
 var logger = KumaLog.new("Oven")
 var working_player: FPSPlayer
+var process_timer: float = 0.0
+var is_processing: bool = false
 var item: ItemResource:
 	set(v):
 		item = v
@@ -20,9 +22,20 @@ var item: ItemResource:
 func _ready() -> void:
 	super()
 	item = null
-	process_timer.timeout.connect(func(): _on_processed())
 	overheat_start_timer.timeout.connect(func(): overheat_timer.start())
 	overheat_timer.timeout.connect(func(): _on_overheated())
+
+func _process(delta: float) -> void:
+	if is_processing:
+		var multiplier = 1.0
+		if not automatic and working_player:
+			multiplier = working_player.get_processing_speed()
+
+		process_timer += delta * multiplier
+		if process_timer >= process_time:
+			_on_processed()
+			process_timer = 0.0
+			is_processing = false
 	
 func _on_processed():
 	if not item:
@@ -46,7 +59,8 @@ func _on_overheated():
 	
 func reset():
 	item = null
-	process_timer.stop()
+	is_processing = false
+	process_timer = 0.0
 	overheat_start_timer.stop()
 
 func interact(actor: FPSPlayer):
@@ -60,7 +74,8 @@ func interact(actor: FPSPlayer):
 	
 	item = actor.release_item()
 	if automatic and _can_process():
-		process_timer.start()
+		process_timer = 0.0
+		is_processing = true
 
 func _can_process() -> bool:
 	return item != null and item_processing.has(item.type)
@@ -68,7 +83,8 @@ func _can_process() -> bool:
 func release(actor: FPSPlayer):
 	if automatic: return
 	if working_player != actor: return
-	process_timer.stop()
+	is_processing = false
+	process_timer = 0.0
 
 func action(actor: FPSPlayer):
 	if automatic: return
@@ -76,11 +92,13 @@ func action(actor: FPSPlayer):
 
 	working_player = actor
 	working_player.freeze_player()
-	process_timer.start()
+	process_timer = 0.0
+	is_processing = true
 
 func action_released(actor: FPSPlayer):
 	if working_player != actor: return
-	process_timer.stop()
+	is_processing = false
+	process_timer = 0.0
 	
 	if working_player:
 		working_player.unfreeze_player()

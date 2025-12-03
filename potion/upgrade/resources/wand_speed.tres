@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="UpgradeResource" load_steps=2 format=3 uid="uid://b7c8d9e0f1a2b3c4"]
+
+[ext_resource type="Script" path="res://potion/upgrade/upgrade_resource.gd" id="1_1"]
+
+[resource]
+script = ExtResource("1_1")
+name = "Wand Speed"
+description = "Increases the speed for processing actions"

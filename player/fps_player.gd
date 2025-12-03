@@ -58,11 +58,22 @@ var reviving_player: FPSPlayer
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
+var upgrades: Array[UpgradeResource] = []
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
 		item_label.text = held_item_type.name if held_item_type else ""
 		item_texture.set_item(v)
+
+func add_upgrade(upgrade: UpgradeResource) -> void:
+	upgrades.append(upgrade)
+
+func get_processing_speed() -> float:
+	var base_speed = 1.0
+	for upgrade in upgrades:
+		if upgrade.name == "Wand Speed":
+			base_speed += 0.5  # Each Wand Speed upgrade increases processing speed by 0.5
+	return base_speed
 
 func get_interact_collision_point():
 	if interact_ray.is_colliding():

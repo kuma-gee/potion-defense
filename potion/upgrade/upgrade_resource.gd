@@ -1,0 +1,5 @@
+class_name UpgradeResource
+extends Resource
+
+@export var name: String = ""
+@export var description: String = ""

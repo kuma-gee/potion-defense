@@ -14,13 +14,13 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
 [node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover")]
 script = ExtResource("1_1w3wt")
-souls_label = NodePath("CanvasLayer/MarginContainer2/PanelContainer/MarginContainer/Souls")
-recipe_ui = NodePath("CanvasLayer/Control/Recipes")
-gameover = NodePath("CanvasLayer/Control/Gameover")
+souls_label = NodePath("InGameCanvas/MarginContainer2/PanelContainer/MarginContainer/Souls")
+recipe_ui = NodePath("InGameCanvas/Control/Recipes")
+gameover = NodePath("InGameCanvas/Control/Gameover")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
-wave_label = NodePath("../CanvasLayer/MarginContainer/PanelContainer/MarginContainer/Wave")
+wave_label = NodePath("../InGameCanvas/MarginContainer/PanelContainer/MarginContainer/Wave")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 spawn_timer = NodePath("SpawnTimer")
 rest_timer = NodePath("RestTimer")
@@ -48,9 +48,9 @@ player_root = NodePath("../../PlayerRoot")
 player_scene = ExtResource("17_ho6vn")
 spawn_points = [NodePath("../Spawn")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="InGameCanvas" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -62,21 +62,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Wave" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Wave" type="Label" parent="InGameCanvas/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "Wave 1/4"
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer2" type="MarginContainer" parent="InGameCanvas"]
 offset_right = 99.0
 offset_bottom = 63.0
 theme_override_constants/margin_left = 10
@@ -84,21 +84,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/MarginContainer2"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer2/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/MarginContainer2/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Souls" type="Label" parent="CanvasLayer/MarginContainer2/PanelContainer/MarginContainer"]
+[node name="Souls" type="Label" parent="InGameCanvas/MarginContainer2/PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "Souls: 0"
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="InGameCanvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,7 +107,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Gameover" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
+[node name="Gameover" type="ColorRect" parent="InGameCanvas/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,7 +119,7 @@ script = ExtResource("20_kavja")
 restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
 back_btn = NodePath("CenterContainer/VBoxContainer/Back")
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Gameover"]
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control/Gameover"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,25 +127,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Gameover/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control/Gameover/CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="InGameCanvas/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Gameover"
 horizontal_alignment = 1
 
-[node name="Restart" type="Button" parent="CanvasLayer/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="InGameCanvas/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
 
-[node name="Back" type="Button" parent="CanvasLayer/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="InGameCanvas/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back to map"
 
-[node name="Recipes" type="ColorRect" parent="CanvasLayer/Control" node_paths=PackedStringArray("ingredient_container", "potion_item", "page_label")]
+[node name="Recipes" type="ColorRect" parent="InGameCanvas/Control" node_paths=PackedStringArray("ingredient_container", "potion_item", "page_label")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -160,7 +160,7 @@ ingredient_container = NodePath("CenterContainer/PanelContainer/VBoxContainer/Ma
 potion_item = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
 page_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Page")
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Recipes"]
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control/Recipes"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,15 +168,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/Recipes/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control/Recipes/CenterContainer"]
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 32
@@ -184,49 +184,49 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 32
 
-[node name="Ingredients" type="HBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Potion" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
+[node name="Potion" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Prev" type="Button" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Prev" type="Button" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Prev"
 
-[node name="Page" type="Label" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Page" type="Label" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/outline_size = 5
 text = "0/0"
 horizontal_alignment = 1
 
-[node name="Next" type="Button" parent="CanvasLayer/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Next" type="Button" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
 
-[connection signal="game_over" from="WaveManager" to="CanvasLayer/Control/Gameover" method="show_gameover"]
+[connection signal="game_over" from="WaveManager" to="InGameCanvas/Control/Gameover" method="show_gameover"]

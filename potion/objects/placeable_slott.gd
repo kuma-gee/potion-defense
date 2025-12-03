@@ -11,14 +11,14 @@ func _ready() -> void:
 	super()
 	
 	item = null
-	Events.game_started.connect(func():
-		# no idea why this is required, pls tell me if u do
-		await get_tree().create_timer(0.2).timeout
-		
-		if has_overlapping_areas():
-			monitorable = false
-			hide()
-	)
+	#Events.game_started.connect(func():
+		## no idea why this is required, pls tell me if u do
+		#await get_tree().create_timer(0.2).timeout
+		#
+		#if has_overlapping_areas():
+			#monitorable = false
+			#hide()
+	#)
 	
 
 func has_item():
