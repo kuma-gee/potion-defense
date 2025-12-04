@@ -1,15 +1,10 @@
 class_name IngredientSpawnArea
 extends Area3D
 
-const SCENES = {
-	ItemResource.Type.RED_HERB: preload("uid://devp4ralvjicb"),
-	ItemResource.Type.MUSHROOM: preload("uid://dc1f5ocm8nays"),
-}
-
 const MAX_SPAWN_ATTEMPTS := 10
 
 @export var min_item_distance := 0.5
-@export var type: ItemResource.Type = ItemResource.Type.RED_HERB
+@export var resource: ItemResource
 @export var respawn_timer: RandomTimer
 @export var max_count: int = 6
 @export var spawn_parent: Node3D
@@ -33,7 +28,7 @@ func _spawn_ingredient() -> bool:
 	if spawned_items.size() >= max_count:
 		return false
 
-	var scene: PackedScene = SCENES.get(type)
+	var scene: PackedScene = resource.scene
 	if scene == null:
 		return false
 
@@ -45,10 +40,11 @@ func _spawn_ingredient() -> bool:
 	if spawn_point == null:
 		return false
 
-	var ingredient := scene.instantiate() as Node3D
+	var ingredient := scene.instantiate() as PickupableIngredient
 	if ingredient == null:
 		return false
 
+	ingredient.res = resource
 	parent_node.add_child(ingredient)
 	ingredient.global_position = spawn_point
 	spawned_items.append(ingredient)

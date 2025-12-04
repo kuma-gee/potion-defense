@@ -14,7 +14,7 @@ func _ready() -> void:
 		if not target: break
 		target.hit(hit_area.damage)
 		if status:
-			target.status_manager.apply_effect(status)
+			target.apply_effect(status)
 		
 		var vfx = hit_vfx_scene.instantiate()
 		vfx.position = target.global_position

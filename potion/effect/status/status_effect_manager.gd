@@ -33,12 +33,10 @@ func apply_effect(effect: StatusEffect) -> void:
 	# Check if we should stack or refresh
 	var existing_effect = _find_stackable_effect(effect)
 	if existing_effect:
-		# Refresh duration on existing effect
 		existing_effect.time_remaining = effect.duration
 		return
 	
-	# Add new effect
-	var eff = effect.duplicate()
+	var eff = effect
 	eff.apply(target)
 	active_effects.append(eff)
 	status_effect_applied.emit(eff)

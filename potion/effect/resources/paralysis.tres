@@ -6,4 +6,5 @@
 script = ExtResource("1_wiacu")
 effect_name = "paralysis"
 slow_multiplier = 0.0
+element = 3
 metadata/_custom_type_script = "uid://lwbhlqabwjhg"

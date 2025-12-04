@@ -1,10 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://df2iboydwrtbj"]
+[gd_scene load_steps=25 format=3 uid="uid://df2iboydwrtbj"]
 
 [ext_resource type="Script" uid="uid://qunfxei2xxgu" path="res://potion/effect/slime_area.gd" id="1_kvyu1"]
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://magic/blue_beam_impact.tscn" id="1_mrx5l"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="2_kvyu1"]
 [ext_resource type="Resource" uid="uid://5adf235ow25d" path="res://potion/effect/resources/fire_burn.tres" id="3_4p8cb"]
-[ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/slime.tres" id="3_ohiju"]
 [ext_resource type="Shader" uid="uid://d2temwcsbcygy" path="res://potion/effect/slime.gdshader" id="4_b85ol"]
 [ext_resource type="Shader" uid="uid://w0bufmmr0a1o" path="res://magic/fire_shader.tres" id="7_tfcik"]
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="8_4p8cb"]
@@ -103,7 +102,6 @@ on_spawn = false
 
 [node name="SlimeArea" parent="." instance=ExtResource("2_kvyu1")]
 lifetime = 30.0
-effect = ExtResource("3_ohiju")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SlimeArea"]
 shape = SubResource("SphereShape3D_o8fgn")

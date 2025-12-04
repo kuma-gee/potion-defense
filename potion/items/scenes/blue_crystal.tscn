@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://tqsaqyisvhqb"]
+[gd_scene load_steps=5 format=3 uid="uid://tqsaqyisvhqb"]
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u8sci"]
-data = PackedVector3Array(0, 0.14999999, 0.074999996, 0.074999996, -0.14999999, 0.074999996, -0.074999996, -0.14999999, 0.074999996, 0, 0.14999999, -0.074999996, -0.074999996, -0.14999999, -0.074999996, 0.074999996, -0.14999999, -0.074999996, 0, 0.14999999, 0.074999996, 0, 0.14999999, -0.074999996, 0.074999996, -0.14999999, 0.074999996, 0, 0.14999999, -0.074999996, 0.074999996, -0.14999999, -0.074999996, 0.074999996, -0.14999999, 0.074999996, 0, 0.14999999, -0.074999996, 0, 0.14999999, 0.074999996, -0.074999996, -0.14999999, -0.074999996, 0, 0.14999999, 0.074999996, -0.074999996, -0.14999999, 0.074999996, -0.074999996, -0.14999999, -0.074999996, -0.074999996, -0.14999999, 0.074999996, 0.074999996, -0.14999999, 0.074999996, -0.074999996, -0.14999999, -0.074999996, 0.074999996, -0.14999999, 0.074999996, 0.074999996, -0.14999999, -0.074999996, -0.074999996, -0.14999999, -0.074999996)
+[ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_kd1o8"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_crystal"]
 size = Vector3(0.15, 0.3, 0.15)
@@ -12,10 +11,19 @@ albedo_color = Color(0.1, 0.4, 1, 0.8)
 metallic = 0.5
 roughness = 0.2
 
-[node name="CollisionShape3D" type="CollisionShape3D"]
-shape = SubResource("ConcavePolygonShape3D_u8sci")
+[sub_resource type="SphereShape3D" id="SphereShape3D_kd1o8"]
+radius = 0.32138714
+
+[node name="CollisionShape3D" type="Area3D"]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_kd1o8")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PrismMesh_crystal")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_kd1o8")

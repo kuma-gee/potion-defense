@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlc5pt3hyp5a7"]
 
 [ext_resource type="Script" uid="uid://btr5pkknrh4rx" path="res://potion/maps/tree.gd" id="1_bycdv"]
-[ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/wood.tres" id="2_blib2"]
+[ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="2_blib2"]
 [ext_resource type="PackedScene" uid="uid://dc8qg4lostl31" path="res://assets/nature/glTF/CommonTree_1.gltf" id="3_025pf"]
 [ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/objects/progress.tscn" id="9_0itfb"]
 

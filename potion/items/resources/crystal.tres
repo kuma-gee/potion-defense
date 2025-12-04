@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://cspcf2cuasl1w"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://cspcf2cuasl1w"]
 
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_17g6l"]
+[ext_resource type="PackedScene" uid="uid://tqsaqyisvhqb" path="res://potion/items/scenes/blue_crystal.tscn" id="1_auble"]
 [ext_resource type="Texture2D" uid="uid://cf4pi8fla5exy" path="res://assets/items/Items_Wood.png" id="2_rw8rt"]
 
 [resource]
 script = ExtResource("1_17g6l")
-type = 5
 texture = ExtResource("2_rw8rt")
+scene = ExtResource("1_auble")
 metadata/_custom_type_script = "uid://b8r3wk16v6bq7"

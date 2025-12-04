@@ -20,9 +20,9 @@ func _ready() -> void:
 	collision_mask = LAYER
 
 	area_entered.connect(func(area):
-		if area is ElementalArea:
+		if area is ElementalArea and is_active():
 			var elemental_area := area as ElementalArea
-			elemental_area.received.emit(element)
+			elemental_area.received_element(element)
 	)
 
 func has_contact_with(elem: Element) -> bool:
@@ -32,3 +32,9 @@ func has_contact_with(elem: Element) -> bool:
 			if elemental_area.element == elem:
 				return true
 	return false
+
+func received_element(elem: Element) -> void:
+	received.emit(elem)
+
+func is_active():
+	return true

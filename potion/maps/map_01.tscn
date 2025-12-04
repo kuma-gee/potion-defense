@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=24 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="3_ubtl6"]
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="4_f7537"]
 [ext_resource type="PackedScene" uid="uid://bx72tgxiybaif" path="res://potion/objects/oven.tscn" id="5_2vkgj"]
+[ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="6_fv6ge"]
+[ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="7_f7537"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="9_vdyvj"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fg8lp"]
@@ -82,10 +84,20 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="IngredientSpawnArea" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.497093, 0.10006881, 4.178356)
+resource = ExtResource("6_fv6ge")
 max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea"]
+shape = SubResource("BoxShape3D_fv6ge")
+
+[node name="IngredientSpawnArea2" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2258148, 0.10006881, -5.1087217)
+resource = ExtResource("7_f7537")
+max_count = 10
+spawn_shape = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea2"]
 shape = SubResource("BoxShape3D_fv6ge")
 
 [node name="Trees" type="Node3D" parent="NavigationRegion3D"]

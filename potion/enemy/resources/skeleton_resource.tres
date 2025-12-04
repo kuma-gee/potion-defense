@@ -7,6 +7,5 @@
 script = ExtResource("1_0rn2h")
 scene = ExtResource("2_fimje")
 health = 50
-speed = 5.0
-damage = 50
+damage = 5
 name = "Skeleton"

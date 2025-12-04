@@ -18,7 +18,7 @@ func refresh_ingredients() -> void:
 		child.queue_free()
 
 	var potion = pages[current_page]
-	for item in ItemResource.RECIPIES[potion].keys():
+	for item in ItemResource.RECIPIES[potion]:
 		var item_instance = item_scene.instantiate() as CauldronItem
 		item_instance.item = ItemResource.get_resource(item)
 		ingredient_container.add_child(item_instance)

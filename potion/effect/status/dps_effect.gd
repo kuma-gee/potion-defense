@@ -8,4 +8,4 @@ func get_effect_type() -> String:
 	return "dps-%s" % effect_name
 
 func on_tick() -> void:
-	target.damage(damage_per_tick)
+	target.damage(damage_per_tick, element)

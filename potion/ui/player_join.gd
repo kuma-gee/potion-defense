@@ -6,7 +6,8 @@ extends Node
 @export var spawn_points: Array[Node3D]
 
 func _unhandled_input(event: InputEvent) -> void:
-	_spawn_player(event)
+	if event.is_pressed():
+		_spawn_player(event)
 
 func _spawn_player(event: InputEvent) -> void:
 	var id = PlayerInput.create_id(event)
@@ -17,7 +18,7 @@ func _spawn_player(event: InputEvent) -> void:
 	player.position = spawn_points[player.player_num].global_position if player.player_num < spawn_points.size() else Vector3.ZERO
 	player_root.add_child(player)
 	Events.player_joined(id)
-
+ 
 func _create_player(input_id: String, player_num: int):
 	var player = player_scene.instantiate() as FPSPlayer
 	player.input_id = input_id

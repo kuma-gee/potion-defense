@@ -1,12 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbpop2ylo0vfo"]
+[gd_scene load_steps=11 format=3 uid="uid://ds7te5bn0t7nr"]
 
-[ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_rajcq"]
-[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="2_xjqrh"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_m2tjx"]
-[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_rkmq4"]
-[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_m2tjx"]
-[ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_rkmq4"]
-[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="6_xtrx3"]
+[ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_4nq6h"]
+[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="2_ll7cd"]
+[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_marap"]
+[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_q7elp"]
+[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_v6s0v"]
+[ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_oxwiu"]
+[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="7_ql8uk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rajcq"]
 size = Vector3(1, 1, 0.56640625)
@@ -18,15 +18,15 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[node name="Skeleton" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
+[node name="FireSkeleton" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
 collision_layer = 4
-script = ExtResource("1_rajcq")
+script = ExtResource("1_4nq6h")
 attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
 hit_box = NodePath("Skeleton_Minion/HitBox")
 animation_player = NodePath("Skeleton_Minion/AnimationPlayer")
 hurt_box = NodePath("HurtBox")
 
-[node name="Skeleton_Minion" parent="." instance=ExtResource("2_xjqrh")]
+[node name="Skeleton_Minion" parent="." instance=ExtResource("2_ll7cd")]
 transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Skeleton_Minion/Rig" index="0"]
@@ -123,7 +123,7 @@ bones/40/scale = Vector3(1, 1.0000001, 1)
 transform = Transform3D(1.25, 0, 2.1316282e-14, 0, 1.25, 0, -2.1316282e-14, 0, 1.25, -3.2600347e-08, 1.101941, 0.8798975)
 collision_layer = 0
 collision_mask = 16
-script = ExtResource("3_m2tjx")
+script = ExtResource("3_marap")
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Skeleton_Minion/HitBox"]
@@ -133,7 +133,7 @@ shape = SubResource("BoxShape3D_rajcq")
 [node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("status_manager")]
 collision_layer = 128
 collision_mask = 0
-script = ExtResource("4_rkmq4")
+script = ExtResource("4_q7elp")
 status_manager = NodePath("../StatusEffectManager")
 max_health = 50.0
 
@@ -146,14 +146,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8600464, -0.103174105)
 shape = SubResource("CylinderShape3D_b0un1")
 
 [node name="StatusEffectManager" type="Node" parent="."]
-script = ExtResource("5_m2tjx")
+script = ExtResource("5_v6s0v")
 metadata/_custom_type_script = "uid://bn80he875obc8"
 
-[node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_rkmq4")]
+[node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_oxwiu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
 status_manager = NodePath("../StatusEffectManager")
 
-[node name="DamageLabel" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("6_xtrx3")]
+[node name="DamageLabel" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("7_ql8uk")]
 hurt_box = NodePath("../HurtBox")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

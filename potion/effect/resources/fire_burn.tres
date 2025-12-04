@@ -6,4 +6,5 @@
 script = ExtResource("1_md12f")
 damage_per_tick = 3
 duration = 1.0
+element = 1
 metadata/_custom_type_script = "uid://77byp8giveus"

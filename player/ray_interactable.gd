@@ -1,6 +1,8 @@
 class_name RayInteractable
 extends Area3D
 
+const LAYER = 1 << 15
+
 signal hovered(actor)
 signal unhovered(actor)
 signal interacted(actor)
@@ -10,6 +12,8 @@ signal released(actor)
 @export var sprite: Sprite3D
 
 func _ready() -> void:
+	collision_layer = LAYER
+	
 	if label:
 		label.hide()
 	if sprite:

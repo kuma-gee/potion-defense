@@ -20,4 +20,4 @@ func _process(delta: float) -> void:
 		time -= delta
 
 func _all_players_inside() -> bool:
-	return get_overlapping_bodies().size() >= Events.get_player_count()
+	return Events.get_player_count() > 0 and get_overlapping_bodies().size() >= Events.get_player_count()

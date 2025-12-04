@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 	if apply_knockback(delta):
 		return
 
-	if hit_box.has_overlapping_areas():
+	if hit_box.can_hit():
 		if not is_attacking:
 			animation_player.play(attack_anims.pick_random())
 			is_attacking = true

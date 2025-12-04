@@ -1,20 +1,19 @@
-[gd_scene load_steps=24 format=3 uid="uid://c684oj6gh0t68"]
+[gd_scene load_steps=27 format=3 uid="uid://c684oj6gh0t68"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://magic/blue_beam_impact.tscn" id="1_0xjk3"]
+[ext_resource type="Script" uid="uid://j534dif84bdq" path="res://potion/effect/blizzard_area.gd" id="1_xdjkm"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="2_xr23e"]
 [ext_resource type="Resource" uid="uid://cwmb41fcvh6br" path="res://potion/effect/resources/frost_bite.tres" id="3_6bwcj"]
-[ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/slime.tres" id="3_hfew4"]
+[ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/frost_slow.tres" id="3_hfew4"]
 [ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://magic/aoe_cylinder.tres" id="4_412hj"]
+[ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="4_xdjkm"]
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="5_fnmtw"]
 [ext_resource type="Texture2D" uid="uid://beve0cca3foj1" path="res://assets/particles/course/CylinderTex.png" id="6_xr23e"]
 [ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="7_6bwcj"]
-[ext_resource type="Script" uid="uid://opigy25i7yj7" path="res://potion/effect/cleanup_timer.gd" id="10_6bwcj"]
+[ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="10_xdjkm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fnmtw"]
-radius = 2.2
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_hg3nj"]
-radius = 2.2
+radius = 2.3222609
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xdjkm"]
 render_priority = 0
@@ -50,6 +49,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Frost:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_412hj"]
 resource_name = "start"
@@ -78,11 +101,91 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SmallHit")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BlueBeamImpact")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MeshInstance3D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6bwcj"]
+resource_name = "stop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frost:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles3D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tgqho"]
 _data = {
 &"RESET": SubResource("Animation_tgqho"),
-&"start": SubResource("Animation_412hj")
+&"start": SubResource("Animation_412hj"),
+&"stop": SubResource("Animation_6bwcj")
 }
 
 [sub_resource type="Curve" id="Curve_6bwcj"]
@@ -122,24 +225,25 @@ collision_mode = 2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_it33x"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_6bwcj"]
+radius = 1.141749
+
 [node name="blizzard_area" type="Node3D"]
+script = ExtResource("1_xdjkm")
 
 [node name="BlueBeamImpact" parent="." instance=ExtResource("1_0xjk3")]
+on_spawn = false
 
 [node name="Frost" parent="." instance=ExtResource("2_xr23e")]
-effect = ExtResource("3_6bwcj")
+effects = Array[ExtResource("4_xdjkm")]([ExtResource("3_6bwcj"), ExtResource("3_hfew4")])
+element = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Frost"]
 shape = SubResource("SphereShape3D_fnmtw")
 
-[node name="Ice" parent="." instance=ExtResource("2_xr23e")]
-effect = ExtResource("3_hfew4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ice"]
-shape = SubResource("SphereShape3D_hg3nj")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+visible = false
 material_override = SubResource("ShaderMaterial_xdjkm")
 mesh = ExtResource("7_6bwcj")
 
@@ -147,10 +251,10 @@ mesh = ExtResource("7_6bwcj")
 libraries = {
 &"": SubResource("AnimationLibrary_tgqho")
 }
-autoplay = "start"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4782251, 0)
+visible = false
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_xdjkm")
 draw_pass_1 = SubResource("CapsuleMesh_it33x")
@@ -158,7 +262,12 @@ draw_pass_1 = SubResource("CapsuleMesh_it33x")
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
 size = Vector3(4.6416016, 0.14428711, 4.201172)
 
-[node name="CleanupTimer" type="Timer" parent="." node_paths=PackedStringArray("status_area", "nodes")]
-script = ExtResource("10_6bwcj")
-status_area = NodePath("../Frost")
-nodes = [NodePath("../GPUParticles3D"), NodePath("../MeshInstance3D")]
+[node name="CleanupTimer" type="Timer" parent="."]
+
+[node name="SmallHit" parent="." instance=ExtResource("10_xdjkm")]
+element = 2
+damage = 30
+force = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]
+shape = SubResource("SphereShape3D_6bwcj")
