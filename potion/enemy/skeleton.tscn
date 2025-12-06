@@ -15,7 +15,7 @@ radius = 0.6274414
 height = 1.7161865
 radius = 0.4165039
 
-[node name="FireSkeleton" type="CharacterBody3D" node_paths=PackedStringArray("hurt_box")]
+[node name="Skeleton" type="CharacterBody3D" node_paths=PackedStringArray("hurt_box")]
 collision_layer = 4
 script = ExtResource("1_rajcq")
 hurt_box = NodePath("HurtBox")
