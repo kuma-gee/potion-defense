@@ -7,7 +7,7 @@ signal damaged(dmg)
 signal knockbacked(force)
 signal elemental_hit(element: ElementalArea.Element)
 
-@export var resistance: Dictionary = {
+@export var resistance: Dictionary[ElementalArea.Element, float] = {
 	ElementalArea.Element.FIRE: 0.0,
 	ElementalArea.Element.ICE: 0.0,
 	ElementalArea.Element.LIGHTNING: 0.0,
@@ -42,8 +42,9 @@ func hit(dmg: float, knockback = Vector3.ZERO, element = ElementalArea.Element.N
 	if element != ElementalArea.Element.NONE:
 		elemental_hit.emit(element)
 
-	if knockback:
-		knockbacked.emit(knockback)
+	if effective_dmg > 0 and knockback:
+		knockback.y = 0
+		knockbacked.emit(knockback * mult)
 
 func apply_effect(effect: StatusEffect):
 	if status_manager and effect:

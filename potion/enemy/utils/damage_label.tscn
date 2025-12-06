@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://oneks4klv0fw"]
 
-[ext_resource type="Script" uid="uid://bigd7w0nd6o16" path="res://potion/enemy/damage_label.gd" id="1_pnb8e"]
+[ext_resource type="Script" uid="uid://bigd7w0nd6o16" path="res://potion/enemy/utils/damage_label.gd" id="1_pnb8e"]
 
 [node name="DamageLabel" type="Node3D" node_paths=PackedStringArray("timer", "label")]
 script = ExtResource("1_pnb8e")

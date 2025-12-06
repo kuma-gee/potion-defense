@@ -108,7 +108,7 @@ tracks/2/path = NodePath("SmallHit")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -260,13 +260,14 @@ process_material = SubResource("ParticleProcessMaterial_xdjkm")
 draw_pass_1 = SubResource("CapsuleMesh_it33x")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+visible = false
 size = Vector3(4.6416016, 0.14428711, 4.201172)
 
 [node name="CleanupTimer" type="Timer" parent="."]
 
 [node name="SmallHit" parent="." instance=ExtResource("10_xdjkm")]
 element = 2
-damage = 30
+damage = 20
 force = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]

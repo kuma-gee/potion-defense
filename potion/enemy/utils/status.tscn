@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cp3cr67lwt4i0"]
 
-[ext_resource type="Script" uid="uid://cbdkf46hrplhg" path="res://potion/enemy/status.gd" id="1_lp21h"]
+[ext_resource type="Script" uid="uid://cbdkf46hrplhg" path="res://potion/enemy/utils/status.gd" id="1_lp21h"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lp21h"]
 viewport_path = NodePath("Status/SubViewport")

@@ -564,7 +564,6 @@ explosion_vfx = ExtResource("12_hx0xm")
 
 [node name="Poison" parent="." instance=ExtResource("13_hx0xm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2369788, 0)
-lifetime = 20.0
 effects = Array[ExtResource("4_2udlr")]([ExtResource("6_0452k")])
 element = 4
 
@@ -625,7 +624,7 @@ autoplay = "init"
 
 [node name="LargeHit" parent="." instance=ExtResource("11_2udlr")]
 element = 1
-damage = 50
+damage = 80.0
 force = 10
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LargeHit"]

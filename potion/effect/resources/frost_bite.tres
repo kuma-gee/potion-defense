@@ -5,8 +5,7 @@
 [resource]
 script = ExtResource("1_n3cnq")
 effect_name = "frost_bite"
-damage_per_tick = 3
-duration = 4.0
-tick_interval = 2.0
+damage_per_tick = 2
+duration = 3.0
 element = 2
 metadata/_custom_type_script = "uid://77byp8giveus"

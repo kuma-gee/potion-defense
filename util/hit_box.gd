@@ -2,7 +2,7 @@ class_name HitBox
 extends Area3D
 
 @export var element := ElementalArea.Element.NONE
-@export var damage := 1
+@export var damage := 1.0
 @export var force := 0
 
 func _ready() -> void:

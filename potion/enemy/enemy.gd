@@ -2,73 +2,77 @@ class_name Enemy
 extends Character
 
 const GROUP = "Enemy"
-const SOUL = preload("uid://c0rmnm1ehb0qg")
 
-@export var attack_anims: Array[String] = []
-@export var run_anim := "Walking_D_Skeletons"
-@export var death_anim := "Death_C_Skeletons"
-@export var hit_box: HitBox
-@export var animation_player: AnimationPlayer
-@export var projectile_spawn: SpawnAttack
+enum State {
+	ATTACK,
+	MOVE,
+	KNOCKBACK,
+	DEAD,
+}
 
+@export var max_attack_count: int = 3
+
+@onready var attack_range: RayCast3D = $AttackRange
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+@onready var soul_spawner: ObjectSpawner = $SoulSpawner
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-# Animation Tree doesnt work?
-var is_attacking := false
-var resource: EnemyResource
+var state = null
+var attack_count := 0
 
 func _ready() -> void:
 	super()
 	add_to_group(GROUP)
 
+	move()
 	hurt_box.died.connect(func(): _died())
-	animation_player.animation_finished.connect(func(a):
-		if a == death_anim:
-			get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
-			return
-		
-		if a in attack_anims:
-			if resource.projectile:
-				projectile_spawn.spawn(resource.projectile)
-			else:
-				hit_box.hit()
-			is_attacking = false
-	)
+	animation_player.animation_finished.connect(func(a): _on_animation_finished(a))
+	hurt_box.knockbacked.connect(func(_k): knockback_state())
 
-	speed = resource.speed
-	hit_box.damage = resource.damage
-	hurt_box.set_max_health(resource.health)
+func _on_animation_finished(anim: String):
+	match state:
+		State.DEAD: _on_death_finished()
+		#State.KNOCKBACK: _on_knockback_finished()
+		State.ATTACK: _on_attack_finished(anim)
+
+func _on_knockback_finished():
+	move()
+
+func _on_death_finished():
+	get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
+
+func _on_attack_finished(_anim: String):
+	if attack_range.is_colliding():
+		_play_attack()
+	else:
+		move()
 
 func _died():
-	animation_player.play(death_anim)
+	died()
 	collision_shape_3d.set_deferred("disabled", true)
-	_spawn_soul()
-
-func _spawn_soul():
-	var node = SOUL.instantiate()
-	node.position = global_position
-	get_tree().current_scene.add_child(node)
+	soul_spawner.spawn()
 
 func set_target(pos: Vector3):
 	nav_agent.target_position = pos
-
-func get_original_speed():
-	return resource.speed
 
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
 		return
 	
-	if apply_knockback(delta):
-		return
+	
+	match state:
+		State.KNOCKBACK:
+			apply_knockback(delta)
+			if not has_knockback():
+				_on_knockback_finished()
+		State.MOVE:
+			if attack_range.is_colliding():
+				attack()
+			else:
+				_move_to_target()
 
-	if hit_box.can_hit():
-		if not is_attacking:
-			animation_player.play(attack_anims.pick_random())
-			is_attacking = true
-		return
-
+func _move_to_target():
 	if nav_agent.is_navigation_finished():
 		return
 	
@@ -82,13 +86,37 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		look_at(global_position + direction, Vector3.UP)
 
-	#var dir = -global_basis.z.normalized()
-	#velocity = dir * get_actual_speed()
 	move_and_slide()
-	animation_player.play(run_anim)
+	move()
 
-func take_damage(dmg: int):
-	hurt_box.health -= dmg
 
-func get_knockback_force(knock: Vector3) -> Vector3:
-	return global_basis.z.normalized() * knock.length()
+#region STATES
+func died(anim = "death"):
+	if state == State.DEAD: return
+	state = State.DEAD
+	animation_player.play(anim)
+
+func attack():
+	if state != State.MOVE: return
+
+	state = State.ATTACK
+	_play_attack()
+
+func _play_attack():
+	animation_player.play("attack%s" % attack_count)
+	
+	attack_count += 1
+	if attack_count >= max_attack_count:
+		attack_count = 0
+
+func move(anim = "move"):
+	if state == State.DEAD: return
+	state = State.MOVE
+	if animation_player.current_animation != anim:
+		animation_player.play(anim)
+
+func knockback_state():
+	if state == State.DEAD or state == State.KNOCKBACK: return
+	state = State.KNOCKBACK
+	animation_player.play("knockback")
+#endregion STATES

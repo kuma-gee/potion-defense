@@ -1,4 +1,4 @@
-[gd_scene load_steps=153 format=3 uid="uid://dks6w4ls71yt6"]
+[gd_scene load_steps=152 format=3 uid="uid://dks6w4ls71yt6"]
 
 [ext_resource type="Script" uid="uid://bkrembvwcg1br" path="res://magic/PlayParticleSystems.gd" id="1_kfubg"]
 [ext_resource type="Texture2D" uid="uid://ce37fcn8ptva0" path="res://assets/particles/course/Circle.png" id="2_q7ym2"]
@@ -26,51 +26,51 @@ vertex_color_is_srgb = true
 albedo_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 albedo_texture = ExtResource("2_q7ym2")
 
-[sub_resource type="Curve" id="Curve_qxpgd"]
+[sub_resource type="Curve" id="Curve_xcnfb"]
 _data = [Vector2(0, 1), 0.0, -1.9594055, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_vl1nw"]
-curve = SubResource("Curve_qxpgd")
+[sub_resource type="CurveTexture" id="CurveTexture_ln6wa"]
+curve = SubResource("Curve_xcnfb")
 
-[sub_resource type="Curve" id="Curve_4j635"]
+[sub_resource type="Curve" id="Curve_a24ld"]
 _limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 100), 221.18773, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_o6fdx"]
-curve = SubResource("Curve_4j635")
+[sub_resource type="CurveTexture" id="CurveTexture_lmcmr"]
+curve = SubResource("Curve_a24ld")
 
-[sub_resource type="Curve" id="Curve_dmhbs"]
+[sub_resource type="Curve" id="Curve_ol2xe"]
 _limits = [0.0, 10.0, 0.0, 1.0]
 _data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_krdqr"]
-curve = SubResource("Curve_dmhbs")
+[sub_resource type="CurveTexture" id="CurveTexture_h0a4y"]
+curve = SubResource("Curve_ol2xe")
 
-[sub_resource type="Curve" id="Curve_bqlr2"]
+[sub_resource type="Curve" id="Curve_sc4fk"]
 _data = [Vector2(0, 0), 0.0, 5.4588017, 0, 0, Vector2(0.4654088, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.04742964, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_i6sev"]
-curve = SubResource("Curve_bqlr2")
+[sub_resource type="CurveTexture" id="CurveTexture_chkq3"]
+curve = SubResource("Curve_sc4fk")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_siauy"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ah3pt"]
 particle_flag_align_y = true
 emission_shape = 2
 emission_sphere_radius = 3.0
 gravity = Vector3(0, 0, 0)
-radial_accel_min = -13.000002
+radial_accel_min = -8.000002
 radial_accel_max = -4.0000024
-radial_accel_curve = SubResource("CurveTexture_krdqr")
-damping_min = 3.0000002
-damping_max = 3.0000002
-damping_curve = SubResource("CurveTexture_o6fdx")
+radial_accel_curve = SubResource("CurveTexture_h0a4y")
+damping_min = 5.0
+damping_max = 5.0
+damping_curve = SubResource("CurveTexture_lmcmr")
 scale_min = 0.5
-scale_curve = SubResource("CurveTexture_i6sev")
+scale_curve = SubResource("CurveTexture_chkq3")
 color = Color(5.5, 3, 2, 1)
-alpha_curve = SubResource("CurveTexture_vl1nw")
+alpha_curve = SubResource("CurveTexture_ln6wa")
 
 [sub_resource type="QuadMesh" id="QuadMesh_35c7g"]
 size = Vector2(0.2, 1)
@@ -626,15 +626,13 @@ color = Color(4.5, 2.5, 1.5, 1)
 color_ramp = SubResource("GradientTexture1D_8t24w")
 alpha_curve = SubResource("CurveTexture_jlld2")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6p4q2"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vpcs"]
 render_priority = -1
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
-albedo_texture = SubResource("CompressedTexture2D_6p4q2")
+albedo_texture = ExtResource("12_sc4fk")
 
 [sub_resource type="Curve" id="Curve_wheaq"]
 _data = [Vector2(0.19496855, 1), 0.0, -1.7865163, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -941,28 +939,28 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1_kfubg")
 delays = {
 &"AnticipationParticles": 0.0,
-&"CircleGround": 0.0,
-&"Cylinder": 0.0,
-&"Fire": 0.55,
-&"GroundBeamDark": 0.6,
-&"GroundMarkBright": 0.55,
-&"GroundMarkDark": 0.6,
-&"HalfSphere": 0.55,
-&"ImpaceFlare": 0.5,
-&"ImpactParticles": 0.5,
-&"ShockwaveGround": 0.55,
-&"ShockwaveRings": 0.55,
-&"Smoke": 0.55
+&"CircleGround": 0.6,
+&"Cylinder": 0.6,
+&"Fire": 1.4,
+&"GroundBeamDark": 1.4,
+&"GroundMarkBright": 1.4,
+&"GroundMarkDark": 1.4,
+&"HalfSphere": 1.4,
+&"ImpaceFlare": 1.4,
+&"ImpactParticles": 1.4,
+&"ShockwaveGround": 1.4,
+&"ShockwaveRings": 1.4,
+&"Smoke": 1.4
 }
 
 [node name="AnticipationParticles" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_35c7g")
 emitting = false
-amount = 30
-lifetime = 0.4
+amount = 50
+lifetime = 0.8
 one_shot = true
 fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_siauy")
+process_material = SubResource("ParticleProcessMaterial_ah3pt")
 draw_pass_1 = SubResource("QuadMesh_35c7g")
 
 [node name="Cylinder" type="GPUParticles3D" parent="."]
@@ -1066,7 +1064,6 @@ draw_pass_1 = SubResource("QuadMesh_nb1nt")
 [node name="GroundBeamDark" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_mqgew")
-emitting = false
 amount = 1
 lifetime = 6.0
 one_shot = true
@@ -1075,6 +1072,7 @@ process_material = SubResource("ParticleProcessMaterial_vl1nw")
 draw_pass_1 = SubResource("QuadMesh_nb1nt")
 
 [node name="Fire" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_61j21")
 emitting = false
 amount = 50
@@ -1085,6 +1083,7 @@ process_material = SubResource("ParticleProcessMaterial_kfubg")
 draw_pass_1 = SubResource("QuadMesh_kfubg")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_gi8k8")
 emitting = false
 amount = 50

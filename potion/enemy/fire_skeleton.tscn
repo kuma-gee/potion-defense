@@ -1,162 +1,592 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds7te5bn0t7nr"]
+[gd_scene load_steps=34 format=3 uid="uid://c1iqm3nhm3m8q"]
 
-[ext_resource type="Script" uid="uid://1dcpeuely0gj" path="res://potion/enemy/enemy.gd" id="1_4nq6h"]
-[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="2_ll7cd"]
-[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_marap"]
-[ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_q7elp"]
-[ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_v6s0v"]
-[ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="6_oxwiu"]
-[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="7_ql8uk"]
+[ext_resource type="PackedScene" uid="uid://bbpop2ylo0vfo" path="res://potion/enemy/skeleton.tscn" id="1_ll7cd"]
+[ext_resource type="Script" uid="uid://bm2r4gbb2amt8" path="res://potion/enemy/fire_skeleton.gd" id="2_dj6t6"]
+[ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_epxrq"]
+[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="4_pofti"]
+[ext_resource type="Shader" uid="uid://msi4tojnjwwh" path="res://VFX-Fire/Shaders/s_shader_Fire.tres" id="5_go1c0"]
+[ext_resource type="Shader" uid="uid://b2pn125ubveid" path="res://VFX-Fire/Shaders/s_FirePoints.tres" id="6_w46aa"]
+[ext_resource type="Texture2D" uid="uid://dbm7ymg42h6rp" path="res://VFX-Fire/Textures/T_T_Flare05.PNG" id="7_84isb"]
+[ext_resource type="PackedScene" uid="uid://dks6w4ls71yt6" path="res://magic/red_beam_impact.tscn" id="8_8woa4"]
+[ext_resource type="Script" uid="uid://bmxiv2l1dkflu" path="res://potion/effect/status/elemental_area.gd" id="9_6fhoe"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rajcq"]
+[sub_resource type="Animation" id="Animation_gyv1v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedBeamImpact:play_particles")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton_Minion:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ZeldaFire:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ElementalArea:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ElementalArea:monitorable")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_marap"]
+resource_name = "attack0"
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton_Minion/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("1H_Melee_Attack_Chop"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.56666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pln5a"]
+resource_name = "death"
+length = 2.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton_Minion/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("Death_C_Skeletons"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZeldaFire:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ElementalArea:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ElementalArea:monitorable")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_v6s0v"]
+resource_name = "death_explode"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton_Minion:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ZeldaFire:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ElementalArea:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ElementalArea:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_0qolm"]
+resource_name = "explode"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedBeamImpact:play_particles")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExplosionHitBox")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.3333334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit"
+}]
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton_Minion/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("Cheer"),
+"times": PackedFloat32Array(0.033333335)
+}
+
+[sub_resource type="Animation" id="Animation_5nt5p"]
+resource_name = "knockback"
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton_Minion/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("Hit_B"),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_dc35x"]
+resource_name = "move"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton_Minion/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("Walking_D_Skeletons"),
+"times": PackedFloat32Array(0.033333335)
+}
+
+[sub_resource type="Animation" id="Animation_q7elp"]
+resource_name = "run"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton_Minion/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("Running_C"),
+"times": PackedFloat32Array(0.033333335)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0qolm"]
+_data = {
+&"RESET": SubResource("Animation_gyv1v"),
+&"attack0": SubResource("Animation_marap"),
+&"death": SubResource("Animation_pln5a"),
+&"death_explode": SubResource("Animation_v6s0v"),
+&"explode": SubResource("Animation_0qolm"),
+&"knockback": SubResource("Animation_5nt5p"),
+&"move": SubResource("Animation_dc35x"),
+&"run": SubResource("Animation_q7elp")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_marap"]
 size = Vector3(1, 1, 0.56640625)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a31gv"]
-radius = 0.6274414
+[sub_resource type="SphereShape3D" id="SphereShape3D_q7elp"]
+radius = 2.6790953
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_b0un1"]
-height = 1.7161865
-radius = 0.4165039
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6s0v"]
+render_priority = 0
+shader = ExtResource("5_go1c0")
+shader_parameter/Speed_Vector = Vector2(0, 0)
+shader_parameter/Distortion_Intensity = 8.0
 
-[node name="FireSkeleton" type="CharacterBody3D" node_paths=PackedStringArray("hit_box", "animation_player", "hurt_box")]
-collision_layer = 4
-script = ExtResource("1_4nq6h")
-attack_anims = Array[String](["1H_Melee_Attack_Chop", "1H_Melee_Attack_Jump_Chop", "1H_Melee_Attack_Slice_Diagonal"])
-hit_box = NodePath("Skeleton_Minion/HitBox")
-animation_player = NodePath("Skeleton_Minion/AnimationPlayer")
-hurt_box = NodePath("HurtBox")
+[sub_resource type="Curve" id="Curve_oxwiu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.38961, 0.0, 0, 0]
+point_count = 2
 
-[node name="Skeleton_Minion" parent="." instance=ExtResource("2_ll7cd")]
+[sub_resource type="CurveTexture" id="CurveTexture_0mr23"]
+texture_mode = 1
+curve = SubResource("Curve_oxwiu")
+
+[sub_resource type="Gradient" id="Gradient_ql8uk"]
+offsets = PackedFloat32Array(0, 0.409241, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0.939949, 0.468329, 0.247698, 1, 0.18817, 0.059457, 0.00723656, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yj6d1"]
+gradient = SubResource("Gradient_ql8uk")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kllo2"]
+emission_shape = 1
+emission_sphere_radius = 0.2
+angle_min = -120.0
+angle_max = 90.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+gravity = Vector3(0, 5, 0)
+damping_min = 1.5
+damping_max = 2.2
+scale_max = 2.0
+scale_over_velocity_min = 1.0
+scale_over_velocity_max = 2.5
+color = Color(0.32549, 0.32549, 0.32549, 1)
+color_ramp = SubResource("GradientTexture1D_yj6d1")
+alpha_curve = SubResource("CurveTexture_0mr23")
+hue_variation_min = -0.01
+hue_variation_max = 0.05
+
+[sub_resource type="QuadMesh" id="QuadMesh_1ddtj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dj6t6"]
+render_priority = 0
+shader = ExtResource("6_w46aa")
+shader_parameter/MainTexture = ExtResource("7_84isb")
+
+[sub_resource type="Curve" id="Curve_epxrq"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 2.58155), 0.0, 0.0, 0, 0, Vector2(0.977901, 1.09603), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fay21"]
+curve = SubResource("Curve_epxrq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pofti"]
+emission_shape = 1
+emission_sphere_radius = 0.4
+gravity = Vector3(0, 8, 0)
+damping_min = 1.5
+damping_max = 3.5
+scale_min = 0.05
+scale_max = 0.15
+scale_over_velocity_max = 1.0
+scale_over_velocity_curve = SubResource("CurveTexture_fay21")
+color = Color(2.5, 0.5, 0, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 0.1
+turbulence_noise_scale = 20.0
+turbulence_influence_min = 0.05
+turbulence_influence_max = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_go1c0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w46aa"]
+
+[node name="Skeleton" instance=ExtResource("1_ll7cd")]
+script = ExtResource("2_dj6t6")
+max_charges = 3
+burning_speed = 1.5
+max_attack_count = 1
+
+[node name="HurtBox" parent="." index="0"]
+resistance = Dictionary[int, float]({
+1: 0.8,
+2: 0.0,
+3: 0.0,
+4: 0.0
+})
+max_health = 30.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+&"": SubResource("AnimationLibrary_0qolm")
+}
+
+[node name="HitBox" type="Area3D" parent="." index="9"]
+transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, -3.5458186e-08, 0.8815528, -0.703918)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("3_epxrq")
+metadata/_custom_type_script = "uid://cuspqvicid1n2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
+shape = SubResource("BoxShape3D_marap")
+
+[node name="ExplosionHitBox" type="Area3D" parent="." index="10"]
+transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, 0, 0.95031404, 0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("3_epxrq")
+element = 1
+force = 10
+metadata/_custom_type_script = "uid://cuspqvicid1n2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionHitBox" index="0"]
+shape = SubResource("SphereShape3D_q7elp")
+
+[node name="Skeleton_Minion" parent="." index="11" instance=ExtResource("4_pofti")]
 transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Skeleton_Minion/Rig" index="0"]
-bones/1/position = Vector3(1.07185194e-07, 0.14339691, -0.44956738)
-bones/1/rotation = Quaternion(-0.55330735, 0.035934623, -0.023901902, 0.8318584)
-bones/1/scale = Vector3(0.99999994, 1, 0.99999994)
-bones/2/rotation = Quaternion(-0.10190803, -1.9309814e-09, -0.008820933, 0.99475473)
-bones/2/scale = Vector3(1.0000001, 1, 1.0000001)
-bones/3/rotation = Quaternion(-0.0022644866, -0.13511096, 0.026161611, 0.99048245)
-bones/3/scale = Vector3(1, 0.9999999, 1)
-bones/4/position = Vector3(0.21200736, 0.13413203, 7.9299625e-08)
-bones/4/rotation = Quaternion(-0.6420951, -0.04711344, -0.42477778, 0.6364418)
-bones/4/scale = Vector3(0.9999991, 0.9999986, 0.9999996)
-bones/5/rotation = Quaternion(7.814098e-08, -2.6910197e-08, -0.38818318, 0.92158234)
-bones/5/scale = Vector3(1.0000006, 0.99999946, 1)
-bones/6/rotation = Quaternion(1.44633185e-08, 1.2667185e-08, 0.026658092, 0.99964464)
-bones/6/scale = Vector3(0.99999994, 1, 1)
-bones/7/rotation = Quaternion(0.10592594, -0.80903506, -0.22159299, 0.53398365)
-bones/7/scale = Vector3(0.9999998, 0.99999976, 1.0000004)
-bones/8/position = Vector3(0.29384947, 0.29823476, -0.0711293)
-bones/8/rotation = Quaternion(-0.035273574, 0.035273686, -0.86542046, 0.49855703)
-bones/8/scale = Vector3(1, 1.0000001, 1.0000001)
-bones/9/position = Vector3(-0.21200737, 0.13413203, 8.6813984e-08)
-bones/9/rotation = Quaternion(-0.40267783, 0.1699058, 0.60587466, 0.6647545)
-bones/9/scale = Vector3(0.99999905, 0.9999985, 0.9999996)
-bones/10/rotation = Quaternion(2.9871007e-08, 2.0992525e-08, 0.46181715, 0.8869752)
-bones/10/scale = Vector3(1.0000008, 0.9999997, 0.9999999)
-bones/11/rotation = Quaternion(-4.94615e-10, -1.4597426e-08, -0.026658095, 0.99964464)
-bones/11/scale = Vector3(1.0000001, 1, 1)
-bones/12/rotation = Quaternion(0.21301277, 0.8824699, 0.032440953, 0.41811487)
-bones/12/scale = Vector3(0.9999998, 0.9999999, 1.0000002)
-bones/13/position = Vector3(-0.46186456, 0.46474555, -0.03534609)
-bones/13/rotation = Quaternion(0.011420607, -0.01142061, 0.90381396, 0.42762077)
-bones/13/scale = Vector3(1, 1.0000001, 1.0000001)
-bones/14/rotation = Quaternion(-0.06262047, -0.20973997, 0.022817671, 0.97548306)
-bones/14/scale = Vector3(1, 0.99999994, 1)
-bones/15/position = Vector3(0.17094508, 0.1135872, 1.5994095e-08)
-bones/15/rotation = Quaternion(0.96881133, -0.015341006, 0.03167596, 0.24528764)
-bones/15/scale = Vector3(0.99999994, 0.9999997, 1.0000008)
-bones/16/rotation = Quaternion(0.56306696, 5.749404e-08, -3.8516427e-07, 0.82641137)
-bones/16/scale = Vector3(1.0000004, 0.9999999, 0.99999994)
-bones/17/rotation = Quaternion(-0.56913376, -0.19365185, 0.09603581, 0.793324)
-bones/17/scale = Vector3(0.99999964, 1.0000006, 0.99999946)
-bones/18/rotation = Quaternion(-6.091545e-05, 0.9202005, -0.39144725, 1.2585806e-05)
-bones/18/scale = Vector3(0.99999994, 0.99999774, 1.0000024)
-bones/19/position = Vector3(-0.21542355, 0.11358731, -0.0038499269)
-bones/19/rotation = Quaternion(0.98450667, -0.035592813, -0.05622109, 0.16223155)
-bones/19/scale = Vector3(0.9999999, 0.99999976, 1.0000008)
-bones/20/rotation = Quaternion(0.46676713, -5.665441e-08, 3.2066023e-07, 0.8843803)
-bones/20/scale = Vector3(0.99999994, 0.99999976, 0.99999994)
-bones/21/rotation = Quaternion(-0.6413863, 0.24166676, -0.083117165, 0.7234034)
-bones/21/scale = Vector3(0.99999976, 1.0000006, 0.9999992)
-bones/22/rotation = Quaternion(3.916229e-05, 0.9200841, -0.391721, -7.4399004e-06)
-bones/22/scale = Vector3(1.0000002, 0.9999979, 1.0000024)
-bones/23/position = Vector3(0.17094496, 0.45388746, 0.2866854)
+bones/0/position = Vector3(-1.4210855e-14, 0, -0.7080524)
+bones/1/position = Vector3(2.7001283e-07, 0.057474405, -1.132516)
+bones/1/rotation = Quaternion(-0.20128584, 0.16953748, -0.035396274, 0.96409976)
+bones/2/rotation = Quaternion(-0.4598732, -0.11514558, -0.10150578, 0.8746169)
+bones/2/scale = Vector3(1, 1, 1.0000001)
+bones/3/rotation = Quaternion(-0.014178304, 1.3038927e-08, -0.0012272791, 0.99989873)
+bones/4/position = Vector3(0.84943664, 0.96133363, -0.27965483)
+bones/4/rotation = Quaternion(-0.43324566, -0.13477537, -0.8659963, 0.21020047)
+bones/4/scale = Vector3(0.9999996, 0.99999887, 0.9999999)
+bones/5/rotation = Quaternion(-1.2056123e-08, -4.293451e-08, -0.15635717, 0.98770064)
+bones/6/rotation = Quaternion(-2.2151489e-10, 4.3565183e-09, 0.026658094, 0.99964464)
+bones/7/rotation = Quaternion(0.01960462, -0.04633851, 0.0060860356, 0.99871486)
+bones/8/position = Vector3(-0.25038856, 0.2918995, 0.35582137)
+bones/8/rotation = Quaternion(0.75684416, -0.42245162, -0.38522452, 0.31673884)
+bones/8/scale = Vector3(0.99999994, 0.99999994, 1)
+bones/9/position = Vector3(-0.21200737, 0.13413244, 2.4517949e-08)
+bones/9/rotation = Quaternion(-0.6097938, 0.05871377, 0.52231556, 0.5932037)
+bones/10/rotation = Quaternion(3.3889343e-08, 3.704559e-08, 0.47493643, 0.88002014)
+bones/11/rotation = Quaternion(1.5096417e-08, 1.1073103e-08, -0.0266581, 0.99964464)
+bones/12/rotation = Quaternion(-0.21952336, 0.12574261, -0.6295077, 0.73465526)
+bones/13/position = Vector3(2.3758375e-07, 0.096125126, -0.057499886)
+bones/13/rotation = Quaternion(-0.048418418, 0.27514437, 0.6409678, 0.7149207)
+bones/13/scale = Vector3(1.0000001, 1.0000001, 1.0000001)
+bones/14/rotation = Quaternion(-0.025356315, -0.18597811, 0.029391637, 0.9817869)
+bones/14/scale = Vector3(1, 1, 0.9999999)
+bones/15/position = Vector3(0.17094506, 0.11358723, 1.1235642e-08)
+bones/15/rotation = Quaternion(0.710874, 0.21566981, 0.46012828, 0.4862373)
+bones/16/rotation = Quaternion(0.0020689743, 3.8409357e-08, 3.2257543e-09, 0.9999979)
+bones/17/rotation = Quaternion(0.007020357, -0.69015163, -0.071986616, 0.7200412)
+bones/18/rotation = Quaternion(0.030668259, 0.9716926, -0.23173906, -0.034202863)
+bones/19/position = Vector3(-0.52844167, -0.82312125, 1.672473)
+bones/19/rotation = Quaternion(0.5193577, -0.84855753, -0.06497396, 0.07743565)
+bones/19/scale = Vector3(0.9999998, 0.9999999, 1.0000012)
+bones/20/rotation = Quaternion(0.7141633, -6.2855094e-08, 5.410669e-07, 0.6999791)
+bones/21/rotation = Quaternion(-0.42176706, -0.13973148, -0.55218583, 0.7054634)
+bones/22/rotation = Quaternion(0.08970184, 0.94500273, -0.23444335, -0.20966588)
+bones/23/position = Vector3(0.20272522, 0.2923103, 0.8758124)
 bones/23/rotation = Quaternion(0.7071068, -2.2930234e-07, -4.6055177e-08, 0.7071068)
-bones/24/position = Vector3(0.23047143, 0.19433182, -0.015206784)
-bones/24/rotation = Quaternion(-0.9275717, 0.21581793, -0.069121234, 0.29707843)
-bones/25/rotation = Quaternion(-3.7252827e-09, -7.4505797e-09, 1, 5.293956e-23)
-bones/26/position = Vector3(-2.6049376e-08, 0.21343614, -5.171498e-09)
-bones/26/rotation = Quaternion(-1.012734e-07, 0.39108434, 0.92035484, -3.3509146e-08)
-bones/26/scale = Vector3(1, 0.99999994, 0.9999999)
-bones/27/position = Vector3(8.589881e-09, 0.16565004, -2.4096307e-09)
-bones/27/scale = Vector3(1, 0.99999994, 1)
-bones/28/rotation = Quaternion(1, 1.8626435e-09, 1.8725662e-07, 1.8626456e-09)
-bones/28/scale = Vector3(1, 1.0000001, 0.99999994)
-bones/29/rotation = Quaternion(4.1633502e-17, -6.740978e-17, -1.9466935e-08, 1)
-bones/30/position = Vector3(-0.17094514, 0.45388743, 0.2866853)
+bones/24/position = Vector3(0.20218202, 0.025990263, 0.5051812)
+bones/24/rotation = Quaternion(-0.7071068, -7.052851e-08, -7.0528486e-08, 0.7071068)
+bones/25/position = Vector3(4.9260432e-08, 1.052288, -0.04386048)
+bones/25/rotation = Quaternion(0.17088528, 0.4177409, 0.82591903, -0.33785874)
+bones/25/scale = Vector3(0.99999994, 0.99999994, 1)
+bones/26/position = Vector3(3.7529446e-09, 0.21343616, -1.0726939e-08)
+bones/26/rotation = Quaternion(-8.610213e-08, 0.39108434, 0.92035484, -3.111013e-08)
+bones/28/rotation = Quaternion(1, 1.0931621e-08, 1.9087975e-07, -1.4901158e-08)
+bones/29/rotation = Quaternion(1.3877937e-17, 3.7667942e-16, -1.9466935e-08, 1)
+bones/30/position = Vector3(-0.35255212, 0.29231027, 0.87581223)
 bones/30/rotation = Quaternion(0.7071068, -3.823849e-08, 1.4500867e-07, 0.7071068)
-bones/31/position = Vector3(-0.3108321, 0.2577161, -0.043337792)
-bones/31/rotation = Quaternion(-0.97271574, -0.15259336, 0.027083198, 0.17264414)
-bones/32/rotation = Quaternion(1.8626523e-09, -1.3832107e-22, 1, -1.1637394e-34)
-bones/33/position = Vector3(-1.114822e-08, 0.21343614, -2.5094192e-15)
-bones/33/rotation = Quaternion(-1.05795515e-07, 0.39108434, 0.92035484, -2.5864264e-08)
-bones/33/scale = Vector3(1.0000001, 1, 0.9999999)
-bones/34/position = Vector3(-6.3112755e-09, 0.16565004, 2.7069498e-09)
-bones/34/rotation = Quaternion(-0.39108434, -6.739311e-08, -6.2200165e-08, 0.92035484)
-bones/34/scale = Vector3(1.0000001, 1, 1)
-bones/35/rotation = Quaternion(1, 3.7652574e-09, 1.9487908e-07, 7.4505815e-09)
-bones/35/scale = Vector3(0.99999994, 1, 0.99999994)
-bones/36/rotation = Quaternion(1.00614094e-16, -6.7409847e-17, -1.574163e-08, 1)
-bones/36/scale = Vector3(1.0000001, 1, 1)
-bones/37/position = Vector3(0.51303405, -0.16842663, -1.2421123)
-bones/37/rotation = Quaternion(-0.7071068, -7.279511e-08, -7.279509e-08, 0.7071068)
-bones/38/position = Vector3(0.61551964, 0.18529224, -1.0123731)
-bones/38/rotation = Quaternion(0.45032257, 0.5451694, -0.45032233, 0.5451694)
-bones/39/position = Vector3(-0.453507, -0.16842663, -1.4593838)
+bones/31/position = Vector3(-0.17094526, 0.025990263, 0.94578934)
+bones/31/rotation = Quaternion(-0.7071068, -7.0528515e-08, -7.05285e-08, 0.7071068)
+bones/32/position = Vector3(1.9458106e-08, 0.28560174, 2.4286129e-15)
+bones/32/rotation = Quaternion(-5.5977165e-09, 1.7713627e-09, 0.9557709, 0.2941122)
+bones/33/position = Vector3(3.7529446e-09, 0.21343613, -1.0342986e-08)
+bones/33/rotation = Quaternion(-0.2095227, 0.23353717, 0.94532216, 0.089031905)
+bones/33/scale = Vector3(1, 0.99999994, 0.9999999)
+bones/34/position = Vector3(-2.1212434e-08, 0.16565005, -9.36086e-09)
+bones/34/rotation = Quaternion(-0.39108434, -6.8850014e-08, -6.5628754e-08, 0.92035484)
+bones/35/rotation = Quaternion(1, 6.4469927e-09, 1.8628896e-07, 1.2552757e-15)
+bones/36/rotation = Quaternion(-1.7694166e-16, -6.740986e-17, -1.946692e-08, 1)
+bones/37/position = Vector3(1.0895745, -0.20574272, -2.5127769)
+bones/37/rotation = Quaternion(-0.6846894, -0.1766363, -0.1766363, 0.6846895)
+bones/38/position = Vector3(1.0213678, 0.100924134, -2.1275163)
+bones/38/rotation = Quaternion(0.44171473, 0.70354897, 0.50430465, 0.2357624)
+bones/39/position = Vector3(-0.4535069, -0.11506438, -1.7829633)
 bones/39/rotation = Quaternion(-0.7071068, -7.279511e-08, -7.279509e-08, 0.7071068)
-bones/40/position = Vector3(-0.6159666, 0.18700165, -0.94941586)
-bones/40/rotation = Quaternion(-0.5720913, 0.4425181, -0.41558576, -0.55152315)
+bones/40/position = Vector3(-0.5817278, 0.23507112, -1.4907984)
+bones/40/rotation = Quaternion(-0.897657, 0.11471268, 0.41949213, -0.071269915)
 bones/40/scale = Vector3(1, 1.0000001, 1)
 
-[node name="HitBox" type="Area3D" parent="Skeleton_Minion"]
-transform = Transform3D(1.25, 0, 2.1316282e-14, 0, 1.25, 0, -2.1316282e-14, 0, 1.25, -3.2600347e-08, 1.101941, 0.8798975)
-collision_layer = 0
-collision_mask = 16
-script = ExtResource("3_marap")
-metadata/_custom_type_script = "uid://cuspqvicid1n2"
+[node name="Skeleton_Minion_ArmLeft" parent="Skeleton_Minion/Rig/Skeleton3D" index="0"]
+layers = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skeleton_Minion/HitBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
-shape = SubResource("BoxShape3D_rajcq")
+[node name="Skeleton_Minion_ArmRight" parent="Skeleton_Minion/Rig/Skeleton3D" index="1"]
+layers = 2
 
-[node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("status_manager")]
-collision_layer = 128
-collision_mask = 0
-script = ExtResource("4_q7elp")
-status_manager = NodePath("../StatusEffectManager")
-max_health = 50.0
+[node name="Skeleton_Minion_Body" parent="Skeleton_Minion/Rig/Skeleton3D" index="2"]
+layers = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0028687, -0.2604406)
-shape = SubResource("CapsuleShape3D_a31gv")
+[node name="Skeleton_Minion_Cloak" parent="Skeleton_Minion/Rig/Skeleton3D" index="3"]
+layers = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8600464, -0.103174105)
-shape = SubResource("CylinderShape3D_b0un1")
+[node name="Skeleton_Minion_Eyes" parent="Skeleton_Minion/Rig/Skeleton3D" index="4"]
+layers = 2
 
-[node name="StatusEffectManager" type="Node" parent="."]
-script = ExtResource("5_v6s0v")
-metadata/_custom_type_script = "uid://bn80he875obc8"
+[node name="Skeleton_Minion_Head" parent="Skeleton_Minion/Rig/Skeleton3D" index="5"]
+layers = 2
 
-[node name="Status" parent="." node_paths=PackedStringArray("status_manager") instance=ExtResource("6_oxwiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6572467, 1.6073931, 0)
-status_manager = NodePath("../StatusEffectManager")
+[node name="Skeleton_Minion_Jaw" parent="Skeleton_Minion/Rig/Skeleton3D" index="6"]
+layers = 2
 
-[node name="DamageLabel" parent="." node_paths=PackedStringArray("hurt_box") instance=ExtResource("7_ql8uk")]
-hurt_box = NodePath("../HurtBox")
+[node name="Skeleton_Minion_LegLeft" parent="Skeleton_Minion/Rig/Skeleton3D" index="7"]
+layers = 2
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
+[node name="Skeleton_Minion_LegRight" parent="Skeleton_Minion/Rig/Skeleton3D" index="8"]
+layers = 2
+
+[node name="ZeldaFire" type="Node3D" parent="." index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9507835, 0)
+visible = false
+
+[node name="Smoke" type="GPUParticles3D" parent="ZeldaFire" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 3.55271e-15, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_v6s0v")
+ignore_occlusion_culling = true
+amount = 20
+lifetime = 1.6
+randomness = 0.07
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_kllo2")
+draw_pass_1 = SubResource("QuadMesh_1ddtj")
+
+[node name="Ember" type="GPUParticles3D" parent="ZeldaFire" index="1"]
+material_override = SubResource("ShaderMaterial_dj6t6")
+amount = 50
+lifetime = 3.0
+randomness = 0.23
+process_material = SubResource("ParticleProcessMaterial_pofti")
+draw_pass_1 = SubResource("QuadMesh_go1c0")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0561353, 0)
+light_color = Color(1, 0.603922, 0, 1)
+light_energy = 8.94
+light_volumetric_fog_energy = 4.446
+light_specular = 0.992
+light_cull_mask = 4294967293
+omni_range = 3.0
+
+[node name="RedBeamImpact" parent="." index="13" instance=ExtResource("8_8woa4")]
+
+[node name="ElementalArea" type="Area3D" parent="." index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9931407, 0)
+script = ExtResource("9_6fhoe")
+metadata/_custom_type_script = "uid://bmxiv2l1dkflu"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElementalArea" index="0"]
+shape = SubResource("SphereShape3D_w46aa")
 
 [editable path="Skeleton_Minion"]

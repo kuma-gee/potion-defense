@@ -22,9 +22,6 @@ func _physics_process(delta: float) -> void:
 		status_effect_removed.emit(effect)
 
 func apply_effect(effect: StatusEffect) -> void:
-	if not effect:
-		return
-	
 	var target = get_parent()
 	if not target:
 		push_warning("StatusEffectManager has no parent to apply effects to")

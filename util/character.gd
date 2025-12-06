@@ -11,8 +11,8 @@ var slow_effects := {}
 func _ready() -> void:
 	hurt_box.knockbacked.connect(func(x): knockback = x)
 
-func get_actual_speed() -> float:
-	var actual_speed = speed
+func get_actual_speed(s = speed) -> float:
+	var actual_speed = s
 	for factor in slow_effects.values():
 		actual_speed *= factor
 	return actual_speed
@@ -21,18 +21,21 @@ func get_movement_direction() -> Vector3:
 	return Vector3.ZERO
 
 func apply_knockback(delta: float) -> bool:
-	var has_knockback = knockback.length() > 0.01
-	if has_knockback:
+	if has_knockback():
 		velocity = get_knockback_force(knockback)
 		knockback = knockback.lerp(Vector3.ZERO, delta * knockback_resistance)
 		move_and_slide()
+		return true
 
-	return has_knockback
+	return false
+
+func has_knockback():
+	return knockback.length() > 0.1
 
 func get_knockback_force(knock: Vector3) -> Vector3:
 	return knock
 
-func damage(amount: int, element: ElementalArea.Element) -> void:
+func effect_damage(amount: int, element: ElementalArea.Element) -> void:
 	hurt_box.hit(amount, 0, element)
 
 func slow(type: String, factor: float) -> void:

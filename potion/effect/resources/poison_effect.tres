@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_ddg4i")
 effect_name = "poison"
-damage_per_tick = 3
+damage_per_tick = 2
 duration = 10.0
+tick_interval = 0.5
 element = 4
 metadata/_custom_type_script = "uid://77byp8giveus"

@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://cvb6005pohejp" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Mage.glb" id="2_qw62i"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_ut6fv"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="4_18d5k"]
-[ext_resource type="Script" uid="uid://qmx6dl6rikwy" path="res://potion/enemy/spawn_attack.gd" id="5_qw62i"]
+[ext_resource type="Script" uid="uid://qmx6dl6rikwy" path="res://potion/enemy/utils/spawn_attack.gd" id="5_qw62i"]
 [ext_resource type="PackedScene" uid="uid://coo8mxuebhccj" path="res://magic/projectile.tscn" id="6_ut6fv"]
-[ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/status.tscn" id="7_18d5k"]
+[ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/utils/status.tscn" id="7_18d5k"]
 [ext_resource type="PackedScene" uid="uid://cfoo8o7cqicqx" path="res://magic/muzzle.tscn" id="7_1215r"]
 [ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="8_fntyg"]
-[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/damage_label.tscn" id="10_t2m1k"]
+[ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/utils/damage_label.tscn" id="10_t2m1k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ujkhk"]
 size = Vector3(1, 1, 0.56640625)

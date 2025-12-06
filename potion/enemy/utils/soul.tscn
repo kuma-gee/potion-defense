@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0rmnm1ehb0qg"]
 
-[ext_resource type="Script" uid="uid://bmjnbhnkf0ygc" path="res://potion/enemy/soul.gd" id="1_27t0x"]
+[ext_resource type="Script" uid="uid://bmjnbhnkf0ygc" path="res://potion/enemy/utils/soul.gd" id="1_27t0x"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1bvr3"]
 

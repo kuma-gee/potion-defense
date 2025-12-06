@@ -50,7 +50,7 @@ autoplay = ""
 
 [node name="SmallHit" parent="." instance=ExtResource("3_ylwkm")]
 element = 1
-damage = 50
+damage = 30
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]
 shape = SubResource("SphereShape3D_cmr3i")

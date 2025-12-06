@@ -110,10 +110,8 @@ func _spawn_single_enemy() -> void:
 	for i in range(lane_spawn_count):
 		var lane = valid_lanes[i]
 		var enemy_res = available_enemies.pick_random()
-		var enemy_resource = enemy_res.scene
-		var enemy_instance = enemy_resource.instantiate() as Node3D
+		var enemy_instance = enemy_res.instantiate() as Node3D
 		enemy_instance.position = lane.global_position
-		enemy_instance.resource = enemy_res
 		enemy_instance.tree_exited.connect(func(): _on_enemy_removed())
 		
 		enemy_spawn_root.add_child(enemy_instance)
