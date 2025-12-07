@@ -6,7 +6,7 @@ extends Control
 @export var potion_item: CauldronItem
 @export var page_label: Label
 
-var pages = [ItemResource.Type.POTION_FIRE_BOMB, ItemResource.Type.POTION_SLIME, ItemResource.Type.POTION_POISON_CLOUD]
+var pages = [ItemResource.Type.POTION_FIRE_BOMB, ItemResource.Type.POTION_BLIZZARD, ItemResource.Type.POTION_POISON_CLOUD]
 var current_page := 0:
 	set(v):
 		current_page = clamp(v, 0, max(pages.size() - 1, 0))

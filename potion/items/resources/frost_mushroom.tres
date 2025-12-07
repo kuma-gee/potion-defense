@@ -6,6 +6,5 @@
 
 [resource]
 script = ExtResource("1_item_res")
-type = 3
 texture = ExtResource("2_rqbvp")
 scene = ExtResource("1_vyuqf")

@@ -40,6 +40,9 @@ signal died()
 @export var item_label: Label
 @export var catch_area: Area3D
 
+@export_category("Wand")
+@export var wand_cooldown_label: Label
+
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
 
@@ -58,21 +61,52 @@ var reviving_player: FPSPlayer
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
-var upgrades: Array[UpgradeResource] = []
+var equipped_wand: WandResource = null
+var wand_ability: WandAbility = null
+var wand_cooldown_timer: float = 0.0
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
 		item_label.text = held_item_type.name if held_item_type else ""
 		item_texture.set_item(v)
 
-func add_upgrade(upgrade: UpgradeResource) -> void:
-	upgrades.append(upgrade)
+func equip_wand(wand: WandResource) -> void:
+	equipped_wand = wand
+	wand_ability = _create_wand_ability(wand)
+	wand_cooldown_timer = 0.0
+	print("Equipped wand: %s" % wand.name)
+
+func _create_wand_ability(wand: WandResource) -> WandAbility:
+	match wand.ability_type:
+		WandResource.AbilityType.PROCESSING_SPEED:
+			return ProcessingSpeedAbility.new(self, wand)
+		WandResource.AbilityType.TELEPORT:
+			return TeleportAbility.new(self, wand)
+		_:
+			push_error("Unknown wand ability type: %d" % wand.ability_type)
+			return null
+
+func use_wand_ability() -> bool:
+	if not equipped_wand or not wand_ability:
+		return false
+	
+	if wand_ability.is_active:
+		print("Wand already active")
+		return false
+	
+	if wand_cooldown_timer > 0.0:
+		print("Wand on cooldown: %.1fs remaining" % wand_cooldown_timer)
+		return false
+	
+	wand_ability.activate()
+	wand_cooldown_timer = equipped_wand.cooldown
+	return true
 
 func get_processing_speed() -> float:
 	var base_speed = 1.0
-	for upgrade in upgrades:
-		if upgrade.name == "Wand Speed":
-			base_speed += 0.5  # Each Wand Speed upgrade increases processing speed by 0.5
+	if wand_ability and wand_ability is ProcessingSpeedAbility:
+		base_speed *= (wand_ability as ProcessingSpeedAbility).get_speed_multiplier()
+	
 	return base_speed
 
 func get_interact_collision_point():
@@ -132,33 +166,35 @@ func _ready():
 		if event.is_action_pressed("switch_view"):
 			toggle_camera()
 		
-		if camera.current:
-			if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-				if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			else:
-				if event is InputEventMouseMotion:
-					var sens = mouse_sensitivity
-					rotate_y(-event.relative.x * sens.x)
-					camera_root.rotate_x(-event.relative.y * sens.y)
-					camera_root.rotation.x = clamp(camera_root.rotation.x, deg_to_rad(-70), deg_to_rad(70))
-				elif event.is_action_pressed("ui_cancel"):
-					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
-				elif event.is_action_pressed("interact"):
-					interact_ray.interact(self)
-				elif event.is_action_released("interact"):
-					interact_ray.release(self)
-		else:
-			if event is InputEventMouseMotion:
-				mouse_position = event.position
-			if event.is_action_pressed("interact"):
-				hand.interact(self)
-			elif event.is_action_released("interact"):
-				hand.release(self)
-			elif event.is_action_pressed("action"):
-				hand.action(self)
-			elif event.is_action_released("action"):
-				hand.action_released(self)
+		# if camera.current:
+		# 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		# 		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+		# 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		# 	else:
+		# 		if event is InputEventMouseMotion:
+		# 			var sens = mouse_sensitivity
+		# 			rotate_y(-event.relative.x * sens.x)
+		# 			camera_root.rotate_x(-event.relative.y * sens.y)
+		# 			camera_root.rotation.x = clamp(camera_root.rotation.x, deg_to_rad(-70), deg_to_rad(70))
+		# 		elif event.is_action_pressed("ui_cancel"):
+		# 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
+		# 		elif event.is_action_pressed("interact"):
+		# 			interact_ray.interact(self)
+		# 		elif event.is_action_released("interact"):
+		# 			interact_ray.release(self)
+		# else:
+		if event is InputEventMouseMotion:
+			mouse_position = event.position
+		if event.is_action_pressed("interact"):
+			hand.interact(self)
+		elif event.is_action_released("interact"):
+			hand.release(self)
+		elif event.is_action_pressed("action"):
+			hand.action(self)
+		elif event.is_action_released("action"):
+			hand.action_released(self)
+		elif event.is_action_pressed("wand_ability"):
+			use_wand_ability()
 				
 		if event.is_action_pressed("dash"):
 			dash_player()
@@ -212,6 +248,17 @@ func _physics_process(delta):
 	
 	dash_cooldown_timer = max(0.0, dash_cooldown_timer - delta)
 	dash_duration = max(0.0, dash_duration - delta)
+	wand_cooldown_timer = max(0.0, wand_cooldown_timer - delta)
+	
+	if wand_ability:
+		wand_ability.process(delta)
+	
+	if wand_cooldown_label:
+		if wand_cooldown_timer > 0.0:
+			wand_cooldown_label.text = "Wand: %.1fs" % wand_cooldown_timer
+			wand_cooldown_label.show()
+		else:
+			wand_cooldown_label.hide()
 	
 	if throw_button_held and has_item():
 		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
@@ -370,3 +417,6 @@ func reset(_restore = false):
 	throw_button_held = false
 	current_throw_force = 0.0
 	death_timer = 0.0
+	wand_cooldown_timer = 0.0
+	if wand_ability and wand_ability.is_active:
+		wand_ability.deactivate()

@@ -19,6 +19,7 @@ signal died()
 
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var hurt_box: HurtBox = $HurtBox
+@onready var zelda_fire: Node3D = $ZeldaFire
 
 var items: Array = []
 var mixing_player: FPSPlayer = null
@@ -56,6 +57,7 @@ var destroyed := false
 
 func _ready() -> void:
 	super()
+	zelda_fire.show()
 	_clear_items()
 	_reset_values()
 	

@@ -37,6 +37,7 @@ const RECIPIES = {
 var type: Type = Type.RED_HERB:
 	get():
 		var file_name = resource_path.split("/")[-1].split(".")[0].to_upper()
+		print(resource_path, ", ", file_name)
 		var idx = Type.keys().find(file_name)
 		if idx == -1:
 			return Type.RED_HERB

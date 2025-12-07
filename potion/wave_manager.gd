@@ -66,7 +66,8 @@ func _enemy_spawn_count():
 	# dynamically adjust based on players
 	# return min(current_wave_resource.min_enemy_count + floor((log(max(wave, 1)) / log(10)) * 10), current_wave_resource.max_enemy_count)
 	# TODO
-	return randi_range(current_wave_resource().min_enemy_count, current_wave_resource().max_enemy_count)
+	# return randi_range(current_wave_resource().min_enemy_count, current_wave_resource().max_enemy_count)
+	return current_wave_resource().min_enemy_count
 
 func next_wave() -> void:
 	if is_wave_active:

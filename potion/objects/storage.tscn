@@ -23,7 +23,7 @@ sprite = NodePath("Items")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="FarmCrate_Empty2" parent="." instance=ExtResource("2_mouuh")]
-transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43634033, 0.014580116)
@@ -67,3 +67,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3149414, 0)
 shape = SubResource("BoxShape3D_mouuh")
+
+[node name="RestoreTimer" type="Timer" parent="."]
+one_shot = true
