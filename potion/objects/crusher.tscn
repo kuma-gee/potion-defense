@@ -13,12 +13,6 @@ viewport_path = NodePath("Progress/SubViewport")
 viewport_path = NodePath("SubViewport")
 
 [node name="Crusher" instance=ExtResource("1_vmpsg")]
-item_processing = Dictionary[int, int]({
-0: 7,
-2: 4,
-3: 8,
-5: 6
-})
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)

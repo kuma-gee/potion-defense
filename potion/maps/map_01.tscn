@@ -1,16 +1,26 @@
-[gd_scene load_steps=24 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=30 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="2_f7537"]
-[ext_resource type="Resource" uid="uid://ddrsiydgfix0t" path="res://potion/maps/waves/level_0.tres" id="2_hjkg3"]
+[ext_resource type="Script" uid="uid://duah648hndjpr" path="res://potion/maps/waves/wave_resource.gd" id="2_vravf"]
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="3_46uui"]
 [ext_resource type="PackedScene" uid="uid://c1v1sluycsjxx" path="res://potion/maps/ingredient_spawn_area.tscn" id="3_fv6ge"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="3_ubtl6"]
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="4_f7537"]
+[ext_resource type="Resource" uid="uid://dhc355hjvy703" path="res://potion/maps/waves/skeleton_minion.tres" id="4_io850"]
 [ext_resource type="PackedScene" uid="uid://bx72tgxiybaif" path="res://potion/objects/oven.tscn" id="5_2vkgj"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="6_fv6ge"]
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="7_f7537"]
+[ext_resource type="Resource" uid="uid://pi03sfcu5jp1" path="res://potion/items/resources/frost_mushroom.tres" id="9_ed6x5"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="9_vdyvj"]
+[ext_resource type="MeshLibrary" uid="uid://c28kbansm5msh" path="res://defense/defense_meshes.tres" id="11_46uui"]
+[ext_resource type="PackedScene" uid="uid://c464j778ehuwc" path="res://potion/objects/chest.tscn" id="16_ed6x5"]
+
+[sub_resource type="Resource" id="Resource_ed6x5"]
+script = ExtResource("2_vravf")
+enemies = Array[ExtResource("3_46uui")]([ExtResource("4_io850")])
+metadata/_custom_type_script = "uid://duah648hndjpr"
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fg8lp"]
 vertices = PackedVector3Array(-12.975098, 0.5, -4.5998, -12.725098, 0.5, -5.0998, -13.225098, 0.5, -5.5998, -14.475098, 0.5, -4.8498, -23.975098, 0.5, -3.3498, -15.225098, 0.5, -3.3498, -15.225098, 0.5, -4.0998, -11.225098, 0.5, -7.8498, -10.475098, 0.5, -6.8498, -9.975098, 0.5, -7.0998, -9.975098, 0.5, -8.5998, -13.225098, 0.5, -7.0998, -12.475098, 0.5, -7.8498, -8.725098, 0.5, -17.5998, -23.975098, 0.5, -17.5998, -8.725098, 0.5, -9.0998, -7.2250977, 0.5, -7.0998, -7.7250977, 0.5, -6.5998, -6.2250977, 0.5, -5.8498, -5.4750977, 0.5, -6.8498, -7.2250977, 0.5, -8.3498, -3.9750977, 0.5, -6.8498, -3.4750977, 0.5, -6.0998, -1.9750977, 0.5, -6.8498, -2.2250977, 0.5, -8.3498, -7.9750977, 0.5, -9.0998, -1.4750977, 0.5, -9.0998, -0.72509766, 0.5, -9.0998, -0.72509766, 0.5, -17.5998, 0.27490234, 0.5, -6.8498, 1.0249023, 0.5, -6.3498, 1.5249023, 0.5, -7.0998, 0.52490234, 0.5, -8.5998, 3.2749023, 0.5, -7.0998, 5.5249023, 0.5, -8.8498, 3.7749023, 0.5, -6.3498, 5.7749023, 0.5, -7.0998, 6.7749023, 0.5, -9.5998, 6.7749023, 0.5, -17.5998, 8.274902, 0.5, -8.8498, 8.024902, 0.5, -7.3498, 10.274902, 0.5, -6.8498, 11.274902, 0.5, -7.8498, 11.024902, 0.5, -17.5998, 13.774902, 0.5, -4.5998, 14.274902, 0.5, -4.0998, 14.274902, 0.5, -5.0998, 13.024902, 0.5, -5.8498, 12.024902, 0.5, -5.0998, 12.274902, 0.5, -4.5998, 16.274902, 0.5, -5.8498, 17.024902, 0.5, -5.0998, 24.024902, 0.5, -4.3498, 17.024902, 0.5, -4.3498, 15.024902, 0.5, -5.8498, 13.024902, 0.5, -7.0998, 12.274902, 0.5, -7.8498, 24.024902, 0.5, -17.5998, 11.524902, 0.5, -3.8498, 11.024902, 0.5, -5.0998, 11.774902, 0.5, -2.3498, 10.274902, 0.5, -5.8498, 7.5249023, 0.5, -6.8498, 3.7749023, 0.5, -5.0998, 3.0249023, 0.5, -4.3498, 2.2749023, 0.5, -4.3498, 2.2749023, 0.5, 15.4002, 11.774902, 0.5, 15.4002, -12.475098, 0.5, -4.0998, -11.225098, 0.5, -5.0998, -9.225098, 0.5, -6.3498, -10.475098, 0.5, -5.8498, -5.9750977, 0.5, -4.5998, -12.475098, 0.5, -2.5998, -13.225098, 0.5, -2.0998, -13.225098, 0.5, 15.4002, -4.7250977, 0.5, 15.4002, -4.7250977, 0.5, -4.0998, -0.22509766, 0.5, -6.3498, 1.0249023, 0.5, -5.0998, -3.4750977, 0.5, -4.5998, -1.4750977, 0.5, -6.3498, 15.024902, 0.5, -3.0998, 14.274902, 0.5, -3.8498, 14.274902, 0.5, -2.5998, 13.524902, 0.5, -1.8498001, 16.524902, 0.5, -3.0998, 12.274902, 0.5, -1.8498001, 24.024902, 0.5, 15.4002, -14.475098, 0.5, -2.0998, -23.975098, 0.5, 15.4002)
@@ -50,6 +60,7 @@ sky_material = SubResource("ProceduralSkyMaterial_f7537")
 
 [sub_resource type="Environment" id="Environment_cfgyr"]
 background_mode = 2
+background_energy_multiplier = 0.5
 sky = SubResource("Sky_vravf")
 glow_enabled = true
 volumetric_fog_density = 0.03
@@ -59,7 +70,7 @@ volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
 script = ExtResource("1_f7537")
 lanes = NodePath("Lanes")
 spawn_points = [NodePath("Cauldron/SpawnPoint3"), NodePath("Cauldron/SpawnPoint4"), NodePath("Cauldron/SpawnPoint5"), NodePath("Cauldron/SpawnPoint6")]
-wave_resource = ExtResource("2_hjkg3")
+wave_resource = Array[ExtResource("2_vravf")]([SubResource("Resource_ed6x5")])
 cauldrons = [NodePath("Cauldron")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -78,7 +89,7 @@ shape = SubResource("BoxShape3D_46uui")
 mesh_library = ExtResource("1_1ce0p")
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(0, 0, 10, 65535, 0, 1441801, 65535, 65535, 1441802, 0, 65535, 10, 1, 65535, 9, 1, 0, 9, 2, 65535, 10, 3, 65535, 10, 4, 65535, 10, 5, 65535, 10, 6, 65535, 10, 7, 65535, 10, 8, 65535, 10, 6, 0, 10, 5, 0, 10, 4, 0, 10, 3, 0, 10, 2, 0, 10, 7, 0, 10, 8, 0, 10, 9, 0, 10, 9, 65535, 10, 65534, 65535, 10, 65533, 65535, 10, 65532, 65535, 10, 65532, 0, 10, 65533, 0, 10, 65534, 0, 10)
+"cells": PackedInt32Array(65534, 65535, 9, 65535, 65535, 9, 0, 65535, 9, 1, 65535, 9, 2, 65535, 9, 3, 65535, 9, 4, 65535, 9, 5, 65535, 9, 6, 65535, 9, 7, 65535, 9, 8, 65535, 9, 9, 65535, 9, 65533, 65535, 9, 65532, 65535, 9)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
@@ -93,7 +104,7 @@ shape = SubResource("BoxShape3D_fv6ge")
 
 [node name="IngredientSpawnArea2" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2258148, 0.10006881, -5.1087217)
-resource = ExtResource("7_f7537")
+resource = ExtResource("9_ed6x5")
 max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
@@ -102,6 +113,7 @@ shape = SubResource("BoxShape3D_fv6ge")
 
 [node name="Trees" type="Node3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+visible = false
 
 [node name="Tree" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.651085, 0, -7.5131984)
@@ -115,7 +127,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.687338, -9.536743e-07, -5.
 metadata/_edit_group_ = true
 
 [node name="Tree3" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.960227, 0, -4.2982492)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.284547, 0, -5.861186)
 metadata/_edit_group_ = true
 
 [node name="Progress" parent="NavigationRegion3D/Trees/Tree3" index="2"]
@@ -126,7 +138,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.839158, 0, -9.109457)
 metadata/_edit_group_ = true
 
 [node name="Tree5" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4029322, 0, -6.812108)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4029322, 0, -7.5728884)
 metadata/_edit_group_ = true
 
 [node name="Tree6" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
@@ -148,12 +160,21 @@ metadata/_edit_group_ = true
 texture = SubResource("ViewportTexture_f7537")
 
 [node name="Tree9" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.791074, 0, -4.430263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.791074, 0, -4.430263)
 metadata/_edit_group_ = true
 
 [node name="Tree10" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7466764, 0, -6.506602)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7466764, 0, -7.459718)
 metadata/_edit_group_ = true
+
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
+visible = false
+mesh_library = ExtResource("11_46uui")
+cell_center_y = false
+cell_scale = 2.0
+data = {
+"cells": PackedInt32Array(65535, 65532, 0, 5, 65531, 1441794, 7, 0, 1048576, 6, 0, 1048576, 5, 0, 1048576, 4, 0, 1048576, 3, 0, 1048576, 2, 0, 1048576, 1, 0, 1048576, 0, 0, 1048576, 65535, 0, 1048576, 65534, 0, 1048581)
+}
 
 [node name="Boudary" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7214756, 0.03148842)
@@ -200,34 +221,16 @@ visible = false
 layers = 524288
 mesh = SubResource("BoxMesh_vdyvj")
 
-[node name="Oven" parent="." instance=ExtResource("5_2vkgj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0338707, 0.19553995, -2.9234838)
-
 [node name="Lanes" type="Node3D" parent="."]
 
 [node name="Spawn" type="Marker3D" parent="Lanes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.080589, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.080589, 0, -1)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 28.137291, 22.916256)
 current = true
 fov = 20.0
 size = 10.832689
-
-[node name="Cauldron" parent="." instance=ExtResource("3_ubtl6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.000314, 0.0063118935, 0.008994579)
-
-[node name="SpawnPoint3" type="Marker3D" parent="Cauldron"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0003144, -0.0063118935, -0.008994579)
-
-[node name="SpawnPoint4" type="Marker3D" parent="Cauldron"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99968565, -0.0063118935, -0.008994579)
-
-[node name="SpawnPoint5" type="Marker3D" parent="Cauldron"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003143549, -0.0063118935, 0.9910054)
-
-[node name="SpawnPoint6" type="Marker3D" parent="Cauldron"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003143549, -0.0063118935, -1.0089946)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cfgyr")
@@ -243,6 +246,28 @@ shadow_caster_mask = 4294443007
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_vdyvj")
 volume_db = -25.0
+
+[node name="Cauldron" parent="." instance=ExtResource("3_ubtl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.000314, 0.23262823, -0.9910054)
+
+[node name="SpawnPoint3" type="Marker3D" parent="Cauldron"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0003144, -0.0063118935, -0.008994579)
+
+[node name="SpawnPoint4" type="Marker3D" parent="Cauldron"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99968565, -0.0063118935, -0.008994579)
+
+[node name="SpawnPoint5" type="Marker3D" parent="Cauldron"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003143549, -0.0063118935, 0.9910054)
+
+[node name="SpawnPoint6" type="Marker3D" parent="Cauldron"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003143549, -0.0063118935, -1.0089946)
+
+[node name="Oven" parent="." instance=ExtResource("5_2vkgj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0338707, 0.19553995, -2.9234838)
+
+[node name="Chest" parent="." instance=ExtResource("16_ed6x5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+item = ExtResource("7_f7537")
 
 [editable path="NavigationRegion3D/Trees/Tree"]
 [editable path="NavigationRegion3D/Trees/Tree/Progress"]

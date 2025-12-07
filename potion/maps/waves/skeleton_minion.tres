@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://dhc355hjvy703"]
+
+[ext_resource type="PackedScene" uid="uid://b6oe0nxhrpwln" path="res://potion/enemy/skeleton_minion.tscn" id="1_fk7cw"]
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="2_htr8e"]
+
+[resource]
+script = ExtResource("2_htr8e")
+scene = ExtResource("1_fk7cw")
+weight = 10

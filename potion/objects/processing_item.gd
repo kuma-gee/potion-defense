@@ -1,9 +1,12 @@
 extends RayInteractable
 
-@export var item_processing: Dictionary[ItemResource.Type, ItemResource.Type] = {}
 @export var automatic := false
 @export var progress: Node3D
 @export var process_time: float = 3.0
+
+var item_processing: Dictionary[ItemResource.Type, ItemResource.Type] = {
+	ItemResource.Type.SHARD_FRAGMENT: ItemResource.Type.SHARD_FRAGMENT_PULVERIZED
+}
 
 @onready var overheat_timer: Timer = $OverheatTimer
 @onready var overheat_start_timer: Timer = $OverheatStartTimer

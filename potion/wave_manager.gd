@@ -7,7 +7,7 @@ signal wave_completed()
 signal all_waves_completed()
 
 @export var wave_label: Label
-@export var wave_resource: WaveResource
+@export var wave_resource: Array[WaveResource]
 @export var enemy_spawn_root: Node3D
 
 @export var spawn_timer: Timer
@@ -21,11 +21,18 @@ var is_final_wave: bool = false
 
 var cauldrons := []
 
+var max_wave := 0
 var wave = 0:
 	set(v):
 		wave = v
 		if wave_resource:
-			wave_label.text = "Wave %s / %s" % [wave, wave_resource.max_wave]
+			wave_label.text = "Wave %s / %s" % [wave, max_wave]
+
+func current_wave_resource() -> WaveResource:
+	for wr in wave_resource:
+		if wave <= wr.until_wave:
+			return wr
+	return null
 
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_enemy)
@@ -37,10 +44,13 @@ func setup(map: Map):
 	
 	lane_root = map.lanes
 	wave_resource = map.wave_resource
+	wave_resource.sort_custom(func(a, b): return a.until_wave - b.until_wave)
 	
-	if wave_resource == null:
+	if wave_resource == null or wave_resource.is_empty():
 		push_error("WaveManager: No wave_resource found in map")
 		return
+	
+	max_wave = wave_resource[-1].until_wave
 
 	cauldrons = map.cauldrons.duplicate()
 	for c in cauldrons:
@@ -54,14 +64,16 @@ func setup(map: Map):
 
 func _enemy_spawn_count():
 	# dynamically adjust based on players
-	return min(wave_resource.min_enemy_count + floor((log(max(wave, 1)) / log(10)) * 10), wave_resource.max_enemy_count)
+	# return min(current_wave_resource.min_enemy_count + floor((log(max(wave, 1)) / log(10)) * 10), current_wave_resource.max_enemy_count)
+	# TODO
+	return randi_range(current_wave_resource().min_enemy_count, current_wave_resource().max_enemy_count)
 
 func next_wave() -> void:
 	if is_wave_active:
 		return
 	
-	if wave > wave_resource.max_wave:
-		push_error("WaveManager: Wave %d exceeds max_wave %d" % [wave, wave_resource.max_wave])
+	if wave > max_wave:
+		push_error("WaveManager: Wave %d exceeds max_wave %d" % [wave, max_wave])
 		return
 	
 	wave += 1
@@ -77,8 +89,9 @@ func _schedule_next_spawn() -> void:
 	"""Schedule the next enemy spawn with a random interval"""
 	if not is_wave_active or not wave_resource:
 		return
-	
-	var interval = randf_range(wave_resource.spawn_interval_min, wave_resource.spawn_interval_max)
+
+	var res = current_wave_resource()
+	var interval = randf_range(res.spawn_interval_min, res.spawn_interval_max)
 	spawn_timer.start(interval)
 
 func _on_spawn_enemy() -> void:
@@ -90,11 +103,7 @@ func _on_spawn_enemy() -> void:
 	_schedule_next_spawn()
 
 func _spawn_single_enemy() -> void:
-	if not enemy_spawn_root or wave_resource.enemy_resources.is_empty():
-		push_error("WaveManager: Missing enemy spawn root or enemy resources")
-		return
-	
-	var available_enemies = wave_resource.enemy_resources.duplicate()
+	var available_enemies = current_wave_resource().enemies.duplicate()
 	var valid_lanes =  lane_root.get_children()
 	if valid_lanes.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
@@ -109,7 +118,7 @@ func _spawn_single_enemy() -> void:
 	valid_lanes.shuffle()
 	for i in range(lane_spawn_count):
 		var lane = valid_lanes[i]
-		var enemy_res = available_enemies.pick_random()
+		var enemy_res = _pick_weighted_enemy(available_enemies)
 		var enemy_instance = enemy_res.instantiate() as Node3D
 		enemy_instance.position = lane.global_position
 		enemy_instance.tree_exited.connect(func(): _on_enemy_removed())
@@ -130,6 +139,25 @@ func _spawn_single_enemy() -> void:
 	enemies_spawned_this_wave += lane_spawn_count
 	print("Spawned enemy (total: %d, Wave %d)" % [enemies_spawned_this_wave, wave])
 
+func _pick_weighted_enemy(enemies: Array[EnemyResource]) -> PackedScene:
+	if enemies.is_empty():
+		push_error("WaveManager: No enemies available to pick from")
+		return null
+	
+	var total_weight := 0
+	for enemy in enemies:
+		total_weight += enemy.weight
+	
+	var random_value := randi_range(1, total_weight)
+	var cumulative_weight := 0
+	
+	for enemy in enemies:
+		cumulative_weight += enemy.weight
+		if random_value <= cumulative_weight:
+			return enemy.scene
+	
+	return enemies[0].scene
+
 func _on_enemy_removed() -> void:
 	if not is_wave_active or not is_inside_tree():
 		return
@@ -143,7 +171,7 @@ func _on_wave_completed() -> void:
 	spawn_timer.stop()
 
 	print("Wave %d completed!" % wave)
-	if wave >= wave_resource.max_wave:
+	if wave >= max_wave:
 		all_waves_completed.emit()
 	else:
 		wave_completed.emit()

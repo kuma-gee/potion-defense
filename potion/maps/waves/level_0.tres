@@ -1,13 +1,11 @@
 [gd_resource type="Resource" script_class="WaveResource" load_steps=3 format=3 uid="uid://ddrsiydgfix0t"]
 
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="1_717oh"]
 [ext_resource type="Script" uid="uid://duah648hndjpr" path="res://potion/maps/waves/wave_resource.gd" id="2_swy32"]
-[ext_resource type="PackedScene" uid="uid://d3if460xt0idk" path="res://potion/enemy/skeleton_tank.tscn" id="3_tk4qi"]
 
 [resource]
 script = ExtResource("2_swy32")
-max_wave = 3
 min_enemy_count = 2
 max_enemy_count = 5
 spawn_interval_max = 5.0
-enemy_resources = Array[PackedScene]([ExtResource("3_tk4qi")])
 metadata/_custom_type_script = "uid://duah648hndjpr"

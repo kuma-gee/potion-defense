@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://cq8ntdr7wflpb"]
+
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="1_426uh"]
+[ext_resource type="PackedScene" uid="uid://d3if460xt0idk" path="res://potion/enemy/skeleton_tank.tscn" id="1_lamt8"]
+
+[resource]
+script = ExtResource("1_426uh")
+scene = ExtResource("1_lamt8")

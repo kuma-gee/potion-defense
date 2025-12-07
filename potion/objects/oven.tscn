@@ -15,9 +15,6 @@ viewport_path = NodePath("SubViewport")
 height = 1.1733398
 
 [node name="Oven" instance=ExtResource("1_7uo5f")]
-item_processing = Dictionary[int, int]({
-5: 1
-})
 automatic = true
 
 [node name="Pot_1_Lid2" parent="." index="0" instance=ExtResource("2_ua5y3")]

@@ -473,9 +473,9 @@ material_override = SubResource("ShaderMaterial_waqu2")
 mesh = SubResource("QuadMesh_qmn7e")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12424132, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2010245, 0)
 light_color = Color(1, 0.603922, 0, 1)
-light_energy = 8.94
+light_energy = 3.0
 light_volumetric_fog_energy = 4.446
 light_specular = 0.992
 shadow_enabled = true
