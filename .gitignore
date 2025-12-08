@@ -8,5 +8,4 @@ assets/**/*.*
 # !assets/*.zip
 
 build/
-VFX*
 *.zip
