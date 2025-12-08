@@ -1,5 +1,5 @@
 class_name WandResource
-extends Resource
+extends UpgradeResource
 
 enum AbilityType {
 	PROCESSING_SPEED,
@@ -9,8 +9,6 @@ enum AbilityType {
 	SLOW_TIME
 }
 
-@export var name: String = ""
-@export var description: String = ""
 @export var ability_type: AbilityType = AbilityType.PROCESSING_SPEED
 @export var cooldown: float = 5.0
 @export var duration: float = 3.0

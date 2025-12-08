@@ -1,29 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://t5hlanwweip7"]
+[gd_scene load_steps=8 format=3 uid="uid://t5hlanwweip7"]
 
-[ext_resource type="PackedScene" uid="uid://bib5i83omj08y" path="res://assets/fantasy/Exports/glTF/Workbench.gltf" id="1_l83g0"]
 [ext_resource type="Script" uid="uid://dhv03andtviti" path="res://potion/objects/table.gd" id="1_ppnb3"]
 [ext_resource type="Script" uid="uid://cneuwfr2eouyv" path="res://potion/objects/placeable_slott.gd" id="3_r3je8"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="4_l27k1"]
+[ext_resource type="PackedScene" uid="uid://48vev3h5eyrt" path="res://assets/models/table.glb" id="5_r3je8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ch2ja"]
-size = Vector3(0.7, 0.7, 0.7)
+size = Vector3(0.94628906, 0.7, 1.0388184)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_r3je8"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_l27k1"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_l27k1"]
-size = Vector3(2.0114746, 0.69511414, 0.970459)
+size = Vector3(0.96777344, 0.39833832, 1.0058594)
 
 [node name="Table" type="Node3D"]
 script = ExtResource("1_ppnb3")
 
-[node name="Workbench2" parent="." instance=ExtResource("1_l83g0")]
-
 [node name="RayInteractable" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48426253, 0.9017697, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49788457, 0)
 collision_layer = 32768
 collision_mask = 32768
 script = ExtResource("3_r3je8")
@@ -36,22 +31,10 @@ shape = SubResource("BoxShape3D_ch2ja")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 texture = SubResource("ViewportTexture_r3je8")
 
-[node name="RayInteractable2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5157375, 0.9070249, 0)
-collision_layer = 32768
-collision_mask = 32768
-script = ExtResource("3_r3je8")
-metadata/_custom_type_script = "uid://buns64rcufm7p"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable2"]
-shape = SubResource("BoxShape3D_ch2ja")
-
-[node name="ItemPopup" parent="RayInteractable2" instance=ExtResource("4_l27k1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-texture = SubResource("ViewportTexture_l27k1")
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35433197, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20594406, 0)
 shape = SubResource("BoxShape3D_l27k1")
+
+[node name="table" parent="." instance=ExtResource("5_r3je8")]

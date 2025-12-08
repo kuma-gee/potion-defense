@@ -18,6 +18,8 @@ height = 5.4780273
 [node name="Tree" type="Area3D"]
 collision_layer = 32768
 collision_mask = 0
+monitoring = false
+monitorable = false
 script = ExtResource("1_bycdv")
 resource = ExtResource("2_blib2")
 metadata/_custom_type_script = "uid://buns64rcufm7p"

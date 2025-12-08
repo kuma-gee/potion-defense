@@ -7,6 +7,5 @@ script = ExtResource("1_ly4nu")
 effect_name = "frost"
 slow_multiplier = 0.5
 duration = 0.5
-tick_interval = 0.5
 element = 2
 metadata/_custom_type_script = "uid://lwbhlqabwjhg"

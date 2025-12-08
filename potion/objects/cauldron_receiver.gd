@@ -10,7 +10,7 @@ signal died()
 @export var progress: Range
 @export var overheat_progress: Range
 @export var mix_time_per_item := 4.0
-@export var mixing_speed_increase := 1.5
+@export var mixing_speed_increase := 2.0
 @export var overheat_time := 6.0
 @export var overheat_decrease := -1.0
 
@@ -65,7 +65,12 @@ func _ready() -> void:
 	health_bar.value = hurt_box.max_health
 	health_bar.max_value = hurt_box.max_health
 	hurt_box.health_changed.connect(func(): health_bar.value = hurt_box.health)
-	hurt_box.died.connect(func(): died.emit())
+	hurt_box.died.connect(func():
+		if Events.level == 0:
+			hurt_box.health = 5
+		else:
+			died.emit()
+	)
 	died.connect(func(): destroyed = true)
 	
 	interacted.connect(func(a: Node): handle_interacted(a))
@@ -84,6 +89,7 @@ func handle_interacted(actor: Node) -> void:
 		finished = false
 		overheating = false
 		_check_mixing_items()
+		Events.cauldron_used.emit()
 	elif not items.is_empty():
 		if _is_only_potions():
 			var item = items.pop_back()

@@ -1,7 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=18 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="PackedScene" uid="uid://vs01asc8vgjy" path="res://potion/maps/level_select.tscn" id="17_21lj0"]
+[ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="2_8f45c"]
+[ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/items/UI_Soul.png" id="6_8f45c"]
+[ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/items/UI_Recipe.png" id="6_i3qjy"]
+[ext_resource type="Script" uid="uid://b6qt123rna2ch" path="res://potion/ui/shop.gd" id="9_hbg1b"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="10_3ullh"]
+[ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
@@ -12,11 +17,100 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover")]
+[sub_resource type="Animation" id="Animation_m0roi"]
+resource_name = "open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(896, 476), Vector2(896, 476), Vector2(3, 951)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_i3qjy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(896, 476)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3qjy"]
+_data = {
+&"RESET": SubResource("Animation_i3qjy"),
+&"open": SubResource("Animation_m0roi")
+}
+
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "shop", "new_recipe", "recipes_btn")]
 script = ExtResource("1_1w3wt")
-souls_label = NodePath("InGameCanvas/MarginContainer2/PanelContainer/MarginContainer/Souls")
+souls_label = NodePath("InGameCanvas/MarginContainer2/HBoxContainer/Souls")
 recipe_ui = NodePath("InGameCanvas/Control/Recipes")
 gameover = NodePath("InGameCanvas/Control/Gameover")
+shop = NodePath("InGameCanvas/Shop")
+new_recipe = NodePath("InGameCanvas/NewRecipe")
+recipes_btn = NodePath("InGameCanvas/Recipes")
+current_level = ExtResource("2_8f45c")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -37,17 +131,10 @@ one_shot = true
 
 [node name="PlayerRoot" type="Node3D" parent="."]
 
-[node name="LevelSelect" parent="." node_paths=PackedStringArray("spawn_points") instance=ExtResource("17_21lj0")]
-spawn_points = [NodePath("Spawn")]
-
-[node name="Spawn" type="Marker3D" parent="LevelSelect"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
-[node name="PlayerJoin" type="Node" parent="LevelSelect" node_paths=PackedStringArray("player_root", "spawn_points")]
+[node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
 script = ExtResource("24_8mtc6")
-player_root = NodePath("../../PlayerRoot")
+player_root = NodePath("../PlayerRoot")
 player_scene = ExtResource("17_ho6vn")
-spawn_points = [NodePath("../Spawn")]
 
 [node name="InGameCanvas" type="CanvasLayer" parent="."]
 
@@ -78,26 +165,59 @@ layout_mode = 2
 text = "Wave 1/4"
 
 [node name="MarginContainer2" type="MarginContainer" parent="InGameCanvas"]
+offset_right = 107.0
+offset_bottom = 80.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("6_8f45c")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Souls" type="Label" parent="InGameCanvas/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = " 0"
+
+[node name="Recipes" type="MarginContainer" parent="InGameCanvas"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
 offset_right = 99.0
-offset_bottom = 63.0
+grow_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Recipes"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+texture = ExtResource("6_i3qjy")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/MarginContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Souls" type="Label" parent="InGameCanvas/MarginContainer2/PanelContainer/MarginContainer"]
-layout_mode = 2
-text = "Souls: 0"
+[node name="Label" type="Label" parent="InGameCanvas/Recipes/TextureRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/outline_size = 8
+text = "TAB"
 
 [node name="Control" type="Control" parent="InGameCanvas"]
 layout_mode = 3
@@ -229,5 +349,82 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
+
+[node name="Shop" type="CenterContainer" parent="InGameCanvas" node_paths=PackedStringArray("container", "close_btn")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_hbg1b")
+container = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
+close_btn = NodePath("PanelContainer/MarginContainer/VBoxContainer/Button")
+
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Shop"]
+custom_minimum_size = Vector2(700, 800)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Shop/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Shop/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="InGameCanvas/Shop/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shop"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Shop/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="InGameCanvas/Shop/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="NewRecipe" type="TextureRect" parent="InGameCanvas" node_paths=PackedStringArray("item")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.00159
+offset_bottom = 64.001465
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("10_3ullh")
+expand_mode = 2
+stretch_mode = 5
+script = ExtResource("11_m0roi")
+item = NodePath("MarginContainer/PanelContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/NewRecipe"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="PanelContainer" parent="InGameCanvas/NewRecipe/MarginContainer" instance=ExtResource("19_1w3wt")]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/NewRecipe"]
+libraries = {
+&"": SubResource("AnimationLibrary_i3qjy")
+}
 
 [connection signal="game_over" from="WaveManager" to="InGameCanvas/Control/Gameover" method="show_gameover"]

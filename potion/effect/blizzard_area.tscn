@@ -267,7 +267,7 @@ size = Vector3(4.6416016, 0.14428711, 4.201172)
 
 [node name="SmallHit" parent="." instance=ExtResource("10_xdjkm")]
 element = 2
-damage = 20
+damage = 25.0
 force = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]

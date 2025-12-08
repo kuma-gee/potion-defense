@@ -2,8 +2,9 @@ class_name Storage
 extends RayInteractable
 
 @export var auto_fill: ItemResource
-@export var max_capacity := 6
+@export var max_capacity := 5
 @export var items_list: Control
+@export var item_scene: PackedScene
 
 @onready var restore_timer: Timer = $RestoreTimer
 
@@ -66,12 +67,9 @@ func _update_items_list() -> void:
 		child.queue_free()
 
 	for item in storage:
-		var tex = TextureRect.new()
-		tex.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-		tex.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		tex.custom_minimum_size = Vector2(32, 32)
-		tex.texture = item.texture
-		items_list.add_child(tex)
+		var node = item_scene.instantiate()
+		node.item = item
+		items_list.add_child(node)
 
 func reset(_restore = false):
 	storage = []

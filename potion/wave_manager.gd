@@ -44,7 +44,7 @@ func setup(map: Map):
 	
 	lane_root = map.lanes
 	wave_resource = map.wave_resource
-	wave_resource.sort_custom(func(a, b): return a.until_wave - b.until_wave)
+	# wave_resource.sort_custom(func(a, b): return a.until_wave - b.until_wave)
 	
 	if wave_resource == null or wave_resource.is_empty():
 		push_error("WaveManager: No wave_resource found in map")
@@ -59,15 +59,15 @@ func setup(map: Map):
 			if cauldrons.is_empty():
 				game_over.emit()
 		)
-	
-	next_wave()
 
 func _enemy_spawn_count():
 	# dynamically adjust based on players
 	# return min(current_wave_resource.min_enemy_count + floor((log(max(wave, 1)) / log(10)) * 10), current_wave_resource.max_enemy_count)
 	# TODO
-	# return randi_range(current_wave_resource().min_enemy_count, current_wave_resource().max_enemy_count)
 	return current_wave_resource().min_enemy_count
+
+func can_start_wave():
+	return not is_wave_active and wave < max_wave
 
 func next_wave() -> void:
 	if is_wave_active:

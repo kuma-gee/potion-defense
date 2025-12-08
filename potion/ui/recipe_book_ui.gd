@@ -6,17 +6,29 @@ extends Control
 @export var potion_item: CauldronItem
 @export var page_label: Label
 
-var pages = [ItemResource.Type.POTION_FIRE_BOMB, ItemResource.Type.POTION_BLIZZARD, ItemResource.Type.POTION_POISON_CLOUD]
+var pages = []
 var current_page := 0:
 	set(v):
 		current_page = clamp(v, 0, max(pages.size() - 1, 0))
 		page_label.text = "Page %d/%d" % [current_page + 1, pages.size()]
 		refresh_ingredients()
 
+func update_unlocked(recipes: Array[ItemResource.Type]) -> void:
+	pages = []
+	for r in recipes:
+		if r in ItemResource.RECIPIES.keys():
+			pages.append(r)
+
+	pages.sort()
+	current_page = 0
+	refresh_ingredients()
+
 func refresh_ingredients() -> void:
 	for child in ingredient_container.get_children():
 		child.queue_free()
 
+	if pages.is_empty(): return
+	
 	var potion = pages[current_page]
 	for item in ItemResource.RECIPIES[potion]:
 		var item_instance = item_scene.instantiate() as CauldronItem
@@ -27,16 +39,12 @@ func refresh_ingredients() -> void:
 
 func _ready() -> void:
 	hide()
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	current_page = 0
-	visibility_changed.connect(func():
-		get_tree().paused = visible
-	)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible: return
 	
-	if event.is_action_pressed("pause") or event.is_action_pressed("back"):
+	if event.is_action_pressed("recipes") or event.is_action_pressed("back"):
 		close()
 	elif event.is_action_pressed("ui_left") or event.is_action_pressed("move_left"):
 		current_page -= 1
@@ -46,6 +54,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 func pause() -> void:
+	if pages.is_empty(): return
+	
 	show()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 

@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://d1wk88cka5rkk" path="res://potion/maps/ingredient_spawn_area.gd" id="1_s0bdr"]
 [ext_resource type="Script" uid="uid://23orieu26yu5" path="res://potion/random_timer.gd" id="2_koaa2"]
 
-[node name="IngredientSpawnArea" type="Area3D" node_paths=PackedStringArray("respawn_timer")]
+[node name="IngredientSpawnArea" type="Area3D"]
 script = ExtResource("1_s0bdr")
-respawn_timer = NodePath("RespawnTimer")
 
 [node name="RespawnTimer" type="Timer" parent="."]
 script = ExtResource("2_koaa2")

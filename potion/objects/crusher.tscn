@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/objects/processing_item.tscn" id="1_vmpsg"]
-[ext_resource type="PackedScene" uid="uid://cvc0gceadkxp0" path="res://assets/fantasy/Exports/glTF/Table_Plate.gltf" id="2_vmpsg"]
+[ext_resource type="PackedScene" uid="uid://cn1142lp317en" path="res://assets/models/crusher.glb" id="3_jp6c7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(0.80371094, 0.4440918, 0.7421875)
@@ -18,8 +18,7 @@ viewport_path = NodePath("SubViewport")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
 shape = SubResource("BoxShape3D_vv5mg")
 
-[node name="Table_Plate2" parent="." index="1" instance=ExtResource("2_vmpsg")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+[node name="crusher" parent="." index="1" instance=ExtResource("3_jp6c7")]
 
 [node name="ProcessTimer" parent="." index="2"]
 wait_time = 2.0

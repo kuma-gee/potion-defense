@@ -3,12 +3,13 @@ extends Area3D
 
 const MAX_SPAWN_ATTEMPTS := 10
 
-@export var min_item_distance := 0.5
+@export var min_item_distance := 1.0
 @export var resource: ItemResource
-@export var respawn_timer: RandomTimer
 @export var max_count: int = 6
 @export var spawn_parent: Node3D
 @export var spawn_shape: CollisionShape3D
+
+@onready var respawn_timer: RandomTimer = $RespawnTimer
 
 var rng := RandomNumberGenerator.new()
 var spawned_items: Array[Node3D] = []
@@ -25,7 +26,7 @@ func _fill_to_max() -> void:
 			break
 
 func _spawn_ingredient() -> bool:
-	if spawned_items.size() >= max_count:
+	if spawned_items.size() >= max_count or not resource:
 		return false
 
 	var scene: PackedScene = resource.scene
@@ -64,12 +65,11 @@ func _find_free_spawn_point() -> Variant:
 func _get_random_point_in_area() -> Vector3:
 	if spawn_shape and spawn_shape.shape:
 		var shape = spawn_shape.shape as BoxShape3D
-		var local_point = Vector3(
-			rng.randf_range(spawn_shape.position.x - shape.size.x/2, spawn_shape.position.x + shape.size.x/2),
-			spawn_shape.position.y,
-			rng.randf_range(spawn_shape.position.z - shape.size.z/2, spawn_shape.position.z + shape.size.z/2)
+		return spawn_shape.global_position + Vector3(
+			rng.randf_range(-shape.size.x/2, shape.size.x/2),
+			0,
+			rng.randf_range(-shape.size.z/2, shape.size.z/2)
 		)
-		return spawn_shape.to_global(local_point)
 	return global_position
 
 func _is_position_free(point: Vector3) -> bool:
@@ -83,13 +83,9 @@ func _is_position_free(point: Vector3) -> bool:
 	if world == null:
 		return true
 	var space_state := world.direct_space_state
-	var params := PhysicsPointQueryParameters3D.new()
-	params.position = point
-	params.collide_with_areas = true
-	params.collide_with_bodies = true
-	params.collision_mask = collision_mask if collision_mask != 0 else 0xFFFFFFFF
-	params.exclude = [get_rid()]
-	var result := space_state.intersect_point(params, 1)
+	var query = PhysicsRayQueryParameters3D.create(point, point + Vector3.UP)
+	query.hit_from_inside = true
+	var result := space_state.intersect_ray(query)
 	return result.is_empty()
 
 func _on_respawn_timeout() -> void:

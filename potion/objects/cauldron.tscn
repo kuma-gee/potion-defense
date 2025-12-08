@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=86 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://b3e3wgyhn8qnp" path="res://assets/fantasy/Exports/glTF/Cauldron.gltf" id="2_scje4"]
 [ext_resource type="Shader" uid="uid://msi4tojnjwwh" path="res://VFX-Fire/Shaders/s_shader_Fire.tres" id="3_1rqmf"]
@@ -18,11 +18,13 @@
 [ext_resource type="Texture2D" uid="uid://djtd4uc4abq6f" path="res://VFX-Puff/Textures/T_VFX_Glo31.png" id="14_ek1wr"]
 [ext_resource type="Shader" uid="uid://bc0h30a246uhg" path="res://VFX-Puff/Shaders/s_simple2.tres" id="15_k7m8g"]
 [ext_resource type="Texture2D" uid="uid://cdga0j4g0dlx3" path="res://VFX-Puff/Textures/T_basic1_vfx.PNG" id="16_nv7qt"]
+[ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://potion/objects/outline.gdshader" id="20_ek1wr"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
+[ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/items/UI_Cauldron.png" id="20_nv7qt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
 height = 1.1645508
-radius = 0.8105469
+radius = 0.62109375
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_te68b"]
 render_priority = 0
@@ -118,8 +120,8 @@ shader_parameter/Main_TEX = ExtResource("8_fodno")
 size = Vector2(1.7, 2)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2ndv3"]
-height = 1.2201538
-radius = 0.6850586
+height = 0.8102722
+radius = 0.46826172
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mp46c"]
 viewport_path = NodePath("CurrentItem/SubViewport")
@@ -429,13 +431,19 @@ bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1wr"]
 bg_color = Color(0, 0.72253454, 0.28125608, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_22ia0"]
+shader = ExtResource("20_ek1wr")
+shader_parameter/allow_out_of_bounds = false
+shader_parameter/outline_thickness = 12.0
+shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
+
 [node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "progress", "overheat_progress", "success_anim", "failure_anim") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
 item_container = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients")
 item_scene = ExtResource("3_mp46c")
-health_bar = NodePath("CanvasLayer/MarginContainer/ProgressBar")
+health_bar = NodePath("CanvasLayer/MarginContainer/HBoxContainer/ProgressBar")
 progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
 overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
@@ -475,6 +483,7 @@ mesh = SubResource("QuadMesh_qmn7e")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2010245, 0)
+visible = false
 light_color = Color(1, 0.603922, 0, 1)
 light_energy = 3.0
 light_volumetric_fog_energy = 4.446
@@ -492,11 +501,10 @@ text = "Stuff"
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.61605835, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41111755, 0)
 shape = SubResource("CylinderShape3D_2ndv3")
 
 [node name="Cauldron2" parent="." instance=ExtResource("2_scje4")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="CurrentItem" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0964718, 0)
@@ -646,17 +654,50 @@ offset_left = -300.0
 offset_right = 300.0
 offset_bottom = 30.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_nv7qt")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ek1wr")
 value = 29.52
 show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/MarginContainer/Control"]
+material = SubResource("ShaderMaterial_22ia0")
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.27925268
+pivot_offset = Vector2(24, 24)
+texture = ExtResource("20_nv7qt")
+expand_mode = 2
+stretch_mode = 5
 
 [editable path="Cauldron2"]

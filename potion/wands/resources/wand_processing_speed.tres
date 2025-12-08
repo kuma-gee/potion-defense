@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WandResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://potion/wands/wand_resource.gd" id="1_abc123"]
+[ext_resource type="Script" uid="uid://fyvkpyi3xxto" path="res://potion/wands/resources/wand_resource.gd" id="1_abc123"]
 
 [resource]
 script = ExtResource("1_abc123")

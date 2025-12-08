@@ -8,6 +8,9 @@ var time := 0.0:
 	set(v):
 		time = clamp(v, 0, continue_timer)
 
+func _ready() -> void:
+	visibility_changed.connect(func(): monitoring = visible)
+
 func _process(delta: float) -> void:
 	if not map: return
 	
@@ -20,4 +23,5 @@ func _process(delta: float) -> void:
 		time -= delta
 
 func _all_players_inside() -> bool:
+	if not monitoring: return false
 	return Events.get_player_count() > 0 and get_overlapping_bodies().size() >= Events.get_player_count()
