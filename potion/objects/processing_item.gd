@@ -5,7 +5,7 @@ extends RayInteractable
 @export var process_time: float = 3.0
 
 var item_processing: Dictionary[ItemResource.Type, ItemResource.Type] = {
-	ItemResource.Type.SHARD_FRAGMENT: ItemResource.Type.SHARD_FRAGMENT_PULVERIZED
+	ItemResource.Type.CRYSTAL: ItemResource.Type.CRYSTAL_CRUSHED
 }
 
 @onready var overheat_timer: Timer = $OverheatTimer

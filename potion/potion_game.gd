@@ -87,7 +87,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _setup_map():
 	map = current_level.instantiate() as Map
 	wave_manager.setup(map)
-	#_move_players_to_map(map)
+	_move_players_to_map(map)
 
 func _move_players_to_map(m: Map) -> void:
 	for player in player_root.get_children():

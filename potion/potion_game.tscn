@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="2_8f45c"]
+[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_4p3ka"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/items/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/items/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Script" uid="uid://b6qt123rna2ch" path="res://potion/ui/shop.gd" id="9_hbg1b"]
@@ -110,7 +110,7 @@ gameover = NodePath("InGameCanvas/Control/Gameover")
 shop = NodePath("InGameCanvas/Shop")
 new_recipe = NodePath("InGameCanvas/NewRecipe")
 recipes_btn = NodePath("InGameCanvas/Recipes")
-current_level = ExtResource("2_8f45c")
+current_level = ExtResource("2_4p3ka")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")

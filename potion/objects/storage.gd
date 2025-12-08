@@ -17,6 +17,7 @@ func _ready() -> void:
 		restore_timer.wait_time = auto_fill.restore_time
 		while not is_max_capacity():
 			storage.append(auto_fill)
+		_update_items_list()
 
 	hovered.connect(func(a: FPSPlayer): label.text = "Storage" if _can_store(a) else ("Take" if storage.size() > 0 else ""))
 	interacted.connect(func(actor: Node):
@@ -28,6 +29,7 @@ func _ready() -> void:
 func _refill():
 	if is_max_capacity(): return
 	storage.append(auto_fill)
+	_update_items_list()
 
 func is_max_capacity():
 	return storage.size() >= max_capacity
