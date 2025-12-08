@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bbpop2ylo0vfo" path="res://potion/enemy/skeleton.tscn" id="1_40km2"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="2_26fy3"]
-[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="3_beogp"]
+[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/gltf/Skeleton_Minion.glb" id="3_beogp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rajcq"]
 size = Vector3(1, 1.4606934, 0.6422119)

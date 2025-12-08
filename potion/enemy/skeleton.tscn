@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bn80he875obc8" path="res://potion/effect/status/status_effect_manager.gd" id="5_m2tjx"]
 [ext_resource type="PackedScene" uid="uid://cp3cr67lwt4i0" path="res://potion/enemy/utils/status.tscn" id="6_rkmq4"]
 [ext_resource type="PackedScene" uid="uid://oneks4klv0fw" path="res://potion/enemy/utils/damage_label.tscn" id="6_xtrx3"]
-[ext_resource type="Script" uid="uid://byss77ynwhvcc" path="res://potion/enemy/utils/object_spawner.gd" id="9_dae3u"]
+[ext_resource type="Script" uid="uid://byss77ynwhvcc" path="res://util/object_spawner.gd" id="9_dae3u"]
 [ext_resource type="PackedScene" uid="uid://c0rmnm1ehb0qg" path="res://potion/enemy/utils/soul.tscn" id="10_pg0n3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a31gv"]

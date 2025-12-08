@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=17 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_4p3ka"]
-[ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/items/UI_Soul.png" id="6_8f45c"]
-[ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/items/UI_Recipe.png" id="6_i3qjy"]
+[ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
+[ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Script" uid="uid://b6qt123rna2ch" path="res://potion/ui/shop.gd" id="9_hbg1b"]
-[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="10_3ullh"]
 [ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
@@ -16,6 +15,45 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
+
+[sub_resource type="Animation" id="Animation_i3qjy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(896, 476)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_m0roi"]
 resource_name = "open"
@@ -55,45 +93,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_i3qjy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(896, 476)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i3qjy"]
@@ -396,12 +395,11 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
 offset_top = -64.0
-offset_right = 64.00159
-offset_bottom = 64.001465
+offset_right = 64.00122
+offset_bottom = 64.00073
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(64, 64)
-texture = ExtResource("10_3ullh")
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("11_m0roi")

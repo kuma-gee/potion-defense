@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dw0180h13v165"]
 
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_08a2m"]
-[ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/items/Items_IceShard.png" id="2_01fvu"]
+[ext_resource type="Texture2D" uid="uid://d3k27mbvpdxc3" path="res://assets/sprites/Items_IceShard.png" id="2_01fvu"]
 
 [resource]
 script = ExtResource("1_08a2m")

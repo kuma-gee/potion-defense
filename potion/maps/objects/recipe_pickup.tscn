@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dv1rei6g4deat"]
+
+[ext_resource type="Script" uid="uid://b5lf2kk08iuba" path="res://potion/maps/objects/recipe_pickup.gd" id="1_5hct3"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_sxhbl"]
+[ext_resource type="PackedScene" path="res://assets/fantasy/glTF/Scroll_1.gltf" id="2_1tufr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fks2m"]
+radius = 0.7726789
+
+[node name="RecipePickup" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_5hct3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4058528, 0)
+shape = SubResource("SphereShape3D_fks2m")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Scroll_12" parent="Visual" instance=ExtResource("2_1tufr")]
+transform = Transform3D(1.4142135, 0, 1.4142135, 0, 2, 0, -1.4142135, 0, 1.4142135, 0, 0.25147676, 0)
+
+[node name="SpawnDelay" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(0.35355338, 0.17677669, -1.545431e-08, 0, -1.0927847e-08, -0.5, -0.35355338, 0.17677669, -1.545431e-08, 0, 0.07353139, 0)
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("1_sxhbl")

@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dv1a0h2dlytsf"]
+
+[ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/maps/objects/processing_item.tscn" id="1_vmpsg"]
+[ext_resource type="PackedScene" uid="uid://cn1142lp317en" path="res://assets/models/crusher.glb" id="3_jp6c7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
+size = Vector3(0.80371094, 0.4440918, 0.7421875)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
+viewport_path = NodePath("Progress/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Crusher" instance=ExtResource("1_vmpsg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
+shape = SubResource("BoxShape3D_vv5mg")
+
+[node name="crusher" parent="." index="1" instance=ExtResource("3_jp6c7")]
+
+[node name="ProcessTimer" parent="." index="2"]
+wait_time = 2.0
+
+[node name="Progress" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6930482, 0)
+texture = SubResource("ViewportTexture_mrer8")
+
+[node name="Overheat" parent="Progress/SubViewport/CenterContainer/Progress" index="0"]
+visible = false
+
+[node name="ItemPopup" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3122869, 0)
+texture = SubResource("ViewportTexture_ccjue")
+
+[node name="Label3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2129753, 0)
+text = "Crush"
+
+[editable path="Progress"]

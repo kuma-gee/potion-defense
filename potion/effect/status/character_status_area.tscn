@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b51rjqlcrtr33"]
+[gd_scene load_steps=2 format=3 uid="uid://b51rjqlcrtr33"]
 
 [ext_resource type="Script" uid="uid://th725ac8y75q" path="res://potion/effect/status/potion_hit_area.gd" id="1_jefps"]
-[ext_resource type="Resource" uid="uid://5adf235ow25d" path="res://potion/effect/resources/fire_burn.tres" id="2_ua8iq"]
 
 [node name="StatusArea" type="Area3D"]
 collision_layer = 0
 collision_mask = 136
 script = ExtResource("1_jefps")
 lifetime = 10.0
-effect = ExtResource("2_ua8iq")
-tick_interval = 1.0

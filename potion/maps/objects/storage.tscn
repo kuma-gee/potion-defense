@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://m8roxd1usklp"]
+
+[ext_resource type="Script" uid="uid://cagdnp4yn2cet" path="res://potion/maps/objects/storage.gd" id="1_egoj2"]
+[ext_resource type="PackedScene" uid="uid://oodm4nieayvd" path="res://assets/fantasy/glTF/FarmCrate_Empty.gltf" id="2_mouuh"]
+[ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="2_y25hp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egoj2"]
+size = Vector3(1.4990234, 0.8775635, 1.3916016)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_egoj2"]
+viewport_path = NodePath("Items/SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mouuh"]
+size = Vector3(0.9501953, 0.3704834, 0.98339844)
+
+[node name="Storage" type="Area3D" node_paths=PackedStringArray("items_list", "label", "sprite") groups=["resetable"]]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_egoj2")
+items_list = NodePath("Items/SubViewport/CenterContainer/HBoxContainer")
+item_scene = ExtResource("2_y25hp")
+label = NodePath("Label3D")
+sprite = NodePath("Items")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="FarmCrate_Empty2" type="Node3D" parent="." instance=ExtResource("2_mouuh")]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 2.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43634033, 0.014580116)
+shape = SubResource("BoxShape3D_egoj2")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6535338, 0)
+billboard = 1
+no_depth_test = true
+text = "Store"
+
+[node name="Items" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9000515, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = SubResource("ViewportTexture_egoj2")
+
+[node name="SubViewport" type="SubViewport" parent="Items"]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="CenterContainer" type="CenterContainer" parent="Items/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/SubViewport/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21746826, 0)
+shape = SubResource("BoxShape3D_mouuh")
+
+[node name="RestoreTimer" type="Timer" parent="."]
+one_shot = true

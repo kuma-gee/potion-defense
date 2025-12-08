@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bbpop2ylo0vfo" path="res://potion/enemy/skeleton.tscn" id="1_ll7cd"]
 [ext_resource type="Script" uid="uid://bm2r4gbb2amt8" path="res://potion/enemy/fire_skeleton.gd" id="2_dj6t6"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="3_epxrq"]
-[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/characters/gltf/Skeleton_Minion.glb" id="4_pofti"]
+[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/gltf/Skeleton_Minion.glb" id="4_pofti"]
 [ext_resource type="Texture2D" uid="uid://dw1yds26jevim" path="res://assets/particles/T_Distortion3.jpg" id="5_qjwsy"]
 [ext_resource type="Texture2D" uid="uid://cdb5d5rqgi1s3" path="res://assets/particles/T_Fire3.jpg" id="6_dvjrj"]
-[ext_resource type="PackedScene" uid="uid://dks6w4ls71yt6" path="res://magic/red_beam_impact.tscn" id="8_8woa4"]
+[ext_resource type="PackedScene" uid="uid://dks6w4ls71yt6" path="res://vfx/red_beam_impact.tscn" id="8_8woa4"]
 [ext_resource type="Script" uid="uid://bmxiv2l1dkflu" path="res://potion/effect/status/elemental_area.gd" id="9_6fhoe"]
 
 [sub_resource type="Animation" id="Animation_gyv1v"]

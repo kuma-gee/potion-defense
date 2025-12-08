@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
 [ext_resource type="PackedScene" uid="uid://dc1f5ocm8nays" path="res://potion/items/scenes/mushroom.tscn" id="1_vyuqf"]
-[ext_resource type="Texture2D" uid="uid://bslxmvutacm16" path="res://assets/items/Items_Mushroom.png" id="2_rqbvp"]
+[ext_resource type="Texture2D" uid="uid://bslxmvutacm16" path="res://assets/sprites/Items_Mushroom.png" id="2_rqbvp"]
 
 [resource]
 script = ExtResource("1_item_res")

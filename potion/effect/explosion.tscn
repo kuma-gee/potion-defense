@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bnh078xxhjtqf"]
 
-[ext_resource type="PackedScene" uid="uid://csiavq076wjrx" path="res://magic/explosion_vfx.tscn" id="1_5prvb"]
+[ext_resource type="PackedScene" uid="uid://csiavq076wjrx" path="res://vfx/explosion_vfx.tscn" id="1_5prvb"]
 [ext_resource type="Script" uid="uid://cgrmgkjehdobf" path="res://potion/effect/explosion.gd" id="1_obbvw"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="3_ylwkm"]
 

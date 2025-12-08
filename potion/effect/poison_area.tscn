@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="4_2udlr"]
 [ext_resource type="Resource" uid="uid://bbx7rvmj262xi" path="res://potion/effect/resources/poison_effect.tres" id="6_0452k"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="11_2udlr"]
-[ext_resource type="PackedScene" uid="uid://d2wccndn1if2p" path="res://magic/VFX_Explosion_A.tscn" id="12_hx0xm"]
+[ext_resource type="PackedScene" uid="uid://d2wccndn1if2p" path="res://vfx/VFX_Explosion_A.tscn" id="12_hx0xm"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="13_hx0xm"]
 [ext_resource type="ArrayMesh" uid="uid://cy3yjp7gqf50v" path="res://assets/particles/shapes/sm_circular_plane1.obj" id="13_pnyr6"]
 

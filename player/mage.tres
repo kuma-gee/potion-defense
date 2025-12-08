@@ -1,7 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ckvucuduvwgu1"]
 
 [ext_resource type="Shader" uid="uid://b00cumojqx6hy" path="res://player/toon.gdshader" id="1_4g36h"]
-[ext_resource type="Texture2D" uid="uid://pyd666f13u5o" path="res://assets/KayKit_Adventurers_1.0_FREE/Textures/mage_texture.png" id="2_6w5t5"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eyagx"]
+load_path = "res://.godot/imported/mage_texture.png-88531582a72448f6b932a6b2860974e3.s3tc.ctex"
 
 [resource]
 render_priority = 0
@@ -18,4 +20,4 @@ shader_parameter/SubSurfTint = Color(0, 0, 0, 1)
 shader_parameter/SubSurfBrightness = 3.0
 shader_parameter/SubSurfCutoff = 0.5
 shader_parameter/SubSurfSmoothness = 0.05
-shader_parameter/Texture = ExtResource("2_6w5t5")
+shader_parameter/Texture = SubResource("CompressedTexture2D_eyagx")

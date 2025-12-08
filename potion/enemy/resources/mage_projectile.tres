@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="ProjectileResource" load_steps=2 format=3 uid="uid://by64h30pxt5tj"]
-
-[ext_resource type="Script" uid="uid://dns2hqc51072s" path="res://potion/enemy/resources/projectile_resource.gd" id="1_3ly6f"]
-
-[resource]
-script = ExtResource("1_3ly6f")
-damage = 2
-metadata/_custom_type_script = "uid://dns2hqc51072s"

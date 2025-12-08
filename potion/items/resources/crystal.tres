@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_17g6l"]
 [ext_resource type="PackedScene" uid="uid://tqsaqyisvhqb" path="res://potion/items/scenes/blue_crystal.tscn" id="1_auble"]
-[ext_resource type="Texture2D" uid="uid://dvre3shtn3pc6" path="res://assets/items/Items_Crystal.png" id="3_auble"]
+[ext_resource type="Texture2D" uid="uid://dvre3shtn3pc6" path="res://assets/sprites/Items_Crystal.png" id="3_auble"]
 
 [resource]
 script = ExtResource("1_17g6l")

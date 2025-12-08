@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=103 format=4 uid="uid://cwh1qtvckxtd7"]
+[gd_resource type="MeshLibrary" load_steps=102 format=4 uid="uid://cwh1qtvckxtd7"]
 
 [ext_resource type="Texture2D" uid="uid://bxnk4drgdw0is" path="res://assets/halloween/gltf/halloweenbits_texture.png" id="1_kv3sx"]
 [ext_resource type="Texture2D" uid="uid://c3usl6ejts7kw" path="res://assets/models/planks_halloweenbits_texture.png" id="2_o5dqq"]
@@ -130,7 +130,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_ud2w7"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_qwof0"]
 resource_name = "path_B_Cube_698"
 _surfaces = [{
 "aabb": AABB(-0.9330316, 0, -0.9299214, 1.8860703, 0.1, 1.8556676),
@@ -158,7 +158,7 @@ data = {
 "width": 64
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_c44tv"]
+[sub_resource type="ImageTexture" id="ImageTexture_ps1vb"]
 image = SubResource("Image_pankg")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i681"]
@@ -181,7 +181,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_fu7aw"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_r534i"]
 resource_name = "path_D_Cube_700"
 _surfaces = [{
 "aabb": AABB(-0.81632084, 0, -0.8246985, 1.655618, 0.1, 1.7065724),
@@ -209,7 +209,7 @@ data = {
 "width": 64
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_rjdxj"]
+[sub_resource type="ImageTexture" id="ImageTexture_ud2w7"]
 image = SubResource("Image_ps1vb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83asp"]
@@ -232,7 +232,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_rshbv"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_ynbxh"]
 resource_name = "path_C_Cube_699"
 _surfaces = [{
 "aabb": AABB(-0.9131224, 0, -0.924908, 1.8500096, 0.1, 1.856617),
@@ -260,7 +260,7 @@ data = {
 "width": 64
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_3ft5g"]
+[sub_resource type="ImageTexture" id="ImageTexture_fu7aw"]
 image = SubResource("Image_r534i")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54x3p"]
@@ -282,7 +282,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_w8pym"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_wlgwe"]
 resource_name = "planks_Cube"
 _surfaces = [{
 "aabb": AABB(-1, -0.041183062, -1, 2, 0.09096293, 2),
@@ -467,9 +467,6 @@ data = {
 
 [sub_resource type="ImageTexture" id="ImageTexture_7iypn"]
 image = SubResource("Image_c44tv")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wrelf"]
-size = Vector3(1.9736328, 1.3105164, 0.23479462)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gknle"]
 resource_name = "HalloweenBits"
@@ -859,7 +856,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_78wof"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_mmh3i"]
 resource_name = "path_A_Cube_697"
 _surfaces = [{
 "aabb": AABB(-0.9660519, 0, -0.9384918, 1.9031867, 0.10000207, 1.8837558),
@@ -887,7 +884,7 @@ data = {
 "width": 64
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_pxqu3"]
+[sub_resource type="ImageTexture" id="ImageTexture_kjpxx"]
 image = SubResource("Image_5lat7")
 
 [resource]
@@ -964,39 +961,39 @@ item/8/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
 item/8/navigation_layers = 1
 item/8/preview = SubResource("ImageTexture_qc3fu")
 item/9/name = "path_A"
-item/9/mesh = SubResource("ArrayMesh_78wof")
+item/9/mesh = SubResource("ArrayMesh_mmh3i")
 item/9/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/9/mesh_cast_shadow = 1
 item/9/shapes = []
 item/9/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/9/navigation_layers = 1
-item/9/preview = SubResource("ImageTexture_pxqu3")
+item/9/preview = SubResource("ImageTexture_kjpxx")
 item/10/name = "path_B"
-item/10/mesh = SubResource("ArrayMesh_ud2w7")
+item/10/mesh = SubResource("ArrayMesh_qwof0")
 item/10/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/10/mesh_cast_shadow = 1
 item/10/shapes = []
 item/10/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/10/navigation_layers = 1
-item/10/preview = SubResource("ImageTexture_c44tv")
+item/10/preview = SubResource("ImageTexture_ps1vb")
 item/11/name = "path_D"
-item/11/mesh = SubResource("ArrayMesh_fu7aw")
+item/11/mesh = SubResource("ArrayMesh_r534i")
 item/11/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/11/mesh_cast_shadow = 1
 item/11/shapes = []
 item/11/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/11/navigation_layers = 1
-item/11/preview = SubResource("ImageTexture_rjdxj")
+item/11/preview = SubResource("ImageTexture_ud2w7")
 item/12/name = "path_C"
-item/12/mesh = SubResource("ArrayMesh_rshbv")
+item/12/mesh = SubResource("ArrayMesh_ynbxh")
 item/12/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/12/mesh_cast_shadow = 1
 item/12/shapes = []
 item/12/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/12/navigation_layers = 1
-item/12/preview = SubResource("ImageTexture_3ft5g")
+item/12/preview = SubResource("ImageTexture_fu7aw")
 item/13/name = "Planks"
-item/13/mesh = SubResource("ArrayMesh_w8pym")
+item/13/mesh = SubResource("ArrayMesh_wlgwe")
 item/13/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/13/mesh_cast_shadow = 1
 item/13/shapes = [SubResource("BoxShape3D_fam05"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04156494, 0)]
@@ -1023,7 +1020,7 @@ item/16/name = "Wall"
 item/16/mesh = SubResource("ArrayMesh_q5ne5")
 item/16/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/16/mesh_cast_shadow = 1
-item/16/shapes = [SubResource("BoxShape3D_wrelf"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66593933, 0.8806648)]
+item/16/shapes = []
 item/16/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/16/navigation_layers = 1
 item/16/preview = SubResource("ImageTexture_7iypn")

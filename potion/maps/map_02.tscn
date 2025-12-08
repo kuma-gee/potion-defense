@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://buimg1dxik8ck"]
+[gd_scene load_steps=27 format=3 uid="uid://buimg1dxik8ck"]
 
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="1_26mbv"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_x4b2d"]
@@ -7,14 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://c1v1sluycsjxx" path="res://potion/maps/ingredient_spawn_area.tscn" id="3_xw8a5"]
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="4_sbk3e"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="5_pc26i"]
-[ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/objects/cauldron.tscn" id="6_pc26i"]
-[ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/objects/storage.tscn" id="6_sbk3e"]
+[ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/maps/objects/cauldron.tscn" id="6_pc26i"]
+[ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/maps/objects/storage.tscn" id="6_sbk3e"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="7_3dyxf"]
 [ext_resource type="Resource" uid="uid://pi03sfcu5jp1" path="res://potion/items/resources/frost_mushroom.tres" id="7_6o1gw"]
 [ext_resource type="Script" uid="uid://dlb6qrjaljxep" path="res://potion/maps/level.gd" id="9_xw8a5"]
-[ext_resource type="PackedScene" uid="uid://t5hlanwweip7" path="res://potion/objects/table.tscn" id="11_6o1gw"]
+[ext_resource type="PackedScene" uid="uid://t5hlanwweip7" path="res://potion/maps/objects/table.tscn" id="11_6o1gw"]
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="11_ym1rq"]
-[ext_resource type="PackedScene" uid="uid://dv1a0h2dlytsf" path="res://potion/objects/crusher.tscn" id="12_4mq4u"]
+[ext_resource type="PackedScene" uid="uid://dv1a0h2dlytsf" path="res://potion/maps/objects/crusher.tscn" id="12_4mq4u"]
 [ext_resource type="PackedScene" uid="uid://ddlu5u2c2fy5r" path="res://assets/models/garden.glb" id="12_pc26i"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6o1gw"]
@@ -29,15 +29,6 @@ size = Vector3(2.7392426, 1.0274658, 8.2265625)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pc26i"]
 size = Vector3(10.634735, 1, 3.9846115)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_vjsen"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_kwnvf"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_56k26"]
-viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wvq4n"]
 size = Vector3(30.510742, 11.18335, 1)
@@ -128,64 +119,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.033711, 0, -11.481531)
 metadata/_edit_group_ = true
 
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
-
 [node name="Tree2" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.647969, 0, -7.903241)
 metadata/_edit_group_ = true
-
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree2" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
 
 [node name="Tree3" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.158677, 0, 8.062716)
 metadata/_edit_group_ = true
 
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree3" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
-
 [node name="Tree17" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.346012, 0, 6.8518124)
 metadata/_edit_group_ = true
-
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree17" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
 
 [node name="Tree12" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.270049, 0, 6.500498)
 metadata/_edit_group_ = true
 
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree12" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
-
 [node name="Tree13" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3127205, 0, 7.1400614)
 metadata/_edit_group_ = true
-
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree13" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
 
 [node name="Tree14" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2949588, 0, 7.963373)
 metadata/_edit_group_ = true
 
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree14" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
-
 [node name="Tree15" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.667994, 0, 8.27349)
 metadata/_edit_group_ = true
 
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree15" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
-
 [node name="Tree16" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64506, 0, 7.5414944)
 metadata/_edit_group_ = true
-
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree16" index="2"]
-texture = SubResource("ViewportTexture_vjsen")
 
 [node name="Tree4" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3031716, -9.536743e-07, -9.507856)
@@ -203,9 +167,6 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8682477, 0, -9.222176)
 metadata/_edit_group_ = true
 
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree6" index="2"]
-texture = SubResource("ViewportTexture_kwnvf")
-
 [node name="Tree7" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.992261, -9.536743e-07, -11.723595)
 metadata/_edit_group_ = true
@@ -217,9 +178,6 @@ metadata/_edit_group_ = true
 [node name="Tree8" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.297167, 0, -9.3456)
 metadata/_edit_group_ = true
-
-[node name="Progress" parent="NavigationRegion3D/Trees/Tree8" index="2"]
-texture = SubResource("ViewportTexture_56k26")
 
 [node name="Tree10" parent="NavigationRegion3D/Trees" instance=ExtResource("4_sbk3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.547831, 0, 6.4487405)
@@ -329,24 +287,13 @@ metadata/_custom_type_script = "uid://dlb6qrjaljxep"
 shape = SubResource("BoxShape3D_sbk3e")
 
 [editable path="NavigationRegion3D/Trees/Tree"]
-[editable path="NavigationRegion3D/Trees/Tree/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree2"]
-[editable path="NavigationRegion3D/Trees/Tree2/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree3"]
-[editable path="NavigationRegion3D/Trees/Tree3/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree17"]
-[editable path="NavigationRegion3D/Trees/Tree17/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree12"]
-[editable path="NavigationRegion3D/Trees/Tree12/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree13"]
-[editable path="NavigationRegion3D/Trees/Tree13/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree14"]
-[editable path="NavigationRegion3D/Trees/Tree14/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree15"]
-[editable path="NavigationRegion3D/Trees/Tree15/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree16"]
-[editable path="NavigationRegion3D/Trees/Tree16/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree6"]
-[editable path="NavigationRegion3D/Trees/Tree6/Progress"]
 [editable path="NavigationRegion3D/Trees/Tree8"]
-[editable path="NavigationRegion3D/Trees/Tree8/Progress"]
