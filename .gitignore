@@ -4,8 +4,8 @@
 .cursor
 
 assets/**/*.*
-# !assets/**/*.import
-# !assets/*.zip
+!assets/**/*.import
+!assets/*.zip
 
 build/
-*.zip
+# *.zip
