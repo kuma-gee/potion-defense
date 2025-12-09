@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cq7wxyuweav0q"]
 
-[ext_resource type="ArrayMesh" uid="uid://bcirpdb8lj8xn" path="res://assets/particles/smoke.obj" id="1_8l66w"]
+[ext_resource type="ArrayMesh" uid="uid://bcirpdb8lj8xn" path="res://assets/particles/shapes/smoke.obj" id="1_8l66w"]
 [ext_resource type="Shader" uid="uid://byywxm5jqqfox" path="res://vfx/smoke_cell_shader.gdshader" id="1_wc53b"]
 [ext_resource type="Texture2D" uid="uid://by6vxm2vg3nc6" path="res://assets/particles/T_Noise_001R.png" id="2_wc53b"]
 

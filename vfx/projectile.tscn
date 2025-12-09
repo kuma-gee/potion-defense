@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://vfx/aoe_cylinder.tres" id="2_6iuyt"]
 [ext_resource type="PackedScene" uid="uid://cks0bq5iy4uc2" path="res://vfx/impact.tscn" id="2_m2v2a"]
 [ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="3_kk68n"]
-[ext_resource type="ArrayMesh" uid="uid://du3hqo4d0e0e5" path="res://assets/particles/capsule_projectile.obj" id="3_s3c4f"]
+[ext_resource type="ArrayMesh" uid="uid://du3hqo4d0e0e5" path="res://assets/particles/shapes/capsule_projectile.obj" id="3_s3c4f"]
 [ext_resource type="Texture2D" uid="uid://ce37fcn8ptva0" path="res://assets/particles/course/Circle.png" id="4_kk68n"]
 [ext_resource type="Shader" uid="uid://2o6334bqae7n" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="6_g1psx"]
 [ext_resource type="Texture2D" uid="uid://c36t3itic1ivn" path="res://assets/particles/course/RingTex.png" id="7_1a6fe"]

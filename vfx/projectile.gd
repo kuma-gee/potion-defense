@@ -6,11 +6,11 @@ extends RigidBody3D
 @export var hit_effect: PackedScene
 
 var trails = []
-var resource: ProjectileResource:
-	set(v):
-		resource = v
-		speed = resource.speed
-		hit_box.damage = resource.damage
+#var resource: ProjectileResource:
+	#set(v):
+		#resource = v
+		#speed = resource.speed
+		#hit_box.damage = resource.damage
 
 func _ready() -> void:
 	hit_box.area_entered.connect(func(_a): _on_hit())

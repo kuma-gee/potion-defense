@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs5bjmrxxy2"
-path="res://.godot/imported/T_Noise_HU85k.png-456c890a81b5a092606ab8419dfcaddf.ctex"
+uid="uid://dp3xljx5njhjq"
+path="res://.godot/imported/T_CloudNoise_Tiled.png-141bfc96d7d23c0f9608bf5a85c630f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/particles/T_Noise_HU85k.png"
-dest_files=["res://.godot/imported/T_Noise_HU85k.png-456c890a81b5a092606ab8419dfcaddf.ctex"]
+source_file="res://assets/particles/T_CloudNoise_Tiled.png"
+dest_files=["res://.godot/imported/T_CloudNoise_Tiled.png-141bfc96d7d23c0f9608bf5a85c630f8.ctex"]
 
 [params]
 

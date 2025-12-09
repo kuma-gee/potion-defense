@@ -1,10 +1,10 @@
 [gd_scene load_steps=23 format=3 uid="uid://b6cxw3y4xo030"]
 
-[ext_resource type="PackedScene" uid="uid://j20efs01x4vh" path="res://assets/particles/tornado.glb" id="1_2b65w"]
+[ext_resource type="PackedScene" uid="uid://j20efs01x4vh" path="res://assets/particles/shapes/tornado.glb" id="1_2b65w"]
 [ext_resource type="Shader" uid="uid://chdpydvkec36m" path="res://vfx/tornado.tres" id="2_8eafj"]
 [ext_resource type="Shader" uid="uid://bgf21trwrtlwv" path="res://vfx/basic_dissolve.tres" id="3_2b1s6"]
 [ext_resource type="Texture2D" uid="uid://coikxo5mcrjkl" path="res://assets/particles/T_Noise1_nk.png" id="3_7ooeq"]
-[ext_resource type="ArrayMesh" uid="uid://cpngxjtkb7f5q" path="res://assets/particles/tornado_waves.obj" id="3_eve0y"]
+[ext_resource type="ArrayMesh" uid="uid://cpngxjtkb7f5q" path="res://assets/particles/shapes/tornado_waves.obj" id="3_eve0y"]
 [ext_resource type="Texture2D" uid="uid://bk6tg2q61esxn" path="res://assets/particles/T_FirePanningCyl45.png" id="4_geje6"]
 
 [sub_resource type="Gradient" id="Gradient_eve0y"]

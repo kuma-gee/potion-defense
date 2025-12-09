@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs5bjmrxxy2"
-path="res://.godot/imported/T_Noise_HU85k.png-456c890a81b5a092606ab8419dfcaddf.ctex"
+uid="uid://b28bgxv3erh11"
+path="res://.godot/imported/T_smoke_b7.png-0b9972f107920c9ea43aff0c70d85fb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/particles/T_Noise_HU85k.png"
-dest_files=["res://.godot/imported/T_Noise_HU85k.png-456c890a81b5a092606ab8419dfcaddf.ctex"]
+source_file="res://assets/particles/T_smoke_b7.png"
+dest_files=["res://.godot/imported/T_smoke_b7.png-0b9972f107920c9ea43aff0c70d85fb1.ctex"]
 
 [params]
 

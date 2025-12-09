@@ -13,7 +13,7 @@
 [ext_resource type="Shader" uid="uid://bs1sn4bn6t1ty" path="res://vfx/aoe_ring_billboard.tres" id="11_lfj7a"]
 [ext_resource type="ArrayMesh" uid="uid://dlu8x4kwu61bd" path="res://assets/particles/course/ring.obj" id="12_5xh20"]
 [ext_resource type="Texture2D" uid="uid://cje6wstbddcpy" path="res://assets/particles/course/ImpactMark01.png" id="13_4ul7g"]
-[ext_resource type="Texture2D" uid="uid://bxgnddligcwqt" path="res://assets/particles/lelu-noise-pack/T_AuraC12.jpg" id="14_71w2u"]
+[ext_resource type="Texture2D" uid="uid://bxgnddligcwqt" path="res://assets/particles/T_AuraC12.jpg" id="14_71w2u"]
 
 [sub_resource type="Gradient" id="Gradient_essgn"]
 offsets = PackedFloat32Array(0.5724138, 0.87586206, 1)

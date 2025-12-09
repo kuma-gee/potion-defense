@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs5bjmrxxy2"
-path="res://.godot/imported/T_Noise_HU85k.png-456c890a81b5a092606ab8419dfcaddf.ctex"
+uid="uid://gcl7sh1nxmxe"
+path="res://.godot/imported/T_VFX_Noise41.jpg-38e1cb6cd10ed04335a75dbcd7693155.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/particles/T_Noise_HU85k.png"
-dest_files=["res://.godot/imported/T_Noise_HU85k.png-456c890a81b5a092606ab8419dfcaddf.ctex"]
+source_file="res://assets/particles/T_VFX_Noise41.jpg"
+dest_files=["res://.godot/imported/T_VFX_Noise41.jpg-38e1cb6cd10ed04335a75dbcd7693155.ctex"]
 
 [params]
 
