@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=102 format=4 uid="uid://cwh1qtvckxtd7"]
+[gd_resource type="MeshLibrary" load_steps=103 format=4 uid="uid://cwh1qtvckxtd7"]
 
 [ext_resource type="Texture2D" uid="uid://bxnk4drgdw0is" path="res://assets/halloween/gltf/halloweenbits_texture.png" id="1_kv3sx"]
 [ext_resource type="Texture2D" uid="uid://c3usl6ejts7kw" path="res://assets/models/planks_halloweenbits_texture.png" id="2_o5dqq"]
@@ -467,6 +467,9 @@ data = {
 
 [sub_resource type="ImageTexture" id="ImageTexture_7iypn"]
 image = SubResource("Image_c44tv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uydlu"]
+size = Vector3(1.9736328, 1.3105164, 0.32024384)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gknle"]
 resource_name = "HalloweenBits"
@@ -1020,7 +1023,7 @@ item/16/name = "Wall"
 item/16/mesh = SubResource("ArrayMesh_q5ne5")
 item/16/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/16/mesh_cast_shadow = 1
-item/16/shapes = []
+item/16/shapes = [SubResource("BoxShape3D_uydlu"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66593933, 0.8379402)]
 item/16/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/16/navigation_layers = 1
 item/16/preview = SubResource("ImageTexture_7iypn")

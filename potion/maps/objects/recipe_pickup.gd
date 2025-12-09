@@ -1,6 +1,7 @@
 extends Area3D
 
 @export var drop_height := 3.0
+@export var drop_speed := 3.0
 @export var float_speed := 0.8
 @export var float_height := 0.05
 
@@ -24,7 +25,7 @@ func land():
 	landed = true
 	
 	body_entered.connect(func(_b):
-		Events.picked_up_recipe.emit(recipe)
+		Events.pickup_recipe(recipe)
 		queue_free()
 	)
 
@@ -34,7 +35,7 @@ func _process(delta: float) -> void:
 
 	if not landed:
 		if visual.position.y > 0.0:
-			visual.position.y -= delta
+			visual.position.y -= delta * drop_speed
 		else:
 			land()
 	else:

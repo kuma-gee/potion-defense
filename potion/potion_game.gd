@@ -4,7 +4,6 @@ extends Node3D
 @export var souls_label: Label
 @export var recipe_ui: RecipeBookUI
 @export var gameover: GameoverScreen
-@export var shop: Shop
 @export var new_recipe: NewRecipe
 @export var recipes_btn: Control
 
@@ -13,6 +12,7 @@ extends Node3D
 @onready var map_root: Node3D = $MapRoot
 @onready var in_game_canvas: CanvasLayer = $InGameCanvas
 @onready var player_join: PlayerJoin = $PlayerJoin
+@onready var shop: ShopMap = $Shop
 
 @export var current_level: PackedScene
 
@@ -26,65 +26,57 @@ var map: Map:
 		if map:
 			map_root.add_child(map)
 
-var souls := 0:
-	set(v):
-		souls = v
-		souls_label.text = "%s" % v
-
-var unlocked_recipes: Array[ItemResource.Type] = []
-var unlocked_upgrades := []
-
 func _ready() -> void:
 	_setup_map()
 	recipes_btn.hide()
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
-	Events.soul_collected.connect(func(): souls += 1)
-	Events.level_started.connect(func(scene: PackedScene):
-		current_level = scene
-		_setup_map()
-	)
+	Events.souls_changed.connect(func(): souls_label.text = "%s" % Events.total_souls)
+	Events.level_started.connect(_move_to_shop)
 	Events.cauldron_used.connect(func():
 		if wave_manager.can_start_wave():
 			wave_manager.next_wave()
 	)
-	Events.picked_up_recipe.connect(func(item: ItemResource):
-		var type = item.type
-		if not type in unlocked_recipes:
-			unlocked_recipes.append(type)
-			recipe_ui.update_unlocked(unlocked_recipes)
-			new_recipe.open(item)
-			recipes_btn.show()
-			print("Unlocked recipes: %s" % unlocked_recipes)
-	)
-	Events.buy_upgrade.connect(func(up: UpgradeResource):
-		if not up in unlocked_upgrades and souls >= up.price:
-			souls -= up.price
-			unlocked_upgrades.append(up)
-			print("Unlocked upgrades: %s" % unlocked_upgrades)
-	)
+	Events.picked_up_recipe.connect(_unlocked_recipe)
+	shop.next_level.connect(func(): _setup_map())
 	
 	gameover.restart_level.connect(func(): _setup_map())
 	gameover.back_to_select.connect(func(): pass)
 
+func _unlocked_recipe(item: ItemResource):
+	new_recipe.open(item)
+	recipe_ui.update_unlocked(Events.unlocked_recipes)
+	recipes_btn.show()
+
 func _on_all_waves_completed() -> void:
-	shop.open(map.upgrades)
 	map.map_finished()
 
-#func back_to_level_select():
-	#wave_manager.clear()
-	#map = null
-	#level_select.process_mode = Node.PROCESS_MODE_INHERIT
-	#level_select.position.y = 0
-	#_move_players_to_map(level_select)
+func _move_to_shop(next_map: PackedScene):
+	current_level = next_map
+	
+	shop.process_mode = Node.PROCESS_MODE_INHERIT
+	shop.position.y = 0
+	shop.show()
+	shop.setup(map.upgrades)
+	
+	map = null
+	_move_players_to_map(shop)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_pressed() and event is InputEventKey and event.keycode == KEY_F1:
+		_move_to_shop(map.level.map)
+	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()
-	elif map and not wave_manager.is_wave_active:
+	elif not wave_manager.is_wave_active:
+		var m = map if map else shop
 		if event.is_pressed():
-			player_join.spawn_player(event, map)
+			player_join.spawn_player(event, m)
 
 func _setup_map():
+	shop.process_mode = Node.PROCESS_MODE_DISABLED
+	shop.position.y = 1000
+	shop.hide()
+	
 	map = current_level.instantiate() as Map
 	wave_manager.setup(map)
 	_move_players_to_map(map)

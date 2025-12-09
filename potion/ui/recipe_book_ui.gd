@@ -44,14 +44,15 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible: return
 	
-	if event.is_action_pressed("recipes") or event.is_action_pressed("back"):
+	if event.is_action_released("recipes") or event.is_action_pressed("back"):
 		close()
 	elif event.is_action_pressed("ui_left") or event.is_action_pressed("move_left"):
 		current_page -= 1
 	elif event.is_action_pressed("ui_right") or event.is_action_pressed("move_right"):
 		current_page += 1
 	
-	get_viewport().set_input_as_handled()
+	if not event.is_released():
+		get_viewport().set_input_as_handled()
 
 func pause() -> void:
 	if pages.is_empty(): return

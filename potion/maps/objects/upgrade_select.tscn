@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://di33frcdi4fnw"]
+
+[ext_resource type="Script" uid="uid://bv6swedqiwvia" path="res://potion/maps/upgrade_select.gd" id="1_cwysg"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="2_v3wr1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
+radius = 1.0
+
+[node name="UpgradeSelect" type="Area3D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_cwysg")
+label = NodePath("Label3D")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8129311, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "Test"
+font_size = 64
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4551196, 0)
+billboard = 1
+texture = ExtResource("2_v3wr1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54851913, 0)
+shape = SubResource("SphereShape3D_hemba")

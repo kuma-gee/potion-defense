@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5lf2kk08iuba" path="res://potion/maps/objects/recipe_pickup.gd" id="1_5hct3"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_sxhbl"]
-[ext_resource type="PackedScene" path="res://assets/fantasy/glTF/Scroll_1.gltf" id="2_1tufr"]
+[ext_resource type="PackedScene" uid="uid://d3ltk63p7jwl7" path="res://assets/fantasy/glTF/Scroll_1.gltf" id="2_1tufr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fks2m"]
 radius = 0.7726789

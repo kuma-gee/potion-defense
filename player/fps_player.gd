@@ -181,8 +181,8 @@ func _ready():
 	)
 	
 	player_input.input_event.connect(func(event: InputEvent):
-		if event.is_action_pressed("switch_view"):
-			toggle_camera()
+		#if event.is_action_pressed("switch_view"):
+			#toggle_camera()
 		
 		# if camera.current:
 		# 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:

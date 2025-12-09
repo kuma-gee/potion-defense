@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=40 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
@@ -10,12 +10,17 @@
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="4_f7537"]
 [ext_resource type="Resource" uid="uid://dhc355hjvy703" path="res://potion/maps/waves/skeleton_minion.tres" id="4_io850"]
 [ext_resource type="Resource" uid="uid://dgboj71keyjlk" path="res://potion/maps/waves/skeleton_fire.tres" id="5_ed6x5"]
+[ext_resource type="Script" uid="uid://b5v3p0106thve" path="res://potion/wands/resources/upgrade_resource.gd" id="6_4aq6y"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="6_fv6ge"]
 [ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="6_io850"]
 [ext_resource type="Resource" uid="uid://c15ds4tq8d2vs" path="res://potion/items/resources/potion_blizzard.tres" id="7_0cpyx"]
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="7_f7537"]
 [ext_resource type="Resource" uid="uid://cfwifklownch0" path="res://potion/items/resources/potion_fire_bomb.tres" id="7_iq3fy"]
+[ext_resource type="Resource" path="res://potion/wands/resources/magic_cloak.tres" id="7_sqjp0"]
+[ext_resource type="Resource" path="res://potion/wands/resources/speed_boots.tres" id="8_26rl3"]
+[ext_resource type="Resource" path="res://potion/wands/resources/wand_processing_speed.tres" id="9_gyqcq"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="9_vdyvj"]
+[ext_resource type="Resource" path="res://potion/wands/resources/wand_teleport.tres" id="10_a8ow2"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/maps/objects/storage.tscn" id="15_io850"]
 [ext_resource type="Script" uid="uid://dlb6qrjaljxep" path="res://potion/maps/level.gd" id="16_ed6x5"]
 [ext_resource type="Script" uid="uid://byss77ynwhvcc" path="res://util/object_spawner.gd" id="18_d5uy5"]
@@ -79,10 +84,11 @@ _data = {
 }
 point_count = 2
 
-[node name="map_01" type="Node3D" node_paths=PackedStringArray("cauldrons", "paths")]
+[node name="map_01" type="Node3D" node_paths=PackedStringArray("spawn_point", "paths")]
 script = ExtResource("1_f7537")
+spawn_point = NodePath("Cauldron")
 wave_resource = Array[ExtResource("2_vravf")]([SubResource("Resource_ed6x5"), SubResource("Resource_0cpyx")])
-cauldrons = [NodePath("Cauldron")]
+upgrades = Array[ExtResource("6_4aq6y")]([ExtResource("7_sqjp0"), ExtResource("8_26rl3"), ExtResource("9_gyqcq"), ExtResource("10_a8ow2")])
 new_recipe = ExtResource("7_0cpyx")
 initial_recipe = ExtResource("7_iq3fy")
 paths = [NodePath("Path3D")]

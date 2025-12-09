@@ -69,10 +69,10 @@ _data = {
 }
 point_count = 8
 
-[node name="map02" type="Node3D" node_paths=PackedStringArray("cauldrons", "paths")]
+[node name="map02" type="Node3D" node_paths=PackedStringArray("spawn_point", "paths")]
 script = ExtResource("1_x4b2d")
+spawn_point = NodePath("Cauldron")
 wave_resource = Array[ExtResource("2_56k26")]([SubResource("Resource_7bnlr")])
-cauldrons = [NodePath("Cauldron")]
 new_recipe = ExtResource("2_6o1gw")
 paths = [NodePath("Path3D")]
 
