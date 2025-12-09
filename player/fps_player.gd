@@ -64,6 +64,7 @@ var mouse_position: Vector2 = Vector2.ZERO
 var equipped_wand: WandResource = null
 var wand_ability: WandAbility = null
 var wand_cooldown_timer: float = 0.0
+var equipped_equipment: EquipmentResource = null
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
@@ -75,6 +76,23 @@ func equip_wand(wand: WandResource) -> void:
 	wand_ability = _create_wand_ability(wand)
 	wand_cooldown_timer = 0.0
 	print("Equipped wand: %s" % wand.name)
+
+func equip_equipment(equipment: EquipmentResource) -> void:
+	equipped_equipment = equipment
+	print("Equipped equipment: %s" % equipment.name)
+
+func get_equipment_stat_multiplier(stat_type: EquipmentResource.StatType) -> float:
+	if not equipped_equipment or equipped_equipment.stat_type != stat_type:
+		return 1.0
+	return equipped_equipment.stat_value
+
+func get_actual_speed(s = speed) -> float:
+	var actual_speed = super.get_actual_speed(s)
+	actual_speed *= get_equipment_stat_multiplier(EquipmentResource.StatType.SPEED)
+	return actual_speed
+
+func get_damage_multiplier() -> float:
+	return get_equipment_stat_multiplier(EquipmentResource.StatType.DEFENSE)
 
 func _create_wand_ability(wand: WandResource) -> WandAbility:
 	match wand.ability_type:
