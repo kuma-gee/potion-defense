@@ -35,7 +35,7 @@ jobs:
       matrix:
         platform: ${{ fromJSON(needs.init.outputs.platforms) }}
     steps:
-      - uses: kuma-gee/action-godot-template@v1
+      - uses: kuma-gee/action-godot-template@master
         with:
           version: ${{ inputs.version }}
           platform: ${{ matrix.platform }}
