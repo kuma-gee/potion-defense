@@ -8,17 +8,32 @@ on:
         required: true
         type: string
         default: '4.5'
+      platforms:
+        description: "List of platforms"
+        default: 'linux windows web'
 
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+      platforms: ${{ steps.generate-matrix.outputs.platforms }}
+    steps:
+      - name: generate-matrix
+        id: generate-matrix
+        run: |
+          platforms=$(echo '"${{ inputs.platforms }}"' | jq -c '. | split(" ") | map(select(length > 0))')
+          echo "platforms=$platforms" >> $GITHUB_OUTPUT
+
   template-build:
     runs-on: ubuntu-latest
+    needs: init
     strategy:
       matrix:
-        platform: [linux, windows]
+        platform: ${{ fromJSON(needs.init.outputs.platforms) }}
     steps:
       - uses: kuma-gee/action-godot-template@v1
         with:
