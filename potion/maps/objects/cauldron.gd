@@ -71,7 +71,10 @@ func _ready() -> void:
 		else:
 			died.emit()
 	)
-	died.connect(func(): destroyed = true)
+	died.connect(func():
+		destroyed = true
+		Events.cauldron_destroyed.emit()
+	)
 	
 	interacted.connect(func(a: Node): handle_interacted(a))
 	released.connect(func(a: Node): handle_released(a))

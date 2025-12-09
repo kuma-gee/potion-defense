@@ -89,6 +89,9 @@ func _setup_map():
 	wave_manager.setup(map)
 	_move_players_to_map(map)
 
+	if not Events.is_tutorial_level():
+		wave_manager.next_wave()
+
 func _move_players_to_map(m: Map) -> void:
 	for player in player_root.get_children():
 		if not player is FPSPlayer: continue

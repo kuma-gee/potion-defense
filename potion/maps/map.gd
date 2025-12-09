@@ -1,12 +1,12 @@
 class_name Map
 extends Node3D
 
-@export var lanes: Node3D
 @export var wave_resource: Array[WaveResource]
 @export var cauldrons: Array[Cauldron]
 @export var upgrades: Array[UpgradeResource]
 @export var new_recipe: ItemResource
 @export var initial_recipe: ItemResource
+@export var paths: Array[Path3D]
 
 @onready var level: Level = $Level
 

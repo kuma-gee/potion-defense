@@ -20,6 +20,8 @@ enum State {
 
 var state = null
 var attack_count := 0
+var path: Path3D
+var current_path_point := 0
 
 func _ready() -> void:
 	super()
@@ -29,6 +31,9 @@ func _ready() -> void:
 	hurt_box.died.connect(func(): _died())
 	animation_player.animation_finished.connect(func(a): _on_animation_finished(a))
 	hurt_box.knockbacked.connect(func(_k): knockback_state())
+	
+	if path:
+		_update_navigation_target()
 
 func _on_animation_finished(anim: String):
 	match state:
@@ -53,9 +58,6 @@ func _died():
 	collision_shape_3d.set_deferred("disabled", true)
 	soul_spawner.spawn()
 
-func set_target(pos: Vector3):
-	nav_agent.target_position = pos
-
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
 		return
@@ -74,6 +76,9 @@ func _physics_process(delta: float) -> void:
 
 func _move_to_target():
 	if nav_agent.is_navigation_finished():
+		if path and current_path_point < path.curve.point_count:
+			current_path_point += 1
+			_update_navigation_target()
 		return
 	
 	var sp = get_actual_speed()
@@ -88,6 +93,13 @@ func _move_to_target():
 
 	move_and_slide()
 	move()
+
+func _update_navigation_target():
+	if not path or current_path_point >= path.curve.point_count:
+		return
+	
+	var target_position = path.curve.get_point_position(current_path_point)
+	nav_agent.target_position = target_position
 
 
 #region STATES

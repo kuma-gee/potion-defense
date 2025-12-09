@@ -13,13 +13,12 @@ signal all_waves_completed()
 @export var spawn_timer: Timer
 @export var rest_timer: Timer
 
-var lane_root: Node3D
 var enemies_spawned_this_wave: int = 0
 
 var is_wave_active: bool = false
 var is_final_wave: bool = false
 
-var cauldrons := []
+var paths: Array[Path3D]
 
 var max_wave := 0
 var wave = 0:
@@ -38,12 +37,13 @@ func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_enemy)
 	wave_completed.connect(func(): rest_timer.start())
 	rest_timer.timeout.connect(next_wave)
+	Events.cauldron_destroyed.connect(func(): game_over.emit())
 
 func setup(map: Map):
 	clear()
 	
-	lane_root = map.lanes
 	wave_resource = map.wave_resource
+	paths = map.paths
 	# wave_resource.sort_custom(func(a, b): return a.until_wave - b.until_wave)
 	
 	if wave_resource == null or wave_resource.is_empty():
@@ -51,14 +51,6 @@ func setup(map: Map):
 		return
 	
 	max_wave = wave_resource[-1].until_wave
-
-	cauldrons = map.cauldrons.duplicate()
-	for c in cauldrons:
-		c.died.connect(func():
-			cauldrons.erase(c)
-			if cauldrons.is_empty():
-				game_over.emit()
-		)
 
 func _enemy_spawn_count():
 	# dynamically adjust based on players
@@ -70,7 +62,7 @@ func can_start_wave():
 	return not is_wave_active and wave < max_wave
 
 func next_wave() -> void:
-	if is_wave_active:
+	if is_wave_active or not wave_resource or wave_resource.is_empty():
 		return
 	
 	if wave > max_wave:
@@ -105,8 +97,7 @@ func _on_spawn_enemy() -> void:
 
 func _spawn_single_enemy() -> void:
 	var available_enemies = current_wave_resource().enemies.duplicate()
-	var valid_lanes =  lane_root.get_children()
-	if valid_lanes.is_empty():
+	if paths.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
 		return
 	
@@ -114,28 +105,18 @@ func _spawn_single_enemy() -> void:
 	if left_to_spawn <= 0:
 		return
 
-	var targets = cauldrons.filter(func(c): return is_instance_valid(c) and not c.destroyed)
+	var valid_lanes = paths.duplicate()
 	var lane_spawn_count = randi_range(1, min(valid_lanes.size(), left_to_spawn, 1))
 	valid_lanes.shuffle()
-	for i in range(lane_spawn_count):
-		var lane = valid_lanes[i]
-		var enemy_res = _pick_weighted_enemy(available_enemies)
-		var enemy_instance = enemy_res.instantiate() as Node3D
-		enemy_instance.position = lane.global_position
-		enemy_instance.tree_exited.connect(func(): _on_enemy_removed())
-		
-		enemy_spawn_root.add_child(enemy_instance)
 
-		var closest_target = null
-		var closest_distance = INF
-		for t in targets:
-			var dist = enemy_instance.global_position.distance_to(t.global_position)
-			if dist < closest_distance:
-				closest_distance = dist
-				closest_target = t
-		
-		if closest_target:
-			enemy_instance.set_target(closest_target.global_position)
+	for i in range(lane_spawn_count):
+		var path = valid_lanes[i] as Path3D
+		var enemy_res = _pick_weighted_enemy(available_enemies)
+		var enemy = enemy_res.instantiate() as Node3D
+		enemy.path = path
+		enemy.position = path.curve.get_point_position(0)
+		enemy.tree_exited.connect(func(): _on_enemy_removed())
+		enemy_spawn_root.add_child(enemy)
 
 	enemies_spawned_this_wave += lane_spawn_count
 	print("Spawned enemy (total: %d, Wave %d)" % [enemies_spawned_this_wave, wave])

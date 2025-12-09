@@ -4,6 +4,7 @@ extends Node
 signal level_started(map: PackedScene)
 signal soul_collected()
 signal cauldron_used()
+signal cauldron_destroyed()
 signal buy_upgrade(upgrade: UpgradeResource)
 signal picked_up_recipe(recipe: ItemResource)
 
@@ -23,3 +24,6 @@ func start_level(map: PackedScene):
 
 func finished_level(souls: int):
 	total_souls += souls
+
+func is_tutorial_level() -> bool:
+	return level == 0

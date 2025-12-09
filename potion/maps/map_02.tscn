@@ -1,11 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://buimg1dxik8ck"]
+[gd_scene load_steps=33 format=3 uid="uid://buimg1dxik8ck"]
 
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="1_26mbv"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_x4b2d"]
 [ext_resource type="Resource" uid="uid://dacyc21swomek" path="res://potion/items/resources/potion_poison_cloud.tres" id="2_6o1gw"]
+[ext_resource type="Script" uid="uid://duah648hndjpr" path="res://potion/maps/waves/wave_resource.gd" id="2_56k26"]
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="2_x4b2d"]
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="3_wvq4n"]
 [ext_resource type="PackedScene" uid="uid://c1v1sluycsjxx" path="res://potion/maps/ingredient_spawn_area.tscn" id="3_xw8a5"]
+[ext_resource type="Resource" uid="uid://dhc355hjvy703" path="res://potion/maps/waves/skeleton_minion.tres" id="4_bkgxh"]
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="4_sbk3e"]
+[ext_resource type="Resource" uid="uid://dgboj71keyjlk" path="res://potion/maps/waves/skeleton_fire.tres" id="5_acowr"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="5_pc26i"]
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/maps/objects/cauldron.tscn" id="6_pc26i"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/maps/objects/storage.tscn" id="6_sbk3e"]
@@ -16,6 +20,11 @@
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="11_ym1rq"]
 [ext_resource type="PackedScene" uid="uid://dv1a0h2dlytsf" path="res://potion/maps/objects/crusher.tscn" id="12_4mq4u"]
 [ext_resource type="PackedScene" uid="uid://ddlu5u2c2fy5r" path="res://assets/models/garden.glb" id="12_pc26i"]
+
+[sub_resource type="Resource" id="Resource_7bnlr"]
+script = ExtResource("2_56k26")
+enemies = Array[ExtResource("3_wvq4n")]([ExtResource("4_bkgxh"), ExtResource("5_acowr")])
+metadata/_custom_type_script = "uid://duah648hndjpr"
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6o1gw"]
 vertices = PackedVector3Array(-13.475098, 0.5, -6.8498, -13.475098, 0.5, -7.0998, -14.475098, 0.5, -7.5998, -18.475098, 0.5, -6.8498, -12.725098, 0.5, -9.3498, -11.225098, 0.5, -10.3498, -11.225098, 0.5, -11.3498, -14.475098, 0.5, -9.0998, -9.975098, 0.5, -17.8498, -24.225098, 0.5, -17.8498, -24.225098, 0.5, -6.0998, -9.975098, 0.5, -11.8498, -18.725098, 0.5, -6.0998, -1.9750977, 0.5, -6.8498, -1.9750977, 0.5, -7.0998, -2.9750977, 0.5, -7.5998, -5.2250977, 0.5, -6.8498, -12.225098, 0.5, -7.5998, -7.2250977, 0.5, -6.8498, -12.225098, 0.5, -9.0998, -10.725098, 0.5, -9.5998, -5.2250977, 0.5, -8.5998, -1.4750977, 0.5, -9.3498, 0.024902344, 0.5, -12.0998, 1.0249023, 0.5, -17.8498, -8.975098, 0.5, -11.5998, -2.9750977, 0.5, -8.8498, -8.975098, 0.5, -9.8498, -6.9750977, 0.5, -8.8498, 0.024902344, 0.5, -10.8498, 1.0249023, 0.5, -12.3498, 9.274902, 0.5, -9.8498, 9.774902, 0.5, -9.0998, 11.274902, 0.5, -9.3498, 11.024902, 0.5, -11.3498, 7.7749023, 0.5, -9.8498, 5.5249023, 0.5, -8.8498, 7.5249023, 0.5, -8.8498, 5.0249023, 0.5, -9.5998, 2.2749023, 0.5, -11.8498, 2.2749023, 0.5, -10.8498, 3.7749023, 0.5, -9.5998, 12.024902, 0.5, -11.5998, 12.024902, 0.5, -17.8498, 13.024902, 0.5, -9.5998, 12.524902, 0.5, -9.3498, 12.774902, 0.5, -7.8498, 14.274902, 0.5, -8.0998, 13.274902, 0.5, -10.8498, 12.774902, 0.5, -11.5998, 14.774902, 0.5, -6.8498, 24.274902, 0.5, -6.8498, 24.274902, 0.5, -17.8498, 0.77490234, 6, -11.0998, 1.7749023, 6, -11.3498, 1.5249023, 6, -11.8498, 0.52490234, 6, -11.5998, -10.225098, 6, -10.5998, -9.225098, 6, -10.8498, -9.725098, 6, -11.3498, -10.225098, 6, -11.0998, 11.524902, 6, -10.3498, 12.774902, 6, -10.5998, 12.274902, 6, -11.0998, 11.524902, 6, -10.8498, -0.72509766, 0.5, -7.5998, 6.2749023, 0.5, -6.8498, 3.5249023, 0.5, -7.3498, 9.774902, 0.5, -8.3498, 3.2749023, 0.5, -9.3498, 1.7749023, 0.5, -10.0998, 5.0249023, 0.5, -7.3498, 9.024902, 0.5, -7.5998, 0.52490234, 0.5, -10.0998, -0.72509766, 0.5, -8.8498, 12.774902, 0.5, -5.8498, 6.7749023, 0.5, -6.3498, 6.7749023, 0.5, -1.5998001, 9.274902, 0.5, 8.6502, 11.274902, 0.5, 8.4002, 11.274902, 0.5, 7.1502, 8.774902, 0.5, 7.9002, 6.5249023, 0.5, 6.6502, 7.5249023, 0.5, 7.9002, 11.774902, 0.5, 6.6502, 6.7749023, 0.5, 1.6501999, 14.524902, 0.5, -5.8498, 8.024902, 0.5, -7.5998, 6.0249023, 0.5, -1.3498001, 6.0249023, 0.5, 1.4001999, 13.024902, 0.5, 6.6502, 24.274902, 0.5, 6.6502, 8.024902, 6, -8.5998, 9.274902, 6, -8.8498, 8.774902, 6, -9.3498, 8.024902, 6, -9.0998, 3.5249023, 5.75, -8.5998, 5.0249023, 6, -8.5998, 4.0249023, 6, -9.0998, -13.725098, 6, -8.3498, -12.475098, 6, -8.3498, -13.475098, 6, -8.8498, -2.2250977, 6, -8.5998, -2.2250977, 6, -8.0998, -1.2250977, 6, -8.3498, -1.4750977, 6, -8.8498, -6.7250977, 6, -7.5998, -5.4750977, 6, -7.8498, -5.9750977, 6, -8.3498, -6.7250977, 6, -8.0998, 13.274902, 6, -6.5998, 14.274902, 6, -6.8498, 14.024902, 6, -7.3498, 13.024902, 6, -7.0998, -12.225098, 0.5, -3.5998, -10.975098, 0.5, -3.8498, -10.975098, 0.5, -5.3498, -18.475098, 0.5, -5.3498, -24.225098, 0.5, 5.9002, -18.725098, 0.5, 5.9002, -18.475098, 0.5, 5.4002, -10.225098, 0.5, 5.4002, -10.225098, 0.5, -2.0998, -12.225098, 0.5, -2.3498, -9.725098, 0.5, -3.5998, 5.2749023, 0.5, -5.3498, 5.2749023, 0.5, 1.6501999, 5.2749023, 0.5, -1.5998001, -9.725098, 0.5, -2.3498, 5.2749023, 0.5, 5.4002, -10.475098, 0.5, 7.6502, -11.475098, 0.5, 7.1502, -11.975098, 0.5, 8.6502, -10.725098, 0.5, 9.4002, -18.475098, 0.5, 6.6502, -13.225098, 0.5, 8.6502, -10.225098, 0.5, 9.6502, -10.225098, 0.5, 15.6502, -13.725098, 0.5, 8.1502, -13.475098, 0.5, 6.6502, -24.225098, 0.5, 15.6502, -11.475098, 0.5, 6.6502, -8.975098, 0.5, 7.4002, -5.7250977, 0.5, 6.6502, -6.7250977, 0.5, 8.4002, -5.7250977, 0.5, 8.1502, -8.475098, 0.5, 7.9002, -8.475098, 0.5, 9.1502, -6.7250977, 0.5, 10.1502, -8.975098, 0.5, 9.6502, -6.9750977, 0.5, 15.6502, -3.4750977, 0.5, 8.4002, -2.9750977, 0.5, 7.9002, -3.2250977, 0.5, 6.6502, -4.4750977, 0.5, 8.6502, -3.4750977, 0.5, 9.6502, -4.4750977, 0.5, 9.9002, -4.9750977, 0.5, 10.4002, -1.9750977, 0.5, 15.6502, -1.9750977, 0.5, 10.1502, 2.5249023, 0.5, 7.9002, 3.0249023, 0.5, 7.9002, 3.2749023, 0.5, 6.6502, 1.7749023, 0.5, 6.9002, 0.27490234, 0.5, 8.9002, 0.27490234, 0.5, 7.4002, -1.2250977, 0.5, 8.1502, -1.2250977, 0.5, 9.6502, 1.7749023, 0.5, 15.6502, 1.7749023, 0.5, 9.1502, 2.5249023, 0.5, 8.6502, 3.5249023, 0.5, 8.6502, 7.5249023, 0.5, 10.1502, 7.0249023, 0.5, 9.6502, 5.0249023, 0.5, 8.6502, 7.0249023, 0.5, 8.4002, 5.2749023, 0.5, 6.6502, 11.774902, 0.5, 15.6502, 9.024902, 0.5, 10.1502, 11.774902, 0.5, 8.9002, 13.024902, 0.5, 8.9002, 13.524902, 0.5, 8.4002, 24.274902, 0.5, 15.6502, 13.524902, 0.5, 7.1502, -12.725098, 6, 6.9002, -12.725098, 6, 7.6502, -11.725098, 6, 7.4002, 4.0249023, 6, 7.6502, 5.0249023, 6, 7.4002, 4.5249023, 6, 6.9002, 4.0249023, 6, 7.1502, 11.774902, 6, 7.6502, 12.024902, 6, 8.1502, 12.774902, 6, 7.6502, 1.0249023, 6, 8.4002, 2.2749023, 6, 8.1502, 1.7749023, 6, 7.6502, 0.77490234, 6, 7.9002, -9.975098, 6, 8.4002, -10.725098, 5.5, 8.4002, -8.975098, 6, 8.4002, -9.725098, 6, 7.9002, -2.4750977, 6, 8.4002, -2.4750977, 6, 9.1502, -1.4750977, 6, 8.9002, 7.7749023, 6, 8.9002, 8.774902, 6, 9.1502, 8.524902, 6, 8.4002, -6.4750977, 5.75, 9.1502, -4.9750977, 6, 9.1502, -5.7250977, 6, 8.6502)
@@ -53,11 +62,19 @@ volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_sbk3e"]
 size = Vector3(2.6972656, 1, 12.413818)
 
-[node name="map02" type="Node3D" node_paths=PackedStringArray("lanes", "cauldrons")]
+[sub_resource type="Curve3D" id="Curve3D_ym1rq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 19, 0, 1, 0, 0, 0, 0, 0, 0, 5, 0, 1, 0, 0, 0, 0, 0, 0, 5, 0, -5, 0, 0, 0, 0, 0, 0, -1, 0, -5, 0, 0, 0, 0, 0, 0, -1, 0, 5, 0, 0, 0, 0, 0, 0, -7, 0, 5, 0, 0, 0, 0, 0, 0, -7, 0, -1, 0, 0, 0, 0, 0, 0, -11, 0, -1),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[node name="map02" type="Node3D" node_paths=PackedStringArray("cauldrons", "paths")]
 script = ExtResource("1_x4b2d")
-lanes = NodePath("Lanes")
+wave_resource = Array[ExtResource("2_56k26")]([SubResource("Resource_7bnlr")])
 cauldrons = [NodePath("Cauldron")]
 new_recipe = ExtResource("2_6o1gw")
+paths = [NodePath("Path3D")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_6o1gw")
@@ -249,11 +266,6 @@ metadata/_edit_group_ = true
 visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
-[node name="Lanes" type="Node3D" parent="."]
-
-[node name="Spawn" type="Marker3D" parent="Lanes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 1)
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, -0.9746132, 34.672245, 27.40627)
 current = true
@@ -285,6 +297,12 @@ metadata/_custom_type_script = "uid://dlb6qrjaljxep"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level"]
 shape = SubResource("BoxShape3D_sbk3e")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_ym1rq")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.3711378e-08, 0, 0.99999976, 0, 1, 0, -0.99999976, 0, -4.3711378e-08, 19, 0, 1)
 
 [editable path="NavigationRegion3D/Trees/Tree"]
 [editable path="NavigationRegion3D/Trees/Tree2"]
