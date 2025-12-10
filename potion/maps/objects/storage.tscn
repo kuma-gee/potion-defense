@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://m8roxd1usklp"]
+[gd_scene load_steps=24 format=3 uid="uid://m8roxd1usklp"]
 
 [ext_resource type="Script" uid="uid://cagdnp4yn2cet" path="res://potion/maps/objects/storage.gd" id="1_egoj2"]
 [ext_resource type="PackedScene" uid="uid://oodm4nieayvd" path="res://assets/fantasy/glTF/FarmCrate_Empty.gltf" id="2_mouuh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cshst085n6bla" path="res://addons/proton_scatter/src/scatter_item.gd" id="11_ihswe"]
 [ext_resource type="Script" uid="uid://bxdsrs8aelkaf" path="res://addons/proton_scatter/src/scatter_shape.gd" id="12_mndha"]
 [ext_resource type="Script" uid="uid://bi1cdqsyg4jht" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="13_cxhee"]
+[ext_resource type="Script" uid="uid://doue0c41rfpuw" path="res://potion/maps/objects/item_drop.gd" id="14_noi48"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_egoj2"]
 size = Vector3(1.4990234, 0.8775635, 1.3916016)
@@ -98,6 +99,17 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="Items/SubViewport/CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
+
+[node name="ItemDropRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42891824, 0)
+
+[node name="ItemDrop" type="Node" parent="ItemDropRoot" node_paths=PackedStringArray("visual")]
+script = ExtResource("14_noi48")
+visual = NodePath("../ItemDropVisual")
+metadata/_custom_type_script = "uid://doue0c41rfpuw"
+
+[node name="ItemDropVisual" type="Node3D" parent="ItemDropRoot"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0

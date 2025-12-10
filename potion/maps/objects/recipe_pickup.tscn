@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv1rei6g4deat"]
+[gd_scene load_steps=6 format=3 uid="uid://dv1rei6g4deat"]
 
 [ext_resource type="Script" uid="uid://b5lf2kk08iuba" path="res://potion/maps/objects/recipe_pickup.gd" id="1_5hct3"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_sxhbl"]
 [ext_resource type="PackedScene" uid="uid://d3ltk63p7jwl7" path="res://assets/fantasy/glTF/Scroll_1.gltf" id="2_1tufr"]
+[ext_resource type="Script" uid="uid://doue0c41rfpuw" path="res://potion/maps/objects/item_drop.gd" id="4_5fef5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fks2m"]
 radius = 0.7726789
@@ -29,3 +30,7 @@ autostart = true
 transform = Transform3D(0.35355338, 0.17677669, -1.545431e-08, 0, -1.0927847e-08, -0.5, -0.35355338, 0.17677669, -1.545431e-08, 0, 0.07353139, 0)
 modulate = Color(0, 0, 0, 1)
 texture = ExtResource("1_sxhbl")
+
+[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("visual")]
+script = ExtResource("4_5fef5")
+visual = NodePath("../Visual")

@@ -10,6 +10,8 @@ extends RayInteractable
 @onready var restore_timer: Timer = $RestoreTimer
 @onready var scatter_item: Node3D = $ProtonScatter/ScatterItem
 @onready var proton_scatter: Node3D = $ProtonScatter
+@onready var item_drop: ItemDrop = $ItemDropRoot/ItemDrop
+@onready var item_drop_visual: Node3D = $ItemDropRoot/ItemDropVisual
 
 var storage := []
 
@@ -28,11 +30,28 @@ func _ready() -> void:
 			_handle_interaction(actor as FPSPlayer)
 	)
 	restore_timer.timeout.connect(_refill)
+	item_drop.landed.connect(func():
+		for c in item_drop_visual.get_children():
+			c.queue_free()
+		
+		if is_max_capacity(): return
+		storage.append(auto_fill)
+		_update_items_list()
+		
+		if not is_max_capacity():
+			restore_timer.start()
+	)
 
 func _refill():
 	if is_max_capacity(): return
-	storage.append(auto_fill)
-	_update_items_list()
+	
+	var node = auto_fill.scene.instantiate()
+	item_drop_visual.add_child(node)
+	item_drop.start()
+
+func _process(delta: float) -> void:
+	if item_drop_visual.get_child_count() > 0:
+		item_drop.process(delta)
 
 func is_max_capacity():
 	return storage.size() >= max_capacity
