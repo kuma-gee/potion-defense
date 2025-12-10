@@ -80,7 +80,7 @@ var path: String:
 	set(val):
 		path = val
 		source_data_ready = false
-		_target_scene = load(path) if source != 0 else null
+		_target_scene = load(path) if source != 0 and path else null
 		ScatterUtil.request_parent_to_rebuild(self)
 
 var source_position: Vector3

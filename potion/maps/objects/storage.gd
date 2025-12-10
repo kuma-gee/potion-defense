@@ -5,8 +5,11 @@ extends RayInteractable
 @export var max_capacity := 5
 @export var items_list: Control
 @export var item_scene: PackedScene
+@export var scatter_amount := [2, 5, 15, 20]
 
 @onready var restore_timer: Timer = $RestoreTimer
+@onready var scatter_item: Node3D = $ProtonScatter/ScatterItem
+@onready var proton_scatter: Node3D = $ProtonScatter
 
 var storage := []
 
@@ -72,6 +75,22 @@ func _update_items_list() -> void:
 		var node = item_scene.instantiate()
 		node.item = item
 		items_list.add_child(node)
+	
+	if storage.is_empty():
+		scatter_item.path = ""
+		return
+	
+	var stack = proton_scatter.modifier_stack.stack
+	for s in stack:
+		if s is CreateInsideRandom:
+			var count = storage.size()
+			count -= 1
+			var amount = scatter_amount[min(count, scatter_amount.size() - 1)]
+			s.amount = amount
+			break
+	
+	var scene = storage[0].scene as PackedScene
+	scatter_item.path = scene.resource_path # call everytime to update
 
 func reset(_restore = false):
 	storage = []

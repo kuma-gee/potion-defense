@@ -487,7 +487,8 @@ func _update_split_multimeshes() -> void:
 						t = transform_chunks[xi][yi][zi][i]
 						t.origin -= center
 						mmi.multimesh.set_instance_transform(i, t)
-		mesh_instance.queue_free()
+		if mesh_instance:
+			mesh_instance.queue_free()
 		offset += count
 
 

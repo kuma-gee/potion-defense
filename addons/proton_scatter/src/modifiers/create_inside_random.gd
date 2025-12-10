@@ -1,4 +1,5 @@
 @tool
+class_name CreateInsideRandom
 extends "base_modifier.gd"
 
 

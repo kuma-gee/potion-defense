@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://cspcf2cuasl1w"]
 
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_17g6l"]
-[ext_resource type="PackedScene" uid="uid://tqsaqyisvhqb" path="res://potion/items/scenes/blue_crystal.tscn" id="1_auble"]
+[ext_resource type="PackedScene" uid="uid://tqsaqyisvhqb" path="res://potion/items/scenes/crystal.tscn" id="1_auble"]
 [ext_resource type="Texture2D" uid="uid://dvre3shtn3pc6" path="res://assets/sprites/Items_Crystal.png" id="3_auble"]
 
 [resource]

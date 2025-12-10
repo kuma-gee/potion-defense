@@ -136,7 +136,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="IngredientSpawnArea" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.026205, 0.10006881, -0.76466656)
-resource = ExtResource("6_fv6ge")
+resource = ExtResource("7_f7537")
 max_count = 8
 spawn_shape = NodePath("CollisionShape3D")
 
