@@ -10,6 +10,7 @@ extends Enemy
 @onready var explosion_hit_box: HitBox = $ExplosionHitBox
 
 @onready var base_explosion_damage := explosion_hit_box.damage
+
 var fire_charges := 1:
 	set(v):
 		fire_charges = clamp(v, 0, max_charges)

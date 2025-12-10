@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_17g6l")
-restore_time = 6.0
+restore_time = 10.0
 texture = ExtResource("3_auble")
 scene = ExtResource("1_auble")
 metadata/_custom_type_script = "uid://b8r3wk16v6bq7"

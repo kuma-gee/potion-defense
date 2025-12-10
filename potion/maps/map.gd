@@ -8,7 +8,7 @@ extends Node3D
 @export var initial_recipe: ItemResource
 @export var paths: Array[Path3D]
 
-@onready var level: Level = $Level
+@onready var level: Level = get_node_or_null("Level")
 
 func _ready() -> void:
 	if level:
@@ -33,10 +33,14 @@ func get_spawn_position(player_num: int) -> Vector3:
 	return spawn_point.global_position + dir.rotated(Vector3.UP, angle)
 
 func map_finished():
-	if level:
-		level.show()
-	
 	var recipe_spawner = get_node("ObjectSpawner")
 	if new_recipe and recipe_spawner:
-		var recipe = recipe_spawner.spawn()
+		var recipe = recipe_spawner.spawn() as Node3D
 		recipe.recipe = new_recipe
+		recipe.tree_exiting.connect(func(): _show_next_level_area())
+	else:
+		_show_next_level_area()
+
+func _show_next_level_area():
+	if level:
+		level.show()

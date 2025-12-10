@@ -730,7 +730,7 @@ collision_layer = 0
 collision_mask = 24
 script = ExtResource("3_epxrq")
 element = 1
-damage = 30.0
+damage = 20.0
 force = 10
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 
