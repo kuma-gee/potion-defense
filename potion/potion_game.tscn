@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=18 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_4p3ka"]
+[ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="2_i3qjy"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
+[ext_resource type="PackedScene" uid="uid://dbeqjyuk1dmun" path="res://potion/ui/recipe_item.tscn" id="12_8f45c"]
 [ext_resource type="PackedScene" uid="uid://cnhq46dfc2xlt" path="res://potion/maps/shop.tscn" id="12_i3qjy"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
@@ -108,7 +109,7 @@ recipe_ui = NodePath("InGameCanvas/Control/Recipes")
 gameover = NodePath("InGameCanvas/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/NewRecipe")
 recipes_btn = NodePath("InGameCanvas/Recipes")
-current_level = ExtResource("2_4p3ka")
+current_level = ExtResource("2_i3qjy")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -229,6 +230,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Gameover" type="ColorRect" parent="InGameCanvas/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -267,7 +269,6 @@ layout_mode = 2
 text = "Back to map"
 
 [node name="Recipes" type="ColorRect" parent="InGameCanvas/Control" node_paths=PackedStringArray("ingredient_container", "potion_item", "page_label")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -276,7 +277,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("34_bo5nf")
-item_scene = ExtResource("19_1w3wt")
+item_scene = ExtResource("12_8f45c")
 ingredient_container = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Ingredients")
 potion_item = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
 page_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Page")
@@ -314,6 +315,7 @@ theme_override_constants/separation = 32
 [node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 3
 theme_override_constants/separation = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]

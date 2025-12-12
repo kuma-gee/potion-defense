@@ -3,6 +3,7 @@ extends RayInteractable
 
 signal died()
 
+@export var mix_icon: Texture2D
 @export var item_container: Control
 @export var item_scene: PackedScene
 @export var health_bar: Range
@@ -50,6 +51,7 @@ var time := 0.0:
 var mixing := false:
 	set(v):
 		mixing = v
+		#sprite.visible = not v
 		if not mixing:
 			_unfreeze_mixing_player()
 
@@ -101,6 +103,7 @@ func handle_interacted(actor: Node) -> void:
 		elif not mixing:
 			mixing_player = player
 			mixing = true
+			sprite.hide()
 			if mixing_player:
 				mixing_player.freeze_player()
 
@@ -108,6 +111,7 @@ func _clear_items():
 	for child in item_container.get_children():
 		child.queue_free()
 	items.clear()
+	sprite.texture = null
 
 func _add_item(item: ItemResource.Type):
 	#var child = _find_item_for(item)
@@ -116,6 +120,7 @@ func _add_item(item: ItemResource.Type):
 	
 	#child.count += 1
 	items.append(item)
+	sprite.texture = mix_icon if not items.is_empty() else null
 
 func _create_item_for(item: ItemResource.Type):
 	var new_item = item_scene.instantiate()
@@ -134,8 +139,11 @@ func handle_released(_actor: Node) -> void:
 		mixing = false
 
 func _process(delta: float) -> void:
-	if items.is_empty(): return
+	if items.is_empty():
+		progress.hide()
+		return
 	
+	progress.show()
 	if overheating:
 		overheat += delta * (1.0 if not mixing else overheat_decrease)
 		if overheat >= overheat_time:

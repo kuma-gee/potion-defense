@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbeqjyuk1dmun"]
+
+[ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="1_gsnlu"]
+[ext_resource type="Script" uid="uid://cl2yajtqi8duj" path="res://potion/ui/recipe_item.gd" id="1_yyori"]
+[ext_resource type="Texture2D" uid="uid://boip6hxwy0kgr" path="res://assets/sprites/Action_Crush.png" id="2_yyori"]
+
+[node name="RecipeItem" type="VBoxContainer" node_paths=PackedStringArray("base", "action", "main")]
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 2
+script = ExtResource("1_yyori")
+base = NodePath("PanelContainer2")
+action = NodePath("TextureRect")
+main = NodePath("PanelContainer3")
+
+[node name="PanelContainer2" parent="." instance=ExtResource("1_gsnlu")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_yyori")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="PanelContainer3" parent="." instance=ExtResource("1_gsnlu")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8

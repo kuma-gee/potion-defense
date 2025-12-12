@@ -34,8 +34,4 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3122869, 0)
 texture = SubResource("ViewportTexture_ccjue")
 
-[node name="Label3D" parent="." index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2129753, 0)
-text = "Crush"
-
 [editable path="Progress"]

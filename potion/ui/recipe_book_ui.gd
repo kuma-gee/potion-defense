@@ -31,8 +31,8 @@ func refresh_ingredients() -> void:
 	
 	var potion = pages[current_page]
 	for item in ItemResource.RECIPIES[potion]:
-		var item_instance = item_scene.instantiate() as CauldronItem
-		item_instance.item = ItemResource.get_resource(item)
+		var item_instance = item_scene.instantiate()
+		item_instance.type = item
 		ingredient_container.add_child(item_instance)
 
 	potion_item.item = ItemResource.get_resource(potion)

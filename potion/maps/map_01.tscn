@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=41 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="6_io850"]
 [ext_resource type="Resource" uid="uid://c15ds4tq8d2vs" path="res://potion/items/resources/potion_blizzard.tres" id="7_0cpyx"]
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="7_f7537"]
-[ext_resource type="Resource" uid="uid://cfwifklownch0" path="res://potion/items/resources/potion_fire_bomb.tres" id="7_iq3fy"]
 [ext_resource type="Resource" path="res://potion/wands/resources/magic_cloak.tres" id="7_sqjp0"]
 [ext_resource type="Resource" path="res://potion/wands/resources/speed_boots.tres" id="8_26rl3"]
 [ext_resource type="Resource" path="res://potion/wands/resources/wand_processing_speed.tres" id="9_gyqcq"]
@@ -59,7 +58,7 @@ metadata/_custom_type_script = "uid://duah648hndjpr"
 script = ExtResource("2_vravf")
 until_wave = 4
 min_enemy_count = 1
-max_enemy_count = 2
+max_enemy_count = 1
 enemies = Array[ExtResource("3_46uui")]([ExtResource("5_ed6x5")])
 metadata/_custom_type_script = "uid://duah648hndjpr"
 
@@ -72,7 +71,7 @@ agent_radius = 0.6
 size = Vector3(49.450195, 0.5161133, 34.442383)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fv6ge"]
-size = Vector3(7.1589966, 1, 4.064087)
+size = Vector3(7.5771484, 1, 4.0908203)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vdyvj"]
 size = Vector3(30.510742, 11.18335, 1)
@@ -111,7 +110,7 @@ spawn_point = NodePath("Cauldron")
 wave_resource = Array[ExtResource("2_vravf")]([SubResource("Resource_ed6x5"), SubResource("Resource_4aq6y"), SubResource("Resource_sqjp0"), SubResource("Resource_0cpyx")])
 upgrades = Array[ExtResource("6_4aq6y")]([ExtResource("7_sqjp0"), ExtResource("8_26rl3"), ExtResource("9_gyqcq"), ExtResource("10_a8ow2")])
 new_recipe = ExtResource("7_0cpyx")
-initial_recipe = ExtResource("7_iq3fy")
+initial_recipe = ExtResource("7_0cpyx")
 paths = [NodePath("Path3D")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -134,16 +133,6 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="IngredientSpawnArea" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.026205, 0.10006881, -0.76466656)
-resource = ExtResource("7_f7537")
-max_count = 8
-spawn_shape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.70596313, 0, 3.376648)
-shape = SubResource("BoxShape3D_fv6ge")
-
 [node name="IngredientSpawnArea2" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_fv6ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.026205, 0.10006881, -0.76466656)
 resource = ExtResource("6_fv6ge")
@@ -151,7 +140,7 @@ max_count = 8
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.70596313, 0, -3.4074845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.70596313, 0, -3.4997363)
 shape = SubResource("BoxShape3D_fv6ge")
 
 [node name="Trees" type="Node3D" parent="NavigationRegion3D"]

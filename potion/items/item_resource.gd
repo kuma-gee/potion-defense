@@ -1,6 +1,8 @@
 class_name ItemResource
 extends Resource
 
+const ACTION_CRUSH = preload("uid://boip6hxwy0kgr")
+
 enum Type {
 	RED_HERB, # Fire
 	FROST_MUSHROOM, # Frost
@@ -18,6 +20,25 @@ enum Type {
 	POTION_PARALYSIS,
 	POTION_LAVA_FIELD,
 	POTION_LIGHTNING,
+}
+
+enum Process {
+	CRUSH,
+	PULVERIZE,
+}
+
+const PROCESS_ICONS = {
+	Process.CRUSH: ACTION_CRUSH,
+	Process.PULVERIZE: ACTION_CRUSH,
+}
+
+const PROCESSES = {
+	Process.CRUSH: {
+		Type.CRYSTAL: Type.CRYSTAL_CRUSHED,
+	},
+	Process.PULVERIZE: {
+		Type.SHARD_FRAGMENT: Type.SHARD_FRAGMENT_PULVERIZED,
+	},
 }
 
 const RECIPIES = {
@@ -50,6 +71,21 @@ var type: Type = Type.RED_HERB:
 var name: String = "":
 	get():
 		return build_name(type)
+
+static func find_base_type(i: Type):
+	for process in PROCESSES.keys():
+		var mapping = PROCESSES[process]
+		for base in mapping.keys():
+			if mapping[base] == i:
+				return base
+	return null
+
+static func find_process_for(base: Type, result: Type):
+	for process in PROCESSES.keys():
+		var mapping = PROCESSES[process]
+		if mapping.get(base, null) == result:
+			return process
+	return null
 
 static func is_potion(t: ItemResource.Type):
 	return build_name(t).begins_with("Potion")

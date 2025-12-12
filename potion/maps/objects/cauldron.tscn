@@ -1,10 +1,11 @@
-[gd_scene load_steps=180 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=181 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bvocmynta350j" path="res://assets/fantasy/glTF/Cauldron.gltf" id="2_scje4"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
 [ext_resource type="Texture2D" uid="uid://dw1yds26jevim" path="res://assets/particles/T_Distortion3.jpg" id="3_tb3lp"]
 [ext_resource type="Texture2D" uid="uid://cdb5d5rqgi1s3" path="res://assets/particles/T_Fire3.jpg" id="4_x105m"]
+[ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
 [ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="20_ek1wr"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
 [ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="20_nv7qt"]
@@ -1607,10 +1608,11 @@ shader_parameter/allow_out_of_bounds = false
 shader_parameter/outline_thickness = 12.0
 shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
 
-[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "progress", "overheat_progress", "success_anim", "failure_anim") groups=["cauldron", "resetable"]]
+[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "progress", "overheat_progress", "success_anim", "failure_anim", "sprite") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
+mix_icon = ExtResource("9_v5itp")
 item_container = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients")
 item_scene = ExtResource("3_mp46c")
 health_bar = NodePath("CanvasLayer/MarginContainer/HBoxContainer/ProgressBar")
@@ -1618,6 +1620,7 @@ progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progr
 overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
 failure_anim = NodePath("HIT VFX/AnimationPlayer")
+sprite = NodePath("Sprite3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6735281, 0)
@@ -1653,13 +1656,6 @@ light_volumetric_fog_energy = 4.446
 light_specular = 0.992
 shadow_enabled = true
 omni_range = 4.416
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6535338, 0)
-visible = false
-billboard = 1
-no_depth_test = true
-text = "Stuff"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -1862,5 +1858,12 @@ pivot_offset = Vector2(24, 24)
 texture = ExtResource("20_nv7qt")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.131705, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("9_v5itp")
 
 [editable path="Cauldron2"]

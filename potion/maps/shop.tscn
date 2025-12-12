@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=21 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/equipments_select.gd" id="3_13ndi"]
@@ -11,6 +11,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hemba"]
 size = Vector3(2.491211, 3.074707, 1.4724121)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2vj38"]
+size = Vector3(1.8752441, 2.4141235, 0.9707031)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nojdy"]
 size = Vector3(2.8300781, 1, 6.2802734)
@@ -269,6 +272,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0373535, 0)
 shape = SubResource("BoxShape3D_hemba")
 
 [node name="Stall_Cart_Empty2" parent="ShopArea/ShopOpen" instance=ExtResource("6_p00gg")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ShopArea/ShopOpen"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopArea/ShopOpen/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26474, 0)
+shape = SubResource("BoxShape3D_2vj38")
 
 [node name="MoveNext" type="Area3D" parent="ShopArea"]
 transform = Transform3D(0.9848653, 0, -0.17332159, 0, 1, 0, 0.17332159, 0, 0.9848653, -1.2007165, 0.50231934, 0)

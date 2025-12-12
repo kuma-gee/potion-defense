@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://buimg1dxik8ck"]
+[gd_scene load_steps=34 format=3 uid="uid://buimg1dxik8ck"]
 
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="1_26mbv"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_x4b2d"]
@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="11_ym1rq"]
 [ext_resource type="PackedScene" uid="uid://dv1a0h2dlytsf" path="res://potion/maps/objects/crusher.tscn" id="12_4mq4u"]
 [ext_resource type="PackedScene" uid="uid://ddlu5u2c2fy5r" path="res://assets/models/garden.glb" id="12_pc26i"]
+[ext_resource type="PackedScene" uid="uid://dec244j10bhon" path="res://potion/maps/objects/trash.tscn" id="21_wvq4n"]
 
 [sub_resource type="Resource" id="Resource_7bnlr"]
 script = ExtResource("2_56k26")
@@ -34,7 +35,7 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 size = Vector3(49.450195, 0.5161133, 34.442383)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ym1rq"]
-size = Vector3(2.7392426, 1.0274658, 8.2265625)
+size = Vector3(2.7392426, 1.0274658, 7.6447754)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pc26i"]
 size = Vector3(10.634735, 1, 3.9846115)
@@ -108,7 +109,7 @@ max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.996, 0.05, -0.926)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.996, 0.05, -0.8360342)
 shape = SubResource("BoxShape3D_ym1rq")
 
 [node name="IngredientSpawnArea2" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_xw8a5")]
@@ -117,7 +118,7 @@ max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/IngredientSpawnArea2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.936, 0.05, 0.918)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.936, 0.05, 0.7007632)
 shape = SubResource("BoxShape3D_ym1rq")
 
 [node name="IngredientSpawnArea3" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("3_xw8a5")]
@@ -303,6 +304,9 @@ curve = SubResource("Curve3D_ym1rq")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
 transform = Transform3D(-4.3711378e-08, 0, 0.99999976, 0, 1, 0, -0.99999976, 0, -4.3711378e-08, 19, 0, 1)
+
+[node name="Trash" parent="." instance=ExtResource("21_wvq4n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.427645, 0, -5.249189)
 
 [editable path="NavigationRegion3D/Trees/Tree"]
 [editable path="NavigationRegion3D/Trees/Tree2"]

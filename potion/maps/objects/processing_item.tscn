@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://rlhxkq2nl4mv"]
+[gd_scene load_steps=7 format=3 uid="uid://rlhxkq2nl4mv"]
 
 [ext_resource type="Script" uid="uid://bqsff2afky16f" path="res://potion/maps/objects/processing_item.gd" id="1_8aror"]
 [ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/maps/objects/progress.tscn" id="2_ccjue"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="3_ccjue"]
+[ext_resource type="Texture2D" uid="uid://boip6hxwy0kgr" path="res://assets/sprites/Action_Crush.png" id="4_q82or"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
 viewport_path = NodePath("Progress/SubViewport")
@@ -10,12 +11,12 @@ viewport_path = NodePath("Progress/SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
 viewport_path = NodePath("SubViewport")
 
-[node name="ProcessingItem" type="Area3D" node_paths=PackedStringArray("progress", "label")]
+[node name="ProcessingItem" type="Area3D" node_paths=PackedStringArray("progress", "sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_8aror")
 progress = NodePath("Progress")
-label = NodePath("Label3D")
+sprite = NodePath("Icon")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="ProcessTimer" type="Timer" parent="."]
@@ -44,12 +45,12 @@ timer = NodePath("../../../../../OverheatTimer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8080401, 0)
 texture = SubResource("ViewportTexture_ccjue")
 
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4951732, 0)
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.3058983, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
-text = "Test"
+texture = ExtResource("4_q82or")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0

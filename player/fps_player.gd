@@ -324,19 +324,19 @@ func _physics_process(delta):
 			push_other_player(other_player)
 			
 			# Break potion only if dashing and facing each other
-			if dash_duration > 0.0:
-				if has_item():
-					break_potion()
-				else:
-					var my_forward = -body.global_transform.basis.z
-					var other_forward = -other_player.body.global_transform.basis.z
-					var facing_dot = my_forward.dot(other_forward)
-					
-					if facing_dot < -0.6 and other_player.has_item():
-						other_player.break_potion()
-		else:
-			if dash_duration > 0.0 and has_item():
-				break_potion()
+			#if dash_duration > 0.0:
+				#if has_item():
+					#break_potion()
+				#else:
+					#var my_forward = -body.global_transform.basis.z
+					#var other_forward = -other_player.body.global_transform.basis.z
+					#var facing_dot = my_forward.dot(other_forward)
+					#
+					#if facing_dot < -0.6 and other_player.has_item():
+						#other_player.break_potion()
+		#else:
+			#if dash_duration > 0.0 and has_item():
+				#break_potion()
 
 func push_other_player(other_player: FPSPlayer) -> void:
 	var push_direction = (other_player.global_position - global_position).normalized()
