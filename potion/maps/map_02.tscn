@@ -41,7 +41,7 @@ size = Vector3(2.7392426, 1.0274658, 7.6447754)
 size = Vector3(10.634735, 1, 3.9846115)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wvq4n"]
-size = Vector3(30.510742, 11.18335, 1)
+size = Vector3(36.067383, 11.18335, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bkgxh"]
 size = Vector3(31.35, 12.525, 1)
@@ -227,35 +227,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44987583, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.539173, 0, -5.238886)
 
 [node name="Boudary" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7214756, 0.03148842)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.721, 0)
 collision_layer = 16384
 collision_mask = 0
 
 [node name="T" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.95752)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.716219)
 shape = SubResource("BoxShape3D_wvq4n")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
-visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(0.19936793, 0, 0.9799246, 0, 1, 0, -0.9799246, 0, 0.19936793, 11.692251, 0, 0.47715425)
+transform = Transform3D(0.19936793, 0, 0.9799246, 0, 1, 0, -0.9799246, 0, 0.19936793, 12.482389, 0, 0.47715425)
 shape = SubResource("BoxShape3D_wvq4n")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D3"]
-visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(-0.19936791, 0, 0.97992474, 0, 1, 0, -0.97992474, 0, -0.19936791, -11.712105, 0, 0.47715425)
+transform = Transform3D(-0.19936791, 0, 0.97992474, 0, 1, 0, -0.97992474, 0, -0.19936791, -14.449516, 0, 0.47715425)
 shape = SubResource("BoxShape3D_wvq4n")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D4"]
-visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
 [node name="B" type="CollisionShape3D" parent="Boudary"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=181 format=3 uid="uid://cef48svqhif5a"]
 
-[ext_resource type="PackedScene" uid="uid://bvocmynta350j" path="res://assets/fantasy/glTF/Cauldron.gltf" id="2_scje4"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
 [ext_resource type="Texture2D" uid="uid://dw1yds26jevim" path="res://assets/particles/T_Distortion3.jpg" id="3_tb3lp"]
 [ext_resource type="Texture2D" uid="uid://cdb5d5rqgi1s3" path="res://assets/particles/T_Fire3.jpg" id="4_x105m"]
+[ext_resource type="PackedScene" uid="uid://cunjrliunpuw7" path="res://assets/models/cauldron.glb" id="6_v5itp"]
 [ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
 [ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="20_ek1wr"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
@@ -1657,13 +1657,13 @@ light_specular = 0.992
 shadow_enabled = true
 omni_range = 4.416
 
+[node name="cauldron" parent="." instance=ExtResource("6_v5itp")]
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41111755, 0)
 shape = SubResource("CylinderShape3D_2ndv3")
-
-[node name="Cauldron2" parent="." instance=ExtResource("2_scje4")]
 
 [node name="CurrentItem" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0964718, 0)
@@ -1865,5 +1865,3 @@ billboard = 1
 double_sided = false
 no_depth_test = true
 texture = ExtResource("9_v5itp")
-
-[editable path="Cauldron2"]
