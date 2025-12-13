@@ -23,7 +23,6 @@ var shooting := false
 # var original_collision_layer: int = 0
 # var original_collision_mask: int = 0
 
-const DEFAULT_ITEM = preload("uid://b83q7mgugu7sr")
 const POTION_EMPTY = preload("uid://b36xk56a0wmoo")
 
 func _ready() -> void:
@@ -48,8 +47,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _create_item_visual() -> void:
-	var item_scene = POTION_EMPTY if ItemResource.is_potion(item_type) else DEFAULT_ITEM
-	var item = item_scene.instantiate()
+	var item_scene = POTION_EMPTY if ItemResource.is_potion(item_type) else null
+	var item = item_scene.instantiate() if item_scene else CSGBox3D.new()
 	add_child(item)
 	item_node = item
 	item_pop.set_item(ItemResource.get_resource(item_type))

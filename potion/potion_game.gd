@@ -73,6 +73,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			player_join.spawn_player(event, m)
 
 func _setup_map():
+	if current_level == null: return
+	
 	shop.process_mode = Node.PROCESS_MODE_DISABLED
 	shop.position.y = 1000
 	shop.hide()

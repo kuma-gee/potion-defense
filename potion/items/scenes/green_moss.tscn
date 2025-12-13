@@ -1,17 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://5xa7uenugfd8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xyqvb"]
-size = Vector3(0.2, 0.052978516, 0.2)
+[ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_78mwr"]
+[ext_resource type="PackedScene" uid="uid://d1m714aukj0ct" path="res://assets/models/moss.glb" id="2_6i4m7"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_moss"]
-size = Vector3(0.2, 0.05, 0.2)
+[sub_resource type="SphereShape3D" id="SphereShape3D_6i4m7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_moss"]
-albedo_color = Color(0.2, 0.6, 0.2, 1)
+[node name="GreenMossVisual" type="Area3D"]
+script = ExtResource("1_78mwr")
+metadata/_custom_type_script = "uid://c1ph2gdxcgu0n"
 
-[node name="GreenMossVisual" type="CollisionShape3D"]
-shape = SubResource("BoxShape3D_xyqvb")
+[node name="moss" parent="." instance=ExtResource("2_6i4m7")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_moss")
-surface_material_override/0 = SubResource("StandardMaterial3D_moss")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6i4m7")

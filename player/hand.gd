@@ -13,32 +13,45 @@ var last_collider = null:
 			last_collider.hover(player)
 
 func _process(_delta: float) -> void:
-	for a in get_overlapping_areas():
-		if a is RayInteractable:
-			last_collider = a
-			break
+	var best_area = _get_facing_area()
+	last_collider = best_area
+
+func _get_facing_area() -> RayInteractable:
+	var areas = get_overlapping_areas()
+	if areas.is_empty():
+		return null
+	
+	var hand_forward = -global_transform.basis.z
+	var best_area: RayInteractable = null
+	var best_dot = -1.0
+	
+	for area in areas:
+		if area is RayInteractable:
+			var direction_to_area = (area.global_position - global_position).normalized()
+			var dot = hand_forward.dot(direction_to_area)
 			
-	if get_overlapping_areas().is_empty():
-		last_collider = null
+			if dot > best_dot:
+				best_dot = dot
+				best_area = area
+	
+	return best_area
 
 func interact(actor) -> void:
-	for a in get_overlapping_areas():
-		if a is RayInteractable:
-			a.interact(actor)
-			break
+	var area = _get_facing_area()
+	if area:
+		area.interact(actor)
 
 func release(actor):
-	for a in get_overlapping_areas():
-		if a is RayInteractable:
-			a.release(actor)
+	var area = _get_facing_area()
+	if area:
+		area.release(actor)
 
 func action(actor) -> void:
-	for a in get_overlapping_areas():
-		if a is RayInteractable:
-			a.action(actor)
-			break
+	var area = _get_facing_area()
+	if area:
+		area.action(actor)
 
 func action_released(actor) -> void:
-	for a in get_overlapping_areas():
-		if a is RayInteractable:
-			a.action_released(actor)
+	var area = _get_facing_area()
+	if area:
+		area.action_released(actor)

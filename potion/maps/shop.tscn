@@ -3,20 +3,18 @@
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/equipments_select.gd" id="3_13ndi"]
 [ext_resource type="Script" uid="uid://b6qt123rna2ch" path="res://potion/ui/shop.gd" id="4_lfft6"]
+[ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="5_nojdy"]
 [ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="5_orkik"]
 [ext_resource type="PackedScene" uid="uid://bta6ws6aiod4y" path="res://assets/fantasy/glTF/Stall_Cart_Empty.gltf" id="6_p00gg"]
-[ext_resource type="Script" uid="uid://crf6i2pescuwe" path="res://potion/maps/move_next.gd" id="6_rakl0"]
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="7_6d3tc"]
 [ext_resource type="PackedScene" uid="uid://di33frcdi4fnw" path="res://potion/maps/objects/upgrade_select.tscn" id="7_p00gg"]
+[ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="9_hemba"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hemba"]
 size = Vector3(2.491211, 3.074707, 1.4724121)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2vj38"]
 size = Vector3(1.8752441, 2.4141235, 0.9707031)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_nojdy"]
-size = Vector3(2.8300781, 1, 6.2802734)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p00gg"]
 size = Vector3(49.450195, 0.5161133, 34.442383)
@@ -279,17 +277,8 @@ shape = SubResource("BoxShape3D_hemba")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26474, 0)
 shape = SubResource("BoxShape3D_2vj38")
 
-[node name="MoveNext" type="Area3D" parent="ShopArea"]
+[node name="MoveNext" parent="ShopArea" instance=ExtResource("5_nojdy")]
 transform = Transform3D(0.9848653, 0, -0.17332159, 0, 1, 0, 0.17332159, 0, 0.9848653, -1.2007165, 0.50231934, 0)
-script = ExtResource("6_rakl0")
-metadata/_custom_type_script = "uid://crf6i2pescuwe"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopArea/MoveNext"]
-shape = SubResource("BoxShape3D_nojdy")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="ShopArea/MoveNext"]
-visible = false
-size = Vector3(2.5966797, 1, 6.578125)
 
 [node name="PrepareArea" type="Node3D" parent="."]
 visible = false
@@ -303,22 +292,13 @@ equipment_root = NodePath("Equip")
 wand_root = NodePath("Wands")
 
 [node name="Wands" type="Node3D" parent="PrepareArea/Equipments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.7557259)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.099119)
 
 [node name="Equip" type="Node3D" parent="PrepareArea/Equipments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.8503199)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.536314)
 
-[node name="MoveNext" type="Area3D" parent="PrepareArea"]
-transform = Transform3D(0.9942877, 0, -0.10673263, 0, 1, 0, 0.10673263, 0, 0.9942877, 13.827876, 0, 0)
-script = ExtResource("6_rakl0")
-metadata/_custom_type_script = "uid://crf6i2pescuwe"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PrepareArea/MoveNext"]
-shape = SubResource("BoxShape3D_nojdy")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="PrepareArea/MoveNext"]
-visible = false
-size = Vector3(2.5966797, 1, 6.578125)
+[node name="MoveNext" parent="PrepareArea" instance=ExtResource("5_nojdy")]
+transform = Transform3D(0.9848654, 0, -0.1733216, 0, 1, 0, 0.1733216, 0, 0.9848654, 13.827876, 0, 0)
 
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, -8.43788, 21.794992, 17.248596)
@@ -395,3 +375,11 @@ shadow_caster_mask = 4294443007
 libraries = {
 &"": SubResource("AnimationLibrary_hemba")
 }
+
+[node name="GridMap2" type="GridMap" parent="."]
+mesh_library = ExtResource("9_hemba")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(3, 65535, 10, 4, 65535, 10, 5, 65535, 10, 6, 65535, 10, 7, 65535, 10, 8, 65535, 10, 9, 65535, 10, 2, 65535, 9, 65535, 65535, 9, 65535, 0, 9, 65532, 0, 9, 65532, 65535, 9, 65531, 65535, 9, 9, 0, 655369, 6, 0, 655369, 5, 0, 655369, 4, 0, 655369, 3, 0, 655369, 2, 0, 655369, 7, 0, 9, 8, 0, 9, 1, 0, 9, 0, 0, 9, 65534, 0, 9, 65533, 0, 9, 65531, 0, 9, 65530, 0, 9, 65527, 0, 9, 65526, 0, 9, 65528, 0, 9, 65529, 0, 9, 65526, 65535, 9, 65527, 65535, 9, 65528, 65535, 9, 65529, 65535, 9, 65530, 65535, 9, 65533, 65535, 9, 65534, 65535, 9, 0, 65535, 9, 1, 65535, 9)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)

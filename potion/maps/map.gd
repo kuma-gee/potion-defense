@@ -33,7 +33,7 @@ func get_spawn_position(player_num: int) -> Vector3:
 	return spawn_point.global_position + dir.rotated(Vector3.UP, angle)
 
 func map_finished():
-	var recipe_spawner = get_node("ObjectSpawner")
+	var recipe_spawner = get_node_or_null("ObjectSpawner")
 	if new_recipe and recipe_spawner:
 		var recipe = recipe_spawner.spawn() as Node3D
 		recipe.recipe = new_recipe

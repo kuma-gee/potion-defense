@@ -245,9 +245,9 @@ transform = Transform3D(0.99972045, -1.4014349e-09, 0.023646593, 1.3934147e-09, 
 
 [node name="HurtBox" parent="." index="1"]
 resistance = Dictionary[int, float]({
-1: 0.5,
+1: 0.3,
 2: 0.3,
-3: 0.2,
+3: 0.1,
 4: 0.0
 })
 max_health = 100.0

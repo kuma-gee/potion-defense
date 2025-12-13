@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm3pdnbvcnfpk"]
+
+[ext_resource type="Script" uid="uid://crf6i2pescuwe" path="res://potion/maps/move_next.gd" id="1_tugip"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nojdy"]
+size = Vector3(2.8300781, 1, 5.3808594)
+
+[node name="MoveNext" type="Area3D"]
+transform = Transform3D(0.9848653, 0, -0.17332159, 0, 1, 0, 0.17332159, 0, 0.9848653, 0, 0, 0)
+script = ExtResource("1_tugip")
+metadata/_custom_type_script = "uid://crf6i2pescuwe"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_nojdy")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(2.5966797, 1, 5.1757813)

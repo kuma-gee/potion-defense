@@ -4,12 +4,14 @@ extends Area3D
 signal next()
 
 @export var continue_timer := 3.0
+@onready var csg_box_3d: CSGBox3D = $CSGBox3D
 
 var time := 0.0:
 	set(v):
 		time = clamp(v, 0, continue_timer)
 
 func _ready() -> void:
+	csg_box_3d.hide()
 	collision_mask = 1 << 1
 	collision_layer = 0
 	visibility_changed.connect(func(): monitoring = visible)

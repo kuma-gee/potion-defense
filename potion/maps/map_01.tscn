@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://dv1rei6g4deat" path="res://potion/maps/objects/recipe_pickup.tscn" id="19_hjkg3"]
 [ext_resource type="PackedScene" uid="uid://t5hlanwweip7" path="res://potion/maps/objects/table.tscn" id="21_44ijc"]
 [ext_resource type="PackedScene" uid="uid://dec244j10bhon" path="res://potion/maps/objects/trash.tscn" id="22_nakt5"]
+[ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="27_4aq6y"]
 
 [sub_resource type="Resource" id="Resource_ed6x5"]
 script = ExtResource("2_vravf")
@@ -93,9 +94,6 @@ sky = SubResource("Sky_vravf")
 glow_enabled = true
 volumetric_fog_density = 0.03
 volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ed6x5"]
-size = Vector3(4.220459, 1, 8.808594)
 
 [sub_resource type="Curve3D" id="Curve3D_nakt5"]
 _data = {
@@ -325,20 +323,10 @@ current = true
 fov = 20.0
 size = 10.832689
 
-[node name="Level" type="Area3D" parent="."]
-transform = Transform3D(0.9842111, 0, -0.17699885, 0, 1, 0, 0.17699885, 0, 0.9842111, 14.022851, 0, -0.75352013)
-collision_layer = 0
-collision_mask = 2
+[node name="Level" parent="." instance=ExtResource("27_4aq6y")]
+transform = Transform3D(0.98486537, 0, -0.1733216, 0, 1, 0, 0.1733216, 0, 0.98486537, 14.022851, 0, -0.75352013)
 script = ExtResource("16_ed6x5")
 map = ExtResource("6_io850")
-metadata/_custom_type_script = "uid://dlb6qrjaljxep"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level"]
-shape = SubResource("BoxShape3D_ed6x5")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Level"]
-visible = false
-size = Vector3(4.0839844, 1, 8.896484)
 
 [node name="ObjectSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999033, 0, -0.9116955)
