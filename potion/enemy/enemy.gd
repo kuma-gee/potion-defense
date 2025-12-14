@@ -62,7 +62,6 @@ func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
 		return
 	
-	
 	match state:
 		State.KNOCKBACK:
 			apply_knockback(delta)

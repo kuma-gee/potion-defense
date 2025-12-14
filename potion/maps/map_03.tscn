@@ -1,10 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://dwomt8tn6xmc3"]
+[gd_scene load_steps=35 format=3 uid="uid://dwomt8tn6xmc3"]
 
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_4k8dt"]
 [ext_resource type="Script" uid="uid://duah648hndjpr" path="res://potion/maps/waves/wave_resource.gd" id="2_7knav"]
 [ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="3_nmj6p"]
 [ext_resource type="Resource" uid="uid://dhc355hjvy703" path="res://potion/maps/waves/skeleton_minion.tres" id="4_b3uww"]
-[ext_resource type="Resource" uid="uid://dgboj71keyjlk" path="res://potion/maps/waves/skeleton_fire.tres" id="5_a0vmd"]
 [ext_resource type="Resource" uid="uid://dacyc21swomek" path="res://potion/items/resources/potion_poison_cloud.tres" id="7_lv645"]
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="9_8qhpd"]
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="10_mjmr6"]
@@ -23,12 +22,12 @@
 [ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="22_7knav"]
 [ext_resource type="PackedScene" uid="uid://dec244j10bhon" path="res://potion/maps/objects/trash.tscn" id="22_n7p1n"]
 
-[sub_resource type="Resource" id="Resource_7bnlr"]
+[sub_resource type="Resource" id="Resource_t6bvj"]
 script = ExtResource("2_7knav")
-min_enemy_count = 6
+min_enemy_count = 1
 spawn_interval_min = 3.0
 spawn_interval_max = 5.0
-enemies = Array[ExtResource("3_nmj6p")]([ExtResource("4_b3uww"), ExtResource("4_b3uww"), ExtResource("4_b3uww"), ExtResource("5_a0vmd")])
+enemies = Array[ExtResource("3_nmj6p")]([ExtResource("4_b3uww"), ExtResource("4_b3uww"), ExtResource("4_b3uww")])
 metadata/_custom_type_script = "uid://duah648hndjpr"
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6o1gw"]
@@ -84,7 +83,7 @@ point_count = 4
 [node name="map03" type="Node3D" node_paths=PackedStringArray("spawn_point", "paths")]
 script = ExtResource("1_4k8dt")
 spawn_point = NodePath("Cauldron")
-wave_resource = Array[ExtResource("2_7knav")]([SubResource("Resource_7bnlr")])
+wave_resource = Array[ExtResource("2_7knav")]([SubResource("Resource_t6bvj")])
 new_recipe = ExtResource("7_lv645")
 paths = [NodePath("Path3D"), NodePath("Path3D2")]
 

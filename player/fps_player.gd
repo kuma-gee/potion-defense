@@ -26,7 +26,7 @@ signal died()
 
 @export_category("Death")
 @export var death_time := 6.0
-@export var revive_assist_increase := 1.5
+@export var revive_assist_increase := 2.0
 @export var revive_progress: Range
 @export var revive_interact: RayInteractable
 
@@ -45,6 +45,7 @@ signal died()
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
+@onready var icon: Sprite3D = $Icon
 
 var death_timer := 0.0:
 	set(v):
@@ -57,7 +58,11 @@ var is_frozen: bool = false
 var dash_cooldown_timer: float = 0.0
 var dash_duration: float = 0.0
 
-var reviving_player: FPSPlayer
+var reviving_player: FPSPlayer:
+	set(v):
+		reviving_player = v
+		icon.visible = not v
+
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
@@ -163,7 +168,13 @@ func _ready():
 	revive_progress.max_value = death_time
 	toggle_camera(false)
 	
+	icon.hide()
 	revive_progress.hide()
+	revive_interact.hovered.connect(func(_a):
+		if hurt_box.is_dead():
+			icon.show()
+	)
+	revive_interact.unhovered.connect(func(_a): icon.hide())
 	revive_interact.interacted.connect(func(a):
 		if hurt_box.is_dead():
 			reviving_player = a
@@ -173,6 +184,8 @@ func _ready():
 			reviving_player = null
 	)
 	catch_area.body_entered.connect(_on_catch_area_body_entered)
+
+	revive_interact.monitorable = false
 	hurt_box.died.connect(func():
 		reset()
 		revive_progress.show()
@@ -253,7 +266,7 @@ func _physics_process(delta):
 		walk_vfx.emitting = false
 		
 		if hurt_box.is_dead():
-			death_timer += delta * 1.0 if not reviving_player else revive_assist_increase
+			death_timer += delta * (1.0 if not reviving_player else revive_assist_increase)
 			if death_timer >= death_time:
 				death_timer = 0.0
 				died.emit()

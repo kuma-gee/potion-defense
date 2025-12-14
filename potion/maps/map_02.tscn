@@ -293,6 +293,7 @@ shape = SubResource("BoxShape3D_wvq4n")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
+visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Boudary"]
@@ -301,6 +302,7 @@ shape = SubResource("BoxShape3D_wvq4n")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D3"]
+visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Boudary"]
@@ -309,6 +311,7 @@ shape = SubResource("BoxShape3D_wvq4n")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D4"]
+visible = false
 mesh = SubResource("BoxMesh_bkgxh")
 
 [node name="B" type="CollisionShape3D" parent="Boudary"]
