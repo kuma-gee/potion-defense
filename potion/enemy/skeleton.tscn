@@ -18,6 +18,7 @@ radius = 0.4165039
 [node name="Skeleton" type="CharacterBody3D" node_paths=PackedStringArray("hurt_box")]
 collision_layer = 4
 script = ExtResource("1_rajcq")
+speed = 3.0
 hurt_box = NodePath("HurtBox")
 
 [node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("status_manager")]
@@ -51,8 +52,7 @@ status_manager = NodePath("../StatusEffectManager")
 hurt_box = NodePath("../HurtBox")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
+simplify_path = true
 debug_enabled = true
 
 [node name="AttackRange" type="RayCast3D" parent="."]

@@ -83,7 +83,8 @@ func _move_to_target():
 	var sp = get_actual_speed()
 	var next_position = nav_agent.get_next_path_position()
 	next_position.y = global_position.y
-	var direction = (next_position - global_position).normalized()
+	var direction = global_position.direction_to(next_position)
+	
 	velocity.x = direction.x * sp
 	velocity.z = direction.z * sp
 	
@@ -99,7 +100,6 @@ func _update_navigation_target():
 	
 	var target_position = path.curve.get_point_position(current_path_point)
 	nav_agent.target_position = target_position
-
 
 #region STATES
 func died(anim = "death"):

@@ -44,7 +44,7 @@ size = Vector3(9.213371, 1.0274658, 4.3101807)
 size = Vector3(7, 1.0274658, 5.0532837)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3uww"]
-size = Vector3(8.615234, 1, 4.064453)
+size = Vector3(8.615234, 1, 2.5835571)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wvq4n"]
 size = Vector3(36.067383, 11.18335, 1)
@@ -68,17 +68,17 @@ volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_4k8dt"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 17, 0, -5, 0, 0, 0, 0, 0, 0, -3, 0, -5, 0, 0, 0, 0, 0, 0, -3, 0, 1, 0, 0, 0, 0, 0, 0, -11, 0, 1),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 17, 0, -5, 0, 0, 0, 0, 0, 0, -4, 0, -5, 0, 0, 0, 0, 0, 0, -3, 0, 2, 0, 0, 0, 0, 0, 0, -11, 0, 1),
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
 
 [sub_resource type="Curve3D" id="Curve3D_7knav"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7, 0, 9, 0, 0, 0, 0, 0, 0, 7, 0, 1, 0, 0, 0, 0, 0, 0, -3, 0, 1, 0, 0, 0, 0, 0, 0, -11, 0, 1),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7, 0, 9, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, -11, 0, 1),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 4
+point_count = 3
 
 [node name="map03" type="Node3D" node_paths=PackedStringArray("spawn_point", "paths")]
 script = ExtResource("1_4k8dt")
@@ -113,7 +113,7 @@ max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Moss"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.397455, 0.05, -8.41486)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5148697, 0.05, -8.41486)
 shape = SubResource("BoxShape3D_7knav")
 
 [node name="Red" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_shape") instance=ExtResource("11_wargs")]
@@ -131,7 +131,7 @@ max_count = 10
 spawn_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Frost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2392544, 0.05, 4.2189546)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2392544, 0.05, 3.7280793)
 shape = SubResource("BoxShape3D_b3uww")
 
 [node name="Trees" type="Node3D" parent="NavigationRegion3D"]
@@ -331,7 +331,7 @@ volume_db = -25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.000315, 0.0063118935, 1.0089946)
 
 [node name="Level" parent="." instance=ExtResource("22_7knav")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.045883, 0, -5.138468)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.045883, 0, -4.9890003)
 script = ExtResource("21_amadh")
 map = null
 
