@@ -4,6 +4,7 @@ extends RayInteractable
 @export var progress: Node3D
 @export var process_time: float = 3.0
 @export var process := ItemResource.Process.CRUSH
+@export var progress_bar: ProgressBar
 
 @onready var item_processing = ItemResource.PROCESSES.get(process, {})
 @onready var overheat_timer: Timer = $OverheatTimer
@@ -13,8 +14,16 @@ extends RayInteractable
 
 var logger = KumaLog.new("Oven")
 var working_player: FPSPlayer
-var process_timer: float = 0.0
-var processing: bool = false
+var process_timer: float = 0.0:
+	set(v):
+		process_timer = v
+		progress_bar.value = process_timer / process_time
+
+var processing: bool = false:
+	set(v):
+		processing = v
+		progress_bar.visible = v
+	
 var item: ItemResource:
 	set(v):
 		item = v
@@ -23,7 +32,7 @@ var item: ItemResource:
 
 func _ready() -> void:
 	super()
-	item = null
+	reset()
 	hovered.connect(func(_a: FPSPlayer): icon.texture = ItemResource.PROCESS_ICONS[process] if _can_process() else null)
 	overheat_start_timer.timeout.connect(func(): overheat_timer.start())
 	overheat_timer.timeout.connect(func(): _on_overheated())

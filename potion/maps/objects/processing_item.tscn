@@ -1,21 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://rlhxkq2nl4mv"]
+[gd_scene load_steps=8 format=3 uid="uid://rlhxkq2nl4mv"]
 
 [ext_resource type="Script" uid="uid://bqsff2afky16f" path="res://potion/maps/objects/processing_item.gd" id="1_8aror"]
-[ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/maps/objects/progress.tscn" id="2_ccjue"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="3_ccjue"]
 [ext_resource type="Texture2D" uid="uid://boip6hxwy0kgr" path="res://assets/sprites/Action_Crush.png" id="4_q82or"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tj6nd"]
 viewport_path = NodePath("Progress/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aror"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3be1"]
+bg_color = Color(0, 0.627905, 0.9827295, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
 viewport_path = NodePath("SubViewport")
 
-[node name="ProcessingItem" type="Area3D" node_paths=PackedStringArray("progress", "sprite")]
+[node name="ProcessingItem" type="Area3D" node_paths=PackedStringArray("progress", "progress_bar", "sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_8aror")
 progress = NodePath("Progress")
+progress_bar = NodePath("Progress/SubViewport/CenterContainer/Progress")
 sprite = NodePath("Icon")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
@@ -31,22 +37,41 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
-[node name="Progress" parent="." instance=ExtResource("2_ccjue")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0873187, 0)
-texture = SubResource("ViewportTexture_mrer8")
+[node name="Progress" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6312296, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = SubResource("ViewportTexture_tj6nd")
 
-[node name="Progress" parent="Progress/SubViewport/CenterContainer" index="0" node_paths=PackedStringArray("timer")]
-timer = NodePath("../../../../ProcessTimer")
+[node name="SubViewport" type="SubViewport" parent="Progress"]
+transparent_bg = true
+size = Vector2i(128, 128)
 
-[node name="Overheat" parent="Progress/SubViewport/CenterContainer/Progress" index="0" node_paths=PackedStringArray("timer")]
-timer = NodePath("../../../../../OverheatTimer")
+[node name="CenterContainer" type="CenterContainer" parent="Progress/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Progress" type="ProgressBar" parent="Progress/SubViewport/CenterContainer"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_8aror")
+theme_override_styles/fill = SubResource("StyleBoxFlat_w3be1")
+max_value = 1.0
+value = 0.5
+show_percentage = false
 
 [node name="ItemPopup" parent="." instance=ExtResource("3_ccjue")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8080401, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3325129, 0)
 texture = SubResource("ViewportTexture_ccjue")
 
 [node name="Icon" type="Sprite3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.3058983, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.0177511, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
@@ -54,5 +79,3 @@ texture = ExtResource("4_q82or")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0
-
-[editable path="Progress"]

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://48vev3h5eyrt" path="res://assets/models/table.glb" id="5_r3je8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ch2ja"]
-size = Vector3(0.94628906, 0.7, 1.0388184)
+size = Vector3(0.46875, 0.7, 0.5)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_r3je8"]
 viewport_path = NodePath("SubViewport")
@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://buns64rcufm7p"
 shape = SubResource("BoxShape3D_ch2ja")
 
 [node name="ItemPopup" parent="RayInteractable" instance=ExtResource("4_l27k1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0261984, 0)
 texture = SubResource("ViewportTexture_r3je8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

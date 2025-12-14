@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_4k8dt"]
 [ext_resource type="Script" uid="uid://duah648hndjpr" path="res://potion/maps/waves/wave_resource.gd" id="2_7knav"]
 [ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="3_nmj6p"]
-[ext_resource type="Resource" uid="uid://dhc355hjvy703" path="res://potion/maps/waves/skeleton_minion.tres" id="4_b3uww"]
+[ext_resource type="Resource" uid="uid://dgboj71keyjlk" path="res://potion/maps/waves/skeleton_fire.tres" id="5_a0vmd"]
 [ext_resource type="Resource" uid="uid://dacyc21swomek" path="res://potion/items/resources/potion_poison_cloud.tres" id="7_lv645"]
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="9_8qhpd"]
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="10_mjmr6"]
@@ -27,7 +27,7 @@ script = ExtResource("2_7knav")
 min_enemy_count = 1
 spawn_interval_min = 3.0
 spawn_interval_max = 5.0
-enemies = Array[ExtResource("3_nmj6p")]([ExtResource("4_b3uww"), ExtResource("4_b3uww"), ExtResource("4_b3uww")])
+enemies = Array[ExtResource("3_nmj6p")]([ExtResource("5_a0vmd")])
 metadata/_custom_type_script = "uid://duah648hndjpr"
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6o1gw"]
