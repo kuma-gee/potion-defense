@@ -5,12 +5,16 @@ signal next()
 
 @export var continue_timer := 3.0
 @onready var csg_box_3d: CSGBox3D = $CSGBox3D
+@onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 var time := 0.0:
 	set(v):
 		time = clamp(v, 0, continue_timer)
+		set_fill(time / continue_timer)
 
 func _ready() -> void:
+	time = 0.0
 	csg_box_3d.hide()
 	collision_mask = 1 << 1
 	collision_layer = 0
@@ -32,3 +36,7 @@ func _process(delta: float) -> void:
 func _all_players_inside() -> bool:
 	if not monitoring: return false
 	return Events.get_player_count() > 0 and get_overlapping_bodies().size() >= Events.get_player_count()
+
+func set_fill(v: float):
+	var shader = mesh_instance_3d.material_override as ShaderMaterial
+	shader.set_shader_parameter("fill_amount", v)

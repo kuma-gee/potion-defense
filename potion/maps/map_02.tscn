@@ -343,7 +343,7 @@ volume_db = -25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.000315, 0.0063118935, -0.9910054)
 
 [node name="Level" parent="." instance=ExtResource("21_bkgxh")]
-transform = Transform3D(0.9848653, 0, -0.17332159, 0, 1, 0, 0.17332159, 0, 0.9848653, 11.404291, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.404291, 0, 0)
 script = ExtResource("9_xw8a5")
 map = ExtResource("23_7bnlr")
 

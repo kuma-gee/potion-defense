@@ -278,7 +278,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26474, 0)
 shape = SubResource("BoxShape3D_2vj38")
 
 [node name="MoveNext" parent="ShopArea" instance=ExtResource("5_nojdy")]
-transform = Transform3D(0.9848653, 0, -0.17332159, 0, 1, 0, 0.17332159, 0, 0.9848653, -1.2007165, 0.50231934, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2007165, 0.50231934, 0.20821929)
 
 [node name="PrepareArea" type="Node3D" parent="."]
 visible = false
@@ -298,7 +298,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.099119)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.536314)
 
 [node name="MoveNext" parent="PrepareArea" instance=ExtResource("5_nojdy")]
-transform = Transform3D(0.9848654, 0, -0.1733216, 0, 1, 0, 0.1733216, 0, 0.9848654, 13.827876, 0, 0)
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 13.827876, 0, 0)
 
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, -8.43788, 21.794992, 17.248596)

@@ -3,20 +3,25 @@ extends RayInteractable
 
 signal died()
 
-@export var mix_icon: Texture2D
 @export var item_container: Control
 @export var item_scene: PackedScene
 @export var health_bar: Range
 
+@export var success_anim: AnimationPlayer
+@export var failure_anim: AnimationPlayer
+
+@export_category("Mixing")
 @export var progress: Range
 @export var overheat_progress: Range
+@export var mix_icon: Texture2D
 @export var mix_time_per_item := 4.0
 @export var mixing_speed_increase := 2.0
 @export var overheat_time := 6.0
 @export var overheat_decrease := -1.0
 
-@export var success_anim: AnimationPlayer
-@export var failure_anim: AnimationPlayer
+@export_category("Water")
+@export var water_mesh: MeshInstance3D
+@onready var default_water_color = water_mesh.material_override.get_shader_parameter("water_color")
 
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var hurt_box: HurtBox = $HurtBox
@@ -100,6 +105,7 @@ func handle_interacted(actor: Node) -> void:
 			var item = items.pop_back()
 			reset()
 			player.pickup_item(ItemResource.get_resource(item))
+			_reset_water()
 		elif not mixing:
 			mixing_player = player
 			mixing = true
@@ -194,6 +200,9 @@ func _check_final_mix():
 		_add_item(potion)
 		success_anim.play("init")
 
+		var color = CauldronItem.POTION_COLORS.get(potion, Color.WHITE)
+		water_mesh.material_override.set_shader_parameter("water_color", color * 1.5)
+
 func _failed_potion():
 	if _is_only_potions():
 		var potion = items[0]
@@ -203,6 +212,10 @@ func _failed_potion():
 	_clear_items()
 	_reset_values()
 	failure_anim.play("hit")
+	_reset_water()
+
+func _reset_water():
+	water_mesh.material_override.set_shader_parameter("water_color", default_water_color)
 
 func reset(_restore = false):
 	_clear_items()

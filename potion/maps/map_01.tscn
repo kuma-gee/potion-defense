@@ -324,7 +324,7 @@ fov = 20.0
 size = 10.832689
 
 [node name="Level" parent="." instance=ExtResource("27_4aq6y")]
-transform = Transform3D(0.98486537, 0, -0.1733216, 0, 1, 0, 0.1733216, 0, 0.98486537, 14.022851, 0, -0.75352013)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.022851, 0, -0.75352013)
 script = ExtResource("16_ed6x5")
 map = ExtResource("6_io850")
 

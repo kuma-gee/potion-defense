@@ -1,11 +1,17 @@
-[gd_scene load_steps=181 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=196 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
 [ext_resource type="Texture2D" uid="uid://dw1yds26jevim" path="res://assets/particles/T_Distortion3.jpg" id="3_tb3lp"]
 [ext_resource type="Texture2D" uid="uid://cdb5d5rqgi1s3" path="res://assets/particles/T_Fire3.jpg" id="4_x105m"]
 [ext_resource type="PackedScene" uid="uid://cunjrliunpuw7" path="res://assets/models/cauldron.glb" id="6_v5itp"]
+[ext_resource type="Texture2D" uid="uid://cs5bjmrxxy2" path="res://assets/particles/T_Noise_HU85k.png" id="7_3yq24"]
+[ext_resource type="Shader" uid="uid://bqqmxtf0sf3oh" path="res://shader/water.gdshader" id="7_upfdl"]
+[ext_resource type="Texture2D" uid="uid://c4vxu813b4djt" path="res://assets/particles/T_VFX_Noise_B4.PNG" id="8_3yq24"]
 [ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
+[ext_resource type="ArrayMesh" uid="uid://o2bjj0tv3wh3" path="res://assets/particles/shapes/plane_circle.obj" id="10_3yq24"]
+[ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="14_op8v4"]
+[ext_resource type="Texture2D" uid="uid://d1t240bu13lbu" path="res://assets/particles/T_VFX_Noise_10.PNG" id="15_7txbf"]
 [ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="20_ek1wr"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
 [ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="20_nv7qt"]
@@ -385,6 +391,31 @@ collision_friction = 0.0
 collision_bounce = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_ksn36"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0dk6"]
+render_priority = 0
+shader = ExtResource("7_upfdl")
+shader_parameter/water_color = Color(0.16105095, 0.22205363, 0.7710772, 1)
+shader_parameter/depth_color = Color(0.05, 0.15, 0.35, 1)
+shader_parameter/noise_tex_a = ExtResource("7_3yq24")
+shader_parameter/noise_tex_b = ExtResource("8_3yq24")
+shader_parameter/noise_a_speed = 0.2
+shader_parameter/noise_a_dir = Vector2(1, 0.2)
+shader_parameter/noise_a_scale = 2.0
+shader_parameter/noise_a_amount = 1.0
+shader_parameter/noise_a_threshold = 0.7
+shader_parameter/noise_b_speed = 0.34
+shader_parameter/noise_b_dir = Vector2(-0.6, 0.4)
+shader_parameter/noise_b_scale = 1.78
+shader_parameter/noise_b_amount = 0.2
+shader_parameter/noise_b_threshold = 0.85
+shader_parameter/noise_b_opacity = 0.5
+shader_parameter/edge_width = -0.085
+shader_parameter/edge_soft = 0.02
+shader_parameter/edge_anim_speed = 1.65
+shader_parameter/edge_anim_amount = 0.0
+shader_parameter/foam_brightness = 1.0
+shader_parameter/overall_opacity = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2ndv3"]
 height = 0.8102722
@@ -1608,18 +1639,59 @@ shader_parameter/allow_out_of_bounds = false
 shader_parameter/outline_thickness = 12.0
 shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
 
-[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "progress", "overheat_progress", "success_anim", "failure_anim", "sprite") groups=["cauldron", "resetable"]]
+[sub_resource type="Gradient" id="Gradient_op8v4"]
+offsets = PackedFloat32Array(0.5, 0.68, 0.75, 1)
+colors = PackedColorArray(0, 0.255, 1, 0.016, 0, 0.255, 1, 0.106, 0.027, 0.157, 2.925, 0.31, 0.1, 0.8, 8, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7txbf"]
+gradient = SubResource("Gradient_op8v4")
+
+[sub_resource type="Gradient" id="Gradient_2ohdo"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wxgc6"]
+gradient = SubResource("Gradient_2ohdo")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_7txbf"]
+offsets = PackedFloat32Array(0.25, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 2, 5, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ohdo"]
+gradient = SubResource("Gradient_7txbf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7txbf"]
+render_priority = 0
+shader = ExtResource("14_op8v4")
+shader_parameter/fresnel_power = 0.5000000074506
+shader_parameter/gradient_color = SubResource("GradientTexture1D_2ohdo")
+shader_parameter/alpha_gradient = SubResource("GradientTexture1D_7txbf")
+shader_parameter/fade_value = 0.999999977648
+shader_parameter/fade_texture_divider = 9.999999798832
+shader_parameter/fade_tex_alpha_smooth_max = 0.999999977648
+shader_parameter/fade_mask = SubResource("GradientTexture2D_wxgc6")
+shader_parameter/fade_texture = ExtResource("15_7txbf")
+shader_parameter/fade_texture_scale = Vector2(2, 3)
+shader_parameter/proximity_fade_distance = 2.0310000964725
+
+[sub_resource type="SphereMesh" id="SphereMesh_3yq24"]
+radius = 3.0
+height = 6.0
+radial_segments = 32
+rings = 16
+
+[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "success_anim", "failure_anim", "progress", "overheat_progress", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
-mix_icon = ExtResource("9_v5itp")
 item_container = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients")
 item_scene = ExtResource("3_mp46c")
 health_bar = NodePath("CanvasLayer/MarginContainer/HBoxContainer/ProgressBar")
-progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
-overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
 failure_anim = NodePath("HIT VFX/AnimationPlayer")
+progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
+overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
+mix_icon = ExtResource("9_v5itp")
+water_mesh = NodePath("cauldron/MeshInstance3D")
 sprite = NodePath("Sprite3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -1658,6 +1730,11 @@ shadow_enabled = true
 omni_range = 4.416
 
 [node name="cauldron" parent="." instance=ExtResource("6_v5itp")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="cauldron"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58630085, 0)
+material_override = SubResource("ShaderMaterial_j0dk6")
+mesh = ExtResource("10_3yq24")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -1865,3 +1942,11 @@ billboard = 1
 double_sided = false
 no_depth_test = true
 texture = ExtResource("9_v5itp")
+
+[node name="Shield" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76831734, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shield"]
+material_override = SubResource("ShaderMaterial_7txbf")
+mesh = SubResource("SphereMesh_3yq24")

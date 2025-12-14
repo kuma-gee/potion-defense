@@ -1,27 +1,56 @@
-[gd_scene load_steps=27 format=3 uid="uid://c684oj6gh0t68"]
+[gd_scene load_steps=25 format=3 uid="uid://c684oj6gh0t68"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://vfx/blue_beam_impact.tscn" id="1_0xjk3"]
 [ext_resource type="Script" uid="uid://j534dif84bdq" path="res://potion/effect/blizzard_area.gd" id="1_xdjkm"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="2_xr23e"]
 [ext_resource type="Resource" uid="uid://cwmb41fcvh6br" path="res://potion/effect/resources/frost_bite.tres" id="3_6bwcj"]
 [ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/frost_slow.tres" id="3_hfew4"]
-[ext_resource type="Shader" uid="uid://d0cyp5rcja8wx" path="res://vfx/aoe_cylinder.tres" id="4_412hj"]
 [ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="4_xdjkm"]
-[ext_resource type="Texture2D" uid="uid://bbww05n0ma6xq" path="res://assets/particles/course/SphereWarp.png" id="5_fnmtw"]
-[ext_resource type="Texture2D" uid="uid://beve0cca3foj1" path="res://assets/particles/course/CylinderTex.png" id="6_xr23e"]
-[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="7_6bwcj"]
+[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/shapes/half_sphere.obj" id="7_6bwcj"]
+[ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="7_xr23e"]
+[ext_resource type="Texture2D" uid="uid://ue51p6m1lno" path="res://assets/particles/T_Noise_W5i.png" id="8_xdjkm"]
+[ext_resource type="Texture2D" uid="uid://ckis20085h0k3" path="res://assets/particles/T_Noise56ko.png" id="9_it33x"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="10_xdjkm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fnmtw"]
 radius = 2.3222609
 
+[sub_resource type="Gradient" id="Gradient_xr23e"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6bwcj"]
+gradient = SubResource("Gradient_xr23e")
+
+[sub_resource type="Gradient" id="Gradient_xdjkm"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_it33x"]
+gradient = SubResource("Gradient_xdjkm")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_6bwcj"]
+colors = PackedColorArray(0, 0.67058825, 1, 1, 0, 1.4160296, 1.4160296, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xdjkm"]
+gradient = SubResource("Gradient_6bwcj")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xdjkm"]
 render_priority = 0
-shader = ExtResource("4_412hj")
-shader_parameter/Scale = Vector2(1, 1)
-shader_parameter/Speed = Vector2(0.02, 0)
-shader_parameter/Texture = ExtResource("6_xr23e")
-shader_parameter/Mask = ExtResource("5_fnmtw")
+shader = ExtResource("7_xr23e")
+shader_parameter/fresnel_power = 0.80999998189488
+shader_parameter/gradient_color = SubResource("GradientTexture1D_xdjkm")
+shader_parameter/alpha_gradient = SubResource("GradientTexture1D_6bwcj")
+shader_parameter/opacity = 0.0
+shader_parameter/overlay_texture = ExtResource("9_it33x")
+shader_parameter/overlay_scale = Vector2(1, 2.5)
+shader_parameter/overlay_speed = Vector2(0.03, 0)
+shader_parameter/overlay_strength = 0.999999977648
+shader_parameter/fade_value = 0.0
+shader_parameter/fade_texture_divider = 1.999999977648
+shader_parameter/fade_smooth = 0.999999977648
+shader_parameter/fade_mask = SubResource("GradientTexture2D_it33x")
+shader_parameter/fade_texture = ExtResource("8_xdjkm")
+shader_parameter/fade_texture_scale = Vector2(1, 2.725)
+shader_parameter/proximity_fade_distance = 1.0
 
 [sub_resource type="Animation" id="Animation_tgqho"]
 length = 0.001
@@ -40,38 +69,50 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/path = NodePath("MeshInstance3D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MeshInstance3D:visible")
+tracks/2/path = NodePath("Frost:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Frost:visible")
+tracks/3/path = NodePath("MeshInstance3D:material_override:shader_parameter/opacity")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MeshInstance3D:material_override:shader_parameter/fade_value")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_412hj"]
@@ -89,25 +130,13 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(1.2, 1.2, 1.2)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/path = NodePath("SmallHit")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SmallHit")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -115,13 +144,13 @@ tracks/2/keys = {
 "method": &"hit"
 }]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BlueBeamImpact")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BlueBeamImpact")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -129,17 +158,41 @@ tracks/3/keys = {
 "method": &"play"
 }]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MeshInstance3D:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MeshInstance3D:material_override:shader_parameter/opacity")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.499999988824]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MeshInstance3D:material_override:shader_parameter/fade_value")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.999999977648]
 }
 
 [sub_resource type="Animation" id="Animation_6bwcj"]
@@ -151,10 +204,10 @@ tracks/0/path = NodePath("MeshInstance3D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -171,14 +224,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles3D:emitting")
+tracks/2/path = NodePath("MeshInstance3D:material_override:shader_parameter/fade_value")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.999999977648, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tgqho"]
@@ -187,43 +240,6 @@ _data = {
 &"start": SubResource("Animation_412hj"),
 &"stop": SubResource("Animation_6bwcj")
 }
-
-[sub_resource type="Curve" id="Curve_6bwcj"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_xdjkm"]
-curve = SubResource("Curve_6bwcj")
-
-[sub_resource type="Curve" id="Curve_412hj"]
-_data = [Vector2(0, 0.08988774), 0.0, 0.0, 0, 0, Vector2(1, 0.123595595), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_fnmtw"]
-_data = [Vector2(0, 0.20224726), 0.0, 0.0, 0, 0, Vector2(1, 0.17977536), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_xr23e"]
-_data = [Vector2(0, 0.08988774), 0.0, 0.0, 0, 0, Vector2(1, 0.08988774), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_6bwcj"]
-curve_x = SubResource("Curve_412hj")
-curve_y = SubResource("Curve_fnmtw")
-curve_z = SubResource("Curve_xr23e")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xdjkm"]
-emission_shape = 3
-emission_box_extents = Vector3(1.5, 0.1, 1.5)
-initial_velocity_min = 0.19999999
-initial_velocity_max = 0.5
-scale_min = 0.19999999
-scale_max = 0.5
-scale_curve = SubResource("CurveXYZTexture_6bwcj")
-alpha_curve = SubResource("CurveTexture_xdjkm")
-collision_mode = 2
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_it33x"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6bwcj"]
 radius = 1.141749
@@ -251,17 +267,6 @@ mesh = ExtResource("7_6bwcj")
 libraries = {
 &"": SubResource("AnimationLibrary_tgqho")
 }
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4782251, 0)
-visible = false
-amount = 32
-process_material = SubResource("ParticleProcessMaterial_xdjkm")
-draw_pass_1 = SubResource("CapsuleMesh_it33x")
-
-[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
-visible = false
-size = Vector3(4.6416016, 0.14428711, 4.201172)
 
 [node name="CleanupTimer" type="Timer" parent="."]
 

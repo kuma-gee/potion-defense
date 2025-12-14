@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://bkrembvwcg1br" path="res://vfx/PlayParticleSystems.gd" id="1_kfubg"]
 [ext_resource type="Texture2D" uid="uid://ce37fcn8ptva0" path="res://assets/particles/course/Circle.png" id="2_q7ym2"]
 [ext_resource type="Texture2D" uid="uid://byjkmlkla0k01" path="res://assets/particles/course/FireCyclinderTex.png" id="3_61j21"]
-[ext_resource type="ArrayMesh" uid="uid://vq3ftmjkahdn" path="res://assets/particles/course/cylinder.obj" id="4_os1wd"]
+[ext_resource type="ArrayMesh" uid="uid://vq3ftmjkahdn" path="res://assets/particles/shapes/cylinder.obj" id="4_os1wd"]
 [ext_resource type="Texture2D" uid="uid://ccgj137yo3nbp" path="res://assets/particles/course/CircleBlurry.png" id="5_b248c"]
 [ext_resource type="Texture2D" uid="uid://ctp8pgkeli18e" path="res://assets/particles/course/FlarePlus.png" id="6_xcnfb"]
 [ext_resource type="Texture2D" uid="uid://beve0cca3foj1" path="res://assets/particles/course/CylinderTex.png" id="7_ln6wa"]
-[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/course/half_sphere.obj" id="8_a24ld"]
+[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/shapes/half_sphere.obj" id="8_a24ld"]
 [ext_resource type="Shader" uid="uid://bs1sn4bn6t1ty" path="res://vfx/aoe_ring_billboard.tres" id="9_lmcmr"]
 [ext_resource type="Texture2D" uid="uid://c36t3itic1ivn" path="res://assets/particles/course/RingTex.png" id="10_ol2xe"]
-[ext_resource type="ArrayMesh" uid="uid://dlu8x4kwu61bd" path="res://assets/particles/course/ring.obj" id="11_h0a4y"]
+[ext_resource type="ArrayMesh" uid="uid://dlu8x4kwu61bd" path="res://assets/particles/shapes/ring.obj" id="11_h0a4y"]
 [ext_resource type="Texture2D" uid="uid://cje6wstbddcpy" path="res://assets/particles/course/ImpactMark01.png" id="12_sc4fk"]
 [ext_resource type="Shader" uid="uid://w0bufmmr0a1o" path="res://vfx/fire_shader.tres" id="13_q7ym2"]
 [ext_resource type="Texture2D" uid="uid://d16r5p580hv6t" path="res://assets/particles/course/Flame01.png" id="14_61j21"]
@@ -1064,6 +1064,7 @@ draw_pass_1 = SubResource("QuadMesh_nb1nt")
 [node name="GroundBeamDark" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_mqgew")
+emitting = false
 amount = 1
 lifetime = 6.0
 one_shot = true
