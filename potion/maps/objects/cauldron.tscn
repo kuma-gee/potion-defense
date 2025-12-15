@@ -1,4 +1,4 @@
-[gd_scene load_steps=196 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=199 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
@@ -12,6 +12,9 @@
 [ext_resource type="ArrayMesh" uid="uid://o2bjj0tv3wh3" path="res://assets/particles/shapes/plane_circle.obj" id="10_3yq24"]
 [ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="14_op8v4"]
 [ext_resource type="Texture2D" uid="uid://d1t240bu13lbu" path="res://assets/particles/T_VFX_Noise_10.PNG" id="15_7txbf"]
+[ext_resource type="AudioStream" uid="uid://fbgjbquaxv6q" path="res://assets/sound/sfx/水ぶくぶく1.mp3" id="16_wxgc6"]
+[ext_resource type="AudioStream" uid="uid://b2s3llk3d8jxu" path="res://assets/sound/sfx/水ぶくぶく2.mp3" id="17_1mhqx"]
+[ext_resource type="AudioStream" uid="uid://cqpc0xdqjtm5u" path="res://assets/sound/sfx/泡がはじける.mp3" id="18_1mhqx"]
 [ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="20_ek1wr"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
 [ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="20_nv7qt"]
@@ -1665,9 +1668,13 @@ shader = ExtResource("14_op8v4")
 shader_parameter/fresnel_power = 0.5000000074506
 shader_parameter/gradient_color = SubResource("GradientTexture1D_2ohdo")
 shader_parameter/alpha_gradient = SubResource("GradientTexture1D_7txbf")
+shader_parameter/opacity = 1.0
+shader_parameter/overlay_scale = Vector2(1, 1)
+shader_parameter/overlay_speed = Vector2(0, 0)
+shader_parameter/overlay_strength = 0.5
 shader_parameter/fade_value = 0.999999977648
 shader_parameter/fade_texture_divider = 9.999999798832
-shader_parameter/fade_tex_alpha_smooth_max = 0.999999977648
+shader_parameter/fade_smooth = 0.5
 shader_parameter/fade_mask = SubResource("GradientTexture2D_wxgc6")
 shader_parameter/fade_texture = ExtResource("15_7txbf")
 shader_parameter/fade_texture_scale = Vector2(2, 3)
@@ -1950,3 +1957,18 @@ visible = false
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Shield"]
 material_override = SubResource("ShaderMaterial_7txbf")
 mesh = SubResource("SphereMesh_3yq24")
+
+[node name="Brewing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_wxgc6")
+volume_db = -25.0
+bus = &"SFX"
+
+[node name="Drop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_1mhqx")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="Take" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_1mhqx")
+volume_db = -10.0
+bus = &"SFX"

@@ -26,6 +26,9 @@ signal died()
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var zelda_fire: Node3D = $ZeldaFire
+@onready var brewing: AudioStreamPlayer = $Brewing
+@onready var drop: AudioStreamPlayer = $Drop
+@onready var take: AudioStreamPlayer = $Take
 
 var items: Array = []
 var mixing_player: FPSPlayer = null
@@ -57,6 +60,7 @@ var mixing := false:
 	set(v):
 		mixing = v
 		#sprite.visible = not v
+		brewing.volume_db = -15 if v else -25
 		if not mixing:
 			_unfreeze_mixing_player()
 
@@ -100,12 +104,14 @@ func handle_interacted(actor: Node) -> void:
 		overheating = false
 		_check_mixing_items()
 		Events.cauldron_used.emit()
+		drop.play()
 	elif not items.is_empty():
 		if _is_only_potions():
 			var item = items.pop_back()
 			reset()
 			player.pickup_item(ItemResource.get_resource(item))
 			_reset_water()
+			take.play()
 		elif not mixing:
 			mixing_player = player
 			mixing = true
@@ -146,6 +152,7 @@ func handle_released(_actor: Node) -> void:
 
 func _process(delta: float) -> void:
 	if items.is_empty():
+		brewing.stop()
 		progress.hide()
 		return
 	
@@ -159,6 +166,9 @@ func _process(delta: float) -> void:
 			overheat = 0.0
 	elif finished and overheat_start_timer.is_stopped():
 		overheat_start_timer.start()
+	
+	if not brewing.playing:
+		brewing.play()
 	
 	time += delta * (1.0 if not mixing else mixing_speed_increase)
 	if time >= required_time and not finished:

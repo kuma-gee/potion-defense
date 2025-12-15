@@ -1,6 +1,8 @@
 class_name RecipeBookUI
 extends Control
 
+@export var open_sound: AudioStreamPlayer
+@export var close_sound: AudioStreamPlayer
 @export var item_scene: PackedScene
 @export var ingredient_container: Control
 @export var potion_item: CauldronItem
@@ -58,7 +60,9 @@ func pause() -> void:
 	if pages.is_empty(): return
 	
 	show()
+	open_sound.play()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func close():
 	hide()
+	close_sound.play()

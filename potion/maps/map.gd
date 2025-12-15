@@ -14,6 +14,7 @@ func _ready() -> void:
 	if level:
 		level.hide()
 
+	await get_tree().create_timer(1.0).timeout
 	if initial_recipe:
 		var initial = get_node("InitialRecipeSpawner")
 		var recipe = initial.spawn()

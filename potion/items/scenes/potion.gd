@@ -17,18 +17,10 @@ const EFFECT_SCENES = {
 	ItemResource.Type.POTION_LIGHTNING: preload("uid://d1n4byccvwsct"),
 }
 
-const POTION_COLORS = {
-	#ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.3, 0.0, 0.8),  # Orange/Red
-	#ItemResource.Type.POTION_FROST_NOVA: Color(0.3, 0.7, 1.0, 0.8),  # Cyan/Blue
-	#ItemResource.Type.POTION_POISON_CLOUD: Color(0.2, 0.8, 0.2, 0.8),  # Green
-	#ItemResource.Type.POTION_PARALYSIS: Color(0.8, 0.8, 0.3, 0.8),  # Yellow
-}
-
-const POTION_EMISSIONS = {
-	#ItemResource.Type.POTION_FIRE_BOMB: Color(1.0, 0.5, 0.0, 1.0),  # Orange glow
-	#ItemResource.Type.POTION_FROST_NOVA: Color(0.5, 0.8, 1.0, 1.0),  # Blue glow
-	#ItemResource.Type.POTION_POISON_CLOUD: Color(0.3, 1.0, 0.3, 1.0),  # Green glow
-	#ItemResource.Type.POTION_PARALYSIS: Color(1.0, 1.0, 0.5, 1.0),  # Yellow glow
+const EFFECT_SOUND = {
+	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://dxta3ng0pxsil"),
+	ItemResource.Type.POTION_BLIZZARD: preload("uid://c8cg2kpfrq4ga"),
+	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://5nesl7o0ovro"),
 }
 
 func _ready() -> void:
@@ -54,17 +46,17 @@ func _update_liquid_color() -> void:
 		liquid_mesh.set_surface_override_material(0, material)
 	
 	# Set color
-	var color: Color = POTION_COLORS.get(potion_type, Color.WHITE)
+	var color: Color = CauldronItem.POTION_COLORS.get(potion_type, Color.WHITE)
 	material.albedo_color = color
 	
 	# Set emission
-	var emission: Color = POTION_EMISSIONS.get(potion_type, Color.BLACK)
-	if emission.a > 0:
-		material.emission_enabled = true
-		material.emission = emission
-		material.emission_energy_multiplier = 2.0
-	else:
-		material.emission_enabled = false
+	#var emission: Color = color
+	#if emission.a > 0:
+		#material.emission_enabled = true
+		#material.emission = emission
+		#material.emission_energy_multiplier = 2.0
+	#else:
+	material.emission_enabled = false
 
 func on_hit() -> void:
 	var spawn_position = _get_ground_position()
@@ -72,6 +64,9 @@ func on_hit() -> void:
 	if node:
 		get_tree().current_scene.add_child(node)
 
+	var sound_stream = EFFECT_SOUND.get(potion_type, null)
+	if sound_stream:
+		AudioManager.play_sfx(sound_stream)
 	hit.emit()
 
 func _get_ground_position() -> Vector3:

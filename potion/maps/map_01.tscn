@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=42 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
@@ -20,6 +20,7 @@
 [ext_resource type="Resource" path="res://potion/wands/resources/wand_processing_speed.tres" id="9_gyqcq"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="9_vdyvj"]
 [ext_resource type="Resource" path="res://potion/wands/resources/wand_teleport.tres" id="10_a8ow2"]
+[ext_resource type="Resource" uid="uid://cfwifklownch0" path="res://potion/items/resources/potion_fire_bomb.tres" id="12_sqjp0"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/maps/objects/storage.tscn" id="15_io850"]
 [ext_resource type="Script" uid="uid://dlb6qrjaljxep" path="res://potion/maps/level.gd" id="16_ed6x5"]
 [ext_resource type="Script" uid="uid://byss77ynwhvcc" path="res://util/object_spawner.gd" id="18_d5uy5"]
@@ -108,7 +109,7 @@ spawn_point = NodePath("Cauldron")
 wave_resource = Array[ExtResource("2_vravf")]([SubResource("Resource_ed6x5"), SubResource("Resource_4aq6y"), SubResource("Resource_sqjp0"), SubResource("Resource_0cpyx")])
 upgrades = Array[ExtResource("6_4aq6y")]([ExtResource("7_sqjp0"), ExtResource("8_26rl3"), ExtResource("9_gyqcq"), ExtResource("10_a8ow2")])
 new_recipe = ExtResource("7_0cpyx")
-initial_recipe = ExtResource("7_0cpyx")
+initial_recipe = ExtResource("12_sqjp0")
 paths = [NodePath("Path3D")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -313,6 +314,8 @@ shadow_caster_mask = 4294443007
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_vdyvj")
 volume_db = -25.0
+autoplay = true
+bus = &"BGM"
 
 [node name="Cauldron" parent="." instance=ExtResource("3_ubtl6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0003142, 0.23262823, -0.9910054)
