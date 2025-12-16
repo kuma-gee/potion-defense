@@ -1,6 +1,8 @@
 class_name PlayerAnim
 extends AnimationTree
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 func update_move(dir: Vector3):
 	set("parameters/Move/blend_amount", dir.length())
 	set("parameters/State/transition_request", "alive")
@@ -11,3 +13,11 @@ func died():
 
 func casting():
 	set("parameters/State/transition_request", "casting")
+
+func shield_on():
+	set("parameters/State/transition_request", "block")
+	animation_player.play("shield_on")
+
+func shield_off():
+	set("parameters/State/transition_request", "alive")
+	animation_player.play_backwards("shield_on")

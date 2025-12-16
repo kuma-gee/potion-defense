@@ -28,4 +28,7 @@ grow_vertical = 2
 [node name="CauldronItem" parent="SubViewport/CenterContainer" instance=ExtResource("1_01chs")]
 layout_mode = 2
 
+[node name="Label" parent="SubViewport/CenterContainer/CauldronItem/MarginContainer/CauldronItem" index="0"]
+visible = true
+
 [editable path="SubViewport/CenterContainer/CauldronItem"]

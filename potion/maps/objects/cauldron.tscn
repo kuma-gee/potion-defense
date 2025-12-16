@@ -1646,12 +1646,12 @@ shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
 offsets = PackedFloat32Array(0.5, 0.68, 0.75, 1)
 colors = PackedColorArray(0, 0.255, 1, 0.016, 0, 0.255, 1, 0.106, 0.027, 0.157, 2.925, 0.31, 0.1, 0.8, 8, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_7txbf"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1mhqx"]
 gradient = SubResource("Gradient_op8v4")
 
 [sub_resource type="Gradient" id="Gradient_2ohdo"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wxgc6"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_saywr"]
 gradient = SubResource("Gradient_2ohdo")
 fill_from = Vector2(1, 1)
 
@@ -1659,15 +1659,15 @@ fill_from = Vector2(1, 1)
 offsets = PackedFloat32Array(0.25, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0, 2, 5, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ohdo"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q1gjo"]
 gradient = SubResource("Gradient_7txbf")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7txbf"]
 render_priority = 0
 shader = ExtResource("14_op8v4")
 shader_parameter/fresnel_power = 0.5000000074506
-shader_parameter/gradient_color = SubResource("GradientTexture1D_2ohdo")
-shader_parameter/alpha_gradient = SubResource("GradientTexture1D_7txbf")
+shader_parameter/gradient_color = SubResource("GradientTexture1D_q1gjo")
+shader_parameter/alpha_gradient = SubResource("GradientTexture1D_1mhqx")
 shader_parameter/opacity = 1.0
 shader_parameter/overlay_scale = Vector2(1, 1)
 shader_parameter/overlay_speed = Vector2(0, 0)
@@ -1675,7 +1675,7 @@ shader_parameter/overlay_strength = 0.5
 shader_parameter/fade_value = 0.999999977648
 shader_parameter/fade_texture_divider = 9.999999798832
 shader_parameter/fade_smooth = 0.5
-shader_parameter/fade_mask = SubResource("GradientTexture2D_wxgc6")
+shader_parameter/fade_mask = SubResource("GradientTexture2D_saywr")
 shader_parameter/fade_texture = ExtResource("15_7txbf")
 shader_parameter/fade_texture_scale = Vector2(2, 3)
 shader_parameter/proximity_fade_distance = 2.0310000964725

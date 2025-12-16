@@ -11,6 +11,9 @@ func set_item(item: ItemResource):
 	cauldron_item.item = item
 	visible = item != null
 
+func set_count(count: int):
+	cauldron_item.count = count
+
 func get_item_texture():
 	if not has_item(): return null
 	return cauldron_item.item.texture

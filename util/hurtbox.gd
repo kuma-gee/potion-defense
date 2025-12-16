@@ -14,6 +14,7 @@ signal elemental_hit(element: ElementalArea.Element)
 	ElementalArea.Element.POISON: 0.0,
 }
 
+@export var shield: Shield
 @export var status_manager: StatusEffectManager
 @export var max_health := 10.0
 @onready var health := max_health:
@@ -33,6 +34,11 @@ func set_max_health(new_max_health: float):
 func hit(dmg: float, knockback = Vector3.ZERO, element = ElementalArea.Element.NONE):
 	if is_dead():
 		return
+	
+	if shield:
+		dmg = shield.shield_damage(dmg)
+		if dmg <= 0.0:
+			return
 	
 	var mult = 1.0 - (resistance[element] if element in resistance else 0.0)
 	var effective_dmg = dmg * mult

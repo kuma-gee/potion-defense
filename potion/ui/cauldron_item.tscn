@@ -19,10 +19,11 @@ shader = ExtResource("1_ksfjx")
 shader_parameter/enabled = true
 shader_parameter/color = Color(0, 0, 0, 1)
 
-[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("texture_rect")]
+[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("texture_rect", "label")]
 theme_override_styles/panel = SubResource("StyleBoxEmpty_i48dj")
 script = ExtResource("2_bojww")
 texture_rect = NodePath("MarginContainer/CauldronItem")
+label = NodePath("MarginContainer/CauldronItem/Label")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_umabc")
@@ -44,12 +45,15 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="MarginContainer/CauldronItem"]
-visible = false
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -18.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/outline_size = 8
 text = "2x"

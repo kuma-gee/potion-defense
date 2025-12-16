@@ -4,7 +4,5 @@ extends RayInteractable
 var res: ItemResource
 
 func interact(actor: FPSPlayer):
-	if actor.has_item(): return
-	
-	actor.pickup_item(res)
-	queue_free()
+	if actor.pickup_item(res):
+		queue_free()

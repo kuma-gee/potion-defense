@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyedl1e0ipb6d"
-path.s3tc="res://.godot/imported/T_Cracks336.png-c31b966fcf0520c953768ec292e62b3c.s3tc.ctex"
+uid="uid://da6ce7umjm28h"
+path.s3tc="res://.godot/imported/hexagon.png-440edb412724d7792f3939395c30e72b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/T_Cracks336.png"
-dest_files=["res://.godot/imported/T_Cracks336.png-c31b966fcf0520c953768ec292e62b3c.s3tc.ctex"]
+source_file="res://assets/particles/hexagon.png"
+dest_files=["res://.godot/imported/hexagon.png-440edb412724d7792f3939395c30e72b.s3tc.ctex"]
 
 [params]
 

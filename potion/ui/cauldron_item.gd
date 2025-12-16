@@ -10,6 +10,7 @@ const POTION_COLORS = {
 }
 
 @export var texture_rect: TextureRect
+@export var label: Label
 
 var item: ItemResource:
 	set(v):
@@ -24,13 +25,12 @@ var item: ItemResource:
 var count := 0:
 	set(v):
 		count = v
-		get_label().text = "%sx" % count
+		label.visible = count > 1
+		label.text = "%sx" % count
 
 func _ready() -> void:
 	self.item = item
-
-func get_label() -> Label:
-	return $Label
+	label.hide()
 
 func set_potion_color() -> void:
 	if not item: return

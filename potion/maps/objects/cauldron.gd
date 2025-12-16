@@ -170,7 +170,7 @@ func _process(delta: float) -> void:
 	if not brewing.playing:
 		brewing.play()
 	
-	time += delta * (1.0 if not mixing else mixing_speed_increase)
+	time += delta * (1.0 if not mixing else mixing_speed_increase * mixing_player.get_processing_speed())
 	if time >= required_time and not finished:
 		_on_finished()
 

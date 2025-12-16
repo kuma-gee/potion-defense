@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="EquipmentResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://potion/wands/resources/equipment_resource.gd" id="1_a2b3c"]
+[ext_resource type="Script" uid="uid://kerkdxvvh1sg" path="res://potion/wands/equipment_resource.gd" id="1_a2b3c"]
 
 [resource]
 script = ExtResource("1_a2b3c")
-name = "Speed Boots"
-description = "Magical boots that increase movement speed by 50%"
-price = 100
+name = "Haste Boots"
+description = "Magical boots that increases movement speed by 25%"
+price = 15
 equipment_type = 0
-stat_type = 0
-stat_value = 1.5
+stat_value = 0.25

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WandResource" load_steps=2 format=3 uid="uid://dvcguwvkv4lg6"]
+
+[ext_resource type="Script" uid="uid://fyvkpyi3xxto" path="res://potion/wands/wand_resource.gd" id="1_xw2u0"]
+
+[resource]
+script = ExtResource("1_xw2u0")
+ability_type = 1
+cooldown = 30.0
+duration = 0.0
+effect_value = 30.0
+charge_time = 0.0
+name = "Wand of Protection"
+description = "Summon a shield that absorbs 30 damage"
+price = 20
+metadata/_custom_type_script = "uid://fyvkpyi3xxto"

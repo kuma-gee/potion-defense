@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="EquipmentResource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="EquipmentResource" load_steps=2 format=3 uid="uid://61nwouk6kqjc"]
 
-[ext_resource type="Script" path="res://potion/wands/resources/equipment_resource.gd" id="1_d4e5f"]
+[ext_resource type="Script" uid="uid://kerkdxvvh1sg" path="res://potion/wands/equipment_resource.gd" id="1_d4e5f"]
 
 [resource]
 script = ExtResource("1_d4e5f")
-name = "Magic Cloak"
-description = "A mystical cloak that reduces incoming damage by 30%"
-price = 150
 equipment_type = 1
-stat_type = 1
-stat_value = 0.7
+name = "Immunity Cloak"
+description = "A mystical cloak that protects from any potion effects"
+price = 40

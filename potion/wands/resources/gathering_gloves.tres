@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EquipmentResource" load_steps=2 format=3 uid="uid://cpuxn4dbytbqj"]
+
+[ext_resource type="Script" uid="uid://kerkdxvvh1sg" path="res://potion/wands/equipment_resource.gd" id="1_pb3vw"]
+
+[resource]
+script = ExtResource("1_pb3vw")
+equipment_type = 2
+stat_value = 3.0
+name = "Gathering Gloves"
+description = "Pick up to 3 of the same ingredients at once"
+price = 30
+metadata/_custom_type_script = "uid://kerkdxvvh1sg"

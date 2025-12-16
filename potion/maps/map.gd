@@ -1,6 +1,8 @@
 class_name Map
 extends Node3D
 
+const GROUP = "map"
+
 @export var spawn_point: Node3D
 @export var wave_resource: Array[WaveResource]
 @export var upgrades: Array[UpgradeResource]
@@ -11,6 +13,7 @@ extends Node3D
 @onready var level: Level = get_node_or_null("Level")
 
 func _ready() -> void:
+	add_to_group(GROUP)
 	if level:
 		level.hide()
 

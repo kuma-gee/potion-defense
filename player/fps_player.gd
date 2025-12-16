@@ -13,9 +13,6 @@ signal died()
 @export var max_throw_force: float = 20.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
 
-@export var camera: Camera3D
-@export var camera_root: Node3D
-
 @export var anim: PlayerAnim
 @export var body: Node3D
 @export var walk_vfx: GPUParticles3D
@@ -33,11 +30,6 @@ signal died()
 @export_category("Top down")
 @export var hand: Area3D
 @export var item_texture: ItemPopup
-
-@export_category("First person")
-@export var interact_ray: InteractRay
-@export var ui: CanvasLayer
-@export var item_label: Label
 @export var catch_area: Area3D
 
 @export_category("Wand")
@@ -46,6 +38,8 @@ signal died()
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
 @onready var icon: Sprite3D = $Icon
+@onready var wand_ability: WandAbility = $WandAbility
+@onready var shield: Shield = $Shield
 
 var death_timer := 0.0:
 	set(v):
@@ -67,78 +61,16 @@ var throw_button_held: bool = false
 var current_throw_force: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
 var equipped_wand: WandResource = null
-var wand_ability: WandAbility = null
-var wand_cooldown_timer: float = 0.0
 var equipped_equipment: EquipmentResource = null
+
+var item_count := 0:
+	set(v):
+		item_count = v
+		item_texture.set_count(v)
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
-		item_label.text = held_item_type.name if held_item_type else ""
 		item_texture.set_item(v)
-
-func equip_wand(wand: WandResource) -> void:
-	equipped_wand = wand
-	wand_ability = _create_wand_ability(wand)
-	wand_cooldown_timer = 0.0
-	print("Equipped wand: %s" % wand.name)
-
-func equip_equipment(equipment: EquipmentResource) -> void:
-	equipped_equipment = equipment
-	print("Equipped equipment: %s" % equipment.name)
-
-func get_equipment_stat_multiplier(stat_type: EquipmentResource.StatType) -> float:
-	if not equipped_equipment or equipped_equipment.stat_type != stat_type:
-		return 1.0
-	return equipped_equipment.stat_value
-
-func get_actual_speed(s = speed) -> float:
-	var actual_speed = super.get_actual_speed(s)
-	actual_speed *= get_equipment_stat_multiplier(EquipmentResource.StatType.SPEED)
-	return actual_speed
-
-func get_damage_multiplier() -> float:
-	return get_equipment_stat_multiplier(EquipmentResource.StatType.DEFENSE)
-
-func _create_wand_ability(wand: WandResource) -> WandAbility:
-	match wand.ability_type:
-		WandResource.AbilityType.PROCESSING_SPEED:
-			return ProcessingSpeedAbility.new(self, wand)
-		WandResource.AbilityType.TELEPORT:
-			return TeleportAbility.new(self, wand)
-		_:
-			push_error("Unknown wand ability type: %d" % wand.ability_type)
-			return null
-
-func use_wand_ability() -> bool:
-	if not equipped_wand or not wand_ability:
-		return false
-	
-	if wand_ability.is_active:
-		print("Wand already active")
-		return false
-	
-	if wand_cooldown_timer > 0.0:
-		print("Wand on cooldown: %.1fs remaining" % wand_cooldown_timer)
-		return false
-	
-	wand_ability.activate()
-	wand_cooldown_timer = equipped_wand.cooldown
-	return true
-
-func get_processing_speed() -> float:
-	var base_speed = 1.0
-	if wand_ability and wand_ability is ProcessingSpeedAbility:
-		base_speed *= (wand_ability as ProcessingSpeedAbility).get_speed_multiplier()
-	
-	return base_speed
-
-func get_interact_collision_point():
-	if interact_ray.is_colliding():
-		return interact_ray.get_collision_point()
-	return interact_ray.global_position + interact_ray.target_position
-
-func get_camera_point():
-	return interact_ray.global_position
 
 func _get_mouse_world_position() -> Vector3:
 	var current_camera = get_viewport().get_camera_3d()
@@ -155,18 +87,12 @@ func _get_mouse_world_position() -> Vector3:
 		return intersection
 	return global_position + Vector3.FORWARD
 
-func toggle_camera(value = not camera.current):
-	camera.current = value
-	body.visible = not camera.current
-	ui.visible = camera.current
-
 func _ready():
 	super()
 	player_input.set_for_id(input_id)
 	color_ring.color = colors[player_num % colors.size()]
 	held_item_type = null
 	revive_progress.max_value = death_time
-	toggle_camera(false)
 	
 	icon.hide()
 	revive_progress.hide()
@@ -192,28 +118,15 @@ func _ready():
 		revive_interact.set_deferred("monitorable", true)
 		anim.died()
 	)
+
+	wand_ability.start_charge.connect(func(): freeze_player())
+	wand_ability.finish_charge.connect(func(): unfreeze_player())
+	shield.broken.connect(func():
+		deactivate_shield()
+		wand_ability.start_cooldown()
+	)
 	
 	player_input.input_event.connect(func(event: InputEvent):
-		#if event.is_action_pressed("switch_view"):
-			#toggle_camera()
-		
-		# if camera.current:
-		# 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-		# 		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		# 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		# 	else:
-		# 		if event is InputEventMouseMotion:
-		# 			var sens = mouse_sensitivity
-		# 			rotate_y(-event.relative.x * sens.x)
-		# 			camera_root.rotate_x(-event.relative.y * sens.y)
-		# 			camera_root.rotation.x = clamp(camera_root.rotation.x, deg_to_rad(-70), deg_to_rad(70))
-		# 		elif event.is_action_pressed("ui_cancel"):
-		# 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_VISIBLE
-		# 		elif event.is_action_pressed("interact"):
-		# 			interact_ray.interact(self)
-		# 		elif event.is_action_released("interact"):
-		# 			interact_ray.release(self)
-		# else:
 		if event is InputEventMouseMotion:
 			mouse_position = event.position
 		if event.is_action_pressed("interact"):
@@ -226,8 +139,9 @@ func _ready():
 			hand.action_released(self)
 		elif event.is_action_pressed("wand_ability"):
 			use_wand_ability()
-				
-		if event.is_action_pressed("dash"):
+		elif event.is_action_released("wand_ability"):
+			release_wand_ability()
+		elif event.is_action_pressed("dash"):
 			dash_player()
 		elif event.is_action_pressed("drop_item"):
 			throw_button_held = true
@@ -242,26 +156,29 @@ func _ready():
 	)
 
 func _debug_potion_spawn(event: InputEvent):
-	if not event is InputEventKey: return
+	if not event is InputEventKey or event.is_released(): return
 	var key = event as InputEventKey
 	
 	if not key.shift_pressed: return
 	
 	if key.keycode == KEY_1:
-		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
+		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
+		equip_wand(preload("uid://co1p7scbvpyhc"))
 	elif key.keycode == KEY_2:
-		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
+		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
+		equip_wand(preload("uid://dvcguwvkv4lg6"))
 	elif key.keycode == KEY_3:
-		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_POISON_CLOUD)
+		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_POISON_CLOUD)
+		equip_wand(preload("uid://cotho06ohio7x"))
 
 func get_input_direction() -> Vector3:
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var input = Vector3(input_dir.x, 0, input_dir.y).normalized()
-	var direction = (transform.basis * input) if camera.current else input
+	var direction = input
 	return direction
 
 func _physics_process(delta):
-	if is_frozen or hurt_box.is_dead():
+	if is_frozen or hurt_box.is_dead() or shield.is_active:
 		velocity = Vector3.ZERO
 		walk_vfx.emitting = false
 		
@@ -279,26 +196,14 @@ func _physics_process(delta):
 	
 	dash_cooldown_timer = max(0.0, dash_cooldown_timer - delta)
 	dash_duration = max(0.0, dash_duration - delta)
-	wand_cooldown_timer = max(0.0, wand_cooldown_timer - delta)
-	
-	if wand_ability:
-		wand_ability.process(delta)
-	
-	if wand_cooldown_label:
-		if wand_cooldown_timer > 0.0:
-			wand_cooldown_label.text = "Wand: %.1fs" % wand_cooldown_timer
-			wand_cooldown_label.show()
-		else:
-			wand_cooldown_label.hide()
 	
 	if throw_button_held and has_item():
 		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
 		
-		if not camera.current:
-			var mouse_world_pos = _get_mouse_world_position()
-			var direction_to_mouse = (mouse_world_pos - global_position).normalized()
-			if direction_to_mouse.length() > 0.1:
-				body.look_at(body.global_position + direction_to_mouse, Vector3.UP)
+		var mouse_world_pos = _get_mouse_world_position()
+		var direction_to_mouse = (mouse_world_pos - global_position).normalized()
+		if direction_to_mouse.length() > 0.1:
+			body.look_at(body.global_position + direction_to_mouse, Vector3.UP)
 	else:
 		current_throw_force = 0.0
 	
@@ -358,15 +263,33 @@ func push_other_player(other_player: FPSPlayer) -> void:
 		other_player.velocity.x = push_direction.x * push_force
 		other_player.velocity.z = push_direction.z * push_force
 
-func pickup_item(item_type: ItemResource) -> void:
+func pickup_item(item_type: ItemResource) -> bool:
+	var glove_items = get_equipment_stat(EquipmentResource.Type.GATHERING_GLOVES)
+	if has_item() and glove_items <= 0.0:
+		return false
+	
+	if glove_items > 0 and held_item_type and (held_item_type.type != item_type.type or item_count >= glove_items):
+		return false
+
+	if held_item_type:
+		item_count += 1
+	else:
+		item_count = 1
+
 	held_item_type = item_type
+	return true
 
 func has_item() -> bool:
 	return held_item_type != null
 
 func release_item() -> ItemResource:
 	var item = held_item_type
-	held_item_type = null
+
+	item_count -= 1
+	if item_count <= 0:
+		held_item_type = null
+		item_count = 0
+
 	return item
 
 func dash_player() -> void:
@@ -392,20 +315,17 @@ func throw_item() -> void:
 	var item = release_item()
 	
 	var throw_direction: Vector3
-	if camera.current:
+	var mouse_world_pos = _get_mouse_world_position()
+	throw_direction = (mouse_world_pos - global_position).normalized()
+	if throw_direction.length() < 0.1:
 		throw_direction = -body.global_transform.basis.z
-	else:
-		var mouse_world_pos = _get_mouse_world_position()
-		throw_direction = (mouse_world_pos - global_position).normalized()
-		if throw_direction.length() < 0.1:
-			throw_direction = -body.global_transform.basis.z
 	
 	var actual_force = min_throw_force + current_throw_force
 	
 	var pickupable: Pickupable = PICKUPABLE_SCENE.instantiate()
 	pickupable.item_type = item.type
 	
-	var throw_position = get_camera_point() if camera.current else hand.global_position + Vector3.UP * 0.5
+	var throw_position = hand.global_position + Vector3.UP * 0.5
 	pickupable.position = throw_position
 	
 	get_tree().current_scene.add_child(pickupable)
@@ -448,6 +368,64 @@ func reset(_restore = false):
 	throw_button_held = false
 	current_throw_force = 0.0
 	death_timer = 0.0
-	wand_cooldown_timer = 0.0
-	if wand_ability and wand_ability.is_active:
-		wand_ability.deactivate()
+	if wand_ability:
+		wand_ability.reset()
+
+func effect_damage(amount: int, element: ElementalArea.Element) -> void:
+	if has_immunity(): return
+	super(amount, element)
+
+func slow(type: String, factor: float) -> void:
+	if has_immunity(): return
+	super(type, factor)
+
+#region Equipment/Wands
+func equip_wand(wand: WandResource) -> void:
+	equipped_wand = wand
+	wand_ability.wand = wand
+	wand_ability.reset()
+	print("Equipped wand: %s" % WandResource.AbilityType.keys()[wand.ability_type])
+
+func equip_equipment(equipment: EquipmentResource) -> void:
+	equipped_equipment = equipment
+
+func has_immunity():
+	return get_equipment_stat(EquipmentResource.Type.IMMUNITY_CLOAK) > 0.0
+
+func get_equipment_stat(type: EquipmentResource.Type, defaultValue = 0.0) -> float:
+	if not equipped_equipment or equipped_equipment.equipment_type != type:
+		return defaultValue
+	return equipped_equipment.stat_value
+
+func get_actual_speed(s = speed) -> float:
+	var actual_speed = super.get_actual_speed(s)
+	actual_speed *= 1 + get_equipment_stat(EquipmentResource.Type.SPEED_BOOTS)
+	return actual_speed
+
+func use_wand_ability() -> bool:
+	if not equipped_wand or not wand_ability:
+		return false
+	
+	wand_ability.activate()
+	return true
+
+func release_wand_ability() -> bool:
+	if not equipped_wand or not wand_ability:
+		return false
+	
+	wand_ability.deactivate()
+	return true
+
+func activate_shield():
+	anim.shield_on()
+	shield.activate_shield()
+
+func deactivate_shield():
+	anim.shield_off()
+	shield.deactivate_shield()
+
+func get_processing_speed() -> float:
+	var base_speed = 1.0
+	base_speed *= wand_ability.get_processing_speed()
+	return base_speed
+#endregion
