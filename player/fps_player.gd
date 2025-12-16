@@ -60,7 +60,11 @@ var reviving_player: FPSPlayer:
 var throw_button_held: bool = false
 var current_throw_force: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
-var equipped_wand: WandResource = null
+var equipped_wand: WandResource = null:
+	set(v):
+		equipped_wand = v
+		shield.visible = is_shield()
+
 var equipped_equipment: EquipmentResource = null
 
 var item_count := 0:
@@ -89,6 +93,8 @@ func _get_mouse_world_position() -> Vector3:
 
 func _ready():
 	super()
+	equipped_wand = null
+	equipped_equipment = null
 	player_input.set_for_id(input_id)
 	color_ring.color = colors[player_num % colors.size()]
 	held_item_type = null
@@ -121,12 +127,18 @@ func _ready():
 
 	wand_ability.start_charge.connect(func(): freeze_player())
 	wand_ability.finish_charge.connect(func(): unfreeze_player())
+	wand_ability.cooldown_finished.connect(func():
+		if is_shield():
+			shield.restore_shield()
+	)
 	shield.broken.connect(func():
 		deactivate_shield()
 		wand_ability.start_cooldown()
 	)
 	
 	player_input.input_event.connect(func(event: InputEvent):
+		if hurt_box.is_dead(): return
+		
 		if event is InputEventMouseMotion:
 			mouse_position = event.position
 		if event.is_action_pressed("interact"):
@@ -389,6 +401,9 @@ func equip_wand(wand: WandResource) -> void:
 func equip_equipment(equipment: EquipmentResource) -> void:
 	equipped_equipment = equipment
 
+func is_shield():
+	return equipped_wand and equipped_wand.ability_type == WandResource.AbilityType.SHIELD
+
 func has_immunity():
 	return get_equipment_stat(EquipmentResource.Type.IMMUNITY_CLOAK) > 0.0
 
@@ -417,10 +432,12 @@ func release_wand_ability() -> bool:
 	return true
 
 func activate_shield():
+	if hurt_box.is_dead(): return
 	anim.shield_on()
 	shield.activate_shield()
 
 func deactivate_shield():
+	if hurt_box.is_dead(): return
 	anim.shield_off()
 	shield.deactivate_shield()
 

@@ -3,7 +3,9 @@ extends Node
 
 signal start_charge()
 signal finish_charge()
+signal cooldown_finished()
 
+@export var cooldown_fill: Control
 @export var player: FPSPlayer
 var wand: WandResource
 
@@ -70,6 +72,11 @@ func _process(delta: float) -> void:
 
 	if cooldown_remaining > 0.0:
 		cooldown_remaining = max(0.0, cooldown_remaining - delta)
+		set_fill(cooldown_remaining / wand.cooldown)
+		if cooldown_remaining <= 0.0:
+			cooldown_finished.emit()
+	else:
+		set_fill(0.0)
 
 	if is_active:
 		time_remaining -= delta
@@ -77,6 +84,10 @@ func _process(delta: float) -> void:
 		
 		if time_remaining <= 0.0:
 			_on_active_timeout()
+
+func set_fill(v: float):
+	var mat = cooldown_fill.material as ShaderMaterial
+	mat.set_shader_parameter("fill", v)
 
 func _on_active_timeout():
 	is_active = false

@@ -23,15 +23,17 @@ float mask(vec2 uv, float value)
 void fragment() {
 	vec2 center = vec2(0.5, 0.5);
 	float dist = distance(UV, center);
-	float r = radius / 2.0;
-	float inside_circle = smoothstep(r + blur, r - blur, dist);
-	COLOR.a *= inside_circle;
-
+	
 	float inner_r = inner_radius / 2.0;
 	float inner_circle = 1. - smoothstep(inner_r + blur, inner_r - blur, dist);
 	COLOR = mix(inner_color, COLOR, inner_circle);
 
 	vec2 uv = (UV * 2.0) - 1.0;
 	float t = mask(uv, fill);
-	COLOR = mix(bg_color * COLOR.a, COLOR, t);
+	COLOR = mix(bg_color, COLOR, t);
+	
+	float r = radius / 2.0;
+	float inside_circle = smoothstep(r + blur, r - blur, dist);
+	COLOR.a *= inside_circle;
+
 }

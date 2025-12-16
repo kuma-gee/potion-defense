@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqsb8dcdmlb48"]
 
 [ext_resource type="Shader" uid="uid://brpxo4jool5jb" path="res://shader/potion_ui.gdshader" id="1_ksfjx"]
-[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://shader/circle.gdshader" id="2_8qvv2"]
+[ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://shader/circle_fill.gdshader" id="2_8qvv2"]
 [ext_resource type="Script" uid="uid://dx1kpfl74qbru" path="res://potion/ui/cauldron_item.gd" id="2_bojww"]
 [ext_resource type="Texture2D" uid="uid://df25uri316jim" path="res://assets/sprites/Items_Potion.png" id="2_ksfjx"]
 
