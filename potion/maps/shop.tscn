@@ -1,8 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=22 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
-[ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/equipments_select.gd" id="3_13ndi"]
-[ext_resource type="Script" uid="uid://b6qt123rna2ch" path="res://potion/ui/shop.gd" id="4_lfft6"]
+[ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
+[ext_resource type="PackedScene" uid="uid://m672asvd0bow" path="res://potion/maps/objects/upgrade_buy.tscn" id="5_hemba"]
 [ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="5_nojdy"]
 [ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="5_orkik"]
 [ext_resource type="PackedScene" uid="uid://bta6ws6aiod4y" path="res://assets/fantasy/glTF/Stall_Cart_Empty.gltf" id="6_p00gg"]
@@ -15,6 +15,9 @@ size = Vector3(2.491211, 3.074707, 1.4724121)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2vj38"]
 size = Vector3(1.8752441, 2.4141235, 0.9707031)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
+radius = 0.7569843
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p00gg"]
 size = Vector3(49.450195, 0.5161133, 34.442383)
@@ -177,27 +180,13 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(0.23342896, 0, 0.47715425), Vector3(15.063331, 0, 0.47715425)]
 }
-tracks/5/type = "method"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath(".")
+tracks/5/path = NodePath("ShopArea/MoveNext/CollisionShape3D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"setup_prepare_area"
-}]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ShopArea/MoveNext/CollisionShape3D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0.06666666),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -210,58 +199,17 @@ _data = {
 &"next": SubResource("Animation_p00gg")
 }
 
-[node name="Shop" type="Node3D" node_paths=PackedStringArray("shop_ui", "spawn_point")]
+[node name="Shop" type="Node3D" node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_13ndi")
-shop_ui = NodePath("CanvasLayer/Shop")
 spawn_point = NodePath("Spawn")
 
 [node name="Spawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.906274, 0, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Shop" type="CenterContainer" parent="CanvasLayer" node_paths=PackedStringArray("container", "close_btn")]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_lfft6")
-container = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
-close_btn = NodePath("PanelContainer/MarginContainer/VBoxContainer/Button")
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Shop"]
-custom_minimum_size = Vector2(700, 800)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Shop/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Shop/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="Label" type="Label" parent="CanvasLayer/Shop/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Shop"
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Shop/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="CanvasLayer/Shop/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Close"
-
 [node name="ShopArea" type="Node3D" parent="."]
 
 [node name="ShopOpen" type="Area3D" parent="ShopArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.522796, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.744837, 0, -3.3843784)
 script = ExtResource("5_orkik")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
@@ -277,25 +225,33 @@ shape = SubResource("BoxShape3D_hemba")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26474, 0)
 shape = SubResource("BoxShape3D_2vj38")
 
+[node name="EquipmentsSelect" type="Node3D" parent="ShopArea/ShopOpen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1103907, 0, 0)
+script = ExtResource("3_13ndi")
+scene = ExtResource("5_hemba")
+metadata/_custom_type_script = "uid://b1fc7q2ij1jat"
+
 [node name="MoveNext" parent="ShopArea" instance=ExtResource("5_nojdy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2007165, 0.50231934, 0.20821929)
 
 [node name="PrepareArea" type="Node3D" parent="."]
 visible = false
 
-[node name="Equipments" type="Node3D" parent="PrepareArea" node_paths=PackedStringArray("equipment_root", "wand_root")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0851693, 0, 0)
+[node name="Inventory" type="Area3D" parent="PrepareArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4218807, 0, -3.438931)
+script = ExtResource("5_orkik")
+metadata/_custom_type_script = "uid://buns64rcufm7p"
+
+[node name="Equipment" type="Node3D" parent="PrepareArea/Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8114834, 0, 0.041305542)
 script = ExtResource("3_13ndi")
 scene = ExtResource("7_p00gg")
-offset = 2.0
-equipment_root = NodePath("Equip")
-wand_root = NodePath("Wands")
 
-[node name="Wands" type="Node3D" parent="PrepareArea/Equipments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.099119)
+[node name="CSGBox3D" type="CSGBox3D" parent="PrepareArea/Inventory"]
 
-[node name="Equip" type="Node3D" parent="PrepareArea/Equipments"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.536314)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrepareArea/Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2854886, 0)
+shape = SubResource("SphereShape3D_hemba")
 
 [node name="MoveNext" parent="PrepareArea" instance=ExtResource("5_nojdy")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 13.827876, 0, 0)

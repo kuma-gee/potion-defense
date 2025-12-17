@@ -1,4 +1,4 @@
-class_name UpgradeSelect
+class_name UpgradeBuy
 extends RayInteractable
 
 @export var name_label: Label
@@ -9,18 +9,14 @@ var upgrade: UpgradeResource
 
 func _ready() -> void:
 	super()
-	name_label.text = upgrade.name
+	name_label.text = "%s (%s)" % [upgrade.name, upgrade.price]
 	description_label.text = upgrade.description
 
 	if upgrade.icon:
 		icon.texture = upgrade.icon
 
-func interact(actor: FPSPlayer):
+func interact(_a: FPSPlayer):
 	if not upgrade: return
 
-	var player = actor as FPSPlayer
-	if player:
-		if upgrade is WandResource:
-			player.equip_wand(upgrade as WandResource)
-		elif upgrade is EquipmentResource:
-			player.equip_equipment(upgrade as EquipmentResource)
+	if Events.buy_upgrade(upgrade):
+		queue_free()

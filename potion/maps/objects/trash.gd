@@ -2,6 +2,7 @@ class_name TrashReceiver
 extends RayInteractable
 
 @export var trash_icon: Texture2D
+@onready var chew: RandomizedLoopSfx = $Chew
 
 func _ready() -> void:
 	super()
@@ -9,4 +10,5 @@ func _ready() -> void:
 	interacted.connect(func(a: FPSPlayer):
 		if a and a.has_item():
 			a.release_item()
+			chew.start()
 	)

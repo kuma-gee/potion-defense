@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="WandResource" load_steps=2 format=3 uid="uid://co1p7scbvpyhc"]
+[gd_resource type="Resource" script_class="WandResource" load_steps=3 format=3 uid="uid://co1p7scbvpyhc"]
 
+[ext_resource type="Texture2D" uid="uid://c2v2cb6gbgcfs" path="res://assets/sprites/Upgrade_WandSpeed.png" id="1_vyncj"]
 [ext_resource type="Script" uid="uid://fyvkpyi3xxto" path="res://potion/wands/wand_resource.gd" id="1_x7hyy"]
 
 [resource]
@@ -9,4 +10,4 @@ duration = 20.0
 effect_value = 2.0
 name = "Wand of Speed"
 description = " Increases processing speed by 2x for 20 seconds."
-price = 10
+icon = ExtResource("1_vyncj")

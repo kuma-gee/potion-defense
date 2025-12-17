@@ -6,11 +6,11 @@ extends Node3D
 @export var gameover: GameoverScreen
 @export var new_recipe: NewRecipe
 @export var recipes_btn: Control
+@export var in_game_canvas: Control
 
 @onready var wave_manager: WaveManager = $WaveManager
 @onready var player_root: Node3D = $PlayerRoot
 @onready var map_root: Node3D = $MapRoot
-@onready var in_game_canvas: CanvasLayer = $InGameCanvas
 @onready var player_join: PlayerJoin = $PlayerJoin
 @onready var shop: ShopMap = $Shop
 

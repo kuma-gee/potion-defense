@@ -30,6 +30,9 @@ func finished_level(souls: int):
 func is_tutorial_level() -> bool:
 	return level == 0
 
+func is_first_level() -> bool:
+	return level <= 1
+
 func collect_soul(amount: int):
 	total_souls += amount
 	souls_changed.emit()
@@ -41,11 +44,17 @@ func pickup_recipe(item: ItemResource):
 		picked_up_recipe.emit(item)
 		print("Unlocked recipes: %s" % item)
 
+func has_upgrade(up: UpgradeResource) -> bool:
+	return up in unlocked_upgrades
+
 func buy_upgrade(up: UpgradeResource):
 	if not up in unlocked_upgrades:
 		if total_souls >= up.price:
 			total_souls -= up.price
 			unlocked_upgrades.append(up)
 			print("Unlocked upgrades: %s" % up.name)
+			return true
 		else:
 			print("Not enough souls to buy upgrade: %s" % up.name)
+
+	return false

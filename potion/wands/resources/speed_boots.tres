@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="EquipmentResource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="EquipmentResource" load_steps=3 format=3 uid="uid://bw110x4ti7eqc"]
 
+[ext_resource type="Texture2D" uid="uid://4k8gcpl3sfjs" path="res://assets/sprites/Upgrade_HasteBoots.png" id="1_13lpc"]
 [ext_resource type="Script" uid="uid://kerkdxvvh1sg" path="res://potion/wands/equipment_resource.gd" id="1_a2b3c"]
 
 [resource]
 script = ExtResource("1_a2b3c")
+stat_value = 0.25
 name = "Haste Boots"
 description = "Magical boots that increases movement speed by 25%"
-price = 15
-equipment_type = 0
-stat_value = 0.25
+icon = ExtResource("1_13lpc")

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Events="*res://potion/events.gd"
 AudioManager="*res://util/audio_manager.gd"
+Env="*res://Env.gd"
 
 [display]
 

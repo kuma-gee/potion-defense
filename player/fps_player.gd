@@ -33,7 +33,7 @@ signal died()
 @export var catch_area: Area3D
 
 @export_category("Wand")
-@export var wand_cooldown_label: Label
+@export var wand_texture: TextureRect
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
@@ -65,6 +65,7 @@ var equipped_wand: WandResource = null:
 	set(v):
 		equipped_wand = v
 		shield.visible = is_shield()
+		wand_texture.texture = equipped_wand.icon if equipped_wand else null
 
 var equipped_equipment: EquipmentResource = null
 
@@ -402,6 +403,7 @@ func equip_wand(wand: WandResource) -> void:
 
 func equip_equipment(equipment: EquipmentResource) -> void:
 	equipped_equipment = equipment
+	print("Equipped equipment: %s" % EquipmentResource.Type.keys()[equipment.equipment_type])
 
 func is_shield():
 	return equipped_wand and equipped_wand.ability_type == WandResource.AbilityType.SHIELD

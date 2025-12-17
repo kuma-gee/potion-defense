@@ -1,17 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://di33frcdi4fnw"]
+[gd_scene load_steps=6 format=3 uid="uid://m672asvd0bow"]
 
-[ext_resource type="Script" uid="uid://bv6swedqiwvia" path="res://potion/maps/upgrade_select.gd" id="1_cwysg"]
-[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="2_v3wr1"]
-[ext_resource type="Theme" uid="uid://pb4a8d7vvi60" path="res://theme.tres" id="3_v3wr1"]
+[ext_resource type="Script" uid="uid://kinvxqgq5da8" path="res://potion/maps/objects/upgrade_buy.gd" id="1_40cgg"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="2_sg0dy"]
+[ext_resource type="Theme" uid="uid://pb4a8d7vvi60" path="res://theme.tres" id="3_k2j3k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
-radius = 0.7785526
+radius = 0.79197407
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cwysg"]
 viewport_path = NodePath("SubViewport")
 
-[node name="UpgradeSelect" type="Area3D" node_paths=PackedStringArray("name_label", "description_label", "sprite")]
-script = ExtResource("1_cwysg")
+[node name="UpgradeBuy" type="Area3D" node_paths=PackedStringArray("name_label", "description_label", "sprite")]
+script = ExtResource("1_40cgg")
 name_label = NodePath("SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Name")
 description_label = NodePath("SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Desc")
 sprite = NodePath("Details")
@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://buns64rcufm7p"
 [node name="Icon" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.4551196, 0)
 billboard = 1
-texture = ExtResource("2_v3wr1")
+texture = ExtResource("2_sg0dy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54851913, 0)
@@ -42,7 +42,7 @@ offset_left = -160.5
 offset_right = 160.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_v3wr1")
+theme = ExtResource("3_k2j3k")
 
 [node name="PanelContainer" type="PanelContainer" parent="SubViewport/CenterContainer"]
 custom_minimum_size = Vector2(300, 0)

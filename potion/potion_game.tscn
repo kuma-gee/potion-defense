@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="2_niktk"]
+[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_niktk"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
@@ -104,18 +104,19 @@ _data = {
 &"open": SubResource("Animation_m0roi")
 }
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn", "in_game_canvas")]
 script = ExtResource("1_1w3wt")
-souls_label = NodePath("InGameCanvas/MarginContainer2/HBoxContainer/Souls")
+souls_label = NodePath("InGameCanvas/SoulContainer/HBoxContainer/Souls")
 recipe_ui = NodePath("InGameCanvas/Control/Recipes")
 gameover = NodePath("InGameCanvas/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/NewRecipe")
-recipes_btn = NodePath("InGameCanvas/Recipes")
+recipes_btn = NodePath("InGameCanvas/RecipeContainer")
+in_game_canvas = NodePath("InGameCanvas/WaveContainer")
 current_level = ExtResource("2_niktk")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
-wave_label = NodePath("../InGameCanvas/MarginContainer/PanelContainer/MarginContainer/Wave")
+wave_label = NodePath("../InGameCanvas/WaveContainer/PanelContainer/MarginContainer/Wave")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 spawn_timer = NodePath("SpawnTimer")
 rest_timer = NodePath("RestTimer")
@@ -141,7 +142,7 @@ player_scene = ExtResource("17_ho6vn")
 
 [node name="InGameCanvas" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas"]
+[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -153,21 +154,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/WaveContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/WaveContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Wave" type="Label" parent="InGameCanvas/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Wave" type="Label" parent="InGameCanvas/WaveContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "Wave 1/4"
 
-[node name="MarginContainer2" type="MarginContainer" parent="InGameCanvas"]
+[node name="SoulContainer" type="MarginContainer" parent="InGameCanvas"]
 offset_right = 107.0
 offset_bottom = 80.0
 theme_override_constants/margin_left = 8
@@ -175,24 +176,24 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/SoulContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/MarginContainer2/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/SoulContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("6_8f45c")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Souls" type="Label" parent="InGameCanvas/MarginContainer2/HBoxContainer"]
+[node name="Souls" type="Label" parent="InGameCanvas/SoulContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = " 0"
 
-[node name="Recipes" type="MarginContainer" parent="InGameCanvas"]
+[node name="RecipeContainer" type="MarginContainer" parent="InGameCanvas"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -204,14 +205,14 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Recipes"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/RecipeContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("6_i3qjy")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="InGameCanvas/Recipes/TextureRect"]
+[node name="Label" type="Label" parent="InGameCanvas/RecipeContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

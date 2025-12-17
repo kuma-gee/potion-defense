@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="EquipmentResource" load_steps=2 format=3 uid="uid://cpuxn4dbytbqj"]
+[gd_resource type="Resource" script_class="EquipmentResource" load_steps=3 format=3 uid="uid://cpuxn4dbytbqj"]
 
+[ext_resource type="Texture2D" uid="uid://cwsofmbbgracn" path="res://assets/sprites/Upgrade_GatheringGloves.png" id="1_5jbko"]
 [ext_resource type="Script" uid="uid://kerkdxvvh1sg" path="res://potion/wands/equipment_resource.gd" id="1_pb3vw"]
 
 [resource]
@@ -9,4 +10,5 @@ stat_value = 3.0
 name = "Gathering Gloves"
 description = "Pick up to 3 of the same ingredients at once"
 price = 30
+icon = ExtResource("1_5jbko")
 metadata/_custom_type_script = "uid://kerkdxvvh1sg"
