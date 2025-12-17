@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bygjn5ajhmapm"
-path.s3tc="res://.godot/imported/bricks.png-5417589b07e82f7d00864ed4d26e9748.s3tc.ctex"
+uid="uid://djtd4uc4abq6f"
+path.s3tc="res://.godot/imported/T_VFX_Glo31.png-b128aee69f6ee2be126dd51a5d44a58e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/bricks.png"
-dest_files=["res://.godot/imported/bricks.png-5417589b07e82f7d00864ed4d26e9748.s3tc.ctex"]
+source_file="res://VFX_Level_UP_effects/VFX/Textures/T_VFX_Glo31.png"
+dest_files=["res://.godot/imported/T_VFX_Glo31.png-b128aee69f6ee2be126dd51a5d44a58e.s3tc.ctex"]
 
 [params]
 

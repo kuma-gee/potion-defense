@@ -7,12 +7,27 @@ signal cooldown_finished()
 
 @export var cooldown_fill: Control
 @export var player: FPSPlayer
-var wand: WandResource
+@export var active_ring: MeshInstance3D
+@export var rotation_speed := 1.0
 
-var is_active: bool = false
+var wand: WandResource:
+	set(v):
+		wand = v
+		if v:
+			var mat = active_ring.material_override as ShaderMaterial
+			mat.set_shader_parameter("circle_color", v.color)
+
+var is_active: bool = false:
+	set(v):
+		is_active = v
+		active_ring.visible = v
+
 var time_remaining: float = 0.0
 var cooldown_remaining: float = 0.0
 var charging_timer: float = 0.0
+
+func _ready() -> void:
+	is_active = false
 
 func is_on_cooldown() -> bool:
 	return cooldown_remaining > 0.0
@@ -49,7 +64,7 @@ func _do_activate():
 		is_active = true
 	
 	# Shield has a special cooldown way
-	if wand.ability_type != WandResource.AbilityType.SHIELD:
+	if not is_active and wand.ability_type != WandResource.AbilityType.SHIELD:
 		cooldown_remaining = wand.cooldown
 
 	_on_activate()
@@ -63,6 +78,9 @@ func start_cooldown() -> void:
 	cooldown_remaining = wand.cooldown
 
 func _process(delta: float) -> void:
+	if is_active:
+		active_ring.rotation.y += delta * rotation_speed
+	
 	if charging_timer > 0.0:
 		charging_timer -= delta
 		if charging_timer <= 0.0:
@@ -89,13 +107,15 @@ func set_fill(v: float):
 	var mat = cooldown_fill.material as ShaderMaterial
 	mat.set_shader_parameter("fill", v)
 
-func _on_active_timeout():
+func _on_active_timeout(cooldown := true):
 	is_active = false
 	time_remaining = 0.0
 	charging_timer = 0.0
+	if cooldown:
+		cooldown_remaining = wand.cooldown
 
 func reset():
-	_on_active_timeout()
+	_on_active_timeout(false)
 	cooldown_remaining = 0.0
 
 func _on_activate() -> void:

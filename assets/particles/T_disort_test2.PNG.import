@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ft05x03hhtw"
-path.s3tc="res://.godot/imported/T_wavesKI96.png-d181292c106a629f0ff5bd17ecd7e353.s3tc.ctex"
+uid="uid://dfdoxu0b1fdx1"
+path.s3tc="res://.godot/imported/T_disort_test2.PNG-3843b2b39af19076da85832be74b1a1f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/T_wavesKI96.png"
-dest_files=["res://.godot/imported/T_wavesKI96.png-d181292c106a629f0ff5bd17ecd7e353.s3tc.ctex"]
+source_file="res://assets/particles/T_disort_test2.PNG"
+dest_files=["res://.godot/imported/T_disort_test2.PNG-3843b2b39af19076da85832be74b1a1f.s3tc.ctex"]
 
 [params]
 

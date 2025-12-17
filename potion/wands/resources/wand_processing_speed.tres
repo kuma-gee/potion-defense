@@ -5,9 +5,10 @@
 
 [resource]
 script = ExtResource("1_x7hyy")
-cooldown = 50.0
+cooldown = 30.0
 duration = 20.0
 effect_value = 2.0
 name = "Wand of Speed"
 description = " Increases processing speed by 2x for 20 seconds."
+price = 10
 icon = ExtResource("1_vyncj")

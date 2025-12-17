@@ -8,4 +8,5 @@ script = ExtResource("1_a2b3c")
 stat_value = 0.25
 name = "Haste Boots"
 description = "Magical boots that increases movement speed by 25%"
+price = 15
 icon = ExtResource("1_13lpc")

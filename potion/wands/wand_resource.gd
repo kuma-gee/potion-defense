@@ -12,3 +12,4 @@ enum AbilityType {
 @export var duration: float = 3.0
 @export var effect_value: float = 1.0
 @export var charge_time := 1.0
+@export var color := Color.WHITE
