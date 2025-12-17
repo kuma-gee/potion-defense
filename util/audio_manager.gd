@@ -14,6 +14,9 @@ func _ready() -> void:
 		_audio_players.append(player)
 		_available_players.append(player)
 
+func play_randomized_sfx(stream: AudioStream, volume: float, min_pitch = 0.8, max_pitch = 1.2):
+	play_sfx(stream, volume, randf_range(min_pitch, max_pitch))
+
 func play_sfx(stream: AudioStream, volume_db: float = -10.0, pitch_scale: float = 1.0) -> void:
 	if not stream:
 		return

@@ -40,6 +40,7 @@ signal died()
 @onready var icon: Sprite3D = $Icon
 @onready var wand_ability: WandAbility = $WandAbility
 @onready var shield: Shield = $Shield
+@onready var dash_sound: RandomizedLoopSfx = $DashSound
 
 var death_timer := 0.0:
 	set(v):
@@ -319,6 +320,7 @@ func dash_player() -> void:
 	dash_duration = 0.2
 	dash_cooldown_timer = dash_cooldown
 	dash_vfx.emitting = true
+	dash_sound.start()
 
 func throw_item() -> void:
 	if not throw_button_held or not has_item() or not held_item_type.is_potion_item():

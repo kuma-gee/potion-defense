@@ -11,6 +11,7 @@ extends RayInteractable
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var item_popup: ItemPopup = $ItemPopup
 @onready var icon: Sprite3D = $Icon
+@onready var sfx: RandomizedLoopSfx = $Sfx
 
 var logger = KumaLog.new("Oven")
 var working_player: FPSPlayer
@@ -23,6 +24,11 @@ var processing: bool = false:
 	set(v):
 		processing = v
 		progress_bar.visible = v
+		
+		if not sfx.active and processing:
+			sfx.start()
+		elif sfx.active and not processing:
+			sfx.end()
 	
 var item: ItemResource:
 	set(v):

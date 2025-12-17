@@ -23,6 +23,10 @@ const EFFECT_SOUND = {
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://5nesl7o0ovro"),
 }
 
+const EFFECT_SOUND_PITCH = {
+	ItemResource.Type.POTION_FIRE_BOMB: 2,
+}
+
 func _ready() -> void:
 	_update_liquid_color()
 	hit_area.area_entered.connect(func(_a): on_hit())
@@ -66,7 +70,7 @@ func on_hit() -> void:
 
 	var sound_stream = EFFECT_SOUND.get(potion_type, null)
 	if sound_stream:
-		AudioManager.play_sfx(sound_stream)
+		AudioManager.play_sfx(sound_stream, -10, EFFECT_SOUND_PITCH.get(potion_type, 1.0))
 	hit.emit()
 
 func _get_ground_position() -> Vector3:

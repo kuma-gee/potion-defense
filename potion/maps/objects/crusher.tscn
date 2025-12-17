@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dv1a0h2dlytsf"]
+[gd_scene load_steps=8 format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/maps/objects/processing_item.tscn" id="1_vmpsg"]
 [ext_resource type="PackedScene" uid="uid://cn1142lp317en" path="res://assets/models/crusher.glb" id="3_jp6c7"]
+[ext_resource type="AudioStream" uid="uid://dg38bn3p611rx" path="res://assets/sound/sfx/crush.mp3" id="3_k4pkg"]
+[ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="4_yufks"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(0.80371094, 0.4440918, 0.7421875)
@@ -27,11 +29,14 @@ wait_time = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6930482, 0)
 texture = SubResource("ViewportTexture_mrer8")
 
-[node name="Overheat" parent="Progress/SubViewport/CenterContainer/Progress" index="0"]
-visible = false
-
 [node name="ItemPopup" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3122869, 0)
 texture = SubResource("ViewportTexture_ccjue")
 
-[editable path="Progress"]
+[node name="Sfx" type="AudioStreamPlayer" parent="." index="9"]
+stream = ExtResource("3_k4pkg")
+pitch_scale = 0.8
+bus = &"SFX"
+script = ExtResource("4_yufks")
+min_pitch = 0.7
+max_pitch = 0.9

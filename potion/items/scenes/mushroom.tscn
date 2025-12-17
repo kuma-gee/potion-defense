@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc1f5ocm8nays"]
+[gd_scene load_steps=5 format=3 uid="uid://dc1f5ocm8nays"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_d1h2a"]
 [ext_resource type="PackedScene" uid="uid://ip2my5nphldv" path="res://assets/models/mushroom.glb" id="2_arbdb"]
+[ext_resource type="AudioStream" uid="uid://d1xmyofooa3o6" path="res://assets/sound/sfx/pickup.mp3" id="2_hmasw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_arbdb"]
 radius = 0.70177966
@@ -10,7 +11,9 @@ radius = 0.70177966
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_d1h2a")
-type = 3
+sound = ExtResource("2_hmasw")
+sound_min_pitch = 0.5
+sound_max_pitch = 0.7
 metadata/_custom_type_script = "uid://c1ph2gdxcgu0n"
 
 [node name="mushroom" parent="." instance=ExtResource("2_arbdb")]
