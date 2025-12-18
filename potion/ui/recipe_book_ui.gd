@@ -3,13 +3,14 @@ extends Control
 
 @export var open_sound: AudioStreamPlayer
 @export var close_sound: AudioStreamPlayer
+@export var page_sound: AudioStream
 @export var item_scene: PackedScene
 @export var ingredient_container: Control
 @export var potion_item: CauldronItem
 @export var page_label: Label
 
 var pages = []
-var current_page := 0:
+var current_page := 1:
 	set(v):
 		current_page = clamp(v, 0, max(pages.size() - 1, 0))
 		page_label.text = "Page %d/%d" % [current_page + 1, pages.size()]
@@ -50,8 +51,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		close()
 	elif event.is_action_pressed("ui_left") or event.is_action_pressed("move_left"):
 		current_page -= 1
+		AudioManager.play_randomized_sfx(page_sound, -15)
 	elif event.is_action_pressed("ui_right") or event.is_action_pressed("move_right"):
 		current_page += 1
+		AudioManager.play_randomized_sfx(page_sound, -15)
 	
 	if not event.is_released():
 		get_viewport().set_input_as_handled()

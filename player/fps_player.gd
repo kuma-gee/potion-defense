@@ -376,6 +376,8 @@ func unfreeze_player() -> void:
 	is_frozen = false
 
 func reset(_restore = false):
+	hand.release(self)
+	
 	held_item_type = null
 	is_frozen = false
 	dash_duration = 0.0

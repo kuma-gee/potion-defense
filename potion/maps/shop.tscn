@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=42 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
@@ -9,6 +9,18 @@
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="7_6d3tc"]
 [ext_resource type="PackedScene" uid="uid://di33frcdi4fnw" path="res://potion/maps/objects/upgrade_select.tscn" id="7_p00gg"]
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="9_hemba"]
+[ext_resource type="Script" uid="uid://cs261kr81nos4" path="res://addons/proton_scatter/src/scatter.gd" id="10_3ckhd"]
+[ext_resource type="Script" uid="uid://debrep4piyckd" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_ig3at"]
+[ext_resource type="Script" uid="uid://dn2cgqdslr83y" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="12_4lc4r"]
+[ext_resource type="Script" uid="uid://nfnuybelyha1" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="13_tcxai"]
+[ext_resource type="Script" uid="uid://58pmhmcjlrsq" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="14_6jtiw"]
+[ext_resource type="Script" uid="uid://biglik0cixdf8" path="res://addons/proton_scatter/src/modifiers/offset_scale.gd" id="14_ig3at"]
+[ext_resource type="Script" uid="uid://bcjar1kl4ip0k" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="15_5n5y4"]
+[ext_resource type="Script" uid="uid://dnkb1bbqb0ba3" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="16_d8qon"]
+[ext_resource type="Script" uid="uid://cshst085n6bla" path="res://addons/proton_scatter/src/scatter_item.gd" id="17_c537u"]
+[ext_resource type="Script" uid="uid://bxdsrs8aelkaf" path="res://addons/proton_scatter/src/scatter_shape.gd" id="18_s604t"]
+[ext_resource type="Script" uid="uid://bi1cdqsyg4jht" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="19_3ckhd"]
+[ext_resource type="AudioStream" uid="uid://7n1c8b42qjcn" path="res://assets/sound/sfx/お金を落とす2.mp3" id="21_4lc4r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hemba"]
 size = Vector3(2.491211, 3.074707, 1.4724121)
@@ -199,6 +211,49 @@ _data = {
 &"next": SubResource("Animation_p00gg")
 }
 
+[sub_resource type="Resource" id="Resource_4lc4r"]
+script = ExtResource("13_tcxai")
+amount = 1000
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_6jtiw"]
+script = ExtResource("14_ig3at")
+scale = Vector3(0.5, 0.5, 0.5)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_5n5y4"]
+script = ExtResource("14_6jtiw")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_d8qon"]
+script = ExtResource("15_5n5y4")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_c537u"]
+script = ExtResource("16_d8qon")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_s604t"]
+script = ExtResource("11_ig3at")
+stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_4lc4r"), SubResource("Resource_6jtiw"), SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u")])
+
+[sub_resource type="Resource" id="Resource_ig3at"]
+script = ExtResource("19_3ckhd")
+size = Vector3(41.59415, 1, 21.349104)
+metadata/_custom_type_script = "uid://bi1cdqsyg4jht"
+
+[sub_resource type="Resource" id="Resource_tcxai"]
+script = ExtResource("19_3ckhd")
+size = Vector3(41.59415, 1, 7.760086)
+
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_13ndi")
 spawn_point = NodePath("Spawn")
@@ -339,3 +394,44 @@ data = {
 "cells": PackedInt32Array(3, 65535, 10, 4, 65535, 10, 5, 65535, 10, 6, 65535, 10, 7, 65535, 10, 8, 65535, 10, 9, 65535, 10, 2, 65535, 9, 65535, 65535, 9, 65535, 0, 9, 65532, 0, 9, 65532, 65535, 9, 65531, 65535, 9, 9, 0, 655369, 6, 0, 655369, 5, 0, 655369, 4, 0, 655369, 3, 0, 655369, 2, 0, 655369, 7, 0, 9, 8, 0, 9, 1, 0, 9, 0, 0, 9, 65534, 0, 9, 65533, 0, 9, 65531, 0, 9, 65530, 0, 9, 65527, 0, 9, 65526, 0, 9, 65528, 0, 9, 65529, 0, 9, 65526, 65535, 9, 65527, 65535, 9, 65528, 65535, 9, 65529, 65535, 9, 65530, 65535, 9, 65533, 65535, 9, 65534, 65535, 9, 0, 65535, 9, 1, 65535, 9)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="ProtonScatter" type="Node3D" parent="."]
+script = ExtResource("10_3ckhd")
+modifier_stack = SubResource("Resource_s604t")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://cs261kr81nos4"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("17_c537u")
+path = "uid://dbdjy46f3p5t4"
+
+[node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("17_c537u")
+path = "uid://cesvccffie735"
+
+[node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("17_c537u")
+proportion = 500
+path = "uid://dmxc45n1ehfah"
+
+[node name="ScatterItem4" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("17_c537u")
+proportion = 300
+path = "uid://bvvsaoh4cqbhd"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("18_s604t")
+shape = SubResource("Resource_ig3at")
+
+[node name="ScatterShape2" type="Node3D" parent="ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("18_s604t")
+negative = true
+shape = SubResource("Resource_tcxai")
+
+[node name="Purchased" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_4lc4r")
+volume_db = -10.0
+bus = &"SFX"

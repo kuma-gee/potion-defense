@@ -1,14 +1,17 @@
-[gd_scene load_steps=20 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=23 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_niktk"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="7_21lj0"]
 [ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
+[ext_resource type="AudioStream" uid="uid://i84jkt71ykfw" path="res://assets/sound/sfx/紙を広げる2.mp3" id="12_6q2ph"]
 [ext_resource type="PackedScene" uid="uid://dbeqjyuk1dmun" path="res://potion/ui/recipe_item.tscn" id="12_8f45c"]
 [ext_resource type="PackedScene" uid="uid://cnhq46dfc2xlt" path="res://potion/maps/shop.tscn" id="12_i3qjy"]
 [ext_resource type="AudioStream" uid="uid://jd3chc8aiyhf" path="res://assets/sound/sfx/紙を広げる1.mp3" id="13_khw37"]
 [ext_resource type="AudioStream" uid="uid://drswd3bimicqm" path="res://assets/sound/sfx/ページをめくる1.mp3" id="14_niktk"]
+[ext_resource type="AudioStream" uid="uid://c6eyhenn5fbu4" path="res://assets/sound/死神のリスト.mp3" id="16_m4gdw"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
@@ -106,17 +109,17 @@ _data = {
 
 [node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn", "in_game_canvas")]
 script = ExtResource("1_1w3wt")
-souls_label = NodePath("InGameCanvas/SoulContainer/HBoxContainer/Souls")
-recipe_ui = NodePath("InGameCanvas/Control/Recipes")
-gameover = NodePath("InGameCanvas/Control/Gameover")
-new_recipe = NodePath("InGameCanvas/NewRecipe")
-recipes_btn = NodePath("InGameCanvas/RecipeContainer")
-in_game_canvas = NodePath("InGameCanvas/WaveContainer")
+souls_label = NodePath("InGameCanvas/Control2/SoulContainer/HBoxContainer/Souls")
+recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipes")
+gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
+new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
+recipes_btn = NodePath("InGameCanvas/Control2/RecipeContainer")
+in_game_canvas = NodePath("InGameCanvas/Control2/WaveContainer")
 current_level = ExtResource("2_niktk")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
-wave_label = NodePath("../InGameCanvas/WaveContainer/PanelContainer/MarginContainer/Wave")
+wave_label = NodePath("../InGameCanvas/Control2/WaveContainer/PanelContainer/MarginContainer/Wave")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 spawn_timer = NodePath("SpawnTimer")
 rest_timer = NodePath("RestTimer")
@@ -142,33 +145,45 @@ player_scene = ExtResource("17_ho6vn")
 
 [node name="InGameCanvas" type="CanvasLayer" parent="."]
 
-[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas"]
+[node name="Control2" type="Control" parent="InGameCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("7_21lj0")
+
+[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -71.0
-offset_bottom = 40.0
+offset_left = -111.0
+offset_bottom = 63.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/WaveContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/WaveContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/WaveContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/WaveContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Wave" type="Label" parent="InGameCanvas/WaveContainer/PanelContainer/MarginContainer"]
+[node name="Wave" type="Label" parent="InGameCanvas/Control2/WaveContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "Wave 1/4"
 
-[node name="SoulContainer" type="MarginContainer" parent="InGameCanvas"]
+[node name="SoulContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
+layout_mode = 0
 offset_right = 107.0
 offset_bottom = 80.0
 theme_override_constants/margin_left = 8
@@ -176,28 +191,29 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/SoulContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/SoulContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/SoulContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/SoulContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("6_8f45c")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Souls" type="Label" parent="InGameCanvas/SoulContainer/HBoxContainer"]
+[node name="Souls" type="Label" parent="InGameCanvas/Control2/SoulContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = " 0"
 
-[node name="RecipeContainer" type="MarginContainer" parent="InGameCanvas"]
+[node name="RecipeContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -63.0
+offset_top = -84.0
 offset_right = 99.0
 grow_vertical = 0
 theme_override_constants/margin_left = 10
@@ -205,14 +221,14 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/RecipeContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("6_i3qjy")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="InGameCanvas/RecipeContainer/TextureRect"]
+[node name="Label" type="Label" parent="InGameCanvas/Control2/RecipeContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -223,8 +239,8 @@ grow_vertical = 0
 theme_override_constants/outline_size = 8
 text = "TAB"
 
-[node name="Control" type="Control" parent="InGameCanvas"]
-layout_mode = 3
+[node name="Control" type="Control" parent="InGameCanvas/Control2"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -232,7 +248,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Gameover" type="ColorRect" parent="InGameCanvas/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
+[node name="Gameover" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -245,7 +261,7 @@ script = ExtResource("20_kavja")
 restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
 back_btn = NodePath("CenterContainer/VBoxContainer/Back")
 
-[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control/Gameover"]
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Gameover"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -253,25 +269,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control/Gameover/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="InGameCanvas/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Gameover"
 horizontal_alignment = 1
 
-[node name="Restart" type="Button" parent="InGameCanvas/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
 
-[node name="Back" type="Button" parent="InGameCanvas/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back to map"
 
-[node name="Recipes" type="ColorRect" parent="InGameCanvas/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
+[node name="Recipes" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -282,12 +298,13 @@ color = Color(0, 0, 0, 0.50980395)
 script = ExtResource("34_bo5nf")
 open_sound = NodePath("OpenSound")
 close_sound = NodePath("CloseSound")
+page_sound = ExtResource("12_6q2ph")
 item_scene = ExtResource("12_8f45c")
 ingredient_container = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Ingredients")
 potion_item = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
 page_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Page")
 
-[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control/Recipes"]
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Recipes"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -295,15 +312,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control/Recipes/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer"]
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 32
@@ -311,64 +328,65 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 32
 
-[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Potion" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
+[node name="Potion" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Prev" type="Button" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Prev" type="Button" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Prev"
 
-[node name="Page" type="Label" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Page" type="Label" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/outline_size = 5
 text = "0/0"
 horizontal_alignment = 1
 
-[node name="Next" type="Button" parent="InGameCanvas/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Next" type="Button" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
 
-[node name="OpenSound" type="AudioStreamPlayer" parent="InGameCanvas/Control/Recipes"]
+[node name="OpenSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipes"]
 stream = ExtResource("13_khw37")
 volume_db = -15.0
 pitch_scale = 1.5
 
-[node name="CloseSound" type="AudioStreamPlayer" parent="InGameCanvas/Control/Recipes"]
+[node name="CloseSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipes"]
 stream = ExtResource("14_niktk")
 volume_db = -15.0
 pitch_scale = 1.5
 
-[node name="NewRecipe" type="TextureRect" parent="InGameCanvas" node_paths=PackedStringArray("item")]
+[node name="NewRecipe" type="TextureRect" parent="InGameCanvas/Control2" node_paths=PackedStringArray("item")]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -386,7 +404,7 @@ stretch_mode = 5
 script = ExtResource("11_m0roi")
 item = NodePath("MarginContainer/PanelContainer")
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/NewRecipe"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/NewRecipe"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -398,12 +416,17 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="PanelContainer" parent="InGameCanvas/NewRecipe/MarginContainer" instance=ExtResource("19_1w3wt")]
+[node name="PanelContainer" parent="InGameCanvas/Control2/NewRecipe/MarginContainer" instance=ExtResource("19_1w3wt")]
 layout_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/NewRecipe"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/Control2/NewRecipe"]
 libraries = {
 &"": SubResource("AnimationLibrary_i3qjy")
 }
 
-[connection signal="game_over" from="WaveManager" to="InGameCanvas/Control/Gameover" method="show_gameover"]
+[node name="ShopBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_m4gdw")
+volume_db = -25.0
+bus = &"BGM"
+
+[connection signal="game_over" from="WaveManager" to="InGameCanvas/Control2/Control/Gameover" method="show_gameover"]

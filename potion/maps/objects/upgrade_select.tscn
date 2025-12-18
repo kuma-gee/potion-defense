@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bv6swedqiwvia" path="res://potion/maps/upgrade_select.gd" id="1_cwysg"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="2_v3wr1"]
-[ext_resource type="Theme" uid="uid://pb4a8d7vvi60" path="res://theme.tres" id="3_v3wr1"]
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="3_v3wr1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
 radius = 0.7785526

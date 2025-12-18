@@ -11,6 +11,7 @@ signal next_level()
 @onready var prepare_move_next: MoveNext = $PrepareArea/MoveNext
 @onready var equipment: UpgradesList = $PrepareArea/Inventory/Equipment
 @onready var inventory: RayInteractable = $PrepareArea/Inventory
+@onready var purchased: AudioStreamPlayer = $Purchased
 
 var shop_items: Array[UpgradeResource] = []
 
@@ -21,6 +22,7 @@ func _ready() -> void:
 			move_next.show()
 		)
 
+	Events.unlocked_upgrades.count(func(): purchased.play())
 	inventory.interacted.connect(func(_a):
 		equipment.show_upgrades(Events.unlocked_upgrades)
 		prepare_move_next.show()

@@ -1,0 +1,13 @@
+body {
+  font-size: 20;
+}
+
+PanelContainer {
+  background: #333;
+  border-radius: 6;
+}
+
+Label.outlined {
+  --const-outline-size: 12;
+  --colors-font-outline-color: #000;
+}

@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="6_io850"]
 [ext_resource type="Resource" uid="uid://c15ds4tq8d2vs" path="res://potion/items/resources/potion_blizzard.tres" id="7_0cpyx"]
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="7_f7537"]
-[ext_resource type="Resource" path="res://potion/wands/resources/speed_boots.tres" id="8_sqjp0"]
+[ext_resource type="Resource" uid="uid://bw110x4ti7eqc" path="res://potion/wands/resources/speed_boots.tres" id="8_sqjp0"]
 [ext_resource type="Resource" uid="uid://co1p7scbvpyhc" path="res://potion/wands/resources/wand_processing_speed.tres" id="9_gyqcq"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="9_vdyvj"]
 [ext_resource type="Resource" uid="uid://cpuxn4dbytbqj" path="res://potion/wands/resources/gathering_gloves.tres" id="10_sqjp0"]
