@@ -6,6 +6,7 @@ extends RayInteractable
 @export var items_list: Control
 @export var item_scene: PackedScene
 @export var scatter_amount := [2, 5, 15, 20]
+@export var crow_scene: PackedScene
 
 @onready var restore_timer: Timer = $RestoreTimer
 @onready var scatter_item: Node3D = $ProtonScatter/ScatterItem
@@ -44,6 +45,11 @@ func _ready() -> void:
 
 func _refill():
 	if is_max_capacity(): return
+	
+	var crow = crow_scene.instantiate()
+	add_child(crow)
+	crow.finished.connect(func(): crow.queue_free())
+	await get_tree().create_timer(1.0).timeout
 	
 	var node = auto_fill.scene.instantiate()
 	item_drop_visual.add_child(node)

@@ -10,5 +10,5 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is FPSPlayer:
 		Events.collect_soul(amount)
-		AudioManager.play_randomized_sfx(sfx, -10, 1, 1.2)
+		AudioManager.play_randomized_sfx(sfx, -15, 1, 1.2)
 		queue_free()  # Remove the soul from the scene

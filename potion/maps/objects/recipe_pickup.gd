@@ -3,21 +3,15 @@ extends Area3D
 @export var float_speed := 0.8
 @export var float_height := 0.05
 
-@export_category("Crow")
-@export var crow_move_speed := 0.5
-@export var crow_path: PathFollow3D
-
 @onready var visual: Node3D = $Root/Visual
 @onready var root: Node3D = $Root
 @onready var spawn_delay: Timer = $SpawnDelay
 @onready var item_drop: ItemDrop = $ItemDrop
-@onready var crow_sound: AudioStreamPlayer = $CrowSound
 
 var time := 0.0
 var recipe: ItemResource
 
 func _ready() -> void:
-	crow_sound.play()
 	spawn_delay.timeout.connect(start)
 	root.hide()
 	
@@ -37,14 +31,6 @@ func start():
 	root.show()
 
 func _process(delta: float) -> void:
-	if crow_path.progress_ratio < 1.0 and crow_path.visible:
-		var value = crow_move_speed * delta
-		if crow_path.progress_ratio + value > 1.0:
-			crow_path.progress_ratio = 1.0
-			crow_path.hide()
-		else:
-			crow_path.progress_ratio += value
-	
 	if not spawn_delay.is_stopped():
 		return
 

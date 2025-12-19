@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://m8roxd1usklp"]
+[gd_scene load_steps=25 format=3 uid="uid://m8roxd1usklp"]
 
 [ext_resource type="Script" uid="uid://cagdnp4yn2cet" path="res://potion/maps/objects/storage.gd" id="1_egoj2"]
 [ext_resource type="PackedScene" uid="uid://oodm4nieayvd" path="res://assets/fantasy/glTF/FarmCrate_Empty.gltf" id="2_mouuh"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bxdsrs8aelkaf" path="res://addons/proton_scatter/src/scatter_shape.gd" id="12_mndha"]
 [ext_resource type="Script" uid="uid://bi1cdqsyg4jht" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="13_cxhee"]
 [ext_resource type="Script" uid="uid://doue0c41rfpuw" path="res://potion/maps/objects/item_drop.gd" id="14_noi48"]
+[ext_resource type="PackedScene" uid="uid://b0cnx00h38dno" path="res://potion/maps/objects/crow_path.tscn" id="15_7u145"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_egoj2"]
 size = Vector3(1.4990234, 0.8775635, 1.3916016)
@@ -24,31 +25,31 @@ viewport_path = NodePath("Items/SubViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_mouuh"]
 size = Vector3(0.9501953, 0.3704834, 0.98339844)
 
-[sub_resource type="Resource" id="Resource_mcrdi"]
+[sub_resource type="Resource" id="Resource_cr1lt"]
 script = ExtResource("7_cr1lt")
 amount = 20
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_cr1lt"]
+[sub_resource type="Resource" id="Resource_srxji"]
 script = ExtResource("8_noi48")
 scale = Vector3(0.5, 0.5, 0.5)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_7u145"]
+[sub_resource type="Resource" id="Resource_se64x"]
 script = ExtResource("9_cxhee")
 rotation = Vector3(90, 360, 90)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_1yy2h"]
+[sub_resource type="Resource" id="Resource_a6p42"]
 script = ExtResource("10_a6p42")
 ray_length = 5.0
 ray_offset = 5.0
 remove_points_on_miss = false
 
-[sub_resource type="Resource" id="Resource_w5hx5"]
+[sub_resource type="Resource" id="Resource_ihswe"]
 script = ExtResource("5_noi48")
-stack = Array[ExtResource("6_7u145")]([SubResource("Resource_mcrdi"), SubResource("Resource_cr1lt"), SubResource("Resource_7u145"), SubResource("Resource_1yy2h")])
+stack = Array[ExtResource("6_7u145")]([SubResource("Resource_cr1lt"), SubResource("Resource_srxji"), SubResource("Resource_se64x"), SubResource("Resource_a6p42")])
 
 [sub_resource type="Resource" id="Resource_noi48"]
 script = ExtResource("13_cxhee")
@@ -61,6 +62,7 @@ collision_mask = 0
 script = ExtResource("1_egoj2")
 items_list = NodePath("Items/SubViewport/CenterContainer/HBoxContainer")
 item_scene = ExtResource("2_y25hp")
+crow_scene = ExtResource("15_7u145")
 label = NodePath("Label3D")
 sprite = NodePath("Items")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
@@ -123,7 +125,7 @@ one_shot = true
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("4_cxhee")
-modifier_stack = SubResource("Resource_w5hx5")
+modifier_stack = SubResource("Resource_ihswe")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 metadata/_custom_type_script = "uid://cs261kr81nos4"
