@@ -8,9 +8,6 @@ signal died()
 @export var dash_force = 10.0
 @export var dash_cooldown = 0.5
 @export var push_force = 2.0
-@export var throw_charge_time: float = 1.0
-@export var min_throw_force: float = 5.0
-@export var max_throw_force: float = 20.0
 @export var mouse_sensitivity := Vector2(0.003, 0.002)
 
 @export var anim: PlayerAnim
@@ -32,8 +29,16 @@ signal died()
 @export var item_texture: ItemPopup
 @export var catch_area: Area3D
 
-@export_category("Wand")
+@export_category("Visuals")
 @export var wand_texture: TextureRect
+
+@export_category("Throw")
+@export var throw_dir_sprite: Sprite3D
+@export var throw_dir_min_scale = 0.3
+@export var throw_dir_max_scale = 0.7
+@export var throw_charge_time: float = 1.0
+@export var min_throw_force: float = 5.0
+@export var max_throw_force: float = 20.0
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
@@ -58,8 +63,17 @@ var reviving_player: FPSPlayer:
 		reviving_player = v
 		icon.visible = not v
 
-var throw_button_held: bool = false
-var current_throw_force: float = 0.0
+var throw_button_held: bool = false:
+	set(v):
+		throw_button_held = v
+		throw_dir_sprite.visible = v
+	
+var current_throw_force: float = 0.0:
+	set(v):
+		current_throw_force = v
+		var t = (current_throw_force) / (max_throw_force - min_throw_force)
+		throw_dir_sprite.scale.x = lerp(throw_dir_min_scale, throw_dir_max_scale, t)
+
 var mouse_position: Vector2 = Vector2.ZERO
 var equipped_wand: WandResource = null:
 	set(v):
@@ -98,8 +112,10 @@ func _ready():
 	equipped_wand = null
 	equipped_equipment = null
 	player_input.set_for_id(input_id)
+	reset()
+
 	color_ring.color = colors[player_num % colors.size()]
-	held_item_type = null
+	throw_dir_sprite.modulate = colors[player_num % colors.size()]
 	revive_progress.max_value = death_time
 	
 	icon.hide()
@@ -178,8 +194,8 @@ func _debug_potion_spawn(event: InputEvent):
 	if not key.shift_pressed: return
 	
 	if key.keycode == KEY_1:
-		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
-		equip_wand(preload("uid://co1p7scbvpyhc"))
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
+		#equip_wand(preload("uid://co1p7scbvpyhc"))
 	elif key.keycode == KEY_2:
 		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
 		equip_wand(preload("uid://dvcguwvkv4lg6"))
@@ -297,6 +313,9 @@ func pickup_item(item_type: ItemResource) -> bool:
 
 func has_item() -> bool:
 	return held_item_type != null
+
+func is_holding_potion() -> bool:
+	return has_item() and held_item_type.is_potion_item()
 
 func release_item() -> ItemResource:
 	var item = held_item_type

@@ -86,14 +86,15 @@ func _ready() -> void:
 		Events.cauldron_destroyed.emit()
 	)
 	
-	interacted.connect(func(a: Node): handle_interacted(a))
-	released.connect(func(a: Node): handle_released(a))
 	overheat_start_timer.timeout.connect(func(): overheating = true)
 
 func interact(actor: FPSPlayer) -> void:
 	var player := actor as FPSPlayer
 	
 	if player.has_item():
+		if player.is_holding_potion():
+			return
+
 		var item = player.release_item()
 		_add_item(item.type)
 		required_time = mix_time_per_item * items.size()

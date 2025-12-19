@@ -6,6 +6,7 @@ signal souls_changed()
 signal cauldron_used()
 signal cauldron_destroyed()
 signal picked_up_recipe(recipe: ItemResource)
+signal upgrade_unlocked()
 
 var players := []
 var total_souls := 0
@@ -52,6 +53,7 @@ func buy_upgrade(up: UpgradeResource):
 		if total_souls >= up.price:
 			total_souls -= up.price
 			unlocked_upgrades.append(up)
+			upgrade_unlocked.emit()
 			print("Unlocked upgrades: %s" % up.name)
 			return true
 		else:

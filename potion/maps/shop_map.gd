@@ -22,7 +22,7 @@ func _ready() -> void:
 			move_next.show()
 		)
 
-	Events.unlocked_upgrades.count(func(): purchased.play())
+	Events.upgrade_unlocked.connect(func(): purchased.play())
 	inventory.interacted.connect(func(_a):
 		equipment.show_upgrades(Events.unlocked_upgrades)
 		prepare_move_next.show()
