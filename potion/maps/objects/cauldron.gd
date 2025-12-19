@@ -59,7 +59,6 @@ var time := 0.0:
 var mixing := false:
 	set(v):
 		mixing = v
-		#sprite.visible = not v
 		brewing.volume_db = -15 if v else -25
 		if not mixing:
 			_unfreeze_mixing_player()
@@ -91,9 +90,7 @@ func _ready() -> void:
 	released.connect(func(a: Node): handle_released(a))
 	overheat_start_timer.timeout.connect(func(): overheating = true)
 
-func handle_interacted(actor: Node) -> void:
-	if not (actor is FPSPlayer): return
-	
+func interact(actor: FPSPlayer) -> void:
 	var player := actor as FPSPlayer
 	
 	if player.has_item():
@@ -105,19 +102,23 @@ func handle_interacted(actor: Node) -> void:
 		_check_mixing_items()
 		Events.cauldron_used.emit()
 		drop.play()
-	elif not items.is_empty():
-		if _is_only_potions():
-			var item = items.pop_back()
-			reset()
-			player.pickup_item(ItemResource.get_resource(item))
-			_reset_water()
-			take.play()
-		elif not mixing:
-			mixing_player = player
-			mixing = true
-			sprite.hide()
-			if mixing_player:
-				mixing_player.freeze_player()
+	elif not items.is_empty() and _is_only_potions():
+		var item = items.pop_back()
+		reset()
+		player.pickup_item(ItemResource.get_resource(item))
+		_reset_water()
+		take.play()
+
+func action(actor: FPSPlayer) -> void:
+	if not mixing:
+		mixing_player = actor
+		mixing_player.freeze_player()
+		mixing = true
+		sprite.hide()
+
+func action_release(actor: FPSPlayer) -> void:
+	if mixing and actor == mixing_player:
+		mixing = false
 
 func _clear_items():
 	for child in item_container.get_children():
@@ -145,10 +146,6 @@ func _find_item_for(item: ItemResource.Type):
 		if child.type == item:
 			return child
 	return null
-
-func handle_released(_actor: Node) -> void:
-	if mixing:
-		mixing = false
 
 func _process(delta: float) -> void:
 	if items.is_empty():

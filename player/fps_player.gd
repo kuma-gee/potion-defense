@@ -148,23 +148,25 @@ func _ready():
 		elif event.is_action_released("interact"):
 			hand.release(self)
 		elif event.is_action_pressed("action"):
-			hand.action(self)
+			if has_item():
+				throw_button_held = true
+			else:
+				hand.action(self)
 		elif event.is_action_released("action"):
-			hand.action_released(self)
+			if has_item() and throw_button_held:
+				throw_item()
+				throw_button_held = false
+			else:
+				hand.action_released(self)
+		elif event.is_action_pressed("back") and throw_button_held:
+			throw_button_held = false
+			current_throw_force = 0.0
 		elif event.is_action_pressed("wand_ability"):
 			use_wand_ability()
 		elif event.is_action_released("wand_ability"):
 			release_wand_ability()
 		elif event.is_action_pressed("dash"):
 			dash_player()
-		elif event.is_action_pressed("drop_item"):
-			throw_button_held = true
-		elif event.is_action_released("drop_item"):
-			throw_item()
-			throw_button_held = false
-		elif event.is_action_pressed("back") and throw_button_held:
-			throw_button_held = false
-			current_throw_force = 0.0
 			
 		_debug_potion_spawn(event)
 	)

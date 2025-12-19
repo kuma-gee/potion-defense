@@ -3,9 +3,17 @@ extends Node
 
 @export var player_root: Node3D
 @export var player_scene: PackedScene
+@export var max_players: int = 4
+
+var logger = KumaLog.new("PlayerJoin")
 
 func spawn_player(event: InputEvent, map: Map) -> void:
 	var id = PlayerInput.create_id(event)
+
+	if player_root.get_child_count() >= max_players:
+		logger.warn("Max players reached, cannot spawn new player: %s" % id)
+		return
+
 	if _has_player_with_id(id):
 		return
 
