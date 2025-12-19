@@ -28,14 +28,6 @@
 [ext_resource type="PackedScene" uid="uid://dec244j10bhon" path="res://potion/maps/objects/trash.tscn" id="22_nakt5"]
 [ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="27_4aq6y"]
 
-[sub_resource type="Resource" id="Resource_0cpyx"]
-script = ExtResource("2_vravf")
-until_wave = 4
-min_enemy_count = 1
-max_enemy_count = 1
-enemies = Array[ExtResource("3_46uui")]([ExtResource("5_ed6x5")])
-metadata/_custom_type_script = "uid://duah648hndjpr"
-
 [sub_resource type="Resource" id="Resource_ed6x5"]
 script = ExtResource("2_vravf")
 min_enemy_count = 2
@@ -61,6 +53,14 @@ min_enemy_count = 5
 spawn_interval_min = 3.0
 spawn_interval_max = 5.0
 enemies = Array[ExtResource("3_46uui")]([ExtResource("4_io850")])
+metadata/_custom_type_script = "uid://duah648hndjpr"
+
+[sub_resource type="Resource" id="Resource_0cpyx"]
+script = ExtResource("2_vravf")
+until_wave = 4
+min_enemy_count = 1
+max_enemy_count = 1
+enemies = Array[ExtResource("3_46uui")]([ExtResource("5_ed6x5")])
 metadata/_custom_type_script = "uid://duah648hndjpr"
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fg8lp"]
@@ -105,7 +105,7 @@ point_count = 2
 [node name="map_01" type="Node3D" node_paths=PackedStringArray("spawn_point", "paths")]
 script = ExtResource("1_f7537")
 spawn_point = NodePath("Cauldron")
-wave_resource = Array[ExtResource("2_vravf")]([SubResource("Resource_0cpyx"), SubResource("Resource_ed6x5"), SubResource("Resource_4aq6y"), SubResource("Resource_sqjp0")])
+wave_resource = Array[ExtResource("2_vravf")]([SubResource("Resource_ed6x5"), SubResource("Resource_4aq6y"), SubResource("Resource_sqjp0"), SubResource("Resource_0cpyx")])
 upgrades = Array[ExtResource("6_4aq6y")]([ExtResource("9_gyqcq"), ExtResource("8_sqjp0"), ExtResource("10_sqjp0")])
 new_recipe = ExtResource("7_0cpyx")
 initial_recipe = ExtResource("12_sqjp0")
@@ -307,6 +307,7 @@ transform = Transform3D(0.5607952, 0.80293584, 0.20199712, 0.06951529, -0.288771
 light_color = Color(0.8852149, 0.8612659, 0.44731557, 1)
 light_energy = 0.6
 light_cull_mask = 4294443007
+shadow_enabled = true
 shadow_caster_mask = 4294443007
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]

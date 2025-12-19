@@ -11,8 +11,10 @@ func _ready() -> void:
 	if one_shot:
 		finished.connect(func(): active = false)
 	else:
-		finished.connect(func(): play_randomized())
-	play_randomized()
+		finished.connect(func():
+			if active:
+				play_randomized()
+			)
 
 func start():
 	active = true
@@ -22,6 +24,5 @@ func end():
 	active = false
 
 func play_randomized():
-	if not active: return
 	pitch_scale = randf_range(min_pitch, max_pitch)
 	play()

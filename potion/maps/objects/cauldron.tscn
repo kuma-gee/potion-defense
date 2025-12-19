@@ -1,4 +1,4 @@
-[gd_scene load_steps=199 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=202 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
@@ -11,11 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
 [ext_resource type="ArrayMesh" uid="uid://o2bjj0tv3wh3" path="res://assets/particles/shapes/plane_circle.obj" id="10_3yq24"]
 [ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="14_op8v4"]
+[ext_resource type="AudioStream" uid="uid://c0lddttuvdijp" path="res://assets/sound/sfx/poof-of-smoke-87381.mp3" id="14_q1gjo"]
 [ext_resource type="Texture2D" uid="uid://d1t240bu13lbu" path="res://assets/particles/T_VFX_Noise_10.PNG" id="15_7txbf"]
 [ext_resource type="AudioStream" uid="uid://fbgjbquaxv6q" path="res://assets/sound/sfx/水ぶくぶく1.mp3" id="16_wxgc6"]
 [ext_resource type="AudioStream" uid="uid://b2s3llk3d8jxu" path="res://assets/sound/sfx/水ぶくぶく2.mp3" id="17_1mhqx"]
 [ext_resource type="AudioStream" uid="uid://cqpc0xdqjtm5u" path="res://assets/sound/sfx/泡がはじける.mp3" id="18_1mhqx"]
+[ext_resource type="AudioStream" uid="uid://bkthn0bmo1yi7" path="res://assets/sound/sfx/fail_explosion.mp3" id="19_saywr"]
 [ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="20_ek1wr"]
+[ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="20_h62l1"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
 [ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="20_nv7qt"]
 
@@ -1067,6 +1070,7 @@ alpha_curve = SubResource("CurveTexture_nss6k")
 
 [sub_resource type="Animation" id="Animation_ba8sg"]
 resource_name = "init"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1102,6 +1106,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../SuccessPuff")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_randomized"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7myuy"]
@@ -1596,7 +1614,7 @@ size = Vector2(0.2, 1)
 
 [sub_resource type="Animation" id="Animation_hoqvr"]
 resource_name = "hit"
-length = 2.5
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1620,6 +1638,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../FailExplosion")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_randomized"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wanpx"]
@@ -1880,7 +1912,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6235945, 0)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("20_k7m8g")
-max_health = 100
+max_health = 100.0
 metadata/_custom_type_script = "uid://bav8mlr6l6106"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
@@ -1972,3 +2004,15 @@ bus = &"SFX"
 stream = ExtResource("18_1mhqx")
 volume_db = -10.0
 bus = &"SFX"
+
+[node name="SuccessPuff" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_q1gjo")
+bus = &"SFX"
+script = ExtResource("20_h62l1")
+
+[node name="FailExplosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_saywr")
+volume_db = -20.0
+bus = &"SFX"
+script = ExtResource("20_h62l1")
+one_shot = true

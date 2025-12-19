@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://cshst085n6bla" path="res://addons/proton_scatter/src/scatter_item.gd" id="17_c537u"]
 [ext_resource type="Script" uid="uid://bxdsrs8aelkaf" path="res://addons/proton_scatter/src/scatter_shape.gd" id="18_s604t"]
 [ext_resource type="Script" uid="uid://bi1cdqsyg4jht" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="19_3ckhd"]
-[ext_resource type="AudioStream" uid="uid://7n1c8b42qjcn" path="res://assets/sound/sfx/お金を落とす2.mp3" id="21_4lc4r"]
+[ext_resource type="AudioStream" uid="uid://d4knupavmx455" path="res://assets/sound/sfx/soul-steal.mp3" id="21_4lc4r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hemba"]
 size = Vector3(2.491211, 3.074707, 1.4724121)
@@ -434,4 +434,5 @@ shape = SubResource("Resource_tcxai")
 [node name="Purchased" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_4lc4r")
 volume_db = -10.0
+pitch_scale = 0.5
 bus = &"SFX"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0rmnm1ehb0qg"]
+[gd_scene load_steps=13 format=3 uid="uid://c0rmnm1ehb0qg"]
 
 [ext_resource type="Script" uid="uid://bmjnbhnkf0ygc" path="res://potion/enemy/utils/soul.gd" id="1_27t0x"]
+[ext_resource type="AudioStream" uid="uid://d4knupavmx455" path="res://assets/sound/sfx/soul-steal.mp3" id="2_5hjgr"]
 [ext_resource type="Shader" uid="uid://mak27ljwq8ac" path="res://shader/fire.gdshader" id="2_hog4v"]
 [ext_resource type="Texture2D" uid="uid://cwhkes8gbjqfp" path="res://assets/particles/T_VFX_Noise_13.PNG" id="3_lf3j8"]
 [ext_resource type="Texture2D" uid="uid://b1euwaxxfiweh" path="res://assets/particles/T_FireBall1.png" id="3_oxplq"]
@@ -37,6 +38,7 @@ shader_parameter/distortion_strength = 0.1
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_27t0x")
+sfx = ExtResource("2_5hjgr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62689114, 0)

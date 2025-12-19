@@ -4,6 +4,7 @@ extends Area3D
 @export var element := ElementalArea.Element.NONE
 @export var damage := 1.0
 @export var force := 0
+@export var hit_sound: RandomizedLoopSfx
 
 func _ready() -> void:
 	if has_element():
@@ -19,6 +20,8 @@ func hit():
 		elif b is HurtBox:
 			var dir = global_position.direction_to(b.global_position)
 			b.hit(damage, dir * force, element)
+			if hit_sound:
+				hit_sound.play_randomized()
 
 func can_hit():
 	for b in get_overlapping_areas():

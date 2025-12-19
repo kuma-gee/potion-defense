@@ -10,6 +10,10 @@
 
 ## Credits
 
+SFX
+- https://pixabay.com/sound-effects/search/skeleton/
+- https://soundeffect-lab.info/
+
 BGM
 - https://dova-s.jp/bgm/play22474.html
 - https://dova-s.jp/bgm/play22857.html

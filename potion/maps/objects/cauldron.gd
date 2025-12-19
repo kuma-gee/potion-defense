@@ -75,12 +75,7 @@ func _ready() -> void:
 	health_bar.value = hurt_box.max_health
 	health_bar.max_value = hurt_box.max_health
 	hurt_box.health_changed.connect(func(): health_bar.value = hurt_box.health)
-	hurt_box.died.connect(func():
-		if Events.level == 0:
-			hurt_box.health = 5
-		else:
-			died.emit()
-	)
+	hurt_box.died.connect(func(): died.emit())
 	died.connect(func():
 		destroyed = true
 		Events.cauldron_destroyed.emit()
@@ -117,7 +112,7 @@ func action(actor: FPSPlayer) -> void:
 		mixing = true
 		sprite.hide()
 
-func action_release(actor: FPSPlayer) -> void:
+func action_released(actor: FPSPlayer) -> void:
 	if mixing and actor == mixing_player:
 		mixing = false
 
@@ -167,6 +162,9 @@ func _process(delta: float) -> void:
 	
 	if not brewing.playing:
 		brewing.play()
+	
+	if not is_instance_valid(mixing_player):
+		mixing = false
 	
 	time += delta * (1.0 if not mixing else mixing_speed_increase * mixing_player.get_processing_speed())
 	if time >= required_time and not finished:

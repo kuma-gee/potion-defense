@@ -17,6 +17,8 @@ enum State {
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var soul_spawner: ObjectSpawner = $SoulSpawner
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var move_sound: RandomizedLoopSfx = $MoveSound
+@onready var death_sound: RandomizedLoopSfx = $DeathSound
 
 var state = null
 var attack_count := 0
@@ -32,6 +34,7 @@ func _ready() -> void:
 	animation_player.animation_finished.connect(func(a): _on_animation_finished(a))
 	hurt_box.knockbacked.connect(func(_k): knockback_state())
 	
+	move_sound.play_randomized()
 	if path:
 		_update_navigation_target()
 
@@ -57,6 +60,7 @@ func _died():
 	died()
 	collision_shape_3d.set_deferred("disabled", true)
 	soul_spawner.spawn()
+	death_sound.play_randomized()
 
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
