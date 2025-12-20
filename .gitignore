@@ -4,8 +4,9 @@
 .cursor
 
 assets/**/*.*
-!assets/**/*.import
+!assets/**/**/*.import
 !assets/*.zip
 
+*.kra
 build/
 # *.zip

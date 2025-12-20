@@ -351,7 +351,7 @@ nodes/fragment/2/position = Vector2(-540, 160)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_j7m8m")
 nodes/fragment/3/position = Vector2(0, 280)
 nodes/fragment/4/node = SubResource("VisualShaderNodeInput_840tg")
-nodes/fragment/4/position = Vector2(260, 540)
+nodes/fragment/4/position = Vector2(320, 580)
 nodes/fragment/5/node = SubResource("VisualShaderNodeVectorOp_qutd7")
 nodes/fragment/5/position = Vector2(720, 260)
 nodes/fragment/6/node = SubResource("VisualShaderNodeVectorDecompose_w5s5u")
@@ -1723,7 +1723,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6735281, 0)
 shape = SubResource("CylinderShape3D_27tcb")
 
 [node name="ZeldaFire" type="Node3D" parent="."]
-visible = false
 
 [node name="GPUParticlessk11" type="GPUParticles3D" parent="ZeldaFire"]
 transform = Transform3D(1, 0, 0, 0, 1, 3.55271e-15, 0, 0, 1, 0, 0, 0)

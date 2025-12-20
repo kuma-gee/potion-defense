@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bbpop2ylo0vfo" path="res://potion/enemy/skeleton.tscn" id="1_40km2"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="2_26fy3"]
-[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/KayKit_Skeletons_1.0_FREE/gltf/Skeleton_Minion.glb" id="3_beogp"]
+[ext_resource type="PackedScene" uid="uid://br0fd5nnfheb2" path="res://assets/skeletons/gltf/Skeleton_Minion.glb" id="3_beogp"]
 [ext_resource type="AudioStream" uid="uid://dmal5akb42l01" path="res://assets/sound/sfx/小パンチ.mp3" id="4_rblvq"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="5_kqjt3"]
 
