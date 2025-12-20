@@ -25,31 +25,31 @@ viewport_path = NodePath("Items/SubViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_mouuh"]
 size = Vector3(0.9501953, 0.3704834, 0.98339844)
 
-[sub_resource type="Resource" id="Resource_cr1lt"]
+[sub_resource type="Resource" id="Resource_7u145"]
 script = ExtResource("7_cr1lt")
 amount = 20
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_srxji"]
+[sub_resource type="Resource" id="Resource_cr1lt"]
 script = ExtResource("8_noi48")
 scale = Vector3(0.5, 0.5, 0.5)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_se64x"]
+[sub_resource type="Resource" id="Resource_srxji"]
 script = ExtResource("9_cxhee")
 rotation = Vector3(90, 360, 90)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_a6p42"]
+[sub_resource type="Resource" id="Resource_se64x"]
 script = ExtResource("10_a6p42")
 ray_length = 5.0
 ray_offset = 5.0
 remove_points_on_miss = false
 
-[sub_resource type="Resource" id="Resource_ihswe"]
+[sub_resource type="Resource" id="Resource_a6p42"]
 script = ExtResource("5_noi48")
-stack = Array[ExtResource("6_7u145")]([SubResource("Resource_cr1lt"), SubResource("Resource_srxji"), SubResource("Resource_se64x"), SubResource("Resource_a6p42")])
+stack = Array[ExtResource("6_7u145")]([SubResource("Resource_7u145"), SubResource("Resource_cr1lt"), SubResource("Resource_srxji"), SubResource("Resource_se64x")])
 
 [sub_resource type="Resource" id="Resource_noi48"]
 script = ExtResource("13_cxhee")
@@ -125,7 +125,7 @@ one_shot = true
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("4_cxhee")
-modifier_stack = SubResource("Resource_ihswe")
+modifier_stack = SubResource("Resource_a6p42")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 metadata/_custom_type_script = "uid://cs261kr81nos4"

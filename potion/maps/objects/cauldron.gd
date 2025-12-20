@@ -5,7 +5,6 @@ signal died()
 
 @export var item_container: Control
 @export var item_scene: PackedScene
-@export var health_bar: Range
 
 @export var success_anim: AnimationPlayer
 @export var failure_anim: AnimationPlayer
@@ -63,6 +62,7 @@ var mixing := false:
 		if not mixing:
 			_unfreeze_mixing_player()
 
+var health_bar: ProgressBar
 var destroyed := false
 
 func _ready() -> void:
@@ -72,9 +72,10 @@ func _ready() -> void:
 	_reset_values()
 	
 	overheat_progress.max_value = overheat_time
-	health_bar.value = hurt_box.max_health
-	health_bar.max_value = hurt_box.max_health
-	hurt_box.health_changed.connect(func(): health_bar.value = hurt_box.health)
+	hurt_box.health_changed.connect(func():
+		if health_bar:
+			health_bar.value = hurt_box.health
+	)
 	hurt_box.died.connect(func(): died.emit())
 	died.connect(func():
 		destroyed = true
@@ -82,6 +83,11 @@ func _ready() -> void:
 	)
 	
 	overheat_start_timer.timeout.connect(func(): overheating = true)
+
+func setup_health_bar(bar: ProgressBar):
+	health_bar = bar
+	health_bar.value = hurt_box.max_health
+	health_bar.max_value = hurt_box.max_health
 
 func interact(actor: FPSPlayer) -> void:
 	var player := actor as FPSPlayer

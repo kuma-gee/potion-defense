@@ -18,6 +18,7 @@ crow_path = NodePath("PathFollow3D")
 [node name="CrowSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_8cgsy")
 volume_db = -15.0
+autoplay = true
 bus = &"SFX"
 
 [node name="PathFollow3D" type="PathFollow3D" parent="."]

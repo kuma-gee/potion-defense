@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=197 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
@@ -17,10 +17,8 @@
 [ext_resource type="AudioStream" uid="uid://b2s3llk3d8jxu" path="res://assets/sound/sfx/水ぶくぶく2.mp3" id="17_1mhqx"]
 [ext_resource type="AudioStream" uid="uid://cqpc0xdqjtm5u" path="res://assets/sound/sfx/泡がはじける.mp3" id="18_1mhqx"]
 [ext_resource type="AudioStream" uid="uid://bkthn0bmo1yi7" path="res://assets/sound/sfx/fail_explosion.mp3" id="19_saywr"]
-[ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="20_ek1wr"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="20_h62l1"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
-[ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="20_nv7qt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
 height = 1.1645508
@@ -1662,18 +1660,6 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_k7m8g"]
 radius = 0.6346844
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv7qt"]
-bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1wr"]
-bg_color = Color(0, 0.72253454, 0.28125608, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_22ia0"]
-shader = ExtResource("20_ek1wr")
-shader_parameter/allow_out_of_bounds = false
-shader_parameter/outline_thickness = 12.0
-shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
-
 [sub_resource type="Gradient" id="Gradient_op8v4"]
 offsets = PackedFloat32Array(0.5, 0.68, 0.75, 1)
 colors = PackedColorArray(0, 0.255, 1, 0.016, 0, 0.255, 1, 0.106, 0.027, 0.157, 2.925, 0.31, 0.1, 0.8, 8, 1)
@@ -1718,13 +1704,12 @@ height = 6.0
 radial_segments = 32
 rings = 16
 
-[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "health_bar", "success_anim", "failure_anim", "progress", "overheat_progress", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
+[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "overheat_progress", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
 item_container = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients")
 item_scene = ExtResource("3_mp46c")
-health_bar = NodePath("CanvasLayer/MarginContainer/HBoxContainer/ProgressBar")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
 failure_anim = NodePath("HIT VFX/AnimationPlayer")
 progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
@@ -1918,63 +1903,6 @@ metadata/_custom_type_script = "uid://bav8mlr6l6106"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("SphereShape3D_k7m8g")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-custom_minimum_size = Vector2(600, 40)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -300.0
-offset_right = 300.0
-offset_bottom = 30.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_nv7qt")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ek1wr")
-value = 29.52
-show_percentage = false
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-
-[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/MarginContainer/Control"]
-material = SubResource("ShaderMaterial_22ia0")
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.27925268
-pivot_offset = Vector2(24, 24)
-texture = ExtResource("20_nv7qt")
-expand_mode = 2
-stretch_mode = 5
-
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.131705, 0)
 billboard = 1
@@ -1997,7 +1925,7 @@ bus = &"SFX"
 
 [node name="Drop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_1mhqx")
-volume_db = -10.0
+volume_db = -15.0
 bus = &"SFX"
 
 [node name="Take" type="AudioStreamPlayer" parent="."]
@@ -2007,12 +1935,14 @@ bus = &"SFX"
 
 [node name="SuccessPuff" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_q1gjo")
+volume_db = -10.0
 bus = &"SFX"
 script = ExtResource("20_h62l1")
 
 [node name="FailExplosion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_saywr")
-volume_db = -20.0
+volume_db = -10.0
+pitch_scale = 0.4
 bus = &"SFX"
 script = ExtResource("20_h62l1")
 one_shot = true

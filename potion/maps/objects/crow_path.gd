@@ -7,9 +7,6 @@ signal finished()
 @export var crow_path: PathFollow3D
 @onready var crow_sound: AudioStreamPlayer = $CrowSound
 
-func _ready() -> void:
-	crow_sound.play()
-
 func _process(delta: float) -> void:
 	if crow_path.progress_ratio < 1.0 and crow_path.visible:
 		var value = crow_move_speed * delta

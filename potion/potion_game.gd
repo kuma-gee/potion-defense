@@ -7,6 +7,11 @@ extends Node3D
 @export var new_recipe: NewRecipe
 @export var recipes_btn: Control
 @export var in_game_canvas: Control
+@export var controls_ui: Control
+@export var menu: Menu
+@export var join: Control
+@export var cauldron: Control
+@export var cauldron_health_bar: ProgressBar
 
 @onready var wave_manager: WaveManager = $WaveManager
 @onready var player_root: Node3D = $PlayerRoot
@@ -16,6 +21,7 @@ extends Node3D
 
 @export var current_level: PackedScene
 
+var shown_inputs := false
 var map: Map:
 	set(v):
 		map = v
@@ -42,6 +48,34 @@ func _ready() -> void:
 	gameover.restart_level.connect(func(): _setup_map())
 	gameover.back_to_select.connect(func(): pass)
 
+	cauldron.visible = not Events.is_tutorial_level()
+	join.visible = Events.is_tutorial_level()
+	if Events.is_tutorial_level():
+		wave_manager.wave_started.connect(func(): 
+			if cauldron.visible: return
+			_move_join_container_out()
+		)
+
+	if not shown_inputs:
+		controls_ui.grab_focus()
+		controls_ui.focus_exited.connect(func():
+			if not shown_inputs:
+				shown_inputs = true
+				get_tree().paused = false
+		)
+		get_tree().paused = true
+
+func _move_join_container_out():
+	var tw = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	tw.tween_property(join, "position:y", -50, 0.5)
+	_move_cauldron_container_in()
+	
+func _move_cauldron_container_in():
+	var tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	cauldron.position.y = -50
+	tw.tween_property(cauldron, "position:y", 0, 0.5)
+	cauldron.show()
+
 func _unlocked_recipe(item: ItemResource):
 	new_recipe.open(item)
 	recipe_ui.update_unlocked(Events.unlocked_recipes)
@@ -67,6 +101,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()
+	elif event.is_action_pressed("ui_cancel"):
+		menu.show()
 	elif not wave_manager.is_wave_active:
 		var m = map if map else shop
 		if event.is_pressed():
@@ -83,6 +119,9 @@ func _setup_map():
 	wave_manager.setup(map)
 	_move_players_to_map(map)
 
+	var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
+	c.setup_health_bar(cauldron_health_bar)
+	
 	if not Events.is_tutorial_level():
 		wave_manager.next_wave()
 

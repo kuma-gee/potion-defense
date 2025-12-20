@@ -43,8 +43,13 @@ func refresh_ingredients() -> void:
 func _ready() -> void:
 	hide()
 	current_page = 0
+	focus_entered.connect(func():
+		show()
+		open_sound.play()
+	)
+	focus_exited.connect(func(): hide())
 
-func _unhandled_input(event: InputEvent) -> void:
+func _gui_input(event: InputEvent) -> void:
 	if not visible: return
 	
 	if event.is_action_released("recipes") or event.is_action_pressed("back"):
@@ -62,8 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func pause() -> void:
 	if pages.is_empty(): return
 	
-	show()
-	open_sound.play()
+	grab_focus()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func close():

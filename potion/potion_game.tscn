@@ -1,26 +1,29 @@
-[gd_scene load_steps=23 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=32 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_niktk"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="7_21lj0"]
+[ext_resource type="Script" uid="uid://y5n83lpsitod" path="res://potion/ui/menu.gd" id="11_6q2ph"]
 [ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
-[ext_resource type="AudioStream" uid="uid://i84jkt71ykfw" path="res://assets/sound/sfx/紙を広げる2.mp3" id="12_6q2ph"]
 [ext_resource type="PackedScene" uid="uid://dbeqjyuk1dmun" path="res://potion/ui/recipe_item.tscn" id="12_8f45c"]
+[ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="12_8mtc6"]
 [ext_resource type="PackedScene" uid="uid://cnhq46dfc2xlt" path="res://potion/maps/shop.tscn" id="12_i3qjy"]
+[ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="13_16d2i"]
 [ext_resource type="AudioStream" uid="uid://jd3chc8aiyhf" path="res://assets/sound/sfx/紙を広げる1.mp3" id="13_khw37"]
 [ext_resource type="AudioStream" uid="uid://drswd3bimicqm" path="res://assets/sound/sfx/ページをめくる1.mp3" id="14_niktk"]
 [ext_resource type="AudioStream" uid="uid://c6eyhenn5fbu4" path="res://assets/sound/死神のリスト.mp3" id="16_m4gdw"]
+[ext_resource type="Script" uid="uid://m182jy5gu2ah" path="res://potion/ui/controls_menu.gd" id="17_ev7ur"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
+[ext_resource type="Texture2D" uid="uid://dhwcueeqtf578" path="res://assets/sprites/Controls_Keyboard.png" id="17_kavja"]
+[ext_resource type="Texture2D" uid="uid://bsqq2accut4u3" path="res://assets/sprites/Controls_Controller.png" id="18_ev7ur"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
+[ext_resource type="Texture2D" uid="uid://d76grpnwodjj" path="res://assets/sprites/UI_Close.png" id="20_0uxgy"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
-bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
 [sub_resource type="Animation" id="Animation_i3qjy"]
 length = 0.001
@@ -107,14 +110,34 @@ _data = {
 &"open": SubResource("Animation_m0roi")
 }
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn", "in_game_canvas")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmnmn"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8q1rh"]
+bg_color = Color(0, 0.72253454, 0.28125608, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux70s"]
+shader = ExtResource("12_8mtc6")
+shader_parameter/allow_out_of_bounds = false
+shader_parameter/outline_thickness = 12.0
+shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
+bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
+
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn", "in_game_canvas", "controls_ui", "menu", "join", "cauldron", "cauldron_health_bar")]
 script = ExtResource("1_1w3wt")
 souls_label = NodePath("InGameCanvas/Control2/SoulContainer/HBoxContainer/Souls")
-recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipes")
+recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
 recipes_btn = NodePath("InGameCanvas/Control2/RecipeContainer")
 in_game_canvas = NodePath("InGameCanvas/Control2/WaveContainer")
+controls_ui = NodePath("InGameCanvas/Control2/Control/Controls")
+menu = NodePath("InGameCanvas/Control2/Control/Menu")
+join = NodePath("InGameCanvas/Control2/Join")
+cauldron = NodePath("InGameCanvas/Control2/Cauldron")
+cauldron_health_bar = NodePath("InGameCanvas/Control2/Cauldron/HBoxContainer/ProgressBar")
 current_level = ExtResource("2_niktk")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
@@ -144,6 +167,7 @@ player_root = NodePath("../PlayerRoot")
 player_scene = ExtResource("17_ho6vn")
 
 [node name="InGameCanvas" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="Control2" type="Control" parent="InGameCanvas"]
 layout_mode = 3
@@ -239,6 +263,115 @@ grow_vertical = 0
 theme_override_constants/outline_size = 8
 text = "TAB"
 
+[node name="NewRecipe" type="TextureRect" parent="InGameCanvas/Control2" node_paths=PackedStringArray("item")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.00122
+offset_bottom = 64.00073
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+expand_mode = 2
+stretch_mode = 5
+script = ExtResource("11_m0roi")
+item = NodePath("MarginContainer/PanelContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/NewRecipe"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="PanelContainer" parent="InGameCanvas/Control2/NewRecipe/MarginContainer" instance=ExtResource("19_1w3wt")]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/Control2/NewRecipe"]
+libraries = {
+&"": SubResource("AnimationLibrary_i3qjy")
+}
+
+[node name="Cauldron" type="MarginContainer" parent="InGameCanvas/Control2"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 0
+offset_left = 710.0
+offset_top = 16.0
+offset_right = 1210.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Cauldron"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="InGameCanvas/Control2/Cauldron/HBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_rmnmn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8q1rh")
+value = 29.52
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Cauldron/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+
+[node name="Control" type="Control" parent="InGameCanvas/Control2/Cauldron/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/Cauldron/HBoxContainer/MarginContainer/Control"]
+material = SubResource("ShaderMaterial_ux70s")
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.27925268
+pivot_offset = Vector2(24, 24)
+texture = ExtResource("13_16d2i")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Join" type="MarginContainer" parent="InGameCanvas/Control2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -99.0
+offset_right = 99.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 16
+
+[node name="Label" type="Label" parent="InGameCanvas/Control2/Join"]
+layout_mode = 2
+text = "Press any key to join"
+
 [node name="Control" type="Control" parent="InGameCanvas/Control2"]
 layout_mode = 1
 anchors_preset = 15
@@ -287,142 +420,241 @@ text = "Restart"
 layout_mode = 2
 text = "Back to map"
 
-[node name="Recipes" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
+[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "quit_btn", "recipe_btn", "controls_btn", "ui", "controls", "recipe")]
+process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.50980395)
+color = Color(0, 0, 0, 0.5882353)
+script = ExtResource("11_6q2ph")
+continue_btn = NodePath("Main/VBoxContainer/Continue")
+quit_btn = NodePath("Main/VBoxContainer/Exit")
+recipe_btn = NodePath("Main/VBoxContainer/Recipes")
+controls_btn = NodePath("Main/VBoxContainer/Controls")
+ui = NodePath("Main")
+controls = NodePath("../Controls")
+recipe = NodePath("../Recipe")
+
+[node name="Main" type="CenterContainer" parent="InGameCanvas/Control2/Control/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Menu/Main"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Recipes" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Recipes"
+
+[node name="Controls" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+
+[node name="Exit" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Recipe" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+color = Color(0, 0, 0, 0.5882353)
 script = ExtResource("34_bo5nf")
 open_sound = NodePath("OpenSound")
 close_sound = NodePath("CloseSound")
-page_sound = ExtResource("12_6q2ph")
+page_sound = ExtResource("14_niktk")
 item_scene = ExtResource("12_8f45c")
-ingredient_container = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Ingredients")
-potion_item = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
-page_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Page")
+ingredient_container = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Ingredients")
+potion_item = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
+page_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Page")
 
-[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Recipes"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer"]
-custom_minimum_size = Vector2(300, 400)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_constants/separation = 32
-
-[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_constants/separation = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="Potion" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Prev" type="Button" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 8
-text = "Prev"
-
-[node name="Page" type="Label" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/outline_size = 5
-text = "0/0"
-horizontal_alignment = 1
-
-[node name="Next" type="Button" parent="InGameCanvas/Control2/Control/Recipes/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 8
-text = "Next"
-
-[node name="OpenSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipes"]
+[node name="OpenSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipe"]
 stream = ExtResource("13_khw37")
 volume_db = -15.0
 pitch_scale = 1.5
 
-[node name="CloseSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipes"]
+[node name="CloseSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipe"]
 stream = ExtResource("14_niktk")
 volume_db = -15.0
 pitch_scale = 1.5
 
-[node name="NewRecipe" type="TextureRect" parent="InGameCanvas/Control2" node_paths=PackedStringArray("item")]
-visible = false
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/Control/Recipe"]
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.00122
-offset_bottom = 64.00073
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(64, 64)
-expand_mode = 2
-stretch_mode = 5
-script = ExtResource("11_m0roi")
-item = NodePath("MarginContainer/PanelContainer")
+theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/NewRecipe"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Potion" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Prev" type="Button" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "Prev"
+
+[node name="Page" type="Label" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 5
+text = "0/0"
+horizontal_alignment = 1
+
+[node name="Next" type="Button" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "Next"
+
+[node name="Controls" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("pages", "label", "prev_btn", "next_btn")]
+process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+focus_mode = 2
+color = Color(0, 0, 0, 0.5882353)
+script = ExtResource("17_ev7ur")
+pages = [NodePath("CenterContainer/VBoxContainer/CenterContainer/Keyboard"), NodePath("CenterContainer/VBoxContainer/CenterContainer/Controller")]
+label = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Label")
+prev_btn = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Button2")
+next_btn = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Button")
 
-[node name="PanelContainer" parent="InGameCanvas/Control2/NewRecipe/MarginContainer" instance=ExtResource("19_1w3wt")]
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer"]
 layout_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/Control2/NewRecipe"]
-libraries = {
-&"": SubResource("AnimationLibrary_i3qjy")
-}
+[node name="Control" type="Control" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/Control/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("20_0uxgy")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Keyboard" type="TextureRect" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(1300, 0)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("17_kavja")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Controller" type="TextureRect" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(1300, 0)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("18_ev7ur")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button2" type="Label" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="Label" type="Label" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Keyboard"
+horizontal_alignment = 1
+
+[node name="Button" type="Label" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ">"
 
 [node name="ShopBGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_m4gdw")
