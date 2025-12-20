@@ -936,7 +936,7 @@ shape = SubResource("SphereShape3D_w46aa")
 
 [node name="Explosion" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("9_dvjrj")
-volume_db = -20.0
+volume_db = -10.0
 pitch_scale = 0.8
 bus = &"SFX"
 

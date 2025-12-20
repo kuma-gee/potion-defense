@@ -103,12 +103,29 @@ static func find_potential_recipe(items: Array, exact = false):
 		
 		if exact and items.size() != required_items.size():
 			continue
-
+		
+		if items.size() > required_items.size():
+			continue
+		
+		# Create copies to avoid modifying original arrays
+		var items_copy = items.duplicate()
+		var required_copy = required_items.duplicate()
+		
+		# Try to match each item
 		var matches = true
-		for i in range(items.size()):
-			if items[i] != required_items[i]:
+		for item in items_copy:
+			var idx = required_copy.find(item)
+			if idx == -1:
 				matches = false
 				break
+			required_copy.remove_at(idx)
+
+		# Previous exact match, maybe needed again
+		# var matches = true
+		# for i in range(items.size()):
+		# 	if items[i] != required_items[i]:
+		# 		matches = false
+		# 		break
 		
 		if matches:
 			return result
