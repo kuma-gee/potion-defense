@@ -25,7 +25,7 @@ func _ready() -> void:
 	Events.upgrade_unlocked.connect(func(): purchased.play())
 	inventory.interacted.connect(func(_a):
 		equipment.show_upgrades(Events.unlocked_upgrades)
-		prepare_move_next.show()
+		#prepare_move_next.show()
 	)
 
 	move_next.next.connect(func(): _move_to_equipments())
@@ -36,7 +36,7 @@ func setup(shop: Array[UpgradeResource]):
 	shop_items = shop_items.filter(func(s): return not Events.has_upgrade(s))
 
 	if Events.is_first_level():
-		prepare_move_next.hide()
+		#prepare_move_next.hide()
 		move_next.hide()
 	else:
 		shop_list.show_upgrades(shop_items)

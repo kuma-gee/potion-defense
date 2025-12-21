@@ -13,7 +13,8 @@ func _ready() -> void:
 	description_label.text = upgrade.description
 
 	if upgrade.icon:
-		icon.texture = upgrade.icon
+		var mat = icon.material_override as ShaderMaterial
+		mat.set_shader_parameter("sprite_texture", upgrade.icon)
 
 func interact(_a: FPSPlayer):
 	if not upgrade: return

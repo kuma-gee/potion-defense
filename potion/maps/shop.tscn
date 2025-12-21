@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=46 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="7_6d3tc"]
 [ext_resource type="PackedScene" uid="uid://di33frcdi4fnw" path="res://potion/maps/objects/upgrade_select.tscn" id="7_p00gg"]
 [ext_resource type="PackedScene" uid="uid://dam3pr8acoru4" path="res://assets/models/bag.glb" id="8_tcxai"]
+[ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="9_6jtiw"]
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="9_hemba"]
 [ext_resource type="Script" uid="uid://cs261kr81nos4" path="res://addons/proton_scatter/src/scatter.gd" id="10_3ckhd"]
 [ext_resource type="Script" uid="uid://debrep4piyckd" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_ig3at"]
@@ -28,6 +29,13 @@ size = Vector3(2.491211, 3.074707, 1.4724121)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2vj38"]
 size = Vector3(1.8752441, 2.4141235, 0.9707031)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5n5y4"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("9_6jtiw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d8qon"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
 radius = 0.7569843
@@ -212,39 +220,39 @@ _data = {
 &"next": SubResource("Animation_p00gg")
 }
 
-[sub_resource type="Resource" id="Resource_4lc4r"]
+[sub_resource type="Resource" id="Resource_6jtiw"]
 script = ExtResource("13_tcxai")
 amount = 1000
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_6jtiw"]
+[sub_resource type="Resource" id="Resource_5n5y4"]
 script = ExtResource("14_ig3at")
 scale = Vector3(0.5, 0.5, 0.5)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_5n5y4"]
+[sub_resource type="Resource" id="Resource_d8qon"]
 script = ExtResource("14_6jtiw")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(20, 360, 20)
 scale = Vector3(0.1, 0.1, 0.1)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_d8qon"]
+[sub_resource type="Resource" id="Resource_c537u"]
 script = ExtResource("15_5n5y4")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
 restrict_height = true
 
-[sub_resource type="Resource" id="Resource_c537u"]
+[sub_resource type="Resource" id="Resource_s604t"]
 script = ExtResource("16_d8qon")
 ray_length = 5.0
 ray_offset = 5.0
 remove_points_on_miss = false
 
-[sub_resource type="Resource" id="Resource_s604t"]
+[sub_resource type="Resource" id="Resource_g7nvb"]
 script = ExtResource("11_ig3at")
-stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_4lc4r"), SubResource("Resource_6jtiw"), SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u")])
+stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_6jtiw"), SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u"), SubResource("Resource_s604t")])
 
 [sub_resource type="Resource" id="Resource_ig3at"]
 script = ExtResource("19_3ckhd")
@@ -264,9 +272,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.906274, 0, 0)
 
 [node name="ShopArea" type="Node3D" parent="."]
 
-[node name="ShopOpen" type="Area3D" parent="ShopArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.744837, 0, -3.3843784)
+[node name="ShopOpen" type="Area3D" parent="ShopArea" node_paths=PackedStringArray("sprite")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.744837, 0, -3.0903616)
 script = ExtResource("5_orkik")
+sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShopArea/ShopOpen"]
@@ -287,15 +296,22 @@ script = ExtResource("3_13ndi")
 scene = ExtResource("5_hemba")
 metadata/_custom_type_script = "uid://b1fc7q2ij1jat"
 
+[node name="Ring" type="MeshInstance3D" parent="ShopArea/ShopOpen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.034931183, 0)
+material_override = SubResource("StandardMaterial3D_5n5y4")
+mesh = SubResource("PlaneMesh_d8qon")
+skeleton = NodePath("../bag")
+
 [node name="MoveNext" parent="ShopArea" instance=ExtResource("5_nojdy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2007165, 0.50231934, 0.20821929)
 
 [node name="PrepareArea" type="Node3D" parent="."]
 visible = false
 
-[node name="Inventory" type="Area3D" parent="PrepareArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4218807, 0, -3.438931)
+[node name="Inventory" type="Area3D" parent="PrepareArea" node_paths=PackedStringArray("sprite")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4218807, 0, -2.826951)
 script = ExtResource("5_orkik")
+sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="Equipment" type="Node3D" parent="PrepareArea/Inventory"]
@@ -306,6 +322,12 @@ scene = ExtResource("7_p00gg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PrepareArea/Inventory"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2854886, 0)
 shape = SubResource("SphereShape3D_hemba")
+
+[node name="Ring" type="MeshInstance3D" parent="PrepareArea/Inventory"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.034931183, 0)
+material_override = SubResource("StandardMaterial3D_5n5y4")
+mesh = SubResource("PlaneMesh_d8qon")
+skeleton = NodePath("../bag")
 
 [node name="bag" parent="PrepareArea/Inventory" instance=ExtResource("8_tcxai")]
 
@@ -398,7 +420,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("10_3ckhd")
-modifier_stack = SubResource("Resource_s604t")
+modifier_stack = SubResource("Resource_g7nvb")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 metadata/_custom_type_script = "uid://cs261kr81nos4"

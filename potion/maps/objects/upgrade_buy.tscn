@@ -1,14 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://m672asvd0bow"]
+[gd_scene load_steps=13 format=3 uid="uid://m672asvd0bow"]
 
 [ext_resource type="Script" uid="uid://kinvxqgq5da8" path="res://potion/maps/objects/upgrade_buy.gd" id="1_40cgg"]
+[ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="2_k2j3k"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="2_sg0dy"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="3_40cgg"]
+[ext_resource type="Texture2D" uid="uid://paves0g42grn" path="res://assets/sprites/Upgrade_WandProtect.png" id="3_w35hp"]
+[ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="4_sg0dy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w35hp"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_k2j3k")
+shader_parameter/sprite_texture = ExtResource("3_w35hp")
+shader_parameter/enable_billboard = true
+shader_parameter/enable_outline = true
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 3
+shader_parameter/glowRadialCoverage = 4
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
 radius = 0.79197407
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cwysg"]
 viewport_path = NodePath("Details/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2j3k"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("4_sg0dy")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w35hp"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_40cgg"]
 viewport_path = NodePath("Name/SubViewport")
@@ -21,7 +46,8 @@ sprite = NodePath("Details")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="Icon" type="Sprite3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.4551196, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.7444525, 0)
+material_override = SubResource("ShaderMaterial_w35hp")
 billboard = 1
 double_sided = false
 texture = ExtResource("2_sg0dy")
@@ -34,6 +60,12 @@ shape = SubResource("SphereShape3D_hemba")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8327088, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_cwysg")
+
+[node name="Ring" type="MeshInstance3D" parent="Details"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -2.7911658, 0)
+material_override = SubResource("StandardMaterial3D_k2j3k")
+mesh = SubResource("PlaneMesh_w35hp")
+skeleton = NodePath("../bag")
 
 [node name="SubViewport" type="SubViewport" parent="Details"]
 transparent_bg = true
