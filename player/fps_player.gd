@@ -165,7 +165,8 @@ func _ready():
 			hand.release(self)
 		elif event.is_action_pressed("action"):
 			if has_item():
-				throw_button_held = true
+				if is_holding_potion():
+					throw_button_held = true
 			else:
 				hand.action(self)
 		elif event.is_action_released("action"):
@@ -345,7 +346,7 @@ func dash_player() -> void:
 	dash_sound.start()
 
 func throw_item() -> void:
-	if not throw_button_held or not has_item() or not held_item_type.is_potion_item():
+	if not throw_button_held or not is_holding_potion():
 		return
 	
 	var item = release_item()

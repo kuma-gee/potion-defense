@@ -18,7 +18,7 @@ func _ready() -> void:
 		level.hide()
 
 	await get_tree().create_timer(1.0).timeout
-	if initial_recipe:
+	if initial_recipe and not Events.is_recipe_unlocked(initial_recipe):
 		var initial = get_node("InitialRecipeSpawner")
 		var recipe = initial.spawn()
 		recipe.recipe = initial_recipe
@@ -38,7 +38,7 @@ func get_spawn_position(player_num: int) -> Vector3:
 
 func map_finished():
 	var recipe_spawner = get_node_or_null("ObjectSpawner")
-	if new_recipe and recipe_spawner:
+	if new_recipe and recipe_spawner and not Events.is_recipe_unlocked(new_recipe):
 		var recipe = recipe_spawner.spawn() as Node3D
 		recipe.recipe = new_recipe
 		recipe.tree_exiting.connect(func(): _show_next_level_area())

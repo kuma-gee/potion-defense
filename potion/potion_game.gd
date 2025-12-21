@@ -21,7 +21,6 @@ extends Node3D
 
 @export var current_level: PackedScene
 
-var shown_inputs := false
 var map: Map:
 	set(v):
 		map = v
@@ -45,7 +44,7 @@ func _ready() -> void:
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	shop.next_level.connect(func(): _setup_map())
 	
-	gameover.restart_level.connect(func(): _setup_map())
+	gameover.restart_level.connect(func(): get_tree().reload_current_scene())
 	gameover.back_to_select.connect(func(): pass)
 
 	cauldron.visible = not Events.is_tutorial_level()
@@ -56,11 +55,11 @@ func _ready() -> void:
 			_move_join_container_out()
 		)
 
-	if not shown_inputs:
+	if not Events.shown_inputs:
 		controls_ui.grab_focus()
 		controls_ui.focus_exited.connect(func():
-			if not shown_inputs:
-				shown_inputs = true
+			if not Events.shown_inputs:
+				Events.shown_inputs = true
 				get_tree().paused = false
 		)
 		get_tree().paused = true

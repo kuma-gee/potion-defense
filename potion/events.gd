@@ -8,6 +8,7 @@ signal cauldron_destroyed()
 signal picked_up_recipe(recipe: ItemResource)
 signal upgrade_unlocked()
 
+var shown_inputs := false
 var players := []
 var total_souls := 0
 var level := 0
@@ -37,6 +38,9 @@ func is_first_level() -> bool:
 func collect_soul(amount: int):
 	total_souls += amount
 	souls_changed.emit()
+
+func is_recipe_unlocked(item: ItemResource) -> bool:
+	return item.type in unlocked_recipes
 
 func pickup_recipe(item: ItemResource):
 	var type = item.type
