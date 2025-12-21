@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://t5hlanwweip7"]
+[gd_scene load_steps=15 format=3 uid="uid://t5hlanwweip7"]
 
 [ext_resource type="Script" uid="uid://dhv03andtviti" path="res://potion/maps/objects/table.gd" id="1_ppnb3"]
 [ext_resource type="Script" uid="uid://cneuwfr2eouyv" path="res://potion/maps/objects/placeable_slott.gd" id="3_r3je8"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="4_l27k1"]
+[ext_resource type="Texture2D" uid="uid://b72jwrmxaksvc" path="res://assets/particles/T_VFX_sSmoke_mask1.jpg" id="5_pnfpu"]
 [ext_resource type="PackedScene" uid="uid://48vev3h5eyrt" path="res://assets/models/table.glb" id="5_r3je8"]
+[ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="6_slx8l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ch2ja"]
 size = Vector3(0.46875, 0.7, 0.5)
@@ -14,14 +16,37 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_l27k1"]
 size = Vector3(0.96777344, 0.39833832, 1.0058594)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slx8l"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("5_pnfpu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wq1oy"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.29999998
+scale_max = 0.29999998
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pnfpu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnjy8"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("6_slx8l")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_slx8l"]
+
 [node name="Table" type="Node3D"]
 script = ExtResource("1_ppnb3")
 
-[node name="RayInteractable" type="Area3D" parent="."]
+[node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("sprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49788457, 0)
 collision_layer = 32768
 collision_mask = 32768
 script = ExtResource("3_r3je8")
+sprite = NodePath("../Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
@@ -41,3 +66,15 @@ shape = SubResource("BoxShape3D_l27k1")
 
 [node name="ItemPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45377576, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4494496, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_slx8l")
+process_material = SubResource("ParticleProcessMaterial_wq1oy")
+draw_pass_1 = SubResource("PlaneMesh_pnfpu")
+
+[node name="Ring" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.4496851, 0)
+material_override = SubResource("StandardMaterial3D_bnjy8")
+mesh = SubResource("PlaneMesh_slx8l")

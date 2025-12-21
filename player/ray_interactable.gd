@@ -9,7 +9,7 @@ signal interacted(actor)
 signal released(actor)
 
 @export var label: Label3D
-@export var sprite: Sprite3D
+@export var sprite: Node3D
 
 func _ready() -> void:
 	collision_layer = LAYER

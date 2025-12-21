@@ -20,11 +20,10 @@ func _ready() -> void:
 	if has_overlapping_areas():
 		monitorable = false
 		hide()
-	#)
 
 func has_item():
 	return item != null
-	
+
 func interact(actor: FPSPlayer):
 	if has_overlapping_areas(): return
 	
@@ -32,6 +31,7 @@ func interact(actor: FPSPlayer):
 		if not actor.has_item():
 			actor.pickup_item(item)
 			item = null
+			item_popup.hide()
 			removed.emit()
 			
 		return
@@ -40,3 +40,19 @@ func interact(actor: FPSPlayer):
 	
 	item = actor.release_item()
 	placed.emit(item)
+
+func hover(actor: FPSPlayer):
+	if not has_item() and not actor.has_item():
+		return
+	
+	if has_item():
+		item_popup.show()
+	super(actor)
+
+func unhover(actor: FPSPlayer):
+	if not has_item() and not actor.has_item():
+		return
+	
+	if has_item():
+		item_popup.hide()
+	super(actor)
