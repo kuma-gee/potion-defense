@@ -45,9 +45,6 @@ func on_hit() -> void:
 	if node:
 		get_tree().current_scene.add_child(node)
 
-	var sound_stream = EFFECT_SOUND.get(potion_type, null)
-	if sound_stream:
-		AudioManager.play_sfx(sound_stream, -10, EFFECT_SOUND_PITCH.get(potion_type, 1.0))
 	hit.emit()
 
 func _get_ground_position() -> Vector3:
@@ -66,5 +63,10 @@ static func spawn_effect(type: ItemResource.Type, pos: Vector3) -> Node:
 	if scene:
 		var node = scene.instantiate()
 		node.position = pos
+		
+		var sound_stream = EFFECT_SOUND.get(type, null)
+		if sound_stream:
+			AudioManager.play_sfx(sound_stream, -10, EFFECT_SOUND_PITCH.get(type, 1.0))
+		
 		return node
 	return null

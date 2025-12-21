@@ -92,20 +92,20 @@ var held_item_type: ItemResource = null:
 		held_item_type = v
 		item_texture.set_item(v)
 
-func _get_mouse_world_position() -> Vector3:
-	var current_camera = get_viewport().get_camera_3d()
-	if not current_camera:
-		return global_position + Vector3.FORWARD
-	
-	var ray_origin = current_camera.project_ray_origin(mouse_position)
-	var ray_normal = current_camera.project_ray_normal(mouse_position)
-	
-	var plane = Plane(Vector3.UP, global_position.y)
-	var intersection = plane.intersects_ray(ray_origin, ray_normal)
-	
-	if intersection:
-		return intersection
-	return global_position + Vector3.FORWARD
+#func _get_mouse_world_position() -> Vector3:
+	#var current_camera = get_viewport().get_camera_3d()
+	#if not current_camera:
+		#return global_position + Vector3.FORWARD
+	#
+	#var ray_origin = current_camera.project_ray_origin(mouse_position)
+	#var ray_normal = current_camera.project_ray_normal(mouse_position)
+	#
+	#var plane = Plane(Vector3.UP, global_position.y)
+	#var intersection = plane.intersects_ray(ray_origin, ray_normal)
+	#
+	#if intersection:
+		#return intersection
+	#return global_position + Vector3.FORWARD
 
 func _ready():
 	super()
@@ -233,10 +233,9 @@ func _physics_process(delta):
 	if throw_button_held and has_item():
 		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
 		
-		var mouse_world_pos = _get_mouse_world_position()
-		var direction_to_mouse = (mouse_world_pos - global_position).normalized()
-		if direction_to_mouse.length() > 0.1:
-			body.look_at(body.global_position + direction_to_mouse, Vector3.UP)
+		#var aim = get_aim_direction()
+		#if aim.length() > 0.1:
+			#body.look_at(body.global_position + aim, Vector3.UP)
 	else:
 		current_throw_force = 0.0
 	
@@ -264,8 +263,10 @@ func _physics_process(delta):
 
 	anim.update_move(direction)
 	ground_spring_cast.apply_gravity(self, delta)
+	
 	move_and_slide()
 	
+	var breaking_force = true #velocity.length() >= 0.5
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
@@ -275,19 +276,28 @@ func _physics_process(delta):
 			push_other_player(other_player)
 			
 			# Break potion only if dashing and facing each other
-			#if dash_duration > 0.0:
-				#if has_item():
-					#break_potion()
-				#else:
-					#var my_forward = -body.global_transform.basis.z
-					#var other_forward = -other_player.body.global_transform.basis.z
-					#var facing_dot = my_forward.dot(other_forward)
-					#
-					#if facing_dot < -0.6 and other_player.has_item():
-						#other_player.break_potion()
-		#else:
-			#if dash_duration > 0.0 and has_item():
-				#break_potion()
+			if dash_duration > 0.0 and breaking_force:
+				if has_item():
+					break_potion()
+				else:
+					var my_forward = -body.global_transform.basis.z
+					var other_forward = -other_player.body.global_transform.basis.z
+					var facing_dot = my_forward.dot(other_forward)
+					
+					if facing_dot < -0.6 and other_player.has_item():
+						other_player.break_potion()
+		elif breaking_force:
+			if dash_duration > 0.0 and has_item():
+				break_potion()
+
+#func get_aim_direction() -> Vector3:
+	#var controller_aim = player_input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+	#if controller_aim.length() > 0.1:
+		#return Vector3(controller_aim.x, 0, controller_aim.y)
+#
+	#var mouse_world_pos = _get_mouse_world_position()
+	#var aim_direction = (mouse_world_pos - global_position).normalized()
+	#return aim_direction
 
 func push_other_player(other_player: FPSPlayer) -> void:
 	var push_direction = (other_player.global_position - global_position).normalized()
@@ -351,12 +361,11 @@ func throw_item() -> void:
 	
 	var item = release_item()
 	
-	var throw_direction: Vector3
-	var mouse_world_pos = _get_mouse_world_position()
-	throw_direction = (mouse_world_pos - global_position).normalized()
-	if throw_direction.length() < 0.1:
-		throw_direction = -body.global_transform.basis.z
-	
+	var throw_direction: Vector3 = -body.global_transform.basis.z
+	#var aim = get_aim_direction()
+	#if aim.length() < 0.1:
+		#throw_direction = -body.global_transform.basis.z
+
 	var actual_force = min_throw_force + current_throw_force
 	
 	var pickupable: Pickupable = PICKUPABLE_SCENE.instantiate()

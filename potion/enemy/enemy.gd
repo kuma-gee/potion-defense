@@ -61,6 +61,7 @@ func _died():
 	collision_shape_3d.set_deferred("disabled", true)
 	soul_spawner.spawn()
 	death_sound.play_randomized()
+	move_sound.stop()
 
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
