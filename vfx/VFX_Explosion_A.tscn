@@ -1,9 +1,16 @@
-[gd_scene load_steps=293 format=3 uid="uid://d2wccndn1if2p"]
+[gd_scene load_steps=291 format=3 uid="uid://d2wccndn1if2p"]
 
 [ext_resource type="Texture2D" uid="uid://d0wnxm0dha821" path="res://assets/particles/T_big_sparks.jpg" id="1_jgdco"]
+[ext_resource type="Texture2D" uid="uid://vj1fkfmxlojo" path="res://assets/particles/T_FogSheetCloud.PNG" id="1_xokal"]
+[ext_resource type="Texture2D" uid="uid://d1c5jr535lrfi" path="res://assets/particles/T_PerlinNoise_Tiled.png" id="2_8eov2"]
 [ext_resource type="ArrayMesh" uid="uid://dwcusyt04617u" path="res://assets/particles/shapes/sm_debris_1.obj" id="2_b2wxb"]
+[ext_resource type="Texture2D" uid="uid://dd1pmd840fclm" path="res://assets/particles/T_Noise_075.png" id="3_ji22a"]
 [ext_resource type="Texture2D" uid="uid://ch53yvmy4g8v3" path="res://assets/particles/T_cracks35.png" id="3_xdl50"]
 [ext_resource type="Texture2D" uid="uid://nhrrjjyx48wp" path="res://assets/particles/T_cracks33_E3.jpg" id="4_bijyl"]
+[ext_resource type="Texture2D" uid="uid://dcb21nbysx1gm" path="res://assets/particles/star_01.png" id="5_8eov2"]
+[ext_resource type="Texture2D" uid="uid://dbm7ymg42h6rp" path="res://assets/particles/T_T_Flare05.PNG" id="6_1wpa2"]
+[ext_resource type="Texture2D" uid="uid://by6vxm2vg3nc6" path="res://assets/particles/T_Noise_001R.png" id="8_6c2wc"]
+[ext_resource type="Texture2D" uid="uid://dgrnwb8mqaeib" path="res://assets/particles/T_Noise_6Yu1.png" id="9_4ouv4"]
 
 [sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_pjsre"]
 linked_parent_graph_frame = 31
@@ -556,15 +563,6 @@ colors = PackedColorArray(0.460156, 0.446202, 0.36296, 1, 0.186993, 0.168868, 0.
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_nm4n4"]
 gradient = SubResource("Gradient_kpa3w")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eelhb"]
-load_path = "res://.godot/imported/T_FogSheetCloud.PNG-db9e64b510eecc2b17bb1393c4a85fe9.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3ei2e"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-eb38089a66c72eae9367c789feca35ac.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jegxn"]
-load_path = "res://.godot/imported/T_NoiseAN75.png-cbac81d69e9a5c515cd401f1dd79b827.s3tc.ctex"
-
 [sub_resource type="Gradient" id="Gradient_665s3"]
 offsets = PackedFloat32Array(0.191304, 0.713043)
 
@@ -588,12 +586,12 @@ render_priority = 0
 shader = SubResource("VisualShader_3yq41")
 shader_parameter/normal_Scale = 0.3
 shader_parameter/Displacement_Speed = Vector2(0, 0.6)
-shader_parameter/Dissplacement_texture = SubResource("CompressedTexture2D_jegxn")
+shader_parameter/Dissplacement_texture = ExtResource("3_ji22a")
 shader_parameter/Cloud_Color_Scale = Vector2(1, 1)
-shader_parameter/Dark_variation = SubResource("CompressedTexture2D_eelhb")
+shader_parameter/Dark_variation = ExtResource("1_xokal")
 shader_parameter/Dark_Color_Gradient_1D = SubResource("GradientTexture1D_nm4n4")
 shader_parameter/Dissapear_scale = Vector2(1, 1)
-shader_parameter/Disapear_Noise = SubResource("CompressedTexture2D_3ei2e")
+shader_parameter/Disapear_Noise = ExtResource("2_8eov2")
 shader_parameter/Gradient_1D = SubResource("GradientTexture1D_5gtpr")
 shader_parameter/ProximityFade = 1.0
 shader_parameter/Bright_Color = Color(1, 0.3, 0.1, 1)
@@ -904,7 +902,6 @@ nodes/fragment/26/position = Vector2(-800, 1220)
 nodes/fragment/connections = PackedInt32Array(3, 4, 5, 0, 12, 0, 9, 2, 3, 1, 13, 0, 13, 0, 12, 0, 9, 0, 15, 0, 15, 1, 7, 1, 5, 0, 7, 0, 8, 0, 9, 0, 16, 0, 17, 2, 20, 0, 19, 0, 14, 0, 19, 2, 7, 0, 0, 1, 19, 0, 0, 0, 21, 0, 22, 2, 22, 0, 19, 1, 17, 1, 22, 0, 25, 0, 26, 2, 26, 1, 5, 2)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_krlrc"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-42c2d94f1c1b3207eaabe1a33c171147.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ir6cv"]
 render_priority = 0
@@ -956,7 +953,6 @@ use_hdr = true
 fill_from = Vector2(1, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_foc8v"]
-load_path = "res://.godot/imported/T_VFX_Noise_13.PNG-1b181c78a220b995afc618d1562c753b.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4s1js"]
 transparency = 1
@@ -1141,13 +1137,10 @@ nodes/fragment/8/node = SubResource("VisualShaderNodeFloatOp_eecnd")
 nodes/fragment/8/position = Vector2(180, 380)
 nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 0, 0, 0, 7, 0, 6, 0, 6, 0, 5, 1, 5, 0, 0, 1, 4, 4, 8, 0, 3, 1, 8, 1, 8, 0, 5, 0)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hcseb"]
-load_path = "res://.godot/imported/T_vfx_hit122.jpg-a8c473b3982d3e6bab116673a0db8031.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fiffy"]
 render_priority = 0
 shader = SubResource("VisualShader_nfach")
-shader_parameter/Alpha_Texture = SubResource("CompressedTexture2D_hcseb")
+shader_parameter/Alpha_Texture = ExtResource("5_8eov2")
 shader_parameter/ProximityFade = 0.5
 
 [sub_resource type="Curve" id="Curve_us84u"]
@@ -1175,15 +1168,12 @@ alpha_curve = SubResource("CurveTexture_mp4jb")
 
 [sub_resource type="QuadMesh" id="QuadMesh_7rclw"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c4r6c"]
-load_path = "res://.godot/imported/T_VFX_Flare_1a1.png-8de9ebb3d44ed8cdfc809d4e0cbbc59c.s3tc.ctex"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipwgw"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
-albedo_texture = SubResource("CompressedTexture2D_c4r6c")
+albedo_texture = ExtResource("6_1wpa2")
 disable_receive_shadows = true
 
 [sub_resource type="Curve" id="Curve_i5bte"]
@@ -1311,7 +1301,6 @@ nodes/fragment/8/position = Vector2(180, 380)
 nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 0, 0, 0, 7, 0, 6, 0, 6, 0, 5, 1, 5, 0, 0, 1, 4, 4, 8, 0, 3, 1, 8, 1, 8, 0, 5, 0)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ukr60"]
-load_path = "res://.godot/imported/T_VFX_Glow_1.PNG-563009eb4801ff62e5258a50dde7946f.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3jcqb"]
 render_priority = -1
@@ -1843,7 +1832,6 @@ gradient = SubResource("Gradient_iypm3")
 repeat = 1
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ei2q5"]
-load_path = "res://.godot/imported/T_Noise1_tiled.png-2d34d2779910e578f891ef74f2280aac.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jt0wr"]
 render_priority = 0
@@ -2489,14 +2477,7 @@ colors = PackedColorArray(0.460156, 0.446202, 0.36296, 1, 0.186993, 0.168868, 0.
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_k7b4d"]
 gradient = SubResource("Gradient_bjrir")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_27vwv"]
-load_path = "res://.godot/imported/T_FogSheetCloud.PNG-df4ec516e2f6576b22ec546f219b9c5f.s3tc.ctex"
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_caw5n"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-d0c6cd44e79018e376dc401fde7bc4a2.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_li1vg"]
-load_path = "res://.godot/imported/T_Noise_075.png-87d4d9f33b18a6b772311f41de49c918.s3tc.ctex"
 
 [sub_resource type="Gradient" id="Gradient_hkp26"]
 offsets = PackedFloat32Array(0, 0.745819)
@@ -2504,26 +2485,14 @@ offsets = PackedFloat32Array(0, 0.745819)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fwo3e"]
 gradient = SubResource("Gradient_hkp26")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1bgmi"]
-noise_type = 2
-frequency = 0.0029
-fractal_type = 2
-fractal_octaves = 2
-fractal_gain = 2.185
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4iryy"]
-noise = SubResource("FastNoiseLite_1bgmi")
-seamless = true
-seamless_blend_skirt = 0.229
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rbma"]
 render_priority = 0
 shader = SubResource("VisualShader_uaf2n")
 shader_parameter/normal_Scale = 1.0
 shader_parameter/Displacement_Speed = Vector2(0, 0.6)
-shader_parameter/Dissplacement_texture = SubResource("CompressedTexture2D_li1vg")
+shader_parameter/Dissplacement_texture = ExtResource("8_6c2wc")
 shader_parameter/Cloud_Color_Scale = Vector2(1, 1)
-shader_parameter/Dark_variation = SubResource("CompressedTexture2D_27vwv")
+shader_parameter/Dark_variation = ExtResource("2_8eov2")
 shader_parameter/Dark_Color_Gradient_1D = SubResource("GradientTexture1D_k7b4d")
 shader_parameter/Dissapear_scale = Vector2(1, 1)
 shader_parameter/Disapear_Noise = SubResource("CompressedTexture2D_caw5n")
@@ -2533,7 +2502,7 @@ shader_parameter/Bright_Color = Color(1, 0.3, 0.1, 1)
 shader_parameter/Color_Intensity = 1.0
 shader_parameter/Color_max = 13.0
 shader_parameter/Noise_color_scale = Vector2(1, 1)
-shader_parameter/Noise_Color = SubResource("NoiseTexture2D_4iryy")
+shader_parameter/Noise_Color = ExtResource("9_4ouv4")
 
 [sub_resource type="Curve" id="Curve_cdjgi"]
 _data = [Vector2(0.457143, 0), 0.0, 0.0, 0, 0, Vector2(0.879365, 1), 2.87611, 0.0, 0, 0]
@@ -2894,6 +2863,7 @@ draw_pass_1 = SubResource("QuadMesh_b86f8")
 
 [node name="Ribbon_trails_C" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.113388, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_hwjlv")
 emitting = false
 amount = 5
@@ -2908,6 +2878,7 @@ draw_pass_1 = SubResource("SphereMesh_k6k3r")
 
 [node name="sub_Ribbon_trails_C" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141615, 0.608479, 0)
+visible = false
 material_override = SubResource("ShaderMaterial_8rbma")
 cast_shadow = 0
 emitting = false

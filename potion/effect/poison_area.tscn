@@ -1,8 +1,11 @@
-[gd_scene load_steps=182 format=3 uid="uid://cvrm4vmap3w15"]
+[gd_scene load_steps=180 format=3 uid="uid://cvrm4vmap3w15"]
 
 [ext_resource type="Script" uid="uid://ballhkvidthlg" path="res://potion/effect/poison_area.gd" id="1_2udlr"]
 [ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="4_2udlr"]
 [ext_resource type="Resource" uid="uid://bbx7rvmj262xi" path="res://potion/effect/resources/poison_effect.tres" id="6_0452k"]
+[ext_resource type="Texture2D" uid="uid://dys85apxk1ya6" path="res://assets/particles/T_Noise_Wfk14.png" id="6_jq5n5"]
+[ext_resource type="Texture2D" uid="uid://c1av1im8iolgp" path="res://assets/particles/T_Noise_Wf0.png" id="7_2svyx"]
+[ext_resource type="Texture2D" uid="uid://d4iyfih35lnc1" path="res://assets/particles/T_VFX_Flare_666.jpg" id="8_2svyx"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="11_2udlr"]
 [ext_resource type="PackedScene" uid="uid://d2wccndn1if2p" path="res://vfx/VFX_Explosion_A.tscn" id="12_hx0xm"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="13_hx0xm"]
@@ -302,13 +305,10 @@ nodes/light/12/node = SubResource("VisualShaderNodeFresnel_hx0xm")
 nodes/light/12/position = Vector2(-60, 380)
 nodes/light/connections = PackedInt32Array(2, 0, 4, 0, 6, 0, 5, 0, 7, 0, 5, 1, 9, 0, 10, 1, 11, 0, 10, 2, 10, 0, 0, 0, 5, 0, 10, 0, 4, 0, 5, 2, 12, 0, 4, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_142ll"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-5bdfe46d6a6ac1845170a2615fed26d7.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lnhmi"]
 render_priority = 0
 shader = SubResource("VisualShader_c6ebo")
-shader_parameter/Vertex_Noise = SubResource("CompressedTexture2D_142ll")
+shader_parameter/Vertex_Noise = ExtResource("6_jq5n5")
 shader_parameter/Proximity_Fade = 1.0
 shader_parameter/Hard_Shadow_min = 0.0
 shader_parameter/Hard_Shadow_max = 0.1
@@ -530,13 +530,10 @@ nodes/fragment/21/position = Vector2(40, 240)
 nodes/fragment/connections = PackedInt32Array(3, 4, 5, 0, 2, 0, 5, 1, 20, 0, 2, 0, 21, 0, 0, 0, 3, 4, 0, 1)
 nodes/light/0/position = Vector2(1100, 260)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7p581"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-5bdfe46d6a6ac1845170a2615fed26d7.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltq3l"]
 render_priority = -2
 shader = SubResource("VisualShader_r67y7")
-shader_parameter/Vertex_Noise = SubResource("CompressedTexture2D_7p581")
+shader_parameter/Vertex_Noise = ExtResource("7_2svyx")
 shader_parameter/Texture_Power = 20.0
 shader_parameter/Outline_Thinkness = 0.05
 shader_parameter/ColorParameter = Color(0, 0, 0, 1)
@@ -874,13 +871,10 @@ nodes/light/12/node = SubResource("VisualShaderNodeFresnel_ppovh")
 nodes/light/12/position = Vector2(-60, 380)
 nodes/light/connections = PackedInt32Array(2, 0, 4, 0, 6, 0, 5, 0, 7, 0, 5, 1, 9, 0, 10, 1, 11, 0, 10, 2, 10, 0, 0, 0, 5, 0, 10, 0, 4, 0, 5, 2, 12, 0, 4, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48uj"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-5bdfe46d6a6ac1845170a2615fed26d7.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aoqac"]
 render_priority = 0
 shader = SubResource("VisualShader_r3vie")
-shader_parameter/Vertex_Noise = SubResource("CompressedTexture2D_h48uj")
+shader_parameter/Vertex_Noise = ExtResource("6_jq5n5")
 shader_parameter/Proximity_Fade = 1.0
 shader_parameter/Hard_Shadow_min = 0.0
 shader_parameter/Hard_Shadow_max = 0.1
@@ -1102,13 +1096,10 @@ nodes/fragment/21/position = Vector2(40, 240)
 nodes/fragment/connections = PackedInt32Array(3, 4, 5, 0, 2, 0, 5, 1, 20, 0, 2, 0, 21, 0, 0, 0, 3, 4, 0, 1)
 nodes/light/0/position = Vector2(1100, 260)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ryraf"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-5bdfe46d6a6ac1845170a2615fed26d7.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_otpwg"]
 render_priority = -2
 shader = SubResource("VisualShader_epdu1")
-shader_parameter/Vertex_Noise = SubResource("CompressedTexture2D_ryraf")
+shader_parameter/Vertex_Noise = ExtResource("7_2svyx")
 shader_parameter/Texture_Power = 20.0
 shader_parameter/Outline_Thinkness = 0.05
 shader_parameter/ColorParameter = Color(0, 0, 0, 1)
@@ -1299,15 +1290,12 @@ nodes/fragment/12/node = SubResource("VisualShaderNodeSmoothStep_pnyff")
 nodes/fragment/12/position = Vector2(660, 300)
 nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 2, 4, 5, 1, 6, 0, 7, 1, 4, 1, 5, 0, 4, 1, 6, 1, 8, 0, 6, 0, 10, 0, 7, 0, 2, 1, 11, 0, 12, 0, 0, 1, 11, 0, 12, 0, 5, 0, 12, 2, 7, 0, 0, 0)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fkm7m"]
-load_path = "res://.godot/imported/T_VFX_SparklesF21.jpg-1d00a2bdcc174b2e8f6a007233150ec7.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2j26q"]
 render_priority = 0
 shader = SubResource("VisualShader_137j8")
 shader_parameter/Color = Color(0.5914451, 1.2599816, 0.28163528, 1)
 shader_parameter/Outline = 0.606
-shader_parameter/Hit_texture = SubResource("CompressedTexture2D_fkm7m")
+shader_parameter/Hit_texture = ExtResource("8_2svyx")
 
 [sub_resource type="Curve" id="Curve_lr07q"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.133858, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

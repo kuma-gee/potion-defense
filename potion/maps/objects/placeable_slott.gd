@@ -1,5 +1,8 @@
 extends RayInteractable
 
+signal placed(item: ItemResource)
+signal removed()
+
 @onready var item_popup: ItemPopup = $ItemPopup
 
 var item: ItemResource:
@@ -29,9 +32,11 @@ func interact(actor: FPSPlayer):
 		if not actor.has_item():
 			actor.pickup_item(item)
 			item = null
+			removed.emit()
 			
 		return
 	
 	if not actor.has_item(): return
 	
 	item = actor.release_item()
+	placed.emit(item)

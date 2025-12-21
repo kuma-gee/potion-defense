@@ -1,5 +1,7 @@
 [gd_scene load_steps=75 format=3 uid="uid://bj3cgi2csord"]
 
+[ext_resource type="Texture2D" uid="uid://d1c5jr535lrfi" path="res://assets/particles/T_PerlinNoise_Tiled.png" id="1_qwcjw"]
+
 [sub_resource type="VisualShaderNodeProximityFade" id="VisualShaderNodeProximityFade_j6qxw"]
 default_input_values = [0, 0.2]
 
@@ -291,13 +293,10 @@ nodes/light/12/node = SubResource("VisualShaderNodeFresnel_gmasp")
 nodes/light/12/position = Vector2(-60, 380)
 nodes/light/connections = PackedInt32Array(2, 0, 4, 0, 6, 0, 5, 0, 7, 0, 5, 1, 9, 0, 10, 1, 11, 0, 10, 2, 10, 0, 0, 0, 5, 0, 10, 0, 4, 0, 5, 2, 12, 0, 4, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8x113"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-27109485188829f6161e40d07a94d2d5.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yx6e"]
 render_priority = 0
 shader = SubResource("VisualShader_g7pnx")
-shader_parameter/Vertex_Noise = SubResource("CompressedTexture2D_8x113")
+shader_parameter/Vertex_Noise = ExtResource("1_qwcjw")
 shader_parameter/Proximity_Fade = 1.0
 shader_parameter/Hard_Shadow_min = 0.0
 shader_parameter/Hard_Shadow_max = 0.1

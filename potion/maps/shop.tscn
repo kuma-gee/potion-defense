@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=43 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bta6ws6aiod4y" path="res://assets/fantasy/glTF/Stall_Cart_Empty.gltf" id="6_p00gg"]
 [ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="7_6d3tc"]
 [ext_resource type="PackedScene" uid="uid://di33frcdi4fnw" path="res://potion/maps/objects/upgrade_select.tscn" id="7_p00gg"]
+[ext_resource type="PackedScene" uid="uid://dam3pr8acoru4" path="res://assets/models/bag.glb" id="8_tcxai"]
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="9_hemba"]
 [ext_resource type="Script" uid="uid://cs261kr81nos4" path="res://addons/proton_scatter/src/scatter.gd" id="10_3ckhd"]
 [ext_resource type="Script" uid="uid://debrep4piyckd" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_ig3at"]
@@ -302,11 +303,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8114834, 0, 0.041305542)
 script = ExtResource("3_13ndi")
 scene = ExtResource("7_p00gg")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="PrepareArea/Inventory"]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PrepareArea/Inventory"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2854886, 0)
 shape = SubResource("SphereShape3D_hemba")
+
+[node name="bag" parent="PrepareArea/Inventory" instance=ExtResource("8_tcxai")]
 
 [node name="MoveNext" parent="PrepareArea" instance=ExtResource("5_nojdy")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 13.827876, 0, 0)

@@ -33,7 +33,6 @@ reference_frame = 1
 
 [sub_resource type="Resource" id="Resource_cr1lt"]
 script = ExtResource("8_noi48")
-scale = Vector3(0.5, 0.5, 0.5)
 reference_frame = 2
 
 [sub_resource type="Resource" id="Resource_srxji"]

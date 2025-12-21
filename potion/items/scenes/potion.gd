@@ -4,7 +4,7 @@ extends CollisionShape3D
 signal hit()
 
 @export var potion_type := ItemResource.Type.POTION_FIRE_BOMB
-@export var liquid_mesh: MeshInstance3D
+@onready var potion_model: Node3D = $PotionModel
 @onready var hit_area: Area3D = $HitArea
 
 const EFFECT_SCENES = {
@@ -28,7 +28,7 @@ const EFFECT_SOUND_PITCH = {
 }
 
 func _ready() -> void:
-	_update_liquid_color()
+	potion_model.type = potion_type
 	hit_area.area_entered.connect(func(_a): on_hit())
 
 func is_hitting_enemy():
@@ -36,31 +36,8 @@ func is_hitting_enemy():
 
 func set_potion_type(new_type: ItemResource.Type) -> void:
 	potion_type = new_type
-	if is_inside_tree():
-		_update_liquid_color()
+	potion_model.type = potion_type
 
-func _update_liquid_color() -> void:
-	if not liquid_mesh:
-		return
-	
-	var material := liquid_mesh.get_surface_override_material(0) as StandardMaterial3D
-	if not material:
-		material = StandardMaterial3D.new()
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		liquid_mesh.set_surface_override_material(0, material)
-	
-	# Set color
-	var color: Color = CauldronItem.POTION_COLORS.get(potion_type, Color.WHITE)
-	material.albedo_color = color
-	
-	# Set emission
-	#var emission: Color = color
-	#if emission.a > 0:
-		#material.emission_enabled = true
-		#material.emission = emission
-		#material.emission_energy_multiplier = 2.0
-	#else:
-	material.emission_enabled = false
 
 func on_hit() -> void:
 	var spawn_position = _get_ground_position()
