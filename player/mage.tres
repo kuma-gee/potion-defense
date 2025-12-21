@@ -3,7 +3,6 @@
 [ext_resource type="Shader" uid="uid://b00cumojqx6hy" path="res://player/toon.gdshader" id="1_4g36h"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eyagx"]
-load_path = "res://.godot/imported/mage_texture.png-88531582a72448f6b932a6b2860974e3.s3tc.ctex"
 
 [resource]
 render_priority = 0

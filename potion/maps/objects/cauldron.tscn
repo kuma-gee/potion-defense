@@ -1,21 +1,28 @@
-[gd_scene load_steps=197 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=191 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
 [ext_resource type="Texture2D" uid="uid://dw1yds26jevim" path="res://assets/particles/T_Distortion3.jpg" id="3_tb3lp"]
 [ext_resource type="Texture2D" uid="uid://cdb5d5rqgi1s3" path="res://assets/particles/T_Fire3.jpg" id="4_x105m"]
+[ext_resource type="Shader" uid="uid://nuh3y6n1yhgr" path="res://shader/fire_ember_particle.gdshader" id="6_q1gjo"]
 [ext_resource type="PackedScene" uid="uid://cunjrliunpuw7" path="res://assets/models/cauldron.glb" id="6_v5itp"]
+[ext_resource type="Texture2D" uid="uid://dbm7ymg42h6rp" path="res://assets/particles/T_T_Flare05.PNG" id="7_2q5d4"]
 [ext_resource type="Texture2D" uid="uid://cs5bjmrxxy2" path="res://assets/particles/T_Noise_HU85k.png" id="7_3yq24"]
 [ext_resource type="Shader" uid="uid://bqqmxtf0sf3oh" path="res://shader/water.gdshader" id="7_upfdl"]
 [ext_resource type="Texture2D" uid="uid://c4vxu813b4djt" path="res://assets/particles/T_VFX_Noise_B4.PNG" id="8_3yq24"]
 [ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
 [ext_resource type="ArrayMesh" uid="uid://o2bjj0tv3wh3" path="res://assets/particles/shapes/plane_circle.obj" id="10_3yq24"]
+[ext_resource type="Texture2D" uid="uid://dwrhoyfs10hb0" path="res://assets/particles/T_VFX_sSmoke.jpg" id="12_uln6k"]
+[ext_resource type="Texture2D" uid="uid://d1c5jr535lrfi" path="res://assets/particles/T_PerlinNoise_Tiled.png" id="12_vjkhf"]
+[ext_resource type="Texture2D" uid="uid://x3el435n0ir6" path="res://assets/particles/T_basic1_vfx.PNG" id="13_4e3jf"]
+[ext_resource type="Texture2D" uid="uid://b72jwrmxaksvc" path="res://assets/particles/T_VFX_sSmoke_mask1.jpg" id="13_ojk3k"]
 [ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="14_op8v4"]
 [ext_resource type="AudioStream" uid="uid://c0lddttuvdijp" path="res://assets/sound/sfx/poof-of-smoke-87381.mp3" id="14_q1gjo"]
 [ext_resource type="Texture2D" uid="uid://d1t240bu13lbu" path="res://assets/particles/T_VFX_Noise_10.PNG" id="15_7txbf"]
 [ext_resource type="AudioStream" uid="uid://fbgjbquaxv6q" path="res://assets/sound/sfx/水ぶくぶく1.mp3" id="16_wxgc6"]
 [ext_resource type="AudioStream" uid="uid://b2s3llk3d8jxu" path="res://assets/sound/sfx/水ぶくぶく2.mp3" id="17_1mhqx"]
 [ext_resource type="AudioStream" uid="uid://cqpc0xdqjtm5u" path="res://assets/sound/sfx/泡がはじける.mp3" id="18_1mhqx"]
+[ext_resource type="Texture2D" uid="uid://dgrnwb8mqaeib" path="res://assets/particles/T_Noise_6Yu1.png" id="19_ojk3k"]
 [ext_resource type="AudioStream" uid="uid://bkthn0bmo1yi7" path="res://assets/sound/sfx/fail_explosion.mp3" id="19_saywr"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="20_h62l1"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
@@ -265,106 +272,10 @@ collision_bounce = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_es5hw"]
 
-[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_c5050"]
-parameter_name = "MainTexture"
-texture_filter = 2
-
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_j7m8m"]
-output_port_for_preview = 0
-source = 5
-
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_840tg"]
-input_name = "color"
-
-[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_qutd7"]
-default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
-op_type = 2
-operator = 2
-
-[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_w5s5u"]
-default_input_values = [0, Quaternion(0, 0, 0, 0)]
-op_type = 2
-
-[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_18tu1"]
-billboard_type = 3
-keep_scale = true
-
-[sub_resource type="VisualShader" id="VisualShader_3k65v"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform sampler2D MainTexture : filter_linear;
-
-
-
-void vertex() {
-	mat4 n_out2p0;
-// GetBillboardMatrix:2
-	{
-		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
-		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		n_out2p0 = VIEW_MATRIX * __wm;
-	}
-
-
-// Output:0
-	MODELVIEW_MATRIX = n_out2p0;
-
-
-}
-
-void fragment() {
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(MainTexture, UV);
-
-
-// Input:4
-	vec4 n_out4p0 = COLOR;
-
-
-// VectorOp:5
-	vec4 n_out5p0 = n_out3p0 * n_out4p0;
-
-
-// VectorDecompose:6
-	float n_out6p0 = n_out5p0.x;
-	float n_out6p1 = n_out5p0.y;
-	float n_out6p2 = n_out5p0.z;
-	float n_out6p3 = n_out5p0.w;
-
-
-// Output:0
-	ALBEDO = vec3(n_out5p0.xyz);
-	ALPHA = n_out6p3;
-
-
-}
-"
-nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_18tu1")
-nodes/vertex/2/position = Vector2(71.4713, 405.681)
-nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
-nodes/fragment/0/position = Vector2(1360, 220)
-nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_c5050")
-nodes/fragment/2/position = Vector2(-540, 160)
-nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_j7m8m")
-nodes/fragment/3/position = Vector2(0, 280)
-nodes/fragment/4/node = SubResource("VisualShaderNodeInput_840tg")
-nodes/fragment/4/position = Vector2(320, 580)
-nodes/fragment/5/node = SubResource("VisualShaderNodeVectorOp_qutd7")
-nodes/fragment/5/position = Vector2(720, 260)
-nodes/fragment/6/node = SubResource("VisualShaderNodeVectorDecompose_w5s5u")
-nodes/fragment/6/position = Vector2(900, 420)
-nodes/fragment/connections = PackedInt32Array(4, 0, 5, 1, 5, 0, 6, 0, 2, 0, 3, 2, 3, 0, 5, 0, 5, 0, 0, 0, 6, 3, 0, 1)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b36us"]
-load_path = "res://.godot/imported/T_T_Flare05.PNG-d0cd6ddd36d42f6fe6166669050753e4.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0v56"]
 render_priority = 0
-shader = SubResource("VisualShader_3k65v")
-shader_parameter/MainTexture = SubResource("CompressedTexture2D_b36us")
+shader = ExtResource("6_q1gjo")
+shader_parameter/MainTexture = ExtResource("7_2q5d4")
 
 [sub_resource type="Curve" id="Curve_hhy7m"]
 _limits = [0.0, 3.0, 0.0, 1.0]
@@ -614,18 +525,12 @@ nodes/fragment/13/node = SubResource("VisualShaderNodeFloatParameter_8upfp")
 nodes/fragment/13/position = Vector2(240, 200)
 nodes/fragment/connections = PackedInt32Array(3, 4, 4, 0, 4, 0, 6, 0, 5, 0, 6, 1, 6, 0, 0, 1, 2, 0, 7, 2, 7, 1, 4, 1, 8, 0, 5, 0, 10, 0, 9, 2, 3, 0, 11, 0, 11, 0, 0, 0, 9, 1, 12, 0, 12, 0, 11, 1, 13, 0, 12, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2nt0c"]
-load_path = "res://.godot/imported/T_VFX_sSmoke.jpg-fc26ab6c51ab092717b262cd130f413d.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_boy5x"]
-load_path = "res://.godot/imported/T_VFX_sSmoke_mask1.jpg-163790b4b246ed97fe730a841b2ef233.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dcwsc"]
 render_priority = 1
 shader = SubResource("VisualShader_dioga")
-shader_parameter/Main_Texture = SubResource("CompressedTexture2D_2nt0c")
+shader_parameter/Main_Texture = ExtResource("12_uln6k")
 shader_parameter/Texture_Power = 0.8
-shader_parameter/Mask_Texture = SubResource("CompressedTexture2D_boy5x")
+shader_parameter/Mask_Texture = ExtResource("13_ojk3k")
 shader_parameter/Proximity_Fade = 0.5
 
 [sub_resource type="Curve" id="Curve_cs5vm"]
@@ -847,10 +752,8 @@ nodes/fragment/13/position = Vector2(240, 200)
 nodes/fragment/connections = PackedInt32Array(3, 4, 4, 0, 4, 0, 6, 0, 5, 0, 6, 1, 6, 0, 0, 1, 2, 0, 7, 2, 7, 1, 4, 1, 8, 0, 5, 0, 10, 0, 9, 2, 3, 0, 11, 0, 11, 0, 0, 0, 9, 1, 12, 0, 12, 0, 11, 1, 13, 0, 12, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_emsul"]
-load_path = "res://.godot/imported/T_VFX_sSmoke.jpg-fc26ab6c51ab092717b262cd130f413d.s3tc.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_csink"]
-load_path = "res://.godot/imported/T_VFX_sSmoke_mask1.jpg-163790b4b246ed97fe730a841b2ef233.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24iqw"]
 render_priority = -1
@@ -1026,13 +929,10 @@ nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_th86e")
 nodes/fragment/8/position = Vector2(-60, 700)
 nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 3, 4, 4, 0, 4, 0, 6, 0, 5, 0, 6, 1, 6, 0, 0, 1, 2, 0, 7, 2, 7, 1, 4, 1, 8, 0, 5, 0)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wswu0"]
-load_path = "res://.godot/imported/T_VFX_Glo31.png-665babfa44f6db3d12ccfa63f95c7190.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wgl0p"]
 render_priority = -2
 shader = SubResource("VisualShader_oj1mj")
-shader_parameter/Main_Texture = SubResource("CompressedTexture2D_wswu0")
+shader_parameter/Main_Texture = ExtResource("13_4e3jf")
 shader_parameter/Proximity_Fade = 0.5
 
 [sub_resource type="Curve" id="Curve_qhyf7"]
@@ -1416,13 +1316,10 @@ nodes/light/12/node = SubResource("VisualShaderNodeFresnel_dnlwg")
 nodes/light/12/position = Vector2(-60, 380)
 nodes/light/connections = PackedInt32Array(2, 0, 4, 0, 6, 0, 5, 0, 7, 0, 5, 1, 9, 0, 10, 1, 11, 0, 10, 2, 10, 0, 0, 0, 5, 0, 10, 0, 4, 0, 5, 2, 12, 0, 4, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wd8oe"]
-load_path = "res://.godot/imported/T_PerlinNoise_Tiled.png-5bdfe46d6a6ac1845170a2615fed26d7.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7jj"]
 render_priority = 0
 shader = SubResource("VisualShader_t5got")
-shader_parameter/Vertex_Noise = SubResource("CompressedTexture2D_wd8oe")
+shader_parameter/Vertex_Noise = ExtResource("12_vjkhf")
 shader_parameter/Proximity_Fade = 1.0
 shader_parameter/Hard_Shadow_min = 0.0
 shader_parameter/Hard_Shadow_max = 0.1
@@ -1557,7 +1454,7 @@ void fragment() {
 modes/cull = 2
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_olc7f")
-nodes/vertex/2/position = Vector2(0, 340)
+nodes/vertex/2/position = Vector2(-60, 340)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
 nodes/fragment/0/position = Vector2(520, 140)
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_idjsp")
@@ -1576,14 +1473,11 @@ nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_ppdir")
 nodes/fragment/8/position = Vector2(60, 760)
 nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 2, 4, 5, 1, 5, 0, 0, 1, 2, 0, 7, 0, 7, 0, 0, 0, 6, 0, 7, 1, 4, 1, 5, 0, 4, 1, 6, 1, 8, 0, 6, 0)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cix8a"]
-load_path = "res://.godot/imported/T_basic1_vfx.PNG-4c2c0ce0974cddbc22b74bfed7d7c905.s3tc.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kq4m3"]
 render_priority = 0
 shader = SubResource("VisualShader_1kghk")
 shader_parameter/Outline = 0.85
-shader_parameter/Hit_texture = SubResource("CompressedTexture2D_cix8a")
+shader_parameter/Hit_texture = ExtResource("13_4e3jf")
 
 [sub_resource type="Curve" id="Curve_8yxd8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -1683,16 +1577,17 @@ gradient = SubResource("Gradient_7txbf")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7txbf"]
 render_priority = 0
 shader = ExtResource("14_op8v4")
-shader_parameter/fresnel_power = 0.5000000074506
+shader_parameter/fresnel_power = 0.999999977648
 shader_parameter/gradient_color = SubResource("GradientTexture1D_q1gjo")
 shader_parameter/alpha_gradient = SubResource("GradientTexture1D_1mhqx")
-shader_parameter/opacity = 1.0
+shader_parameter/opacity = 0.999999977648
+shader_parameter/overlay_texture = ExtResource("19_ojk3k")
 shader_parameter/overlay_scale = Vector2(1, 1)
 shader_parameter/overlay_speed = Vector2(0, 0)
 shader_parameter/overlay_strength = 0.5
 shader_parameter/fade_value = 0.999999977648
 shader_parameter/fade_texture_divider = 9.999999798832
-shader_parameter/fade_smooth = 0.5
+shader_parameter/fade_smooth = 0.5499999877064
 shader_parameter/fade_mask = SubResource("GradientTexture2D_saywr")
 shader_parameter/fade_texture = ExtResource("15_7txbf")
 shader_parameter/fade_texture_scale = Vector2(2, 3)

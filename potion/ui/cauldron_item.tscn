@@ -15,6 +15,7 @@ shader_parameter/circle_color = Color(1, 1, 1, 1)
 shader_parameter/background_color = Color(0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8qvv2"]
+resource_local_to_scene = true
 shader = ExtResource("1_ksfjx")
 shader_parameter/enabled = true
 shader_parameter/color = Color(0, 0, 0, 1)

@@ -736,6 +736,7 @@ script = ExtResource("2_dj6t6")
 max_charges = 3
 burning_speed = 1.5
 max_attack_count = 1
+speed = 0.7
 
 [node name="HurtBox" parent="." index="0"]
 resistance = Dictionary[int, float]({

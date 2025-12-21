@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 @export var speed := 1.0
 @export var hurt_box: HurtBox
-@export var knockback_resistance := 5.0
+@export var knockback_resistance := 3.0
 
 var knockback: Vector3
 var slow_effects := {}

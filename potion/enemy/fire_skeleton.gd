@@ -26,7 +26,7 @@ func _ready() -> void:
 	
 	fire_charges = 1
 	elemental_area.received.connect(func(elem):
-		if elem == ElementalArea.Element.FIRE:
+		if elem == ElementalArea.Element.FIRE and fire_charges > 0:
 			if not elemental_area.has_contact_with(ElementalArea.Element.ICE):
 				fire_charges += 1
 		elif elem == ElementalArea.Element.ICE:
