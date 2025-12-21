@@ -25,6 +25,18 @@
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmnmn"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8q1rh"]
+bg_color = Color(0, 0.72253454, 0.28125608, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux70s"]
+shader = ExtResource("12_8mtc6")
+shader_parameter/allow_out_of_bounds = false
+shader_parameter/outline_thickness = 12.0
+shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
+
 [sub_resource type="Animation" id="Animation_i3qjy"]
 length = 0.001
 tracks/0/type = "value"
@@ -110,18 +122,6 @@ _data = {
 &"open": SubResource("Animation_m0roi")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmnmn"]
-bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8q1rh"]
-bg_color = Color(0, 0.72253454, 0.28125608, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux70s"]
-shader = ExtResource("12_8mtc6")
-shader_parameter/allow_out_of_bounds = false
-shader_parameter/outline_thickness = 12.0
-shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 
@@ -132,17 +132,17 @@ recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
 recipes_btn = NodePath("InGameCanvas/Control2/RecipeContainer")
-in_game_canvas = NodePath("InGameCanvas/Control2/WaveContainer")
+in_game_canvas = NodePath("InGameCanvas/Control2/GameUI")
 controls_ui = NodePath("InGameCanvas/Control2/Control/Controls")
 menu = NodePath("InGameCanvas/Control2/Control/Menu")
-join = NodePath("InGameCanvas/Control2/Join")
-cauldron = NodePath("InGameCanvas/Control2/Cauldron")
-cauldron_health_bar = NodePath("InGameCanvas/Control2/Cauldron/HBoxContainer/ProgressBar")
+join = NodePath("InGameCanvas/Control2/GameUI/Join")
+cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
+cauldron_health_bar = NodePath("InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/ProgressBar")
 current_level = ExtResource("2_niktk")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
-wave_label = NodePath("../InGameCanvas/Control2/WaveContainer/PanelContainer/MarginContainer/Wave")
+wave_label = NodePath("../InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/Wave")
 enemy_spawn_root = NodePath("../EnemiesRoot")
 spawn_timer = NodePath("SpawnTimer")
 rest_timer = NodePath("RestTimer")
@@ -179,32 +179,109 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("7_21lj0")
 
-[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
+[node name="GameUI" type="Control" parent="InGameCanvas/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -111.0
-offset_bottom = 63.0
+offset_left = -129.0
+offset_bottom = 68.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/WaveContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/WaveContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Wave" type="Label" parent="InGameCanvas/Control2/WaveContainer/PanelContainer/MarginContainer"]
+[node name="Wave" type="Label" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "Wave 1/4"
+
+[node name="Cauldron" type="MarginContainer" parent="InGameCanvas/Control2/GameUI"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 0
+offset_left = 710.0
+offset_top = 16.0
+offset_right = 1210.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/GameUI/Cauldron"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_rmnmn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8q1rh")
+value = 29.52
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+
+[node name="Control" type="Control" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/MarginContainer/Control"]
+material = SubResource("ShaderMaterial_ux70s")
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.27925268
+pivot_offset = Vector2(24, 24)
+texture = ExtResource("13_16d2i")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Join" type="MarginContainer" parent="InGameCanvas/Control2/GameUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -99.0
+offset_right = 99.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 16
+
+[node name="Label" type="Label" parent="InGameCanvas/Control2/GameUI/Join"]
+layout_mode = 2
+text = "Press any key to join"
 
 [node name="SoulContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
 layout_mode = 0
@@ -302,75 +379,6 @@ layout_mode = 2
 libraries = {
 &"": SubResource("AnimationLibrary_i3qjy")
 }
-
-[node name="Cauldron" type="MarginContainer" parent="InGameCanvas/Control2"]
-custom_minimum_size = Vector2(500, 40)
-layout_mode = 0
-offset_left = 710.0
-offset_top = 16.0
-offset_right = 1210.0
-offset_bottom = 64.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Cauldron"]
-layout_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="InGameCanvas/Control2/Cauldron/HBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_rmnmn")
-theme_override_styles/fill = SubResource("StyleBoxFlat_8q1rh")
-value = 29.52
-show_percentage = false
-
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Cauldron/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 12
-
-[node name="Control" type="Control" parent="InGameCanvas/Control2/Cauldron/HBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/Cauldron/HBoxContainer/MarginContainer/Control"]
-material = SubResource("ShaderMaterial_ux70s")
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.27925268
-pivot_offset = Vector2(24, 24)
-texture = ExtResource("13_16d2i")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="Join" type="MarginContainer" parent="InGameCanvas/Control2"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -99.0
-offset_right = 99.0
-offset_bottom = 44.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 16
-
-[node name="Label" type="Label" parent="InGameCanvas/Control2/Join"]
-layout_mode = 2
-text = "Press any key to join"
 
 [node name="Control" type="Control" parent="InGameCanvas/Control2"]
 layout_mode = 1

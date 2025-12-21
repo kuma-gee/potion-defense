@@ -10,7 +10,11 @@ signal upgrade_unlocked()
 
 var shown_inputs := false
 var players := []
-var total_souls := 0
+var total_souls := 0:
+	set(v):
+		total_souls = v
+		souls_changed.emit()
+
 var level := 0
 
 var unlocked_recipes: Array[ItemResource.Type] = []
@@ -37,7 +41,6 @@ func is_first_level() -> bool:
 
 func collect_soul(amount: int):
 	total_souls += amount
-	souls_changed.emit()
 
 func is_recipe_unlocked(item: ItemResource) -> bool:
 	return item.type in unlocked_recipes
