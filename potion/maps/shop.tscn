@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=52 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
@@ -75,26 +75,14 @@ shader_parameter/roughness = 0.8
 [sub_resource type="PlaneMesh" id="PlaneMesh_csol4"]
 size = Vector2(60, 30)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_6jtiw"]
+size = Vector3(49.450195, 0.5161133, 34.442383)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_6d3tc"]
 size = Vector3(41.183594, 11.18335, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_p00gg"]
 size = Vector3(31.35, 12.525, 1)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hemba"]
-sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
-sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
-
-[sub_resource type="Sky" id="Sky_vravf"]
-sky_material = SubResource("ProceduralSkyMaterial_hemba")
-
-[sub_resource type="Environment" id="Environment_nojdy"]
-background_mode = 2
-background_energy_multiplier = 0.5
-sky = SubResource("Sky_vravf")
-glow_enabled = true
-volumetric_fog_density = 0.03
-volumetric_fog_albedo = Color(1, 0.6901961, 0.6901961, 1)
 
 [sub_resource type="Animation" id="Animation_hemba"]
 length = 0.001
@@ -252,39 +240,39 @@ _data = {
 &"next": SubResource("Animation_p00gg")
 }
 
-[sub_resource type="Resource" id="Resource_5n5y4"]
+[sub_resource type="Resource" id="Resource_6jtiw"]
 script = ExtResource("13_tcxai")
-amount = 4000
+amount = 1500
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_d8qon"]
+[sub_resource type="Resource" id="Resource_5n5y4"]
 script = ExtResource("14_ig3at")
 scale = Vector3(0.7, 0.7, 0.7)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_c537u"]
+[sub_resource type="Resource" id="Resource_d8qon"]
 script = ExtResource("14_6jtiw")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(0, 360, 0)
 scale = Vector3(0.1, 0.1, 0.1)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_s604t"]
+[sub_resource type="Resource" id="Resource_c537u"]
 script = ExtResource("15_5n5y4")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
 restrict_height = true
 
-[sub_resource type="Resource" id="Resource_g7nvb"]
+[sub_resource type="Resource" id="Resource_s604t"]
 script = ExtResource("16_d8qon")
 ray_length = 5.0
 ray_offset = 5.0
 remove_points_on_miss = false
 
-[sub_resource type="Resource" id="Resource_a0o2f"]
+[sub_resource type="Resource" id="Resource_g7nvb"]
 script = ExtResource("11_ig3at")
-stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u"), SubResource("Resource_s604t"), SubResource("Resource_g7nvb")])
+stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_6jtiw"), SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u"), SubResource("Resource_s604t")])
 
 [sub_resource type="Resource" id="Resource_ig3at"]
 script = ExtResource("19_3ckhd")
@@ -294,6 +282,27 @@ metadata/_custom_type_script = "uid://bi1cdqsyg4jht"
 [sub_resource type="Resource" id="Resource_tcxai"]
 script = ExtResource("19_3ckhd")
 size = Vector3(41.59415, 1, 8.264095)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6jtiw"]
+sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
+sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
+
+[sub_resource type="Sky" id="Sky_vxl4c"]
+sky_material = SubResource("ProceduralSkyMaterial_6jtiw")
+
+[sub_resource type="Environment" id="Environment_5n5y4"]
+background_mode = 2
+sky = SubResource("Sky_vxl4c")
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/3 = 0.8
+glow_levels/4 = 0.3
+glow_levels/6 = 1.0
+glow_blend_mode = 0
+fog_light_color = Color(0.4106267, 0.45170838, 0.42324653, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.5449377, 0.8548759, 0.9480491, 1)
 
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_13ndi")
@@ -377,6 +386,13 @@ material_override = SubResource("ShaderMaterial_apx2g")
 mesh = SubResource("PlaneMesh_csol4")
 skeleton = NodePath("")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1286077)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24194336, 0)
+shape = SubResource("BoxShape3D_6jtiw")
+
 [node name="Boudary" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7214756, 0.03148842)
 collision_layer = 16384
@@ -422,9 +438,6 @@ metadata/_edit_group_ = true
 layers = 524288
 mesh = SubResource("BoxMesh_p00gg")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_nojdy")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.5607952, 0.80293584, 0.20199712, 0.06951529, -0.28877157, 0.95487106, 0.8250311, -0.5214452, -0.21775804, 0.0665164, 34.353207, 0)
 light_color = Color(0.8852149, 0.8612659, 0.44731557, 1)
@@ -439,7 +452,7 @@ libraries = {
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("10_3ckhd")
-modifier_stack = SubResource("Resource_a0o2f")
+modifier_stack = SubResource("Resource_g7nvb")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 metadata/_custom_type_script = "uid://cs261kr81nos4"
@@ -447,6 +460,15 @@ metadata/_custom_type_script = "uid://cs261kr81nos4"
 [node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("17_c537u")
 path = "uid://bdyue56wd2kpv"
+
+[node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("17_c537u")
+path = "uid://ccm7qirc08ja0"
+
+[node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("17_c537u")
+proportion = 10
+path = "uid://ds60i68rwksna"
 
 [node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -464,3 +486,6 @@ stream = ExtResource("21_4lc4r")
 volume_db = -10.0
 pitch_scale = 0.5
 bus = &"SFX"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5n5y4")

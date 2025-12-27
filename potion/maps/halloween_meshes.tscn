@@ -1,9 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://cspn73puk1bju"]
+[gd_scene load_steps=7 format=3 uid="uid://cspn73puk1bju"]
 
-[ext_resource type="PackedScene" uid="uid://bj2j7acd5dt4p" path="res://assets/halloween/gltf/path_A.gltf" id="1_bk0tm"]
-[ext_resource type="PackedScene" uid="uid://bvs7glk14dyqn" path="res://assets/halloween/gltf/path_B.gltf" id="2_fam05"]
-[ext_resource type="PackedScene" uid="uid://dw4e2xpy6yglm" path="res://assets/halloween/gltf/path_D.gltf" id="3_cwrmb"]
-[ext_resource type="PackedScene" uid="uid://q86jd5iu2eks" path="res://assets/halloween/gltf/path_C.gltf" id="4_qfibe"]
 [ext_resource type="PackedScene" uid="uid://dflb62ye3iycn" path="res://assets/models/planks.glb" id="14_fam05"]
 [ext_resource type="PackedScene" uid="uid://esmirhb0g027" path="res://assets/models/fence.glb" id="16_qfibe"]
 
@@ -22,18 +18,6 @@ size = Vector3(1.9736328, 1.3105164, 0.32024384)
 [node name="HalloweenMeshes" type="Node3D"]
 
 [node name="wall_Wall#StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="path_A2" parent="." instance=ExtResource("1_bk0tm")]
-visible = false
-
-[node name="path_B2" parent="." instance=ExtResource("2_fam05")]
-visible = false
-
-[node name="path_D2" parent="." instance=ExtResource("3_cwrmb")]
-visible = false
-
-[node name="path_C2" parent="." instance=ExtResource("4_qfibe")]
-visible = false
 
 [node name="planks" parent="." instance=ExtResource("14_fam05")]
 

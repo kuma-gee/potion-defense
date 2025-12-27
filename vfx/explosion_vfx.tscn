@@ -774,6 +774,3 @@ texture_albedo = ExtResource("4_erun6")
 texture_emission = ExtResource("5_ie8lq")
 emission_energy = 2.0
 modulate = Color(1, 0.5875, 0.00999999, 1)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-size = Vector3(4.401367, 0.15014648, 4.1728516)

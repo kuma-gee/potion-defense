@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdyue56wd2kpv"]
 
-[ext_resource type="PackedScene" uid="uid://c1h31ntyg2qfj" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/Grass_2_C_Singlesided_Color1.gltf" id="1_1ljvp"]
-[ext_resource type="Texture2D" uid="uid://cxt1t2wnip8py" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/forest_texture.png" id="2_h481o"]
+[ext_resource type="PackedScene" uid="uid://c1h31ntyg2qfj" path="res://assets/nature/glTF/Grass_2_C_Singlesided_Color1.gltf" id="1_1ljvp"]
+[ext_resource type="Texture2D" uid="uid://cxt1t2wnip8py" path="res://assets/nature/glTF/forest_texture.png" id="2_h481o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ppn66"]
 diffuse_mode = 3

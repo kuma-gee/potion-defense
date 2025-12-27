@@ -1,63 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlc5pt3hyp5a7"]
+[gd_scene load_steps=6 format=3 uid="uid://dlc5pt3hyp5a7"]
 
 [ext_resource type="Script" uid="uid://bqwbs514q32vs" path="res://potion/maps/tree.gd" id="1_bycdv"]
-[ext_resource type="PackedScene" uid="uid://bcvl36ahl2b27" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/Tree_1_B_Color1.gltf" id="2_0itfb"]
-[ext_resource type="PackedScene" uid="uid://c743bqxko6gph" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/Tree_4_A_Color1.gltf" id="2_blib2"]
-[ext_resource type="Shader" uid="uid://bbe3iy538a5o4" path="res://shader/toon.gdshader" id="2_etpqw"]
-[ext_resource type="PackedScene" uid="uid://b8g5xj1ppyqqx" path="res://assets/nature/glTF/CommonTree_1.gltf" id="3_025pf"]
-[ext_resource type="Texture2D" uid="uid://c0t3tm3bbvq2g" path="res://assets/nature/glTF/Bark_NormalTree.png" id="3_oqdt8"]
-[ext_resource type="PackedScene" uid="uid://1r5awyh7s7g" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/Tree_1_A_Color1.gltf" id="3_t10dn"]
-[ext_resource type="Texture2D" uid="uid://bbli5qbrn8472" path="res://assets/nature/glTF/Bark_NormalTree_Normal.png" id="4_ioofe"]
-[ext_resource type="Shader" uid="uid://bqa0i2ij6tj4h" path="res://shader/grass_bush.gdshader" id="5_oqdt8"]
-[ext_resource type="Texture2D" uid="uid://dhhu7ako2072d" path="res://assets/nature/glTF/Leaves_TwistedTree.png" id="6_ioofe"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxcug"]
-render_priority = 0
-shader = ExtResource("2_etpqw")
-shader_parameter/light_smooth = 0.1
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
-shader_parameter/base_color = Color(0.56, 0.56, 0.56, 1)
-shader_parameter/terminal_shadow_color = Color(0, 0, 0, 1)
-shader_parameter/main_texture = ExtResource("3_oqdt8")
-shader_parameter/normal_texture = ExtResource("4_ioofe")
-shader_parameter/alpha_scissor_threshold = 0.5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_025pf"]
-render_priority = 0
-shader = ExtResource("5_oqdt8")
-shader_parameter/TopColor = Color(0.34509805, 0.47843137, 0.3647059, 1)
-shader_parameter/BottomColor = Color(0.13, 0.33, 0.25, 1)
-shader_parameter/Alpha = ExtResource("6_ioofe")
-shader_parameter/WindScale = 1.0
-shader_parameter/WindSpeed = 1.0000000475
-shader_parameter/WindStrength = 1.0
-shader_parameter/WindDensity = 1.0
-shader_parameter/ClampTop = 1.0
-shader_parameter/ClampBtm = 0.0
-shader_parameter/MeshScale = -0.333
-shader_parameter/ColorRamp = 0.3
-shader_parameter/FaceRoationVariation = 1.0
-shader_parameter/FresnelColor = Color(0.56078434, 1, 0.6313726, 1)
-shader_parameter/FresnelStrength = 2.0
-shader_parameter/FresnelBlend = 4.7499999933364734e-08
-shader_parameter/DeactivateGlobalVariation = false
-shader_parameter/WiggleFrequency = 3.0
-shader_parameter/WiggleStrength = 0.1
-shader_parameter/WiggleSpeed = 1.0
-shader_parameter/WiggleScale = 3.0
-shader_parameter/DistanceScale = 0.5
-shader_parameter/DistanceStart = 0.0
-shader_parameter/DistanceScaleRange = 70.0
-shader_parameter/light_smooth = 0.01
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
-shader_parameter/base_color = Color(1, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://erun8c2pkh6i" path="res://assets/nature/glTF/Tree_1_B_Color1.gltf" id="2_0itfb"]
+[ext_resource type="PackedScene" uid="uid://ba0hkacg2yt8w" path="res://assets/nature/glTF/Tree_4_A_Color1.gltf" id="2_blib2"]
+[ext_resource type="PackedScene" uid="uid://dayjq7xy2ww1q" path="res://assets/nature/glTF/Tree_1_A_Color1.gltf" id="3_t10dn"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_0itfb"]
 height = 10.408325
 radius = 0.58203125
 
 [node name="Tree" type="Node3D"]
-transform = Transform3D(0.26406002, 0, 1.0173424, 0, 1.0510535, 0, -1.0173424, 0, 0.26406002, 0, 0, 0)
+transform = Transform3D(-0.9417678, 0, 0.19692448, 0, 0.9621361, 0, -0.19692448, 0, -0.9417678, 0, 0, 0)
 script = ExtResource("1_bycdv")
 
 [node name="Tree_4_A_Color12" parent="." instance=ExtResource("2_blib2")]
@@ -68,18 +21,8 @@ visible = false
 [node name="Tree_1_A_Color12" parent="." instance=ExtResource("3_t10dn")]
 visible = false
 
-[node name="CommonTree_12" parent="." instance=ExtResource("3_025pf")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.1706636, 0)
-visible = false
-
-[node name="CommonTree_1" parent="CommonTree_12" index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_hxcug")
-surface_material_override/1 = SubResource("ShaderMaterial_025pf")
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, 1, 0, 5.2280893, 0)
 shape = SubResource("CylinderShape3D_0itfb")
-
-[editable path="CommonTree_12"]
