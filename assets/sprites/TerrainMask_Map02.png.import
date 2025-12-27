@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcuij6m7ao02e"
-path.s3tc="res://.godot/imported/ground_Groudn.png-7fe9aa81773d639b0737fe30b96792ad.s3tc.ctex"
+uid="uid://d2ukq0mkgcayc"
+path.s3tc="res://.godot/imported/TerrainMask_Map02.png-b700aa9b081b4b6a2021b57a539dfb89.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "89b906c0542160d44fab12ed3f5a5d8f"
-}
 
 [deps]
 
-source_file="res://assets/models/ground_Groudn.png"
-dest_files=["res://.godot/imported/ground_Groudn.png-7fe9aa81773d639b0737fe30b96792ad.s3tc.ctex"]
+source_file="res://assets/sprites/TerrainMask_Map02.png"
+dest_files=["res://.godot/imported/TerrainMask_Map02.png-b700aa9b081b4b6a2021b57a539dfb89.s3tc.ctex"]
 
 [params]
 

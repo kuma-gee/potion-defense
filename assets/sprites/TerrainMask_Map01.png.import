@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj40wbejny2jq"
-path.s3tc="res://.godot/imported/wall_halloweenbits_texture.png-02025da9aac00f19da56591401f7b149.s3tc.ctex"
+uid="uid://1t5ptkp5va7l"
+path.s3tc="res://.godot/imported/TerrainMask_Map01.png-a8c9b8b1a898865300012f1093941e49.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "94c3e80ad69f5bfb7f65efb28b034df6"
-}
 
 [deps]
 
-source_file="res://assets/models/wall_halloweenbits_texture.png"
-dest_files=["res://.godot/imported/wall_halloweenbits_texture.png-02025da9aac00f19da56591401f7b149.s3tc.ctex"]
+source_file="res://assets/sprites/TerrainMask_Map01.png"
+dest_files=["res://.godot/imported/TerrainMask_Map01.png-a8c9b8b1a898865300012f1093941e49.s3tc.ctex"]
 
 [params]
 

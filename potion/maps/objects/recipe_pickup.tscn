@@ -22,6 +22,7 @@ shape = SubResource("SphereShape3D_fks2m")
 
 [node name="Sprite3D2" type="Sprite3D" parent="Root"]
 transform = Transform3D(0.35355338, 0.17677669, -1.545431e-08, 0, -1.0927847e-08, -0.5, -0.35355338, 0.17677669, -1.545431e-08, 0, 0.07353139, 0)
+visible = false
 modulate = Color(0, 0, 0, 1)
 texture = ExtResource("1_sxhbl")
 

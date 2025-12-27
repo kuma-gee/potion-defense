@@ -1,4 +1,4 @@
-[gd_scene load_steps=191 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=194 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
@@ -10,12 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://cs5bjmrxxy2" path="res://assets/particles/T_Noise_HU85k.png" id="7_3yq24"]
 [ext_resource type="Shader" uid="uid://bqqmxtf0sf3oh" path="res://shader/water.gdshader" id="7_upfdl"]
 [ext_resource type="Texture2D" uid="uid://c4vxu813b4djt" path="res://assets/particles/T_VFX_Noise_B4.PNG" id="8_3yq24"]
+[ext_resource type="Texture2D" uid="uid://vu1u7n5xs7fi" path="res://assets/models/base_texture.png" id="9_en3dc"]
 [ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
 [ext_resource type="ArrayMesh" uid="uid://o2bjj0tv3wh3" path="res://assets/particles/shapes/plane_circle.obj" id="10_3yq24"]
 [ext_resource type="Texture2D" uid="uid://dwrhoyfs10hb0" path="res://assets/particles/T_VFX_sSmoke.jpg" id="12_uln6k"]
 [ext_resource type="Texture2D" uid="uid://d1c5jr535lrfi" path="res://assets/particles/T_PerlinNoise_Tiled.png" id="12_vjkhf"]
 [ext_resource type="Texture2D" uid="uid://x3el435n0ir6" path="res://assets/particles/T_basic1_vfx.PNG" id="13_4e3jf"]
 [ext_resource type="Texture2D" uid="uid://b72jwrmxaksvc" path="res://assets/particles/T_VFX_sSmoke_mask1.jpg" id="13_ojk3k"]
+[ext_resource type="Script" uid="uid://7fxowfsnox2o" path="res://potion/maps/objects/FixSubviewportSprite.gd" id="14_6hadb"]
 [ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="14_op8v4"]
 [ext_resource type="AudioStream" uid="uid://c0lddttuvdijp" path="res://assets/sound/sfx/poof-of-smoke-87381.mp3" id="14_q1gjo"]
 [ext_resource type="Texture2D" uid="uid://d1t240bu13lbu" path="res://assets/particles/T_VFX_Noise_10.PNG" id="15_7txbf"]
@@ -307,6 +309,9 @@ collision_bounce = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_ksn36"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hadb"]
+albedo_texture = ExtResource("9_en3dc")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0dk6"]
 render_priority = 0
 shader = ExtResource("7_upfdl")
@@ -336,7 +341,7 @@ shader_parameter/overall_opacity = 1.0
 height = 0.8102722
 radius = 0.46826172
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mp46c"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6hadb"]
 viewport_path = NodePath("CurrentItem/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ndv3"]
@@ -1610,7 +1615,7 @@ failure_anim = NodePath("HIT VFX/AnimationPlayer")
 progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
 overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 mix_icon = ExtResource("9_v5itp")
-water_mesh = NodePath("cauldron/MeshInstance3D")
+water_mesh = NodePath("cauldron/Water")
 sprite = NodePath("Sprite3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -1638,18 +1643,25 @@ process_material = SubResource("ParticleProcessMaterial_euuo8")
 draw_pass_1 = SubResource("QuadMesh_ksn36")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2010245, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.060682848, 0)
 visible = false
 light_color = Color(1, 0.603922, 0, 1)
-light_energy = 3.0
+light_energy = 0.5
 light_volumetric_fog_energy = 4.446
 light_specular = 0.992
 shadow_enabled = true
-omni_range = 4.416
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ZeldaFire"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.19095773, 0)
+light_color = Color(1, 0.6039216, 0, 1)
+spot_angle = 78.17752
 
 [node name="cauldron" parent="." instance=ExtResource("6_v5itp")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="cauldron"]
+[node name="Cauldron" parent="cauldron" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6hadb")
+
+[node name="Water" type="MeshInstance3D" parent="cauldron"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58630085, 0)
 material_override = SubResource("ShaderMaterial_j0dk6")
 mesh = ExtResource("10_3yq24")
@@ -1665,7 +1677,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0964718, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
-texture = SubResource("ViewportTexture_mp46c")
+texture = SubResource("ViewportTexture_6hadb")
+script = ExtResource("14_6hadb")
 
 [node name="SubViewport" type="SubViewport" parent="CurrentItem"]
 transparent_bg = true
@@ -1840,3 +1853,5 @@ pitch_scale = 0.4
 bus = &"SFX"
 script = ExtResource("20_h62l1")
 one_shot = true
+
+[editable path="cauldron"]

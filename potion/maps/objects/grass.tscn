@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdyue56wd2kpv"]
+
+[ext_resource type="PackedScene" uid="uid://c1h31ntyg2qfj" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/Grass_2_C_Singlesided_Color1.gltf" id="1_1ljvp"]
+[ext_resource type="Texture2D" uid="uid://cxt1t2wnip8py" path="res://assets/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/forest_texture.png" id="2_h481o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ppn66"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_h481o")
+
+[node name="Grass" type="Node3D"]
+
+[node name="Grass_2_C_Singlesided_Color12" parent="." instance=ExtResource("1_1ljvp")]
+
+[node name="Grass_2_C_Singlesided_Color1" parent="Grass_2_C_Singlesided_Color12" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ppn66")
+
+[editable path="Grass_2_C_Singlesided_Color12"]

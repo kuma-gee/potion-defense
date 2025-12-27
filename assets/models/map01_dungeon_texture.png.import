@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci7t8s1sh8ev0"
-path.s3tc="res://.godot/imported/crusher_halloweenbits_texture.png-673d4c9e355e4c8e5fc1d3c4e15a836c.s3tc.ctex"
+uid="uid://dvx2ruc2wrk8a"
+path.s3tc="res://.godot/imported/map01_dungeon_texture.png-f1211e43c6d8e8d61d3f686152dbebc7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "94c3e80ad69f5bfb7f65efb28b034df6"
+"md5": "33c924802a36c4f3415e10bb6940e832"
 }
 
 [deps]
 
-source_file="res://assets/models/crusher_halloweenbits_texture.png"
-dest_files=["res://.godot/imported/crusher_halloweenbits_texture.png-673d4c9e355e4c8e5fc1d3c4e15a836c.s3tc.ctex"]
+source_file="res://assets/models/map01_dungeon_texture.png"
+dest_files=["res://.godot/imported/map01_dungeon_texture.png-f1211e43c6d8e8d61d3f686152dbebc7.s3tc.ctex"]
 
 [params]
 

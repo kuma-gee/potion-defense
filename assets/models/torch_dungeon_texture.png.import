@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3ycb4lp23vif"
-path.s3tc="res://.godot/imported/table_T_Trim_Furniture_BaseColor.png-1ea84f52b9582cbd48ba0675bd1f8ee4.s3tc.ctex"
+uid="uid://ra6r5jiwcvx4"
+path.s3tc="res://.godot/imported/torch_dungeon_texture.png-9c05f2bf22490ef6ad4be3005c10eac2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "7bff20eb47c022280305523f7456d265"
+"md5": "33c924802a36c4f3415e10bb6940e832"
 }
 
 [deps]
 
-source_file="res://assets/models/table_T_Trim_Furniture_BaseColor.png"
-dest_files=["res://.godot/imported/table_T_Trim_Furniture_BaseColor.png-1ea84f52b9582cbd48ba0675bd1f8ee4.s3tc.ctex"]
+source_file="res://assets/models/torch_dungeon_texture.png"
+dest_files=["res://.godot/imported/torch_dungeon_texture.png-9c05f2bf22490ef6ad4be3005c10eac2.s3tc.ctex"]
 
 [params]
 

@@ -1,22 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ckvucuduvwgu1"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ckvucuduvwgu1"]
 
-[ext_resource type="Shader" uid="uid://b00cumojqx6hy" path="res://player/toon.gdshader" id="1_4g36h"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eyagx"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ovqi"]
+load_path = "res://.godot/imported/Mage_mage_texture.png-347d6a5ed6a1d23a999050ee38d2c830.s3tc.ctex"
 
 [resource]
-render_priority = 0
-shader = ExtResource("1_4g36h")
-shader_parameter/ToonRampOffset = 0.5
-shader_parameter/ToonRampSmoothness = 0.05
-shader_parameter/ToonRampTinting = Color(0, 0, 0, 1)
-shader_parameter/RimPower = 1.0
-shader_parameter/RimCutOff = 0.5
-shader_parameter/RimSmoothness = 0.05
-shader_parameter/RimLightBrightness = 20.0
-shader_parameter/SubSurfDistortion = 1.0
-shader_parameter/SubSurfTint = Color(0, 0, 0, 1)
-shader_parameter/SubSurfBrightness = 3.0
-shader_parameter/SubSurfCutoff = 0.5
-shader_parameter/SubSurfSmoothness = 0.05
-shader_parameter/Texture = SubResource("CompressedTexture2D_eyagx")
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("CompressedTexture2D_5ovqi")

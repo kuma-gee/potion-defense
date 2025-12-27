@@ -110,7 +110,6 @@ visual = NodePath("../ItemDropVisual")
 metadata/_custom_type_script = "uid://doue0c41rfpuw"
 
 [node name="ItemDropVisual" type="Node3D" parent="ItemDropRoot"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0

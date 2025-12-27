@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd5hh25tm1a1a"]
+
+[ext_resource type="PackedScene" uid="uid://cp7l5yim2x6mv" path="res://assets/models/torch.glb" id="1_jmlto"]
+
+[node name="Torch" type="Node3D"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.35754678, 0.16951215)
+light_color = Color(1, 0.6156863, 0.36078432, 1)
+light_energy = 0.5
+shadow_enabled = true
+shadow_caster_mask = 4294443007
+
+[node name="torch" parent="." instance=ExtResource("1_jmlto")]
+
+[node name="torch_mounted" parent="torch" index="0"]
+layers = 524288
+
+[editable path="torch"]

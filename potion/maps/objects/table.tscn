@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://t5hlanwweip7"]
+[gd_scene load_steps=17 format=3 uid="uid://t5hlanwweip7"]
 
 [ext_resource type="Script" uid="uid://dhv03andtviti" path="res://potion/maps/objects/table.gd" id="1_ppnb3"]
 [ext_resource type="Script" uid="uid://cneuwfr2eouyv" path="res://potion/maps/objects/placeable_slott.gd" id="3_r3je8"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="4_l27k1"]
 [ext_resource type="Texture2D" uid="uid://b72jwrmxaksvc" path="res://assets/particles/T_VFX_sSmoke_mask1.jpg" id="5_pnfpu"]
 [ext_resource type="PackedScene" uid="uid://48vev3h5eyrt" path="res://assets/models/table.glb" id="5_r3je8"]
+[ext_resource type="Texture2D" uid="uid://vu1u7n5xs7fi" path="res://assets/models/base_texture.png" id="6_1b3ip"]
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="6_slx8l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ch2ja"]
@@ -15,6 +16,9 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l27k1"]
 size = Vector3(0.96777344, 0.39833832, 1.0058594)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v8saa"]
+albedo_texture = ExtResource("6_1b3ip")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slx8l"]
 transparency = 1
@@ -64,6 +68,9 @@ shape = SubResource("BoxShape3D_l27k1")
 
 [node name="table" parent="." instance=ExtResource("5_r3je8")]
 
+[node name="Workbench" parent="table" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_v8saa")
+
 [node name="ItemPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45377576, 0)
 
@@ -78,3 +85,5 @@ draw_pass_1 = SubResource("PlaneMesh_pnfpu")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.4496851, 0)
 material_override = SubResource("StandardMaterial3D_bnjy8")
 mesh = SubResource("PlaneMesh_slx8l")
+
+[editable path="table"]

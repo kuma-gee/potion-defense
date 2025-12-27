@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8r3y4fverwc8"
-path.s3tc="res://.godot/imported/table_T_Trim_Furniture_ORM.png-67d58d26e72a07cbc2889a5a43f8ddf4.s3tc.ctex"
+uid="uid://vleodlnu2eur"
+path.s3tc="res://.godot/imported/TerrainMask.png-216437faf2ff4a8b807963d0bc361c06.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "420d06157e23e07a15c5621e7f899e83"
-}
 
 [deps]
 
-source_file="res://assets/models/table_T_Trim_Furniture_ORM.png"
-dest_files=["res://.godot/imported/table_T_Trim_Furniture_ORM.png-67d58d26e72a07cbc2889a5a43f8ddf4.s3tc.ctex"]
+source_file="res://assets/sprites/TerrainMask.png"
+dest_files=["res://.godot/imported/TerrainMask.png-216437faf2ff4a8b807963d0bc361c06.s3tc.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=51 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
@@ -6,11 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="5_nojdy"]
 [ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="5_orkik"]
 [ext_resource type="PackedScene" uid="uid://bta6ws6aiod4y" path="res://assets/fantasy/glTF/Stall_Cart_Empty.gltf" id="6_p00gg"]
-[ext_resource type="PackedScene" uid="uid://bus0hdkjkwxqb" path="res://assets/models/ground.glb" id="7_6d3tc"]
 [ext_resource type="PackedScene" uid="uid://di33frcdi4fnw" path="res://potion/maps/objects/upgrade_select.tscn" id="7_p00gg"]
 [ext_resource type="PackedScene" uid="uid://dam3pr8acoru4" path="res://assets/models/bag.glb" id="8_tcxai"]
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="9_6jtiw"]
-[ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="9_hemba"]
 [ext_resource type="Script" uid="uid://cs261kr81nos4" path="res://addons/proton_scatter/src/scatter.gd" id="10_3ckhd"]
 [ext_resource type="Script" uid="uid://debrep4piyckd" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_ig3at"]
 [ext_resource type="Script" uid="uid://dn2cgqdslr83y" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="12_4lc4r"]
@@ -23,6 +21,8 @@
 [ext_resource type="Script" uid="uid://bxdsrs8aelkaf" path="res://addons/proton_scatter/src/scatter_shape.gd" id="18_s604t"]
 [ext_resource type="Script" uid="uid://bi1cdqsyg4jht" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="19_3ckhd"]
 [ext_resource type="AudioStream" uid="uid://d4knupavmx455" path="res://assets/sound/sfx/soul-steal.mp3" id="21_4lc4r"]
+[ext_resource type="Shader" uid="uid://baf4o50ybhvcn" path="res://shader/terrain.gdshader" id="24_d8qon"]
+[ext_resource type="Texture2D" uid="uid://vleodlnu2eur" path="res://assets/sprites/TerrainMask.png" id="25_c537u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hemba"]
 size = Vector3(2.491211, 3.074707, 1.4724121)
@@ -40,8 +40,40 @@ albedo_texture = ExtResource("9_6jtiw")
 [sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
 radius = 0.7569843
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_p00gg"]
-size = Vector3(49.450195, 0.5161133, 34.442383)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_01vrg"]
+frequency = 0.0046
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xybiu"]
+noise = SubResource("FastNoiseLite_01vrg")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eu0bj"]
+frequency = 0.0405
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b6o17"]
+noise = SubResource("FastNoiseLite_eu0bj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apx2g"]
+render_priority = 0
+shader = ExtResource("24_d8qon")
+shader_parameter/base_color = Color(0.1736078, 0.5221943, 0.17307043, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_xybiu")
+shader_parameter/noise_scale = Vector2(2, 1)
+shader_parameter/noise_strength = 0.50000002375
+shader_parameter/secondary_color = Color(0.7343839, 0.544782, 0.38426673, 1)
+shader_parameter/secondary_texture = SubResource("NoiseTexture2D_b6o17")
+shader_parameter/secondary_scale = Vector2(2, 1)
+shader_parameter/secondary_noise_strength = 0.1610000076475
+shader_parameter/blend_mask = ExtResource("25_c537u")
+shader_parameter/mask_scale = Vector2(1, 1)
+shader_parameter/mask_offset = Vector2(0, 0)
+shader_parameter/light_smooth = 0.1
+shader_parameter/light_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/roughness = 0.8
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_csol4"]
+size = Vector2(60, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6d3tc"]
 size = Vector3(41.183594, 11.18335, 1)
@@ -220,39 +252,39 @@ _data = {
 &"next": SubResource("Animation_p00gg")
 }
 
-[sub_resource type="Resource" id="Resource_6jtiw"]
+[sub_resource type="Resource" id="Resource_5n5y4"]
 script = ExtResource("13_tcxai")
-amount = 1000
+amount = 4000
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_5n5y4"]
-script = ExtResource("14_ig3at")
-scale = Vector3(0.5, 0.5, 0.5)
-reference_frame = 2
-
 [sub_resource type="Resource" id="Resource_d8qon"]
-script = ExtResource("14_6jtiw")
-position = Vector3(0.15, 0.15, 0.15)
-rotation = Vector3(20, 360, 20)
-scale = Vector3(0.1, 0.1, 0.1)
+script = ExtResource("14_ig3at")
+scale = Vector3(0.7, 0.7, 0.7)
 reference_frame = 2
 
 [sub_resource type="Resource" id="Resource_c537u"]
+script = ExtResource("14_6jtiw")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 360, 0)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_s604t"]
 script = ExtResource("15_5n5y4")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
 restrict_height = true
 
-[sub_resource type="Resource" id="Resource_s604t"]
+[sub_resource type="Resource" id="Resource_g7nvb"]
 script = ExtResource("16_d8qon")
 ray_length = 5.0
 ray_offset = 5.0
 remove_points_on_miss = false
 
-[sub_resource type="Resource" id="Resource_g7nvb"]
+[sub_resource type="Resource" id="Resource_a0o2f"]
 script = ExtResource("11_ig3at")
-stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_6jtiw"), SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u"), SubResource("Resource_s604t")])
+stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u"), SubResource("Resource_s604t"), SubResource("Resource_g7nvb")])
 
 [sub_resource type="Resource" id="Resource_ig3at"]
 script = ExtResource("19_3ckhd")
@@ -261,7 +293,7 @@ metadata/_custom_type_script = "uid://bi1cdqsyg4jht"
 
 [sub_resource type="Resource" id="Resource_tcxai"]
 script = ExtResource("19_3ckhd")
-size = Vector3(41.59415, 1, 7.760086)
+size = Vector3(41.59415, 1, 8.264095)
 
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_13ndi")
@@ -340,14 +372,10 @@ current = true
 fov = 20.0
 size = 10.832689
 
-[node name="ground" parent="." instance=ExtResource("7_6d3tc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1286077)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="ground"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24194336, 0)
-shape = SubResource("BoxShape3D_p00gg")
+[node name="Ground" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_apx2g")
+mesh = SubResource("PlaneMesh_csol4")
+skeleton = NodePath("")
 
 [node name="Boudary" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7214756, 0.03148842)
@@ -400,7 +428,6 @@ environment = SubResource("Environment_nojdy")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.5607952, 0.80293584, 0.20199712, 0.06951529, -0.28877157, 0.95487106, 0.8250311, -0.5214452, -0.21775804, 0.0665164, 34.353207, 0)
 light_color = Color(0.8852149, 0.8612659, 0.44731557, 1)
-light_energy = 0.6
 light_cull_mask = 4294443007
 shadow_enabled = true
 shadow_caster_mask = 4294443007
@@ -410,38 +437,16 @@ libraries = {
 &"": SubResource("AnimationLibrary_hemba")
 }
 
-[node name="GridMap2" type="GridMap" parent="."]
-mesh_library = ExtResource("9_hemba")
-cell_center_y = false
-data = {
-"cells": PackedInt32Array(3, 65535, 10, 4, 65535, 10, 5, 65535, 10, 6, 65535, 10, 7, 65535, 10, 8, 65535, 10, 9, 65535, 10, 2, 65535, 9, 65535, 65535, 9, 65535, 0, 9, 65532, 0, 9, 65532, 65535, 9, 65531, 65535, 9, 9, 0, 655369, 6, 0, 655369, 5, 0, 655369, 4, 0, 655369, 3, 0, 655369, 2, 0, 655369, 7, 0, 9, 8, 0, 9, 1, 0, 9, 0, 0, 9, 65534, 0, 9, 65533, 0, 9, 65531, 0, 9, 65530, 0, 9, 65527, 0, 9, 65526, 0, 9, 65528, 0, 9, 65529, 0, 9, 65526, 65535, 9, 65527, 65535, 9, 65528, 65535, 9, 65529, 65535, 9, 65530, 65535, 9, 65533, 65535, 9, 65534, 65535, 9, 0, 65535, 9, 1, 65535, 9)
-}
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("10_3ckhd")
-modifier_stack = SubResource("Resource_g7nvb")
+modifier_stack = SubResource("Resource_a0o2f")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 metadata/_custom_type_script = "uid://cs261kr81nos4"
 
 [node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("17_c537u")
-path = "uid://dbdjy46f3p5t4"
-
-[node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
-script = ExtResource("17_c537u")
-path = "uid://cesvccffie735"
-
-[node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
-script = ExtResource("17_c537u")
-proportion = 500
-path = "uid://dmxc45n1ehfah"
-
-[node name="ScatterItem4" type="Node3D" parent="ProtonScatter"]
-script = ExtResource("17_c537u")
-proportion = 300
-path = "uid://bvvsaoh4cqbhd"
+path = "uid://bdyue56wd2kpv"
 
 [node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)

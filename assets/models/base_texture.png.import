@@ -2,20 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n3pdf2h2qkbg"
-path="res://.godot/imported/Leaves_GiantPine_C.png-4b26d5829bc0c172b7bc5ad3a5330335.ctex"
+uid="uid://vu1u7n5xs7fi"
+path.s3tc="res://.godot/imported/base_texture.png-7a18237a9dbaa11516a0301247bc840d.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "94c3e80ad69f5bfb7f65efb28b034df6"
 }
 
 [deps]
 
-source_file="res://assets/nature/glTF/Leaves_GiantPine_C.png"
-dest_files=["res://.godot/imported/Leaves_GiantPine_C.png-4b26d5829bc0c172b7bc5ad3a5330335.ctex"]
+source_file="res://assets/models/base_texture.png"
+dest_files=["res://.godot/imported/base_texture.png-7a18237a9dbaa11516a0301247bc840d.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +27,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

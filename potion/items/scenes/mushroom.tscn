@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc1f5ocm8nays"]
+[gd_scene load_steps=7 format=3 uid="uid://dc1f5ocm8nays"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_d1h2a"]
 [ext_resource type="PackedScene" uid="uid://ip2my5nphldv" path="res://assets/models/mushroom.glb" id="2_arbdb"]
 [ext_resource type="AudioStream" uid="uid://d1xmyofooa3o6" path="res://assets/sound/sfx/pickup.mp3" id="2_hmasw"]
+[ext_resource type="Texture2D" uid="uid://dvyfj0ymwmgc7" path="res://assets/models/mushroom_mushroom.png" id="4_aio5o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiun4"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_aio5o")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_arbdb"]
 radius = 0.70177966
@@ -18,6 +24,11 @@ metadata/_custom_type_script = "uid://c1ph2gdxcgu0n"
 
 [node name="mushroom" parent="." instance=ExtResource("2_arbdb")]
 
+[node name="Mushroom" parent="mushroom" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xiun4")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47291082, 0)
 shape = SubResource("SphereShape3D_arbdb")
+
+[editable path="mushroom"]
