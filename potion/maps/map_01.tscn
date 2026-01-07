@@ -582,9 +582,9 @@ material = SubResource("FogMaterial_6jtsf")
 transform = Transform3D(0.57358134, 0.79446775, 0.19956267, -0.4948986, 0.1419622, 0.85727596, 0.6527478, -0.5904808, 0.47460788, 0.0665164, 8.555675, 0)
 light_color = Color(1, 0.96862745, 0.52156866, 1)
 light_energy = 0.8
-light_cull_mask = 4294443007
+light_cull_mask = 4294442495
 shadow_enabled = true
-shadow_caster_mask = 4294443007
+shadow_caster_mask = 4294442495
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.39411253, 0.71476483, 0.5777428, -0.45792693, -0.39231685, 0.7977409, 0.79685533, -0.5789635, 0.1726931, 0.0665164, 8.555675, 0)

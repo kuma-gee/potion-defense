@@ -39,6 +39,11 @@ signal died()
 @export var throw_charge_time: float = 1.0
 @export var min_throw_force: float = 5.0
 @export var max_throw_force: float = 20.0
+@export var trajectory_line: MeshInstance3D
+@export var trajectory_marker: MeshInstance3D
+@export var trajectory_point_count: int = 20
+@export var trajectory_time_step: float = 0.1
+@export var trajectory_line_width: float = 0.1
 
 @onready var player_input: PlayerInput = $PlayerInput
 @onready var ground_spring_cast: GroundSpringCast = $GroundSpringCast
@@ -67,6 +72,10 @@ var throw_button_held: bool = false:
 	set(v):
 		throw_button_held = v
 		throw_dir_sprite.visible = v
+		if trajectory_line:
+			trajectory_line.visible = v
+		if trajectory_marker:
+			trajectory_marker.visible = v
 	
 var current_throw_force: float = 0.0:
 	set(v):
@@ -91,21 +100,6 @@ var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
 		item_texture.set_item(v)
-
-func _get_mouse_world_position() -> Vector3:
-	var current_camera = get_viewport().get_camera_3d()
-	if not current_camera:
-		return global_position + Vector3.FORWARD
-	
-	var ray_origin = current_camera.project_ray_origin(mouse_position)
-	var ray_normal = current_camera.project_ray_normal(mouse_position)
-	
-	var plane = Plane(Vector3.UP, global_position.y)
-	var intersection = plane.intersects_ray(ray_origin, ray_normal)
-	
-	if intersection:
-		return intersection
-	return global_position + Vector3.FORWARD
 
 func _ready():
 	super()
@@ -233,9 +227,11 @@ func _physics_process(delta):
 	if throw_button_held and has_item():
 		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
 		
-		var aim = get_aim_direction()
+		var aim = _get_aim_direction()
 		if aim.length() > 0.1:
 			body.look_at(body.global_position + aim, Vector3.UP)
+		
+		update_trajectory_visualization()
 	else:
 		current_throw_force = 0.0
 	
@@ -289,15 +285,6 @@ func _physics_process(delta):
 		elif breaking_force:
 			if dash_duration > 0.0 and has_item():
 				break_potion()
-
-func get_aim_direction() -> Vector3:
-	if player_input.joypad:
-		var controller_aim = player_input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
-		return Vector3(controller_aim.x, 0, controller_aim.y)
-
-	var mouse_world_pos = _get_mouse_world_position()
-	var aim_direction = (mouse_world_pos - global_position).normalized()
-	return aim_direction
 
 func push_other_player(other_player: FPSPlayer) -> void:
 	var push_direction = (other_player.global_position - global_position).normalized()
@@ -354,31 +341,6 @@ func dash_player() -> void:
 	dash_cooldown_timer = dash_cooldown
 	dash_vfx.emitting = true
 	dash_sound.start()
-
-func throw_item() -> void:
-	if not throw_button_held or not is_holding_potion():
-		return
-	
-	var item = release_item()
-	
-	var throw_direction: Vector3 = -body.global_transform.basis.z
-	var aim = get_aim_direction()
-	if aim.length() < 0.1:
-		throw_direction = -body.global_transform.basis.z
-
-	var actual_force = min_throw_force + current_throw_force
-	
-	var pickupable: Pickupable = PICKUPABLE_SCENE.instantiate()
-	pickupable.item_type = item.type
-	
-	var throw_position = hand.global_position + Vector3.UP * 0.5
-	pickupable.position = throw_position
-	
-	get_tree().current_scene.add_child(pickupable)
-	pickupable.apply_central_impulse(throw_direction.normalized() * actual_force)
-	
-	current_throw_force = 0.0
-	throw_button_held = false
 
 func break_potion() -> void:
 	if not has_item() or not held_item_type.is_potion_item():
@@ -482,4 +444,144 @@ func get_processing_speed() -> float:
 	var base_speed = 1.0
 	base_speed *= wand_ability.get_processing_speed()
 	return base_speed
+#endregion
+
+#region Throwing
+func throw_item() -> void:
+	if not throw_button_held or not is_holding_potion():
+		return
+	
+	var item = release_item()
+	
+	var throw_direction: Vector3 = -body.global_transform.basis.z
+	var aim = _get_aim_direction()
+	if aim.length() < 0.1:
+		throw_direction = -body.global_transform.basis.z
+
+	var actual_force = min_throw_force + current_throw_force
+	
+	var pickupable: Pickupable = PICKUPABLE_SCENE.instantiate()
+	pickupable.item_type = item.type
+	
+	var throw_position = _get_throw_start()
+	pickupable.position = throw_position
+	
+	get_tree().current_scene.add_child(pickupable)
+	pickupable.apply_central_impulse(throw_direction.normalized() * actual_force)
+	
+	current_throw_force = 0.0
+	throw_button_held = false
+
+func _get_throw_start():
+	return hand.global_position + Vector3.UP * 0.5
+
+func _get_aim_direction() -> Vector3:
+	if player_input.joypad:
+		var controller_aim = player_input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+		return Vector3(controller_aim.x, 0, controller_aim.y)
+
+	var mouse_world_pos = _get_mouse_world_position()
+	var aim_direction = (mouse_world_pos - global_position).normalized()
+	return aim_direction
+
+func _get_mouse_world_position() -> Vector3:
+	var current_camera = get_viewport().get_camera_3d()
+	if not current_camera:
+		return global_position + Vector3.FORWARD
+	
+	var ray_origin = current_camera.project_ray_origin(mouse_position)
+	var ray_normal = current_camera.project_ray_normal(mouse_position)
+	
+	var plane = Plane(Vector3.UP, global_position.y)
+	var intersection = plane.intersects_ray(ray_origin, ray_normal)
+	
+	if intersection:
+		return intersection
+	return global_position + Vector3.FORWARD
+
+
+func update_trajectory_visualization() -> void:
+	if not trajectory_line or not has_item() or not is_holding_potion():
+		return
+	
+	var throw_direction: Vector3 = -body.global_transform.basis.z
+	var aim = _get_aim_direction()
+	if aim.length() >= 0.1:
+		throw_direction = aim.normalized()
+	
+	var actual_force = min_throw_force + current_throw_force
+	var initial_velocity = throw_direction * actual_force
+	var start_pos = _get_throw_start()
+	
+	var points = calculate_trajectory_points(start_pos, initial_velocity)
+	update_trajectory_mesh(points)
+	
+	if trajectory_marker and points.size() > 0:
+		trajectory_marker.global_position = points[points.size() - 1]
+
+func calculate_trajectory_points(start_position: Vector3, initial_velocity: Vector3) -> PackedVector3Array:
+	var points = PackedVector3Array()
+	var gravity = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
+	var gravity_vector = Vector3(0, -gravity, 0)
+	
+	var pos = start_position
+	var vel = initial_velocity
+	var prev_pos = start_position
+	
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(Vector3.ZERO, Vector3.ZERO)
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	
+	for i in range(trajectory_point_count):
+		points.append(pos)
+		
+		vel += gravity_vector * trajectory_time_step
+		prev_pos = pos
+		pos += vel * trajectory_time_step
+		
+		query.from = prev_pos
+		query.to = pos
+		var result = space_state.intersect_ray(query)
+		
+		if result:
+			points.append(result.position)
+			break
+		elif pos.y < 0.1:
+			points.append(pos)
+			break
+	
+	return points
+
+func update_trajectory_mesh(points: PackedVector3Array) -> void:
+	if not trajectory_line or points.size() < 2:
+		return
+	
+	var camera = get_viewport().get_camera_3d()
+	if not camera:
+		return
+	
+	var immediate_mesh = ImmediateMesh.new()
+	immediate_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
+	
+	for i in range(points.size()):
+		var point = points[i]
+		var local_point = trajectory_line.to_local(point)
+		
+		var to_camera = (camera.global_position - point).normalized()
+		var tangent: Vector3
+		
+		if i < points.size() - 1:
+			tangent = (points[i + 1] - point).normalized()
+		else:
+			tangent = (point - points[i - 1]).normalized()
+		
+		var right = tangent.cross(to_camera).normalized() * trajectory_line_width * 0.5
+		var right_local = trajectory_line.to_local(point + right) - local_point
+		
+		immediate_mesh.surface_add_vertex(local_point + right_local)
+		immediate_mesh.surface_add_vertex(local_point - right_local)
+	
+	immediate_mesh.surface_end()
+	trajectory_line.mesh = immediate_mesh
 #endregion
