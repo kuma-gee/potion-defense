@@ -17,6 +17,7 @@ signal died()
 @export var mixing_speed_increase := 2.0
 @export var overheat_time := 6.0
 @export var overheat_decrease := -1.0
+@export var potion_size := 2
 
 @export_category("Water")
 @export var water_mesh: MeshInstance3D
@@ -106,10 +107,14 @@ func interact(actor: FPSPlayer) -> void:
 		drop.play()
 	elif not items.is_empty() and _is_only_potions():
 		var item = items.pop_back()
-		reset()
+		_find_item_for(item).queue_free()
+		
 		player.pickup_item(ItemResource.get_resource(item))
-		_reset_water()
 		take.play()
+		
+		if items.is_empty():
+			reset()
+			_reset_water()
 
 func action(actor: FPSPlayer) -> void:
 	if not mixing:
@@ -145,7 +150,7 @@ func _create_item_for(item: ItemResource.Type):
 
 func _find_item_for(item: ItemResource.Type):
 	for child in item_container.get_children():
-		if child.type == item:
+		if child.item.type == item:
 			return child
 	return null
 
@@ -209,7 +214,8 @@ func _check_final_mix():
 	var potion = ItemResource.find_potential_recipe(items, true)
 	if potion:
 		_clear_items()
-		_add_item(potion)
+		for i in range(potion_size):
+			_add_item(potion)
 		success_anim.play("init")
 
 		var color = CauldronItem.POTION_COLORS.get(potion, Color.WHITE)

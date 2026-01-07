@@ -25,7 +25,7 @@ func _ready() -> void:
 			storage.append(auto_fill)
 		_update_items_list()
 
-	hovered.connect(func(a: FPSPlayer): label.text = "Storage" if _can_store(a) else ("Take" if storage.size() > 0 else ""))
+	#hovered.connect(func(a: FPSPlayer): label.text = "Storage" if _can_store(a) else ("Take" if storage.size() > 0 else ""))
 	interacted.connect(func(actor: Node):
 		if actor is FPSPlayer:
 			_handle_interaction(actor as FPSPlayer)

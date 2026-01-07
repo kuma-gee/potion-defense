@@ -55,14 +55,13 @@ script = ExtResource("13_cxhee")
 size = Vector3(0.5, 0.5, 0.5)
 metadata/_custom_type_script = "uid://bi1cdqsyg4jht"
 
-[node name="Storage" type="Area3D" node_paths=PackedStringArray("items_list", "label", "sprite") groups=["resetable"]]
+[node name="Storage" type="Area3D" node_paths=PackedStringArray("items_list", "sprite") groups=["resetable"]]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_egoj2")
 items_list = NodePath("Items/SubViewport/CenterContainer/HBoxContainer")
 item_scene = ExtResource("2_y25hp")
 crow_scene = ExtResource("15_7u145")
-label = NodePath("Label3D")
 sprite = NodePath("Items")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
@@ -75,6 +74,7 @@ shape = SubResource("BoxShape3D_egoj2")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6535338, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 text = "Store"
@@ -123,6 +123,7 @@ one_shot = true
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("4_cxhee")
+render_mode = 1
 modifier_stack = SubResource("Resource_a6p42")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)

@@ -651,6 +651,9 @@ func _create_instance(item: ProtonScatterItem, root: Node3D):
 		return null
 
 	instance.visible = true
+	if instance is Area3D:
+		instance.monitorable = false
+	
 	root.add_child.bind(instance, true).call_deferred()
 
 	if show_output_in_tree:

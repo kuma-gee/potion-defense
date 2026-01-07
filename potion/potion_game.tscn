@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=33 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_niktk"]
@@ -124,6 +124,9 @@ _data = {
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33pbe"]
 bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
+size = Vector3(100, 0.1, 100)
 
 [node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn", "in_game_canvas", "controls_ui", "menu", "join", "cauldron", "cauldron_health_bar")]
 script = ExtResource("1_1w3wt")
@@ -668,5 +671,12 @@ text = ">"
 stream = ExtResource("16_m4gdw")
 volume_db = -25.0
 bus = &"BGM"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 8193
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_8mtc6")
 
 [connection signal="game_over" from="WaveManager" to="InGameCanvas/Control2/Control/Gameover" method="show_gameover"]

@@ -8,34 +8,24 @@ signal unhovered(actor)
 signal interacted(actor)
 signal released(actor)
 
-@export var label: Label3D
 @export var sprite: Node3D
 
 func _ready() -> void:
 	collision_layer = LAYER
-	
-	if label:
-		label.hide()
 	if sprite:
 		sprite.hide()
 
 func hover(actor: FPSPlayer):
-	if label:
-		label.show()
 	if sprite:
 		sprite.show()
 	hovered.emit(actor)
 
 func unhover(actor: FPSPlayer):
-	if label:
-		label.hide()
 	if sprite:
 		sprite.hide()
 	unhovered.emit(actor)
 
 func interact(actor: FPSPlayer):
-	if label:
-		label.hide()
 	if sprite:
 		sprite.hide()
 	interacted.emit(actor)

@@ -15,8 +15,8 @@ func _ready() -> void:
 		resume()
 	)
 	restart_btn.pressed.connect(func():
-		restart_level.emit()
 		resume()
+		restart_level.emit()
 	)
 
 func resume():

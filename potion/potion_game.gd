@@ -32,6 +32,7 @@ var map: Map:
 			map_root.add_child(map)
 
 func _ready() -> void:
+	get_tree().paused = false
 	_setup_map()
 	recipes_btn.hide()
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
