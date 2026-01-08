@@ -2,4 +2,4 @@ class_name EnemyResource
 extends Resource
 
 @export var scene: PackedScene
-@export var weight: int = 1
+@export var enemy_value := 1.0

@@ -21,7 +21,7 @@ signal died()
 
 @export_category("Water")
 @export var water_mesh: MeshInstance3D
-@onready var default_water_color = water_mesh.material_override.get_shader_parameter("water_color")
+@export var default_water_color := Color.WHITE #water_mesh.material_override.get_shader_parameter("water_color")
 
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var hurt_box: HurtBox = $HurtBox
@@ -69,8 +69,7 @@ var destroyed := false
 func _ready() -> void:
 	super()
 	zelda_fire.show()
-	_clear_items()
-	_reset_values()
+	reset()
 	
 	overheat_progress.max_value = overheat_time
 	hurt_box.health_changed.connect(func():
@@ -82,9 +81,8 @@ func _ready() -> void:
 		destroyed = true
 		Events.cauldron_destroyed.emit()
 	)
-	
 	overheat_start_timer.timeout.connect(func(): overheating = true)
-
+	
 func setup_health_bar(bar: ProgressBar):
 	health_bar = bar
 	health_bar.value = hurt_box.max_health
@@ -239,6 +237,7 @@ func reset(_restore = false):
 	_clear_items()
 	_reset_values()
 	_unfreeze_mixing_player()
+	_reset_water()
 
 func _reset_values():
 	required_time = 0.0

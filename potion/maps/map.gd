@@ -4,7 +4,7 @@ extends Node3D
 const GROUP = "map"
 
 @export var spawn_point: Node3D
-@export var wave_resource: Array[WaveResource]
+@export var wave_resource: WaveResource
 @export var upgrades: Array[UpgradeResource]
 @export var new_recipe: ItemResource
 @export var initial_recipe: ItemResource
@@ -37,13 +37,13 @@ func get_spawn_position(player_num: int) -> Vector3:
 	return spawn_point.global_position + dir.rotated(Vector3.UP, angle)
 
 func map_finished():
-	var recipe_spawner = get_node_or_null("ObjectSpawner")
-	if new_recipe and recipe_spawner and not Events.is_recipe_unlocked(new_recipe):
-		var recipe = recipe_spawner.spawn() as Node3D
-		recipe.recipe = new_recipe
-		recipe.tree_exiting.connect(func(): _show_next_level_area())
-	else:
-		_show_next_level_area()
+	#var recipe_spawner = get_node_or_null("ObjectSpawner")
+	# if new_recipe and recipe_spawner and not Events.is_recipe_unlocked(new_recipe):
+	# 	var recipe = recipe_spawner.spawn() as Node3D
+	# 	recipe.recipe = new_recipe
+	# 	recipe.tree_exiting.connect(func(): _show_next_level_area())
+	# else:
+	_show_next_level_area()
 
 func _show_next_level_area():
 	if level:

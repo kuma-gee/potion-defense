@@ -1616,6 +1616,7 @@ progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progr
 overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 mix_icon = ExtResource("9_v5itp")
 water_mesh = NodePath("cauldron/Water")
+default_water_color = Color(0.16078432, 0.22352941, 0.77254903, 1)
 sprite = NodePath("Sprite3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
