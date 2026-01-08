@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2mj8ink6l5d7"]
+
+[ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="1_6j4tb"]
+
+[node name="ForestEntrance" type="Node3D"]
+
+[node name="Tree3" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(0.6800233, 0, 0.77096176, 0, 1.0280144, 0, -0.77096176, 0, 0.6800233, 9.306384, 0, 7.0309534)
+metadata/_edit_group_ = true
+
+[node name="Tree4" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(0.099374264, 0, 1.0739254, 0, 1.0785133, 0, -1.0739254, 0, 0.099374264, 6.760982, 0, -6.597458)
+metadata/_edit_group_ = true
+
+[node name="Tree5" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(-0.9012596, 0, -0.45574024, 0, 1.0099347, 0, 0.45574024, 0, -0.9012596, 8.500948, 0, -5.0975075)
+metadata/_edit_group_ = true
+
+[node name="Tree12" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(0.064560756, 0, -0.9960114, 0, 0.99810153, 0, 0.9960114, 0, 0.064560756, 10.567661, 0, -4.926875)
+metadata/_edit_group_ = true
+
+[node name="Tree6" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(-0.8265075, 0, -0.4903621, 0, 0.9610253, 0, 0.4903621, 0, -0.8265075, 10.178969, 0, -7.0803986)
+metadata/_edit_group_ = true
+
+[node name="Tree7" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(-1.0027484, 0, 0.1841027, 0, 1.0195087, 0, -0.1841027, 0, -1.0027484, 13.506644, 0, -4.961503)
+metadata/_edit_group_ = true
+
+[node name="Tree8" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(0.38720292, 0, -1.016759, 0, 1.0879914, 0, 1.016759, 0, 0.38720292, 6.602018, 0, 5.4186544)
+metadata/_edit_group_ = true
+
+[node name="Tree9" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(0.01797345, 0, 0.9871393, 0, 0.9873029, 0, -0.9871393, 0, 0.01797345, 11.693054, 0, 5.377828)
+metadata/_edit_group_ = true
+
+[node name="Tree10" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(-0.96636003, 0, -0.45508865, 0, 1.0681561, 0, 0.45508865, 0, -0.96636003, 12.693054, 0, 7.377828)
+metadata/_edit_group_ = true
+
+[node name="Tree11" parent="." instance=ExtResource("1_6j4tb")]
+transform = Transform3D(0.9722064, 0, -0.03190262, 0, 0.97272974, 0, 0.03190262, 0, 0.9722064, 6.777929, 0, 8.007214)
+metadata/_edit_group_ = true

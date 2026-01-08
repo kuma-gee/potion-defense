@@ -90,7 +90,7 @@ func _move_to_shop(next_map: PackedScene):
 	shop.process_mode = Node.PROCESS_MODE_INHERIT
 	shop.position.y = 0
 	shop.show()
-	shop.setup(map.upgrades)
+	shop.setup(map)
 	
 	map = null
 	_move_players_to_map(shop)

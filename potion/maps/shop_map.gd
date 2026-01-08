@@ -13,6 +13,7 @@ signal next_level()
 @onready var inventory: RayInteractable = $PrepareArea/Inventory
 @onready var purchased: AudioStreamPlayer = $Purchased
 
+var entrance
 var shop_items: Array[UpgradeResource] = []
 
 func _ready() -> void:
@@ -31,9 +32,17 @@ func _ready() -> void:
 	move_next.next.connect(func(): _move_to_equipments())
 	prepare_move_next.next.connect(func(): next_level.emit())
 
-func setup(shop: Array[UpgradeResource]):
-	shop_items.append_array(shop)
+func setup(map: Map):
+	shop_items.append_array(map.upgrades)
 	shop_items = shop_items.filter(func(s): return not Events.has_upgrade(s))
+
+	if is_instance_valid(entrance):
+		entrance.queue_free()
+		entrance = null
+
+	if map.entrance_scene:
+		entrance = map.entrance_scene.instantiate()
+		add_child(entrance)
 
 	if Events.is_first_level():
 		#prepare_move_next.hide()

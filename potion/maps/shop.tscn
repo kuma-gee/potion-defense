@@ -242,7 +242,7 @@ _data = {
 
 [sub_resource type="Resource" id="Resource_6jtiw"]
 script = ExtResource("13_tcxai")
-amount = 1500
+amount = 1300
 restrict_height = true
 reference_frame = 1
 
@@ -350,7 +350,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2007165, 0.50231934, 0.208
 visible = false
 
 [node name="Inventory" type="Area3D" parent="PrepareArea" node_paths=PackedStringArray("sprite")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4218807, 0, -2.826951)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35140276, 0, -2.826951)
 script = ExtResource("5_orkik")
 sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"

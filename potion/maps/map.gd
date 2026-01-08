@@ -9,6 +9,7 @@ const GROUP = "map"
 @export var new_recipe: ItemResource
 @export var initial_recipe: ItemResource
 @export var paths: Array[Path3D]
+@export var entrance_scene: PackedScene
 
 @onready var level: Level = get_node_or_null("Level")
 
