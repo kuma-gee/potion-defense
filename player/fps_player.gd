@@ -224,17 +224,6 @@ func _physics_process(delta):
 	dash_cooldown_timer = max(0.0, dash_cooldown_timer - delta)
 	dash_duration = max(0.0, dash_duration - delta)
 	
-	if throw_button_held and has_item():
-		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
-		
-		var aim = _get_aim_direction()
-		if aim.length() > 0.1:
-			body.look_at(body.global_position + aim, Vector3.UP)
-		
-		update_trajectory_visualization()
-	else:
-		current_throw_force = 0.0
-	
 	var direction = get_input_direction()
 	var _speed = get_actual_speed()
 	walk_vfx.emitting = direction.length() > 0
@@ -251,11 +240,21 @@ func _physics_process(delta):
 			velocity.x = lerp(velocity.x, direction.x * _speed, delta * 3.0)
 			velocity.z = lerp(velocity.z, direction.z * _speed, delta * 3.0)
 
-	if velocity.length() > 0.1:
-		var target_direction = direction.normalized()
-		var current_forward = -body.global_transform.basis.z
-		var angle = current_forward.signed_angle_to(target_direction, Vector3.UP)
-		body.rotate_y(angle * delta * 10.0)
+	if throw_button_held and has_item():
+		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
+		
+		var aim = _get_aim_direction()
+		if aim.length() > 0.1:
+			body.look_at(body.global_position + aim, Vector3.UP)
+		
+		update_trajectory_visualization()
+	else:
+		current_throw_force = 0.0
+		if velocity.length() > 0.1:
+			var target_direction = direction.normalized()
+			var current_forward = -body.global_transform.basis.z
+			var angle = current_forward.signed_angle_to(target_direction, Vector3.UP)
+			body.rotate_y(angle * delta * 10.0)
 
 	anim.update_move(direction)
 	ground_spring_cast.apply_gravity(self, delta)
