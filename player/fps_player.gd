@@ -33,7 +33,6 @@ signal died()
 @export var wand_texture: TextureRect
 
 @export_category("Throw")
-@export var throw_dir_sprite: Sprite3D
 @export var throw_dir_min_scale = 0.3
 @export var throw_dir_max_scale = 0.7
 @export var throw_charge_time: float = 1.0
@@ -51,6 +50,7 @@ signal died()
 @onready var wand_ability: WandAbility = $WandAbility
 @onready var shield: Shield = $Shield
 @onready var dash_sound: RandomizedLoopSfx = $DashSound
+@onready var spawn_puff: GPUParticles3D = $SpawnPuff
 
 var death_timer := 0.0:
 	set(v):
@@ -71,7 +71,6 @@ var reviving_player: FPSPlayer:
 var throw_button_held: bool = false:
 	set(v):
 		throw_button_held = v
-		throw_dir_sprite.visible = v
 		if trajectory_line:
 			trajectory_line.visible = v
 		if trajectory_marker:
@@ -81,7 +80,6 @@ var current_throw_force: float = 0.0:
 	set(v):
 		current_throw_force = v
 		var t = (current_throw_force) / (max_throw_force - min_throw_force)
-		throw_dir_sprite.scale.x = lerp(throw_dir_min_scale, throw_dir_max_scale, t)
 
 var mouse_position: Vector2 = Vector2.ZERO
 var equipped_wand: WandResource = null:
@@ -103,13 +101,13 @@ var held_item_type: ItemResource = null:
 
 func _ready():
 	super()
+	spawn_puff.emitting = true
 	equipped_wand = null
 	equipped_equipment = null
 	player_input.set_for_id(input_id)
 	reset()
 
 	color_ring.color = colors[player_num % colors.size()]
-	throw_dir_sprite.modulate = colors[player_num % colors.size()]
 	revive_progress.max_value = death_time
 	
 	icon.hide()

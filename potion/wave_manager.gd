@@ -68,7 +68,7 @@ func next_wave() -> void:
 	is_wave_active = true
 	is_final_wave = false
 	
-	difficulty = wave_resource.initial_difficulty * (1.0 + (wave - 1) * 0.5)
+	difficulty = wave_resource.initial_difficulty * (1.0 + (wave - 1) * 0.3)
 	
 	var wave_budget = _calculate_wave_budget()
 	spawn_plan = _plan_wave_spawns(wave_budget)
