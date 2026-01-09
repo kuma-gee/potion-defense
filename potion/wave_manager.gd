@@ -104,6 +104,10 @@ func _plan_wave_spawns(wave_budget: float) -> Array[Dictionary]:
 	var used_budget: float = 0.0
 	var available_enemies = wave_resource.enemies.duplicate()
 	
+	var waves_from_end = max_wave - wave
+	if wave_resource.new_enemy and waves_from_end < 2:
+		available_enemies.append(wave_resource.new_enemy)
+	
 	if paths.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
 		return plan

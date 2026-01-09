@@ -459,11 +459,11 @@ metadata/_custom_type_script = "uid://cs261kr81nos4"
 
 [node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("17_c537u")
-path = "uid://bdyue56wd2kpv"
+path = "uid://bpipf7qid4cjd"
 
 [node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("17_c537u")
-path = "uid://ccm7qirc08ja0"
+path = "uid://bg8p2vaxlso2r"
 
 [node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("17_c537u")

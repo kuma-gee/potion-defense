@@ -17,6 +17,8 @@ viewport_path = NodePath("SubViewport")
 size = Vector3(0.96777344, 0.39833832, 1.0058594)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v8saa"]
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("6_1b3ip")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnjy8"]

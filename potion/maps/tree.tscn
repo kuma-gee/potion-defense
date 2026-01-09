@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlc5pt3hyp5a7"]
+[gd_scene load_steps=7 format=3 uid="uid://dlc5pt3hyp5a7"]
 
 [ext_resource type="Script" uid="uid://bqwbs514q32vs" path="res://potion/maps/tree.gd" id="1_bycdv"]
 [ext_resource type="PackedScene" uid="uid://erun8c2pkh6i" path="res://assets/nature/glTF/Tree_1_B_Color1.gltf" id="2_0itfb"]
 [ext_resource type="PackedScene" uid="uid://ba0hkacg2yt8w" path="res://assets/nature/glTF/Tree_4_A_Color1.gltf" id="2_blib2"]
+[ext_resource type="Material" uid="uid://bxuw504x260ll" path="res://potion/maps/tree_mat.tres" id="3_oqdt8"]
 [ext_resource type="PackedScene" uid="uid://dayjq7xy2ww1q" path="res://assets/nature/glTF/Tree_1_A_Color1.gltf" id="3_t10dn"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_0itfb"]
@@ -10,10 +11,13 @@ height = 10.408325
 radius = 0.58203125
 
 [node name="Tree" type="Node3D"]
-transform = Transform3D(-0.9417678, 0, 0.19692448, 0, 0.9621361, 0, -0.19692448, 0, -0.9417678, 0, 0, 0)
+transform = Transform3D(0.11985669, 0, 1.0619336, 0, 1.0686761, 0, -1.0619336, 0, 0.11985669, 0, 0, 0)
 script = ExtResource("1_bycdv")
 
 [node name="Tree_4_A_Color12" parent="." instance=ExtResource("2_blib2")]
+
+[node name="Tree_4_A_Color1" parent="Tree_4_A_Color12" index="0"]
+surface_material_override/0 = ExtResource("3_oqdt8")
 
 [node name="Tree_1_B_Color12" parent="." instance=ExtResource("2_0itfb")]
 visible = false
@@ -26,3 +30,5 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, 1, 0, 5.2280893, 0)
 shape = SubResource("CylinderShape3D_0itfb")
+
+[editable path="Tree_4_A_Color12"]

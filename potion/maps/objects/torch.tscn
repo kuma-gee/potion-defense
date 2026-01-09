@@ -5,7 +5,7 @@
 [node name="Torch" type="Node3D"]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.35754678, 0.16951215)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.36948317, 0.21500647)
 light_color = Color(1, 0.6156863, 0.36078432, 1)
 light_energy = 0.5
 shadow_enabled = true

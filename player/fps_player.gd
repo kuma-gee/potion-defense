@@ -79,7 +79,7 @@ var throw_button_held: bool = false:
 var current_throw_force: float = 0.0:
 	set(v):
 		current_throw_force = v
-		var t = (current_throw_force) / (max_throw_force - min_throw_force)
+		#var t = (current_throw_force) / (max_throw_force - min_throw_force)
 
 var mouse_position: Vector2 = Vector2.ZERO
 var equipped_wand: WandResource = null:
@@ -108,6 +108,12 @@ func _ready():
 	reset()
 
 	color_ring.color = colors[player_num % colors.size()]
+	var particle_mat = spawn_puff.process_material as ParticleProcessMaterial
+	var grad_tex = particle_mat.color_ramp as GradientTexture1D
+	var grad = grad_tex.gradient.duplicate()
+	grad.colors[1] = color_ring.color
+	grad_tex.gradient = grad
+	
 	revive_progress.max_value = death_time
 	
 	icon.hide()

@@ -7,9 +7,9 @@
 shader_type spatial;
 render_mode depth_draw_opaque, cull_disabled;
 
-uniform float light_smooth = 0.01;
+uniform float light_smooth = 0.2;
 uniform vec3 shadow_color: source_color;
-uniform vec3 base_color: source_color = vec3(1.0);
+uniform vec3 base_color: source_color = vec3(0.7);
 uniform vec3 terminal_shadow_color: source_color;
 uniform sampler2D main_texture;
 uniform sampler2D normal_texture: hint_normal;
@@ -30,11 +30,11 @@ void vertex() {
 void fragment() {
 	vec4 albedo_tex = texture(main_texture, UV);
 	ALBEDO = albedo_tex.rgb;
-	ALPHA = albedo_tex.a;
-	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+	//ALPHA = albedo_tex.a;
+	//ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
 	
 	// Let Godot handle normal map transformation
-	NORMAL_MAP = texture(normal_texture, UV).rgb;
+	//NORMAL_MAP = texture(normal_texture, UV).rgb;
 }
 
 void light() {

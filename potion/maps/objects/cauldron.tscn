@@ -1,4 +1,4 @@
-[gd_scene load_steps=194 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=192 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cs5bjmrxxy2" path="res://assets/particles/T_Noise_HU85k.png" id="7_3yq24"]
 [ext_resource type="Shader" uid="uid://bqqmxtf0sf3oh" path="res://shader/water.gdshader" id="7_upfdl"]
 [ext_resource type="Texture2D" uid="uid://c4vxu813b4djt" path="res://assets/particles/T_VFX_Noise_B4.PNG" id="8_3yq24"]
-[ext_resource type="Texture2D" uid="uid://vu1u7n5xs7fi" path="res://assets/models/base_texture.png" id="9_en3dc"]
 [ext_resource type="Texture2D" uid="uid://2288byg1i6jf" path="res://assets/sprites/Action_Mix.png" id="9_v5itp"]
 [ext_resource type="ArrayMesh" uid="uid://o2bjj0tv3wh3" path="res://assets/particles/shapes/plane_circle.obj" id="10_3yq24"]
 [ext_resource type="Texture2D" uid="uid://dwrhoyfs10hb0" path="res://assets/particles/T_VFX_sSmoke.jpg" id="12_uln6k"]
@@ -308,9 +307,6 @@ collision_friction = 0.0
 collision_bounce = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_ksn36"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hadb"]
-albedo_texture = ExtResource("9_en3dc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0dk6"]
 render_priority = 0
@@ -1658,9 +1654,6 @@ light_color = Color(1, 0.6039216, 0, 1)
 spot_angle = 78.17752
 
 [node name="cauldron" parent="." instance=ExtResource("6_v5itp")]
-
-[node name="Cauldron" parent="cauldron" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_6hadb")
 
 [node name="Water" type="MeshInstance3D" parent="cauldron"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58630085, 0)

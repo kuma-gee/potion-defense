@@ -40,7 +40,7 @@ materials/extract_path=""
 _subresources={
 "materials": {
 "HalloweenBits": {
-"use_external/enabled": false,
+"use_external/enabled": true,
 "use_external/fallback_path": "res://potion/basic_shader.tres",
 "use_external/path": "uid://cvveser2snnkw"
 }

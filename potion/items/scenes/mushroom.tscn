@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc1f5ocm8nays"]
+[gd_scene load_steps=11 format=3 uid="uid://dc1f5ocm8nays"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_d1h2a"]
 [ext_resource type="PackedScene" uid="uid://ip2my5nphldv" path="res://assets/models/mushroom.glb" id="2_arbdb"]
 [ext_resource type="AudioStream" uid="uid://d1xmyofooa3o6" path="res://assets/sound/sfx/pickup.mp3" id="2_hmasw"]
 [ext_resource type="Texture2D" uid="uid://dvyfj0ymwmgc7" path="res://assets/models/mushroom_mushroom.png" id="4_aio5o"]
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="5_xiun4"]
+[ext_resource type="Material" uid="uid://cvveser2snnkw" path="res://potion/basic_shader.tres" id="6_ls868"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiun4"]
 diffuse_mode = 3
@@ -45,5 +46,6 @@ shape = SubResource("SphereShape3D_arbdb")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_ls868")
 mesh = SubResource("PlaneMesh_ocjs7")
+surface_material_override/0 = ExtResource("6_ls868")
 
 [editable path="mushroom"]

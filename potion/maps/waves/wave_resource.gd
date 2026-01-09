@@ -6,3 +6,4 @@ extends Resource
 @export var base_spawn_interval: float = 2.0
 @export var initial_difficulty: float = 1.0
 @export var enemies: Array[EnemyResource] = []
+@export var new_enemy: EnemyResource

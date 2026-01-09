@@ -9,4 +9,5 @@ assets/**/*.*
 
 *.kra
 build/
+test/
 # *.zip
