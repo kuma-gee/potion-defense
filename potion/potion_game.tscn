@@ -432,9 +432,8 @@ text = "Restart"
 layout_mode = 2
 text = "Back to map"
 
-[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "quit_btn", "recipe_btn", "controls_btn", "ui", "controls", "recipe")]
+[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "quit_btn", "recipe_btn", "controls_btn", "ui", "controls", "recipe")]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -444,6 +443,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.5882353)
 script = ExtResource("11_6q2ph")
 continue_btn = NodePath("Main/VBoxContainer/Continue")
+restart_btn = NodePath("Main/VBoxContainer/Restart")
 quit_btn = NodePath("Main/VBoxContainer/Exit")
 recipe_btn = NodePath("Main/VBoxContainer/Recipes")
 controls_btn = NodePath("Main/VBoxContainer/Controls")
@@ -467,6 +467,10 @@ layout_mode = 2
 layout_mode = 2
 text = "Continue"
 
+[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
 [node name="Recipes" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -482,6 +486,7 @@ text = "Exit"
 
 [node name="Recipe" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
 process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

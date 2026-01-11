@@ -41,6 +41,8 @@ color = Color(1, 0.95, 0, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_ysfn1"]
 
 [node name="MoveNext" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_tugip")
 metadata/_custom_type_script = "uid://crf6i2pescuwe"
 
