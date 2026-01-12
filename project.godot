@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="potion-defense"
-run/main_scene="uid://bquyk6n7heynp"
+run/main_scene="uid://d2r2acm4ncnnc"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

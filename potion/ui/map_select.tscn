@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctnqcjceovl8r"]
+
+[ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="1_ff1sg"]
+[ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
+
+[node name="MapSelect" type="Control" node_paths=PackedStringArray("back_btn", "map_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ff1sg")
+script = ExtResource("1_1tq5y")
+back_btn = NodePath("Back")
+map_button = ExtResource("2_1tq5y")
+map_container = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back to menu"

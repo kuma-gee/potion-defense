@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapResource" load_steps=3 format=3 uid="uid://bi2lyfnd6ysr2"]
+
+[ext_resource type="Script" uid="uid://crosu7to86ge3" path="res://potion/maps/map_resource.gd" id="1_6dlbh"]
+[ext_resource type="PackedScene" uid="uid://buimg1dxik8ck" path="res://potion/maps/map_02.tscn" id="1_vac4l"]
+
+[resource]
+script = ExtResource("1_6dlbh")
+scene = ExtResource("1_vac4l")
+name = "The Garden"
+metadata/_custom_type_script = "uid://crosu7to86ge3"

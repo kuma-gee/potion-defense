@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapResource" load_steps=3 format=3 uid="uid://d4lgb6ykm4kbu"]
+
+[ext_resource type="Script" uid="uid://crosu7to86ge3" path="res://potion/maps/map_resource.gd" id="1_73dsy"]
+[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="1_sea7s"]
+
+[resource]
+script = ExtResource("1_73dsy")
+scene = ExtResource("1_sea7s")
+name = "Apprentice's Workshop"
+metadata/_custom_type_script = "uid://crosu7to86ge3"

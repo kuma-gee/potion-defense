@@ -1,7 +1,6 @@
-[gd_scene load_steps=33 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=32 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
-[ext_resource type="PackedScene" uid="uid://cnblk6clkaeyh" path="res://potion/maps/map_01.tscn" id="2_niktk"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="7_21lj0"]
@@ -128,20 +127,18 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
 size = Vector3(100, 0.1, 100)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "recipes_btn", "in_game_canvas", "controls_ui", "menu", "join", "cauldron", "cauldron_health_bar")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "in_game_canvas", "controls_ui", "menu", "join", "cauldron", "cauldron_health_bar")]
 script = ExtResource("1_1w3wt")
 souls_label = NodePath("InGameCanvas/Control2/SoulContainer/HBoxContainer/Souls")
 recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
-recipes_btn = NodePath("InGameCanvas/Control2/RecipeContainer")
 in_game_canvas = NodePath("InGameCanvas/Control2/GameUI")
 controls_ui = NodePath("InGameCanvas/Control2/Control/Controls")
 menu = NodePath("InGameCanvas/Control2/Control/Menu")
 join = NodePath("InGameCanvas/Control2/GameUI/Join")
 cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
 cauldron_health_bar = NodePath("InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/ProgressBar")
-current_level = ExtResource("2_niktk")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -432,7 +429,7 @@ text = "Restart"
 layout_mode = 2
 text = "Back to map"
 
-[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "quit_btn", "recipe_btn", "controls_btn", "ui", "controls", "recipe")]
+[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "controls_btn", "ui", "controls", "recipe")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -444,8 +441,7 @@ color = Color(0, 0, 0, 0.5882353)
 script = ExtResource("11_6q2ph")
 continue_btn = NodePath("Main/VBoxContainer/Continue")
 restart_btn = NodePath("Main/VBoxContainer/Restart")
-quit_btn = NodePath("Main/VBoxContainer/Exit")
-recipe_btn = NodePath("Main/VBoxContainer/Recipes")
+back_btn = NodePath("Main/VBoxContainer/Back")
 controls_btn = NodePath("Main/VBoxContainer/Controls")
 ui = NodePath("Main")
 controls = NodePath("../Controls")
@@ -471,18 +467,13 @@ text = "Continue"
 layout_mode = 2
 text = "Restart"
 
-[node name="Recipes" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Recipes"
-
 [node name="Controls" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
 layout_mode = 2
 text = "Controls"
 
-[node name="Exit" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
 layout_mode = 2
-text = "Exit"
+text = "Back to map"
 
 [node name="Recipe" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
 process_mode = 3

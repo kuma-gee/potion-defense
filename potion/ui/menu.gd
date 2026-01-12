@@ -5,8 +5,7 @@ signal restart()
 
 @export var continue_btn: Button
 @export var restart_btn: Button
-@export var quit_btn: Button
-@export var recipe_btn: Button
+@export var back_btn: Button
 @export var controls_btn: Button
 
 @export var ui: Control
@@ -21,12 +20,8 @@ func _ready() -> void:
 	hide()
 	restart_btn.pressed.connect(func(): restart.emit())
 	continue_btn.pressed.connect(func(): hide())
-	quit_btn.pressed.connect(func(): get_tree().quit())
+	back_btn.pressed.connect(func(): SceneManager.change_to_map_select())
 	visibility_changed.connect(_on_visibility_changed)
-	recipe_btn.pressed.connect(func():
-		recipe.grab_focus()
-		ui.hide()
-	)
 	controls_btn.pressed.connect(func():
 		controls.grab_focus()
 		ui.hide()

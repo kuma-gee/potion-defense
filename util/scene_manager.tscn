@@ -2,6 +2,21 @@
 
 [ext_resource type="Script" uid="uid://ui1yrwtw1vlr" path="res://util/scene_manager.gd" id="1_2s4po"]
 
+[sub_resource type="Animation" id="Animation_ln5k3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_2s4po"]
 resource_name = "show"
 length = 0.5
@@ -18,21 +33,6 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ln5k3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ln5k3"]
 _data = {
 &"RESET": SubResource("Animation_ln5k3"),
@@ -40,6 +40,7 @@ _data = {
 }
 
 [node name="SceneManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_2s4po")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -48,6 +49,7 @@ libraries = {
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
@@ -56,4 +58,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)

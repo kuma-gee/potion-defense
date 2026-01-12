@@ -17,11 +17,11 @@ var entrance
 var shop_items: Array[UpgradeResource] = []
 
 func _ready() -> void:
-	if Events.is_first_level():
-		shop_open.interacted.connect(func(_a):
-			shop_list.show_upgrades(shop_items)
-			move_next.show()
-		)
+	#if Events.is_first_level():
+		#shop_open.interacted.connect(func(_a):
+			#shop_list.show_upgrades(shop_items)
+			#move_next.show()
+		#)
 
 	Events.upgrade_unlocked.connect(func(): purchased.play())
 	inventory.interacted.connect(func(_a):
@@ -44,11 +44,11 @@ func setup(map: Map):
 		entrance = map.entrance_scene.instantiate()
 		add_child(entrance)
 
-	if Events.is_first_level():
-		#prepare_move_next.hide()
-		move_next.hide()
-	else:
-		shop_list.show_upgrades(shop_items)
+	#if Events.is_first_level():
+		##prepare_move_next.hide()
+		#move_next.hide()
+	#else:
+	shop_list.show_upgrades(shop_items)
 
 func _move_to_equipments() -> void:
 	animation_player.play("next")
