@@ -109,7 +109,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		recipe_ui.pause()
 	elif event.is_action_pressed("ui_cancel") and not menu.visible:
 		menu.show()
-	elif not wave_manager.is_wave_active:
+	else: #if not wave_manager.is_wave_active:
 		var m = map if map else shop
 		if event.is_pressed():
 			player_join.spawn_player(event, m)

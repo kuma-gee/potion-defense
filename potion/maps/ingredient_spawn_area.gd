@@ -17,7 +17,7 @@ var spawned_items: Array[Node3D] = []
 func _ready() -> void:
 	rng.randomize()
 	respawn_timer.timeout.connect(_on_respawn_timeout)
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.2).timeout
 	_fill_to_max()
 
 func _fill_to_max() -> void:
@@ -73,6 +73,9 @@ func _get_random_point_in_area() -> Vector3:
 	return global_position
 
 func _is_position_free(point: Vector3) -> bool:
+	if point:
+		return true
+	
 	for item in spawned_items:
 		if not is_instance_valid(item):
 			continue
@@ -83,7 +86,7 @@ func _is_position_free(point: Vector3) -> bool:
 	if world == null:
 		return true
 	var space_state := world.direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(point, point + Vector3.UP)
+	var query = PhysicsRayQueryParameters3D.create(point, point + Vector3.DOWN)
 	query.hit_from_inside = true
 	var result := space_state.intersect_ray(query)
 	return result.is_empty()
