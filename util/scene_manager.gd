@@ -5,6 +5,10 @@ const START = preload("uid://d2r2acm4ncnnc")
 const MAP_SELECT = preload("uid://ctnqcjceovl8r")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var timer: Timer = $Timer
+
+func _ready() -> void:
+	timer.timeout.connect(func(): end_transition())
 
 func change_to_map_select():
 	change_scene(MAP_SELECT)
@@ -20,7 +24,7 @@ func change_to_game(lvl = -1, initial = false) -> void:
 		await start_transition()
 
 	get_tree().change_scene_to_packed(POTION_GAME)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(2.0).timeout
 	await end_transition()
 
 func change_scene(scene) -> void:
@@ -33,10 +37,10 @@ func exit_game():
 	transition(func(): get_tree().quit())
 
 func transition(callback: Callable):
+	if not timer.is_stopped(): return
 	await start_transition()
 	await callback.call()
-	await get_tree().create_timer(0.5).timeout
-	await end_transition()
+	timer.start()
 
 func start_transition():
 	animation_player.play("show")

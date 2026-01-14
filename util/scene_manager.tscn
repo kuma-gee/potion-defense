@@ -43,6 +43,9 @@ _data = {
 process_mode = 3
 script = ExtResource("1_2s4po")
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ln5k3")

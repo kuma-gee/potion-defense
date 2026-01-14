@@ -12,6 +12,7 @@ func _ready() -> void:
 		_on_new_pressed(true)
 		return
 	
+	SceneManager.end_transition()
 	new_button.pressed.connect(_on_new_pressed)
 	continue_button.pressed.connect(_on_continue_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)

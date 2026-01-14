@@ -31,6 +31,7 @@ var map: Map:
 func _ready() -> void:
 	get_tree().paused = false
 	_setup_map()
+	
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
 	Events.souls_changed.connect(func(): souls_label.text = "%s" % Events.total_souls)
 	Events.move_to_shop.connect(_move_to_shop)
@@ -39,7 +40,9 @@ func _ready() -> void:
 			wave_manager.next_wave()
 	)
 	Events.picked_up_recipe.connect(_unlocked_recipe)
-	shop.next_level.connect(func(): _setup_map())
+	shop.next_level.connect(func():
+		SceneManager.transition(func(): _setup_map())
+	)
 	
 	menu.restart.connect(func(): _restart_level())
 	gameover.restart_level.connect(func(): _restart_level())
@@ -112,21 +115,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			player_join.spawn_player(event, m)
 
 func _setup_map():
-	SceneManager.transition(func():
-		shop.process_mode = Node.PROCESS_MODE_DISABLED
-		shop.position.y = 1000
-		shop.hide()
-		
-		map = Events.get_current_map().instantiate() as Map
-		wave_manager.setup(map)
-		_move_players_to_map(map)
+	shop.process_mode = Node.PROCESS_MODE_DISABLED
+	shop.position.y = 1000
+	shop.hide()
+	
+	map = Events.get_current_map().instantiate() as Map
+	wave_manager.setup(map)
+	_move_players_to_map(map)
 
-		var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
-		c.setup_health_bar(cauldron_health_bar)
-		
-		if not Events.is_tutorial_level():
-			wave_manager.next_wave()
-	)
+	var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
+	c.setup_health_bar(cauldron_health_bar)
+	
+	if not Events.is_tutorial_level():
+		wave_manager.next_wave()
 
 func _move_players_to_map(m: Map) -> void:
 	for player in player_root.get_children():

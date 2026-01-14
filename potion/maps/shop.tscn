@@ -350,13 +350,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2007165, 0.50231934, 0.208
 visible = false
 
 [node name="Inventory" type="Area3D" parent="PrepareArea" node_paths=PackedStringArray("sprite")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35140276, 0, -2.826951)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2653794, 0, -2.826951)
 script = ExtResource("5_orkik")
 sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
 [node name="Equipment" type="Node3D" parent="PrepareArea/Inventory"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8114834, 0, 0.041305542)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5644822, 0, 0.041305542)
 script = ExtResource("3_13ndi")
 scene = ExtResource("7_p00gg")
 
