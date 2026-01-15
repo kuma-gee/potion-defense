@@ -7,3 +7,4 @@
 script = ExtResource("1_426uh")
 scene = ExtResource("1_lamt8")
 enemy_value = 2.2
+soul_amount = 5

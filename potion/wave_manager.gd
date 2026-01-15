@@ -143,6 +143,7 @@ func _spawn_planned_enemy() -> void:
 	var enemy_scene = enemy_res.scene
 	var enemy = enemy_scene.instantiate() as Node3D
 	enemy.path = path
+	enemy.souls = enemy_res.soul_amount
 	enemy.position = path.curve.get_point_position(0)
 	enemy.tree_exited.connect(func(): _on_enemy_removed())
 	enemy_spawn_root.add_child(enemy)

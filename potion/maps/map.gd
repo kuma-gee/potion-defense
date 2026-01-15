@@ -11,6 +11,7 @@ const GROUP = "map"
 @export var paths: Array[Path3D]
 @export var entrance_scene: PackedScene
 
+@export var proton_scatter: Array[ProtonScatter]
 @onready var level: Level = get_node_or_null("Level")
 
 func _ready() -> void:
@@ -23,6 +24,9 @@ func _ready() -> void:
 		var initial = get_node("InitialRecipeSpawner")
 		var recipe = initial.spawn()
 		recipe.recipe = initial_recipe
+	
+	for p in proton_scatter:
+		p.rebuild()
 
 func get_spawn_position(player_num: int) -> Vector3:
 	var expected_player_count = 4

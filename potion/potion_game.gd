@@ -39,6 +39,7 @@ func _ready() -> void:
 		if wave_manager.can_start_wave():
 			wave_manager.next_wave()
 	)
+	Events.player_has_joined.connect(spawn_player)
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	shop.next_level.connect(func():
 		SceneManager.transition(func(): _setup_map())
@@ -50,11 +51,11 @@ func _ready() -> void:
 
 	cauldron.visible = not Events.is_tutorial_level()
 	join.visible = Events.is_tutorial_level()
-	if Events.is_tutorial_level():
-		wave_manager.wave_started.connect(func(): 
-			if cauldron.visible: return
-			_move_join_container_out()
-		)
+
+	wave_manager.wave_started.connect(func(): 
+		if cauldron.visible: return
+		_move_join_container_out()
+	)
 
 	if not Events.shown_inputs:
 		controls_ui.grab_focus()
@@ -64,6 +65,9 @@ func _ready() -> void:
 				get_tree().paused = false
 		)
 		get_tree().paused = true
+
+func spawn_player(id: String) -> void:
+	player_join.setup_player(id, map if map else shop)
 
 func _restart_level():
 	SceneManager.restart_current()
@@ -97,7 +101,8 @@ func _move_to_shop():
 		shop.setup(map)
 		
 		map = null
-		_move_players_to_map(shop)
+		for p in Events.players:
+			player_join.setup_player(p, shop)
 	)
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -109,10 +114,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		recipe_ui.pause()
 	elif event.is_action_pressed("ui_cancel") and not menu.visible:
 		menu.show()
-	else: #if not wave_manager.is_wave_active:
-		var m = map if map else shop
-		if event.is_pressed():
-			player_join.spawn_player(event, m)
 
 func _setup_map():
 	shop.process_mode = Node.PROCESS_MODE_DISABLED
@@ -121,17 +122,11 @@ func _setup_map():
 	
 	map = Events.get_current_map().instantiate() as Map
 	wave_manager.setup(map)
-	_move_players_to_map(map)
+	for p in Events.players:
+		player_join.setup_player(p, map)
 
 	var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
 	c.setup_health_bar(cauldron_health_bar)
 	
 	if not Events.is_tutorial_level():
 		wave_manager.next_wave()
-
-func _move_players_to_map(m: Map) -> void:
-	for player in player_root.get_children():
-		if not player is FPSPlayer: continue
-
-		player.reset()
-		player.global_position = m.get_spawn_position(player.player_num)

@@ -6,6 +6,7 @@ const MAP_SELECT = preload("uid://ctnqcjceovl8r")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer: Timer = $Timer
+@onready var color_rect: ColorRect = $CanvasLayer/ColorRect
 
 func _ready() -> void:
 	timer.timeout.connect(func(): end_transition())
@@ -46,5 +47,7 @@ func start_transition():
 	await animation_player.animation_finished
 
 func end_transition():
+	if color_rect.color != Color.BLACK: return
+	
 	animation_player.play_backwards("show")
 	await animation_player.animation_finished

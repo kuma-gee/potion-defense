@@ -1,4 +1,5 @@
 @tool
+class_name ProtonScatter
 extends Node3D
 
 

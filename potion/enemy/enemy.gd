@@ -24,6 +24,7 @@ var state = null
 var attack_count := 0
 var path: Path3D
 var current_path_point := 0
+var souls := 1
 
 func _ready() -> void:
 	super()
@@ -59,7 +60,9 @@ func _on_attack_finished(_anim: String):
 func _died():
 	died()
 	collision_shape_3d.set_deferred("disabled", true)
-	soul_spawner.spawn()
+	var soul = soul_spawner.spawn()
+	soul.amount = souls
+
 	death_sound.play_randomized()
 	move_sound.stop()
 

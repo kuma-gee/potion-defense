@@ -6,12 +6,15 @@ signal cauldron_used()
 signal cauldron_destroyed()
 signal picked_up_recipe(recipe: ItemResource)
 signal upgrade_unlocked()
+signal player_has_joined(id: String)
 
 const MAPS = [
 	"res://potion/maps/res/map_01.tres",
 	"res://potion/maps/res/map_02.tres",
 	"res://potion/maps/res/map_03.tres",
 ]
+
+@export var max_players: int = 4
 
 var shown_inputs := false
 var players := []
@@ -25,11 +28,27 @@ var unlocked_map := 0
 var unlocked_recipes: Array[ItemResource.Type] = []
 var unlocked_upgrades: Array[UpgradeResource] = []
 
+var logger = KumaLog.new("Events")
+
 func get_player_count() -> int:
 	return players.size()
 
-func player_joined(player: String):
-	players.append(player)
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_pressed():
+		player_input_received(event)
+
+
+func player_input_received(event: InputEvent):
+	var id = PlayerInput.create_id(event)
+	if id in players:
+		return
+
+	if players.size() >= max_players:
+		logger.warn("Max players reached, cannot spawn new player: %s" % id)
+		return
+
+	players.append(id)
+	player_has_joined.emit(id)
 
 func next_level():
 	level += 1
