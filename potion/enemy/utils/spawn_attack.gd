@@ -4,7 +4,7 @@ extends Marker3D
 @export var attack_spawn: PackedScene
 @export var muzzle_scane: PackedScene
 
-func spawn(res: ProjectileResource):
+func spawn(res):
 	var projectile = _spawn_scene(attack_spawn)
 	projectile.resource = res
 	
