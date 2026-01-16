@@ -24,7 +24,7 @@ func change_to_game(lvl = -1, initial = false) -> void:
 	if not initial:
 		await start_transition()
 
-	get_tree().change_scene_to_packed(POTION_GAME)
+	get_tree().call_deferred("change_scene_to_packed", POTION_GAME)
 	timer.start()
 
 func change_scene(scene) -> void:
