@@ -1798,6 +1798,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6235945, 0)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("20_k7m8g")
+max_health = 100.0
 metadata/_custom_type_script = "uid://bav8mlr6l6106"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]

@@ -14,6 +14,7 @@ signal elemental_hit(element: ElementalArea.Element)
 	ElementalArea.Element.POISON: 0.0,
 }
 
+@export var invincibility_timer: Timer
 @export var shield: Shield
 @export var status_manager: StatusEffectManager
 @export var max_health := 10.0
@@ -26,13 +27,17 @@ signal elemental_hit(element: ElementalArea.Element)
 			set_deferred("monitorable", false)
 			died.emit()
 
+func _ready() -> void:
+	if invincibility_timer: # On revive we create a new instance
+		invincibility_timer.start()
+
 func set_max_health(new_max_health: float):
 	max_health = new_max_health
 	health = new_max_health
 	health_changed.emit()
 
 func hit(dmg: float, knockback = Vector3.ZERO, element = ElementalArea.Element.NONE):
-	if is_dead():
+	if is_dead() or is_invincible():
 		return
 	
 	if shield:
@@ -70,3 +75,6 @@ func apply_effect(effect: StatusEffect):
 
 func is_dead():
 	return health <= 0
+
+func is_invincible():
+	return invincibility_timer and not invincibility_timer.is_stopped()

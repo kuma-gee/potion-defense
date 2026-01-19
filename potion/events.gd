@@ -59,9 +59,9 @@ func get_current_map():
 		return load(MAPS[level]).scene
 	return null
 
-func finished_level(souls: int):
-	total_souls += souls
-	unlocked_map = level
+func finished_level():
+	unlocked_map = max(level + 1, unlocked_map)
+	logger.info("Finished level %d, total souls: %d" % [level, total_souls])
 
 func is_tutorial_level() -> bool:
 	return level == 0

@@ -1,8 +1,6 @@
 class_name Menu
 extends Control
 
-signal restart()
-
 @export var continue_btn: Button
 @export var restart_btn: Button
 @export var back_btn: Button
@@ -18,9 +16,10 @@ var current_menu: Control
 
 func _ready() -> void:
 	hide()
-	restart_btn.pressed.connect(func(): restart.emit())
+	restart_btn.pressed.connect(func(): SceneManager.restart_current())
 	continue_btn.pressed.connect(func(): hide())
 	back_btn.pressed.connect(func(): SceneManager.change_to_map_select())
+	
 	visibility_changed.connect(_on_visibility_changed)
 	controls_btn.pressed.connect(func():
 		controls.grab_focus()

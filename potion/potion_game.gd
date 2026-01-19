@@ -44,10 +44,6 @@ func _ready() -> void:
 	shop.next_level.connect(func():
 		SceneManager.transition(func(): _setup_map())
 	)
-	
-	menu.restart.connect(func(): _restart_level())
-	gameover.restart_level.connect(func(): _restart_level())
-	gameover.back_to_select.connect(func(): _back_to_map())
 
 	cauldron.visible = not Events.is_tutorial_level()
 	join.visible = Events.is_tutorial_level()
@@ -69,11 +65,6 @@ func _ready() -> void:
 func spawn_player(id: String) -> void:
 	player_join.setup_player(id, map if map else shop)
 
-func _restart_level():
-	SceneManager.restart_current()
-
-func _back_to_map():
-	SceneManager.change_to_map_select()
 
 func _move_join_container_out():
 	var tw = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
@@ -112,8 +103,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()
-	elif event.is_action_pressed("ui_cancel") and not menu.visible:
-		menu.show()
+	elif event.is_action_pressed("ui_cancel"):
+		menu.visible = not menu.visible
 
 func _setup_map():
 	shop.process_mode = Node.PROCESS_MODE_DISABLED

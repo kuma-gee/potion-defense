@@ -157,7 +157,11 @@ func _ready():
 		
 		if event is InputEventMouseMotion:
 			mouse_position = event.position
-		if event.is_action_pressed("interact"):
+		
+		if event.is_action_pressed("throw_cancel") and throw_button_held:
+			throw_button_held = false
+			current_throw_force = 0.0
+		elif event.is_action_pressed("interact"):
 			hand.interact(self)
 		elif event.is_action_released("interact"):
 			hand.release(self)
@@ -173,9 +177,6 @@ func _ready():
 				throw_button_held = false
 			else:
 				hand.action_released(self)
-		elif event.is_action_pressed("back") and throw_button_held:
-			throw_button_held = false
-			current_throw_force = 0.0
 		elif event.is_action_pressed("wand_ability"):
 			use_wand_ability()
 		elif event.is_action_released("wand_ability"):
