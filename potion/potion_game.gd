@@ -85,6 +85,7 @@ func _on_all_waves_completed() -> void:
 	map.map_finished()
 
 func _move_to_shop():
+	wave_manager.clear()
 	SceneManager.transition(func():
 		shop.process_mode = Node.PROCESS_MODE_INHERIT
 		shop.position.y = 0
@@ -119,5 +120,5 @@ func _setup_map():
 	var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
 	c.setup_health_bar(cauldron_health_bar)
 	
-	if not Events.is_tutorial_level():
-		wave_manager.next_wave()
+	#if not Events.is_tutorial_level():
+		#wave_manager.next_wave()

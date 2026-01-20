@@ -33,6 +33,7 @@ func _ready() -> void:
 	prepare_move_next.next.connect(func(): next_level.emit())
 
 func setup(map: Map):
+	animation_player.play("RESET")
 	shop_items.append_array(map.upgrades)
 	shop_items = shop_items.filter(func(s): return not Events.has_upgrade(s))
 
