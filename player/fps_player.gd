@@ -195,13 +195,13 @@ func _debug_potion_spawn(event: InputEvent):
 	
 	if key.keycode == KEY_1:
 		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_FIRE_BOMB)
-		#equip_wand(preload("uid://co1p7scbvpyhc"))
+		# equip_wand(preload("uid://co1p7scbvpyhc"))
 	elif key.keycode == KEY_2:
-		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
-		equip_wand(preload("uid://dvcguwvkv4lg6"))
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
+		# equip_wand(preload("uid://dvcguwvkv4lg6"))
 	elif key.keycode == KEY_3:
-		#held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_POISON_CLOUD)
-		equip_wand(preload("uid://cotho06ohio7x"))
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_POISON_CLOUD)
+		# equip_wand(preload("uid://cotho06ohio7x"))
 
 func get_input_direction() -> Vector3:
 	var input_dir = player_input.get_vector("move_left", "move_right", "move_up", "move_down")

@@ -34,6 +34,7 @@ colors = PackedColorArray(0, 0.67058825, 1, 1, 0, 1.4160296, 1.4160296, 1)
 gradient = SubResource("Gradient_6bwcj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xdjkm"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_xr23e")
 shader_parameter/fresnel_power = 0.80999998189488
