@@ -1,4 +1,4 @@
-[gd_scene load_steps=180 format=3 uid="uid://cvrm4vmap3w15"]
+[gd_scene load_steps=182 format=3 uid="uid://cvrm4vmap3w15"]
 
 [ext_resource type="Script" uid="uid://ballhkvidthlg" path="res://potion/effect/poison_area.gd" id="1_2udlr"]
 [ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="4_2udlr"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://c1av1im8iolgp" path="res://assets/particles/T_Noise_Wf0.png" id="7_2svyx"]
 [ext_resource type="Texture2D" uid="uid://d4iyfih35lnc1" path="res://assets/particles/T_VFX_Flare_666.jpg" id="8_2svyx"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="11_2udlr"]
+[ext_resource type="Script" uid="uid://bcciptatfqqj6" path="res://potion/effect/sfx_player.gd" id="11_hx0xm"]
 [ext_resource type="PackedScene" uid="uid://d2wccndn1if2p" path="res://vfx/VFX_Explosion_A.tscn" id="12_hx0xm"]
+[ext_resource type="AudioStream" uid="uid://5nesl7o0ovro" path="res://assets/sound/sfx/毒魔法1.mp3" id="12_r6r3l"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="13_hx0xm"]
 [ext_resource type="ArrayMesh" uid="uid://cy3yjp7gqf50v" path="res://assets/particles/shapes/sm_circular_plane1.obj" id="13_pnyr6"]
 
@@ -1830,3 +1832,7 @@ one_shot = true
 libraries = {
 &"": SubResource("AnimationLibrary_hx0xm")
 }
+
+[node name="SFXPlayer" type="Node" parent="."]
+script = ExtResource("11_hx0xm")
+audio = ExtResource("12_r6r3l")

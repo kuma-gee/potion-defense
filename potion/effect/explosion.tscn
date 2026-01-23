@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnh078xxhjtqf"]
+[gd_scene load_steps=9 format=3 uid="uid://bnh078xxhjtqf"]
 
 [ext_resource type="PackedScene" uid="uid://csiavq076wjrx" path="res://vfx/explosion_vfx.tscn" id="1_5prvb"]
 [ext_resource type="Script" uid="uid://cgrmgkjehdobf" path="res://potion/effect/explosion.gd" id="1_obbvw"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="3_ylwkm"]
+[ext_resource type="Script" uid="uid://bcciptatfqqj6" path="res://potion/effect/sfx_player.gd" id="4_smxr1"]
+[ext_resource type="AudioStream" uid="uid://dxta3ng0pxsil" path="res://assets/sound/sfx/爆発3.mp3" id="5_obbvw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cmr3i"]
 radius = 1.2345346
@@ -64,5 +66,10 @@ autostart = true
 libraries = {
 &"": SubResource("AnimationLibrary_obbvw")
 }
+
+[node name="SFXPlayer" type="Node" parent="."]
+script = ExtResource("4_smxr1")
+audio = ExtResource("5_obbvw")
+pitch = 2.0
 
 [editable path="ExplosionVFX"]

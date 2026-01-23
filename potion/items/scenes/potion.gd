@@ -9,22 +9,12 @@ signal hit()
 
 const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://bnh078xxhjtqf"),
-	ItemResource.Type.POTION_SLIME: preload("uid://df2iboydwrtbj"),
+	ItemResource.Type.POTION_BLIZZARD: preload("uid://c684oj6gh0t68"),
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cvrm4vmap3w15"),
 	
 	ItemResource.Type.POTION_PARALYSIS: preload("uid://cckgdr5i01p5d"),
-	ItemResource.Type.POTION_BLIZZARD: preload("uid://c684oj6gh0t68"),
+	ItemResource.Type.POTION_SLIME: preload("uid://df2iboydwrtbj"),
 	ItemResource.Type.POTION_LIGHTNING: preload("uid://d1n4byccvwsct"),
-}
-
-const EFFECT_SOUND = {
-	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://dxta3ng0pxsil"),
-	ItemResource.Type.POTION_BLIZZARD: preload("uid://c8cg2kpfrq4ga"),
-	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://5nesl7o0ovro"),
-}
-
-const EFFECT_SOUND_PITCH = {
-	ItemResource.Type.POTION_FIRE_BOMB: 2,
 }
 
 func _ready() -> void:
@@ -63,10 +53,5 @@ static func spawn_effect(type: ItemResource.Type, pos: Vector3) -> Node:
 	if scene:
 		var node = scene.instantiate()
 		node.position = pos
-		
-		var sound_stream = EFFECT_SOUND.get(type, null)
-		if sound_stream:
-			AudioManager.play_sfx(sound_stream, -10, EFFECT_SOUND_PITCH.get(type, 1.0))
-		
 		return node
 	return null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c684oj6gh0t68"]
+[gd_scene load_steps=27 format=3 uid="uid://c684oj6gh0t68"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://vfx/blue_beam_impact.tscn" id="1_0xjk3"]
 [ext_resource type="Script" uid="uid://j534dif84bdq" path="res://potion/effect/blizzard_area.gd" id="1_xdjkm"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://ue51p6m1lno" path="res://assets/particles/T_Noise_W5i.png" id="8_xdjkm"]
 [ext_resource type="Texture2D" uid="uid://ckis20085h0k3" path="res://assets/particles/T_Noise56ko.png" id="9_it33x"]
 [ext_resource type="PackedScene" uid="uid://b2x2bhcq8noax" path="res://potion/effect/status/character_hit.tscn" id="10_xdjkm"]
+[ext_resource type="Script" uid="uid://bcciptatfqqj6" path="res://potion/effect/sfx_player.gd" id="12_16oji"]
+[ext_resource type="AudioStream" uid="uid://c8cg2kpfrq4ga" path="res://assets/sound/sfx/氷魔法で凍結.mp3" id="13_1ojp3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fnmtw"]
 radius = 2.3222609
@@ -278,3 +280,7 @@ force = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]
 shape = SubResource("SphereShape3D_6bwcj")
+
+[node name="SFXPlayer" type="Node" parent="."]
+script = ExtResource("12_16oji")
+audio = ExtResource("13_1ojp3")
