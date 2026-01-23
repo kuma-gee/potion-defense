@@ -20,18 +20,19 @@ func _ready() -> void:
 	for effect in effects:
 		tick_timers[effect] = 0.0
 
-	if not lifetime_timer:
+	if not lifetime_timer and lifetime > 0:
 		lifetime_timer = Timer.new()
 		lifetime_timer.wait_time = lifetime
 		lifetime_timer.one_shot = true
 		add_child(lifetime_timer)
 
-	lifetime_timer.timeout.connect(func():
-		is_finished = true
-		finished.emit()
-	)
+	if lifetime_timer:
+		lifetime_timer.timeout.connect(func():
+			is_finished = true
+			finished.emit()
+		)
 
-	start_lifetime()
+		start_lifetime()
 
 	area_entered.connect(func(a):
 		if a is HurtBox:
@@ -59,3 +60,9 @@ func start_lifetime(time = lifetime) -> void:
 
 func is_active():
 	return not is_finished
+
+func disable():
+	is_finished = true
+	
+func enable():
+	is_finished = false

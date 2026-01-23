@@ -1,4 +1,4 @@
-extends Node3D
+extends AttackEffect
 
 @export var explosion_vfx: PackedScene
 
@@ -7,8 +7,12 @@ extends Node3D
 
 @onready var poison: PotionHitArea = $Poison
 @onready var cleanup: Timer = $Cleanup
+@onready var large_hit: HitBox = $LargeHit
 
 func _ready() -> void:
+	poison.lifetime *= damage_multiplier
+	large_hit.damage *= damage_multiplier
+
 	poison.finished.connect(func():
 		puff_clouds_2.emitting = false
 		await get_tree().create_timer(puff_clouds_2.lifetime).timeout
@@ -25,6 +29,6 @@ func _ready() -> void:
 func _explode():
 	var node = explosion_vfx.instantiate()
 	node.position = global_position
-	get_parent().add_child(node)
+	get_tree().current_scene.add_child(node)
 	animation_player.play("explode")
 	cleanup.start()

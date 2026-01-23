@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxya3lrhur7jg"]
+
+[ext_resource type="Script" uid="uid://iyuvn8aicra8" path="res://potion/maps/turrets/one_shot_turret.gd" id="1_4u7gr"]
+[ext_resource type="PackedScene" uid="uid://cvrm4vmap3w15" path="res://potion/effect/poison_area.tscn" id="2_f1bnl"]
+[ext_resource type="Script" uid="uid://enb0voissomg" path="res://potion/maps/objects/attack_range.gd" id="2_u7px2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f1bnl"]
+height = 0.7451172
+radius = 4.0
+
+[node name="PoisonTurret" type="Node3D"]
+script = ExtResource("1_4u7gr")
+attack_scene = ExtResource("2_f1bnl")
+consumption = 25
+damage_reduction = 0.8
+spawn_at_target = false
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
+[node name="AttackRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_u7px2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange"]
+shape = SubResource("CylinderShape3D_f1bnl")

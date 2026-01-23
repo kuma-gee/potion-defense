@@ -18,7 +18,7 @@ radius = 2.3222609
 [sub_resource type="Gradient" id="Gradient_xr23e"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6bwcj"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xdjkm"]
 gradient = SubResource("Gradient_xr23e")
 
 [sub_resource type="Gradient" id="Gradient_xdjkm"]
@@ -30,7 +30,7 @@ fill_from = Vector2(1, 1)
 [sub_resource type="Gradient" id="Gradient_6bwcj"]
 colors = PackedColorArray(0, 0.67058825, 1, 1, 0, 1.4160296, 1.4160296, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xdjkm"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_16oji"]
 gradient = SubResource("Gradient_6bwcj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xdjkm"]
@@ -38,8 +38,8 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_xr23e")
 shader_parameter/fresnel_power = 0.80999998189488
-shader_parameter/gradient_color = SubResource("GradientTexture1D_xdjkm")
-shader_parameter/alpha_gradient = SubResource("GradientTexture1D_6bwcj")
+shader_parameter/gradient_color = SubResource("GradientTexture1D_16oji")
+shader_parameter/alpha_gradient = SubResource("GradientTexture1D_xdjkm")
 shader_parameter/opacity = 0.0
 shader_parameter/overlay_texture = ExtResource("9_it33x")
 shader_parameter/overlay_scale = Vector2(1, 2.5)

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://baxxwp86stwe6"]
+
+[ext_resource type="Script" uid="uid://iyuvn8aicra8" path="res://potion/maps/turrets/one_shot_turret.gd" id="1_lfvwa"]
+[ext_resource type="Script" uid="uid://enb0voissomg" path="res://potion/maps/objects/attack_range.gd" id="2_7cvl3"]
+[ext_resource type="PackedScene" uid="uid://bnh078xxhjtqf" path="res://potion/effect/explosion.tscn" id="2_v0in6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7cvl3"]
+height = 0.7451172
+radius = 3.0
+
+[node name="FireTurret" type="Node3D"]
+script = ExtResource("1_lfvwa")
+attack_scene = ExtResource("2_v0in6")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AttackRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_7cvl3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange"]
+shape = SubResource("CylinderShape3D_7cvl3")

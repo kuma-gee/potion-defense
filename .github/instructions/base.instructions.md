@@ -2,6 +2,10 @@
 applyTo: '**'
 ---
 
+## General 
+
+- Do not create markdown files or any other documentation files in this repository.
+
 ## Coding Guidelines
 
 - Do not add comments that explain what the code does; instead, write self-explanatory code

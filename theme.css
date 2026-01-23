@@ -3,7 +3,7 @@ body {
 }
 
 VBoxContainer, HBoxContainer {
-  gap: 12;
+  gap: 4;
 }
 
 PanelContainer {
@@ -14,4 +14,11 @@ PanelContainer {
 Label.outlined {
   --const-outline-size: 12;
   --colors-font-outline-color: #000;
+}
+
+ProgressBar {
+  --styles-background-type: Flat;
+  --styles-background-bg-color: #2d2d2d;
+  --styles-fill-type: Flat;
+  --styles-fill-bg-color: #ffffff;
 }
