@@ -31,6 +31,7 @@ func _ready() -> void:
 				fire_charges += 1
 		elif elem == ElementalArea.Element.ICE:
 			fire_charges = 0
+			hurt_box.resistance[ElementalArea.Element.FIRE] = 0.0
 			if animation_player.current_animation == "explode":
 				move()
 	)

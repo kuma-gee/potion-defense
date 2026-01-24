@@ -3,7 +3,7 @@ extends Area3D
 
 signal next()
 
-@export var continue_timer := 3.0
+@export var continue_timer := 2.0
 @onready var csg_box_3d: CSGBox3D = $CSGBox3D
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
