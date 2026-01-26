@@ -20,7 +20,7 @@ func _gui_input(event: InputEvent) -> void:
 		_change_page(1)
 	elif event.is_action_pressed("ui_left"):
 		_change_page(-1)
-	elif event.is_action_pressed("back"):
+	elif event.is_action_pressed("back") or event.is_action_pressed("action") or event.is_action_pressed("interact"):
 		get_viewport().gui_release_focus()
 	
 	get_viewport().set_input_as_handled()

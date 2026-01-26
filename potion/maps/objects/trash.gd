@@ -10,5 +10,5 @@ func _ready() -> void:
 	interacted.connect(func(a: FPSPlayer):
 		if a and a.has_item():
 			a.release_item()
-			chew.start()
+			#chew.start()
 	)

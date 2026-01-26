@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://cnblk6clkaeyh"]
+[gd_scene load_steps=68 format=3 uid="uid://cnblk6clkaeyh"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwh1qtvckxtd7" path="res://potion/maps/halloween_meshes.tres" id="1_1ce0p"]
 [ext_resource type="Script" uid="uid://euistv2p2buu" path="res://potion/maps/map.gd" id="1_f7537"]
@@ -41,7 +41,6 @@
 [ext_resource type="PackedScene" uid="uid://dd5hh25tm1a1a" path="res://potion/maps/objects/torch.tscn" id="34_6jtsf"]
 [ext_resource type="Texture2D" uid="uid://dvx2ruc2wrk8a" path="res://assets/models/map01_dungeon_texture.png" id="34_mrfcg"]
 [ext_resource type="PackedScene" uid="uid://6sb1sv1x82og" path="res://assets/models/map01.glb" id="36_w0jfr"]
-[ext_resource type="PackedScene" uid="uid://b5y8qr3g4h2o1" path="res://potion/maps/objects/turret.tscn" id="42_w0jfr"]
 
 [sub_resource type="Resource" id="Resource_q6dh1"]
 script = ExtResource("2_vravf")
@@ -261,95 +260,95 @@ shape = SubResource("BoxShape3D_fv6ge")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="Tree" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.88734865, 0, 0.40320784, 0, 0.97466105, 0, -0.40320784, 0, -0.88734865, 9.942253, 0, -8.81278)
+transform = Transform3D(0.080546066, 0, 0.9445509, 0, 0.9479789, 0, -0.9445509, 0, 0.080546066, 9.942253, 0, -8.81278)
 metadata/_edit_group_ = true
 
 [node name="Tree2" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.9457753, 0, 0.2411071, 0, 0.9760243, 0, -0.2411071, 0, 0.9457753, 13.28964, -9.536743e-07, -11.325323)
+transform = Transform3D(0.9409231, 0, -0.08281816, 0, 0.9445608, 0, 0.08281816, 0, 0.9409231, 13.28964, -9.536743e-07, -11.325323)
 metadata/_edit_group_ = true
 
 [node name="Tree12" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.21783598, 0, -0.9381061, 0, 0.96306574, 0, 0.9381061, 0, -0.21783598, 16.65941, -9.536743e-07, -10.350927)
+transform = Transform3D(-0.7045377, 0, -0.72532713, 0, 1.011174, 0, 0.72532713, 0, -0.7045377, 16.65941, -9.536743e-07, -10.350927)
 metadata/_edit_group_ = true
 
 [node name="Tree13" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.5432037, 0, 0.95127195, 0, 1.0954399, 0, -0.95127195, 0, 0.5432037, 13.373501, -9.536743e-07, -6.7944098)
+transform = Transform3D(0.3165435, 0, -0.98167694, 0, 1.0314502, 0, 0.98167694, 0, 0.3165435, 13.373501, -9.536743e-07, -6.7944098)
 metadata/_edit_group_ = true
 
 [node name="Tree3" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.878109, 0, -0.30241466, 0, 0.92872494, 0, 0.30241466, 0, 0.878109, 6.8206954, 0, -10.635493)
+transform = Transform3D(-0.8077741, 0, 0.73217475, 0, 1.0902196, 0, -0.73217475, 0, -0.8077741, 6.8206954, 0, -10.635493)
 metadata/_edit_group_ = true
 
 [node name="Tree4" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.8850027, 0, -0.24493967, 0, 0.9182729, 0, 0.24493967, 0, 0.8850027, 4.014695, -1.9073486e-06, -8.125891)
+transform = Transform3D(0.64164007, 0, 0.724298, 0, 0.96763086, 0, -0.724298, 0, 0.64164007, 4.014695, -1.9073486e-06, -8.125891)
 metadata/_edit_group_ = true
 
 [node name="Tree5" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.7054976, 0, -0.6219211, 0, 0.9404854, 0, 0.6219211, 0, -0.7054976, 1.3645887, -1.9073486e-06, -9.588449)
+transform = Transform3D(-1.0918403, 0, 0.11993557, 0, 1.0984077, 0, -0.11993557, 0, -1.0918403, 1.3645887, -1.9073486e-06, -9.588449)
 metadata/_edit_group_ = true
 
 [node name="Tree11" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(1.0310111, 0, -0.023664383, 0, 1.0312827, 0, 0.023664383, 0, 1.0310111, -2.07663, 0, -11.507846)
+transform = Transform3D(0.7852587, 0, 0.6543514, 0, 1.022158, 0, -0.6543514, 0, 0.7852587, -2.07663, 0, -11.507846)
 metadata/_edit_group_ = true
 
 [node name="Tree6" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.8363574, 0, 0.33937553, 0, 0.9025904, 0, -0.33937553, 0, 0.8363574, -5.438188, -1.9073486e-06, -10.094023)
+transform = Transform3D(-0.0972015, 0, -0.90705866, 0, 0.9122519, 0, 0.90705866, 0, -0.0972015, -5.438188, -1.9073486e-06, -10.094023)
 metadata/_edit_group_ = true
 
 [node name="Tree7" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.004258022, 0, -0.9526013, 0, 0.95261085, 0, 0.9526013, 0, -0.004258022, -8.701509, 0, -10.991832)
+transform = Transform3D(0.30716395, 0, -0.98088807, 0, 1.0278575, 0, 0.98088807, 0, 0.30716395, -8.701509, 0, -10.991832)
 metadata/_edit_group_ = true
 
 [node name="Tree8" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.725245, 0, -0.6553687, 0, 0.97749084, 0, 0.6553687, 0, -0.725245, -9.648558, 0, -7.3093505)
+transform = Transform3D(0.9681626, 0, -0.22395706, 0, 0.9937281, 0, 0.22395706, 0, 0.9681626, -9.648558, 0, -7.3093505)
 metadata/_edit_group_ = true
 
 [node name="Tree9" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.48754698, 0, -0.89581543, 0, 1.0198958, 0, 0.89581543, 0, 0.48754698, -11.484874, -9.536743e-07, -4.368755)
+transform = Transform3D(-0.92972845, 0, -0.54135144, 0, 1.0758514, 0, 0.54135144, 0, -0.92972845, -11.484874, -9.536743e-07, -4.368755)
 metadata/_edit_group_ = true
 
 [node name="Tree10" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.63031894, 0, -0.6640089, 0, 0.91553795, 0, 0.6640089, 0, 0.63031894, -10.8048115, 0, -1.2051616)
+transform = Transform3D(0.8398613, 0, -0.47316772, 0, 0.9639785, 0, 0.47316772, 0, 0.8398613, -10.8048115, 0, -1.2051616)
 metadata/_edit_group_ = true
 
 [node name="Tree14" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.96670514, 0, -0.27510238, 0, 1.0050871, 0, 0.27510238, 0, 0.96670514, -9.676649, -9.536743e-07, 3.0888786)
+transform = Transform3D(0.78273696, 0, -0.7670075, 0, 1.0958912, 0, 0.7670075, 0, 0.78273696, -9.676649, -9.536743e-07, 3.0888786)
 metadata/_edit_group_ = true
 
 [node name="Tree16" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(1.0384521, 0, 0.18158507, 0, 1.0542088, 0, -0.18158507, 0, 1.0384521, -12.9180975, 0, 3.337915)
+transform = Transform3D(0.43775678, 0, 0.9873771, 0, 1.0800669, 0, -0.9873771, 0, 0.43775678, -12.9180975, 0, 3.337915)
 metadata/_edit_group_ = true
 
 [node name="Tree17" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.19450524, 0, -0.9078238, 0, 0.9284268, 0, 0.9078238, 0, 0.19450524, -10.352496, 9.536743e-07, 6.6221485)
+transform = Transform3D(0.8531605, 0, 0.6374439, 0, 1.0649965, 0, -0.6374439, 0, 0.8531605, -10.352496, 9.536743e-07, 6.6221485)
 metadata/_edit_group_ = true
 
 [node name="Tree19" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.7186392, 0, 0.8046283, 0, 1.0788276, 0, -0.8046283, 0, 0.7186392, -6.4277225, 9.536743e-07, 6.1188226)
+transform = Transform3D(-0.7632693, 0, 0.758644, 0, 1.0761602, 0, -0.758644, 0, -0.7632693, -6.4277225, 9.536743e-07, 6.1188226)
 metadata/_edit_group_ = true
 
 [node name="Tree20" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.9006526, 0, 0.112002976, 0, 0.9075901, 0, -0.112002976, 0, 0.9006526, 0.33001637, 9.536743e-07, 5.4580293)
+transform = Transform3D(-0.9082093, 0, 0.5329461, 0, 1.0530317, 0, -0.5329461, 0, -0.9082093, 0.33001637, 9.536743e-07, 5.4580293)
 metadata/_edit_group_ = true
 
 [node name="Tree23" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(0.8273188, 0, -0.704625, 0, 1.0867165, 0, 0.704625, 0, 0.8273188, -2.6598997, 1.9073486e-06, 7.337798)
+transform = Transform3D(0.5194871, 0, -0.74582624, 0, 0.9089134, 0, 0.74582624, 0, 0.5194871, -2.6598997, 1.9073486e-06, 7.337798)
 metadata/_edit_group_ = true
 
 [node name="Tree21" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.90041476, 0, -0.34409383, 0, 0.9639229, 0, 0.34409383, 0, -0.90041476, 3.8628979, 9.536743e-07, 6.582429)
+transform = Transform3D(-0.5259235, 0, -0.9574532, 0, 1.0923883, 0, 0.9574532, 0, -0.5259235, 3.8628979, 9.536743e-07, 6.582429)
 metadata/_edit_group_ = true
 
 [node name="Tree22" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-1.0666144, 0, 0.13018835, 0, 1.0745302, 0, -0.13018835, 0, -1.0666144, 7.014168, 0, 4.4765306)
+transform = Transform3D(0.9079843, 0, -0.18411896, 0, 0.9264639, 0, 0.18411896, 0, 0.9079843, 7.014168, 0, 4.4765306)
 metadata/_edit_group_ = true
 
 [node name="Tree25" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.033005815, 0, 1.0735102, 0, 1.0740174, 0, -1.0735102, 0, -0.033005815, 12.2010975, 0, 4.563258)
+transform = Transform3D(-0.22063988, 0, -0.9354111, 0, 0.96108055, 0, 0.9354111, 0, -0.22063988, 12.2010975, 0, 4.563258)
 metadata/_edit_group_ = true
 
 [node name="Tree24" parent="NavigationRegion3D/Trees" instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.020574002, 0, 1.0384115, 0, 1.0386153, 0, -1.0384115, 0, -0.020574002, 9.929495, 0, 7.0013504)
+transform = Transform3D(-0.2539452, 0, 0.9798097, 0, 1.0121834, 0, -0.9798097, 0, -0.2539452, 9.929495, 0, 7.0013504)
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="NavigationRegion3D" instance=ExtResource("15_io850")]
@@ -523,9 +522,6 @@ metadata/_custom_type_script = "uid://byss77ynwhvcc"
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_nakt5")
-
-[node name="Turret" parent="." instance=ExtResource("42_w0jfr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1)
 
 [editable path="NavigationRegion3D/Trees/Tree"]
 [editable path="NavigationRegion3D/Trees/Tree/Tree_4_A_Color12"]

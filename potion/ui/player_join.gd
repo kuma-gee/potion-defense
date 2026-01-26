@@ -13,6 +13,7 @@ func setup_player(id: String, map: Map) -> void:
 		player_root.add_child(player)
 
 	player.position = map.get_spawn_position(player.player_num)
+	player.reset()
  
 func _create_player(input_id: String, player_num: int):
 	var player = player_scene.instantiate() as FPSPlayer
