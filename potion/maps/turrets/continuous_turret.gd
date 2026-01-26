@@ -1,7 +1,7 @@
 class_name ContinuousTurret
 extends PotionTurret
 
-@export var consumption := 2.0
+@export var consumption := 1.0
 @export var area: PotionHitArea
 @export var visual: Node3D
 
