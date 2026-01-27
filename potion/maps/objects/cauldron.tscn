@@ -1600,7 +1600,7 @@ height = 6.0
 radial_segments = 32
 rings = 16
 
-[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "overheat_progress", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
+[node name="Cauldron" type="Area3D" node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "progress_container", "overheat_progress", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
@@ -1609,8 +1609,9 @@ item_scene = ExtResource("3_mp46c")
 success_anim = NodePath("VFX_Puff_StyleC/AnimationPlayer")
 failure_anim = NodePath("HIT VFX/AnimationPlayer")
 progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
-overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 mix_icon = ExtResource("9_v5itp")
+progress_container = NodePath("CurrentItem/SubViewport/CenterContainer")
+overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 water_mesh = NodePath("cauldron/Water")
 default_water_color = Color(0.16078432, 0.22352941, 0.77254903, 1)
 sprite = NodePath("Sprite3D")
@@ -1683,6 +1684,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(256, 256)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CurrentItem/SubViewport/CenterContainer"]
 layout_mode = 2

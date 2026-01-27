@@ -11,13 +11,15 @@ signal died()
 
 @export_category("Mixing")
 @export var progress: Range
-@export var overheat_progress: Range
 @export var mix_icon: Texture2D
 @export var mix_time_per_item := 4.0
 @export var mixing_speed_increase := 2.0
+@export var potion_size := 2
+
+@export var progress_container: Control
+@export var overheat_progress: Range
 @export var overheat_time := 6.0
 @export var overheat_decrease := -1.0
-@export var potion_size := 2
 
 @export_category("Water")
 @export var water_mesh: MeshInstance3D
@@ -42,7 +44,10 @@ var overheating := false:
 	set(v):
 		overheating = v
 		overheat = 0.0
-		if not overheating:
+		if overheating:
+			_overload_start_anim()
+		else:
+			_overload_stop_anim()
 			overheat_start_timer.stop()
 
 var finished := false
@@ -60,11 +65,40 @@ var mixing := false:
 	set(v):
 		mixing = v
 		brewing.volume_db = -15 if v else -25
+		if overheating:
+			if mixing:
+				_overload_stop_anim()
+			else:
+				_overload_start_anim()
 		if not mixing:
 			_unfreeze_mixing_player()
 
 var health_bar: ProgressBar
 var destroyed := false
+var overload_tween: Tween
+var overload_base_position := Vector2.ZERO
+var overload_move_offset := 3.0
+
+func _overload_start_anim():
+	if not progress_container:
+		return
+
+	if overload_tween and overload_tween.is_running():
+		overload_tween.kill()
+
+	var start_pos: Vector2 = overload_base_position
+	var offset: Vector2 = Vector2(overload_move_offset, 0.0)
+	overload_tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	overload_tween.tween_property(progress_container, "position", start_pos + offset, 0.05).set_delay(1.0)
+	overload_tween.tween_property(progress_container, "position", start_pos - offset, 0.1)
+	overload_tween.tween_property(progress_container, "position", start_pos + offset, 0.1)
+	overload_tween.tween_property(progress_container, "position", start_pos, 0.05)
+
+func _overload_stop_anim():
+	if overload_tween and overload_tween.is_running():
+		overload_tween.kill()
+
+	progress_container.position = overload_base_position
 
 func _ready() -> void:
 	super()
@@ -172,7 +206,7 @@ func _process(delta: float) -> void:
 	if not brewing.playing:
 		brewing.play()
 	
-	if not is_instance_valid(mixing_player):
+	if not is_instance_valid(mixing_player) and mixing:
 		mixing = false
 	
 	time += delta * (1.0 if not mixing else mixing_speed_increase * mixing_player.get_processing_speed())
