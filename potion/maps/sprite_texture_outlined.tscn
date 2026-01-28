@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7lkeiixphq38"]
+
+[ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="1_vka6u"]
+[ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="2_a8sx7"]
+[ext_resource type="Script" uid="uid://dan6axvfyvtv6" path="res://potion/maps/sprite_texture_outlined.gd" id="3_a8sx7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7ayx"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("1_vka6u")
+shader_parameter/sprite_texture = ExtResource("2_a8sx7")
+shader_parameter/enable_billboard = true
+shader_parameter/enable_outline = true
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 1
+shader_parameter/glowRadialCoverage = 8
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
+
+[node name="SpriteTextureOutlined" type="Sprite3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_r7ayx")
+cast_shadow = 0
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("2_a8sx7")
+script = ExtResource("3_a8sx7")

@@ -12,6 +12,7 @@ extends RayInteractable
 @onready var item_popup: ItemPopup = $ItemPopup
 @onready var icon: Sprite3D = $Icon
 @onready var sfx: RandomizedLoopSfx = $Sfx
+@onready var disabled: Sprite3D = $Icon/Disabled
 
 var logger = KumaLog.new("Oven")
 var working_player: FPSPlayer
@@ -39,7 +40,7 @@ var item: ItemResource:
 func _ready() -> void:
 	super()
 	reset()
-	hovered.connect(func(_a: FPSPlayer): icon.texture = ItemResource.PROCESS_ICONS[process] if _can_process() else null)
+	hovered.connect(func(_a: FPSPlayer): disabled.visible = not _can_process() and item != null)
 	overheat_start_timer.timeout.connect(func(): overheat_timer.start())
 	overheat_timer.timeout.connect(func(): _on_overheated())
 

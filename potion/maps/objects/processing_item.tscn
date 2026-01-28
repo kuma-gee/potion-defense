@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://rlhxkq2nl4mv"]
+[gd_scene load_steps=14 format=3 uid="uid://rlhxkq2nl4mv"]
 
 [ext_resource type="Script" uid="uid://bqsff2afky16f" path="res://potion/maps/objects/processing_item.gd" id="1_8aror"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="3_ccjue"]
+[ext_resource type="PackedScene" uid="uid://b7lkeiixphq38" path="res://potion/maps/sprite_texture_outlined.tscn" id="4_m4agg"]
 [ext_resource type="Texture2D" uid="uid://boip6hxwy0kgr" path="res://assets/sprites/Action_Crush.png" id="4_q82or"]
+[ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="5_eyuq4"]
+[ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="5_kmoie"]
+[ext_resource type="Texture2D" uid="uid://by56rhmwd31w3" path="res://assets/sprites/Action_X.png" id="5_m4agg"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tj6nd"]
 viewport_path = NodePath("Progress/SubViewport")
@@ -15,6 +19,35 @@ bg_color = Color(0, 0.627905, 0.9827295, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2x38u"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("5_kmoie")
+shader_parameter/sprite_texture = ExtResource("5_eyuq4")
+shader_parameter/enable_billboard = true
+shader_parameter/enable_outline = true
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 1
+shader_parameter/glowRadialCoverage = 8
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eyuq4"]
+render_priority = 2
+shader = ExtResource("5_kmoie")
+shader_parameter/sprite_texture = ExtResource("5_m4agg")
+shader_parameter/enable_billboard = true
+shader_parameter/enable_outline = true
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 1
+shader_parameter/glowRadialCoverage = 8
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
 
 [node name="ProcessingItem" type="Area3D" node_paths=PackedStringArray("progress", "progress_bar", "sprite")]
 collision_layer = 32768
@@ -38,7 +71,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Progress" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6312296, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
@@ -56,7 +89,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Progress" type="ProgressBar" parent="Progress/SubViewport/CenterContainer"]
-custom_minimum_size = Vector2(80, 10)
+custom_minimum_size = Vector2(100, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -67,15 +100,18 @@ value = 0.5
 show_percentage = false
 
 [node name="ItemPopup" parent="." instance=ExtResource("3_ccjue")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3325129, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 texture = SubResource("ViewportTexture_ccjue")
 
-[node name="Icon" type="Sprite3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.0177511, 0)
-billboard = 1
-double_sided = false
-no_depth_test = true
+[node name="Icon" parent="." instance=ExtResource("4_m4agg")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.066, 2.1, 0)
+material_override = SubResource("ShaderMaterial_2x38u")
 texture = ExtResource("4_q82or")
+
+[node name="Disabled" parent="Icon" instance=ExtResource("4_m4agg")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_eyuq4")
+texture = ExtResource("5_m4agg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0

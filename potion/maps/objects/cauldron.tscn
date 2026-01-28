@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=3 uid="uid://cef48svqhif5a"]
+[gd_scene load_steps=196 format=3 uid="uid://cef48svqhif5a"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="3_mp46c"]
 [ext_resource type="Script" uid="uid://c1lergee6tcab" path="res://potion/maps/objects/cauldron.gd" id="3_r1gsc"]
@@ -25,8 +25,11 @@
 [ext_resource type="AudioStream" uid="uid://cqpc0xdqjtm5u" path="res://assets/sound/sfx/泡がはじける.mp3" id="18_1mhqx"]
 [ext_resource type="Texture2D" uid="uid://dgrnwb8mqaeib" path="res://assets/particles/T_Noise_6Yu1.png" id="19_ojk3k"]
 [ext_resource type="AudioStream" uid="uid://bkthn0bmo1yi7" path="res://assets/sound/sfx/fail_explosion.mp3" id="19_saywr"]
+[ext_resource type="PackedScene" uid="uid://b7lkeiixphq38" path="res://potion/maps/sprite_texture_outlined.tscn" id="20_crw35"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="20_h62l1"]
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
+[ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="20_qaxpm"]
+[ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="21_qorv7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
 height = 1.1645508
@@ -1555,6 +1558,21 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_k7m8g"]
 radius = 0.6346844
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lk2w6"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("20_qaxpm")
+shader_parameter/sprite_texture = ExtResource("21_qorv7")
+shader_parameter/enable_billboard = true
+shader_parameter/enable_outline = true
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 1
+shader_parameter/glowRadialCoverage = 8
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
+
 [sub_resource type="Gradient" id="Gradient_op8v4"]
 offsets = PackedFloat32Array(0.5, 0.68, 0.75, 1)
 colors = PackedColorArray(0, 0.255, 1, 0.016, 0, 0.255, 1, 0.106, 0.027, 0.157, 2.925, 0.31, 0.1, 0.8, 8, 1)
@@ -1614,7 +1632,7 @@ progress_container = NodePath("CurrentItem/SubViewport/CenterContainer")
 overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
 water_mesh = NodePath("cauldron/Water")
 default_water_color = Color(0.16078432, 0.22352941, 0.77254903, 1)
-sprite = NodePath("Sprite3D")
+sprite = NodePath("SpriteTextureOutlined")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6735281, 0)
@@ -1668,7 +1686,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41111755, 0)
 shape = SubResource("CylinderShape3D_2ndv3")
 
 [node name="CurrentItem" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0964718, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.002753, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
@@ -1688,14 +1706,11 @@ pivot_offset = Vector2(256, 256)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CurrentItem/SubViewport/CenterContainer"]
 layout_mode = 2
-alignment = 1
-
-[node name="Ingredients" type="HBoxContainer" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer"]
-layout_mode = 2
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Progress" type="ProgressBar" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(80, 10)
+custom_minimum_size = Vector2(100, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1706,15 +1721,24 @@ value = 0.5
 show_percentage = false
 
 [node name="Overheat" type="ProgressBar" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress"]
-custom_minimum_size = Vector2(80, 10)
-layout_mode = 0
-offset_right = 80.0
-offset_bottom = 10.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_jjfyn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_jjfyn")
 max_value = 1.0
 value = 0.2
 show_percentage = false
+
+[node name="Ingredients" type="HBoxContainer" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" parent="CurrentItem/SubViewport/CenterContainer/VBoxContainer/Ingredients" instance=ExtResource("3_mp46c")]
+layout_mode = 2
 
 [node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6094227, 0)
@@ -1806,11 +1830,9 @@ metadata/_custom_type_script = "uid://bav8mlr6l6106"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("SphereShape3D_k7m8g")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.131705, 0)
-billboard = 1
-double_sided = false
-no_depth_test = true
+[node name="SpriteTextureOutlined" parent="." instance=ExtResource("20_crw35")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.07, 3.072, 0)
+material_override = SubResource("ShaderMaterial_lk2w6")
 texture = ExtResource("9_v5itp")
 
 [node name="Shield" type="Node3D" parent="."]

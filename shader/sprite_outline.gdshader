@@ -5,10 +5,10 @@ uniform sampler2D sprite_texture : source_color, filter_nearest;
 uniform bool enable_billboard = true;
 uniform bool enable_outline = true;
 
-uniform vec4 line_color : source_color = vec4(1.0,1.0,1.0,1.0);
+uniform vec4 line_color : source_color = vec4(0.0,0.0,0.0,1.0);
 uniform float glowSize: hint_range(0.0, 300) = 15.0;
-uniform int glowDensity: hint_range(0, 30) = 3;
-uniform int glowRadialCoverage: hint_range(0, 32) = 4;
+uniform int glowDensity: hint_range(0, 30) = 1;
+uniform int glowRadialCoverage: hint_range(0, 32) = 8;
 uniform float glowAngle: hint_range(0.0, 6.28) = 1.57;
 uniform float glowSharpness: hint_range(0.0, 5.0) = 1.0;
 uniform float alphaThreshold: hint_range(0.0, 1.0) =  0.2;

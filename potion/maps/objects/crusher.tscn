@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dv1a0h2dlytsf"]
+[gd_scene load_steps=11 format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/maps/objects/processing_item.tscn" id="1_vmpsg"]
 [ext_resource type="PackedScene" uid="uid://cn1142lp317en" path="res://assets/models/crusher.glb" id="3_jp6c7"]
 [ext_resource type="AudioStream" uid="uid://dg38bn3p611rx" path="res://assets/sound/sfx/crush.mp3" id="3_k4pkg"]
+[ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="3_qt4f4"]
+[ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="4_75ouy"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="4_yufks"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
@@ -13,6 +15,21 @@ viewport_path = NodePath("Progress/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wcrg"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("3_qt4f4")
+shader_parameter/sprite_texture = ExtResource("4_75ouy")
+shader_parameter/enable_billboard = true
+shader_parameter/enable_outline = true
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 15.0
+shader_parameter/glowDensity = 1
+shader_parameter/glowRadialCoverage = 8
+shader_parameter/glowAngle = 1.57
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.2
 
 [node name="Crusher" instance=ExtResource("1_vmpsg")]
 
@@ -26,12 +43,14 @@ shape = SubResource("BoxShape3D_vv5mg")
 wait_time = 2.0
 
 [node name="Progress" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6930482, 0)
 texture = SubResource("ViewportTexture_mrer8")
 
 [node name="ItemPopup" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3122869, 0)
 texture = SubResource("ViewportTexture_ccjue")
+
+[node name="Icon" parent="." index="7"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
+material_override = SubResource("ShaderMaterial_6wcrg")
 
 [node name="Sfx" type="AudioStreamPlayer" parent="." index="9"]
 stream = ExtResource("3_k4pkg")
