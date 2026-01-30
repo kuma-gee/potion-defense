@@ -4,6 +4,7 @@ extends Node3D
 @export var map_button: PackedScene
 @export var map_container: Node3D
 @export var BUTTON_SPACING: float = 6.0
+@export var dash_ui: Control
 
 @onready var player_join: PlayerJoin = $PlayerJoin
 
@@ -11,6 +12,8 @@ func _ready() -> void:
 	get_tree().paused = false
 	
 	Events.player_has_joined.connect(spawn_player)
+	dash_ui.visible = not Events.players.is_empty()
+	
 	for player_id in Events.players:
 		spawn_player(player_id)
 
@@ -27,6 +30,7 @@ func _ready() -> void:
 
 func spawn_player(id: String) -> void:
 	player_join.setup_player(id)
+	dash_ui.show()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed():

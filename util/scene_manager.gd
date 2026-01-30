@@ -76,6 +76,8 @@ func _update_loading_progress() -> void:
 	loading_bar.value = 1.0 - (min_load_timer.time_left / wait_time)
 
 func change_to_game(lvl = -1) -> void:
+	get_tree().paused = true
+
 	if lvl >= 0:
 		Events.level = lvl
 	

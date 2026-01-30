@@ -165,18 +165,19 @@ func _ready():
 			hand.interact(self)
 		elif event.is_action_released("interact"):
 			hand.release(self)
-		elif event.is_action_pressed("action"):
+		elif event.is_action_pressed("throw"):
 			if has_item():
 				if is_holding_potion():
 					throw_button_held = true
-			else:
-				hand.action(self)
-		elif event.is_action_released("action"):
+		elif event.is_action_released("throw"):
 			if has_item() and throw_button_held:
 				throw_item()
 				throw_button_held = false
-			else:
-				hand.action_released(self)
+		elif event.is_action_pressed("action"):
+			if not has_item():
+				hand.action(self)
+		elif event.is_action_released("action"):
+			hand.action_released(self)
 		elif event.is_action_pressed("wand_ability"):
 			use_wand_ability()
 		elif event.is_action_released("wand_ability"):

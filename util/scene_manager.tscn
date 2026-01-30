@@ -1,8 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://q02ddkwjgfhg"]
+[gd_scene load_steps=14 format=3 uid="uid://q02ddkwjgfhg"]
 
 [ext_resource type="Script" uid="uid://ui1yrwtw1vlr" path="res://util/scene_manager.gd" id="1_2s4po"]
+[ext_resource type="Texture2D" uid="uid://doipj88qoubh1" path="res://assets/Inputs/Keyboard & Mouse/Dark/Space_Key_Dark.png" id="2_cxxc0"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="2_ln5k3"]
-[ext_resource type="Texture2D" uid="uid://bsqq2accut4u3" path="res://assets/sprites/Controls_Controller.png" id="3_xelpb"]
+[ext_resource type="Texture2D" uid="uid://2j6po5qp64gl" path="res://assets/Inputs/Keyboard & Mouse/Dark/Mouse_Left_Key_Dark.png" id="3_0i461"]
+[ext_resource type="Texture2D" uid="uid://deil3t8i1aorq" path="res://assets/Inputs/Keyboard & Mouse/Dark/Mouse_Right_Key_Dark.png" id="4_stbgg"]
+[ext_resource type="Texture2D" uid="uid://djb8j4mvmin8y" path="res://assets/Inputs/Keyboard & Mouse/Dark/Ctrl_Key_Dark.png" id="6_scw7r"]
+[ext_resource type="Texture2D" uid="uid://j0yx18cllr7m" path="res://assets/Inputs/Xbox Series/XboxSeriesX_A.png" id="6_stbgg"]
+[ext_resource type="Texture2D" uid="uid://b4uhhthjmtkkh" path="res://assets/Inputs/Xbox Series/XboxSeriesX_X.png" id="8_kwytc"]
+[ext_resource type="Texture2D" uid="uid://k3ug1mx7ktyx" path="res://assets/Inputs/Xbox Series/XboxSeriesX_RT.png" id="9_kwytc"]
 
 [sub_resource type="Animation" id="Animation_ln5k3"]
 length = 0.001
@@ -29,6 +35,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Loading:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_2s4po"]
@@ -61,6 +79,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Loading:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ln5k3"]
@@ -102,6 +132,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Loading" type="Control" parent="CanvasLayer"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -110,6 +141,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_ln5k3")
 
 [node name="Controls" type="CenterContainer" parent="CanvasLayer/Loading"]
 layout_mode = 1
@@ -120,12 +152,101 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Loading/Controls"]
-custom_minimum_size = Vector2(0, 600)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Loading/Controls"]
 layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("3_xelpb")
-expand_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Interact / Pickup"
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Throw"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Action"
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("3_0i461")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("2_cxxc0")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("6_stbgg")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("4_stbgg")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("9_kwytc")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("6_scw7r")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("8_kwytc")
+expand_mode = 5
 stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Loading"]

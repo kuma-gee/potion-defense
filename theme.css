@@ -16,6 +16,10 @@ Label.outlined {
   --colors-font-outline-color: #000;
 }
 
+Label.title {
+  font-size: 32;
+}
+
 ProgressBar {
   --styles-background-type: Flat;
   --styles-background-bg-color: #2d2d2d;

@@ -1,13 +1,15 @@
-[gd_scene load_steps=28 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=30 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="7_21lj0"]
 [ext_resource type="Script" uid="uid://y5n83lpsitod" path="res://potion/ui/menu.gd" id="11_6q2ph"]
+[ext_resource type="Texture2D" uid="uid://b02a3kliv0civ" path="res://assets/Inputs/Keyboard & Mouse/Dark/Tab_Key_Dark.png" id="11_kavja"]
 [ext_resource type="Script" uid="uid://cl4brufmobnsr" path="res://potion/ui/new_recipe.gd" id="11_m0roi"]
 [ext_resource type="PackedScene" uid="uid://dbeqjyuk1dmun" path="res://potion/ui/recipe_item.tscn" id="12_8f45c"]
 [ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="12_8mtc6"]
+[ext_resource type="Texture2D" uid="uid://cvjp3ci7whfys" path="res://assets/Inputs/Xbox Series/XboxSeriesX_LB.png" id="12_ev7ur"]
 [ext_resource type="PackedScene" uid="uid://cnhq46dfc2xlt" path="res://potion/maps/shop.tscn" id="12_i3qjy"]
 [ext_resource type="Texture2D" uid="uid://r46jh0r32jts" path="res://assets/sprites/UI_Cauldron.png" id="13_16d2i"]
 [ext_resource type="AudioStream" uid="uid://jd3chc8aiyhf" path="res://assets/sound/sfx/紙を広げる1.mp3" id="13_khw37"]
@@ -22,15 +24,24 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmnmn"]
 bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8q1rh"]
 bg_color = Color(0, 0.72253454, 0.28125608, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ux70s"]
 shader = ExtResource("12_8mtc6")
 shader_parameter/allow_out_of_bounds = false
-shader_parameter/outline_thickness = 12.0
-shader_parameter/outline_color = Color(1, 0.9191666, 0.029999971, 1)
+shader_parameter/outline_thickness = 16.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_i3qjy"]
 length = 0.001
@@ -213,10 +224,9 @@ text = "Wave 1/4"
 custom_minimum_size = Vector2(500, 40)
 layout_mode = 0
 offset_left = 710.0
-offset_top = 16.0
+offset_top = 1.0
 offset_right = 1210.0
-offset_bottom = 64.0
-grow_horizontal = 2
+offset_bottom = 49.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -251,9 +261,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
+offset_left = -29.0
 offset_top = -24.0
-offset_right = 24.0
+offset_right = 19.0
 offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -310,6 +320,7 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="InGameCanvas/Control2/RecipeContainer/TextureRect"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -319,6 +330,30 @@ offset_right = 40.0
 grow_vertical = 0
 theme_override_constants/outline_size = 8
 text = "TAB"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/RecipeContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_right = 72.0
+grow_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="TextureRect2" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer/TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("12_ev7ur")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer/TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("11_kavja")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="NewRecipe" type="TextureRect" parent="InGameCanvas/Control2" node_paths=PackedStringArray("item")]
 visible = false

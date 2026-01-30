@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctnqcjceovl8r"]
+[gd_scene load_steps=13 format=3 uid="uid://ctnqcjceovl8r"]
 
 [ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
 [ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="3_1tq5y"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="3_o4dwm"]
 [ext_resource type="Texture2D" uid="uid://dyqil2ht6x2ef" path="res://assets/PrototypeTextures/Dark/texture_01.png" id="5_w6ren"]
+[ext_resource type="Texture2D" uid="uid://j0yx18cllr7m" path="res://assets/Inputs/Xbox Series/XboxSeriesX_A.png" id="6_gyksw"]
+[ext_resource type="Texture2D" uid="uid://doipj88qoubh1" path="res://assets/Inputs/Keyboard & Mouse/Dark/Space_Key_Dark.png" id="7_2qtif"]
+[ext_resource type="Texture2D" uid="uid://oqltwv0kgy1v" path="res://assets/Inputs/Keyboard & Mouse/Dark/Shift_Alt_Key_Dark.png" id="8_f56hm"]
+[ext_resource type="Texture2D" uid="uid://c5l6jq67mokil" path="res://assets/Inputs/Xbox Series/XboxSeriesX_B.png" id="8_sxurd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyksw"]
 albedo_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
@@ -17,10 +21,11 @@ size = Vector2(40, 40)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tq5y"]
 size = Vector3(80, 1, 80)
 
-[node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container")]
+[node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container", "dash_ui")]
 script = ExtResource("1_1tq5y")
 map_button = ExtResource("2_1tq5y")
 map_container = NodePath("MapButtons")
+dash_ui = NodePath("CanvasLayer/Dash")
 
 [node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
 script = ExtResource("3_o4dwm")
@@ -28,7 +33,7 @@ player_root = NodePath("../PlayerSpawn")
 player_scene = ExtResource("3_1tq5y")
 
 [node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 32.319, 25.913)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 32.319, 26.817713)
 current = true
 fov = 20.0
 size = 10.832689
@@ -57,16 +62,80 @@ shape = SubResource("BoxShape3D_1tq5y")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Join" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -99.0
-offset_right = 99.0
-offset_bottom = 44.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 16
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -44.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="Label" type="Label" parent="CanvasLayer/Join"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Join"]
 layout_mode = 2
-text = "Press any key to join"
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Join/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Join/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Press to join"
+horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Join/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("7_2qtif")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Join/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+texture = ExtResource("6_gyksw")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Dash" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 167.0
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Dash/HBoxContainer2"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+texture = ExtResource("8_sxurd")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Dash/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("8_f56hm")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Dash/HBoxContainer2"]
+layout_mode = 2
+text = "Dash"
 horizontal_alignment = 1
