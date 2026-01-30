@@ -3,18 +3,32 @@ extends Node
 
 @export var player_root: Node3D
 @export var player_scene: PackedScene
+@export var spawn_distance := 1.0
 
 var logger = KumaLog.new("PlayerJoin")
 
-func setup_player(id: String, map: Map) -> void:
+func setup_player(id: String, pos := Vector3.ZERO) -> void:
 	var player = _get_player_with_id(id)
 	if not player:
 		player = _create_player(id, player_root.get_child_count())
 		player_root.add_child(player)
 
-	player.position = map.get_spawn_position(player.player_num)
+	player.position = pos + _get_spawn_position(player.player_num) * spawn_distance
 	player.reset()
  
+func _get_spawn_position(player_num: int) -> Vector3:
+	var expected_player_count = 4
+	var dir = Vector3.RIGHT
+	var step = TAU / expected_player_count
+
+	var over_player_count = floor(player_num / float(expected_player_count))
+	var idx = player_num % expected_player_count
+
+	var angle = step * idx
+	angle += over_player_count * PI/2.0
+
+	return dir.rotated(Vector3.UP, angle)
+
 func _create_player(input_id: String, player_num: int):
 	var player = player_scene.instantiate() as FPSPlayer
 	player.input_id = input_id

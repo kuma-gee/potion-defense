@@ -40,20 +40,16 @@ color = Color(1, 0.95, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ysfn1"]
 
-[node name="MoveNext" type="Area3D"]
+[node name="MoveNext" type="Area3D" node_paths=PackedStringArray("mesh_instance_3d")]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_tugip")
+mesh_instance_3d = NodePath("MeshInstance3D")
 metadata/_custom_type_script = "uid://crf6i2pescuwe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.44814992, 0)
 shape = SubResource("BoxShape3D_nojdy")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2609253, 0, 0)
-visible = false
-size = Vector3(3.1185303, 1, 5.1757813)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.23261738, 0.20259166, -0.005646467)

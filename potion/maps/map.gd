@@ -19,7 +19,7 @@ func _ready() -> void:
 	if level:
 		level.hide()
 
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	if initial_recipe and not Events.is_recipe_unlocked(initial_recipe):
 		var initial = get_node("InitialRecipeSpawner")
 		var recipe = initial.spawn()
@@ -27,19 +27,6 @@ func _ready() -> void:
 	
 	for p in proton_scatter:
 		p.rebuild()
-
-func get_spawn_position(player_num: int) -> Vector3:
-	var expected_player_count = 4
-	var dir = Vector3.RIGHT
-	var step = TAU / expected_player_count
-
-	var over_player_count = floor(player_num / float(expected_player_count))
-	var idx = player_num % expected_player_count
-
-	var angle = step * idx
-	angle += over_player_count * PI/2.0
-
-	return spawn_point.global_position + dir.rotated(Vector3.UP, angle)
 
 func map_finished():
 	#var recipe_spawner = get_node_or_null("ObjectSpawner")

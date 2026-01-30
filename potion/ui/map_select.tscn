@@ -1,38 +1,72 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctnqcjceovl8r"]
+[gd_scene load_steps=9 format=3 uid="uid://ctnqcjceovl8r"]
 
 [ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
-[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="1_ff1sg"]
 [ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
+[ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="3_1tq5y"]
+[ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="3_o4dwm"]
+[ext_resource type="Texture2D" uid="uid://dyqil2ht6x2ef" path="res://assets/PrototypeTextures/Dark/texture_01.png" id="5_w6ren"]
 
-[node name="MapSelect" type="Control" node_paths=PackedStringArray("back_btn", "map_container")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_ff1sg")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyksw"]
+albedo_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+albedo_texture = ExtResource("5_w6ren")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1tq5y"]
+size = Vector2(40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1tq5y"]
+size = Vector3(80, 1, 80)
+
+[node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container")]
 script = ExtResource("1_1tq5y")
-back_btn = NodePath("Back")
 map_button = ExtResource("2_1tq5y")
-map_container = NodePath("HBoxContainer")
+map_container = NodePath("MapButtons")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
+[node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
+script = ExtResource("3_o4dwm")
+player_root = NodePath("../PlayerSpawn")
+player_scene = ExtResource("3_1tq5y")
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 32.319, 25.913)
+current = true
+fov = 20.0
+size = 10.832689
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+light_energy = 1.4
+
+[node name="MapButtons" type="Node3D" parent="."]
+
+[node name="PlayerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_gyksw")
+mesh = SubResource("PlaneMesh_1tq5y")
+
+[node name="FloorBody" type="StaticBody3D" parent="Floor"]
+
+[node name="FloorBody#CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_1tq5y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Join" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = -99.0
+offset_right = 99.0
+offset_bottom = 44.0
 grow_horizontal = 2
-grow_vertical = 2
+theme_override_constants/margin_top = 16
 
-[node name="Back" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Back to menu"
+[node name="Label" type="Label" parent="CanvasLayer/Join"]
+layout_mode = 2
+text = "Press any key to join"
+horizontal_alignment = 1

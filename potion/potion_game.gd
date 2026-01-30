@@ -7,7 +7,6 @@ extends Node3D
 @export var new_recipe: NewRecipe
 @export var in_game_canvas: Control
 @export var menu: Menu
-@export var join: Control
 @export var cauldron: Control
 @export var cauldron_health_bar: ProgressBar
 
@@ -38,34 +37,12 @@ func _ready() -> void:
 		if wave_manager.can_start_wave():
 			wave_manager.next_wave()
 	)
-	Events.player_has_joined.connect(spawn_player)
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	shop.next_level.connect(func():
 		SceneManager.transition(func(): _setup_map())
 	)
-
-	cauldron.visible = not Events.is_tutorial_level()
-	join.visible = Events.is_tutorial_level()
-
-	wave_manager.wave_started.connect(func():
-		if cauldron.visible: return
-		_move_join_container_out()
-	)
-
-func spawn_player(id: String) -> void:
-	player_join.setup_player(id, map if map else shop)
-
-
-func _move_join_container_out():
-	var tw = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-	tw.tween_property(join, "position:y", -50, 0.5)
-	_move_cauldron_container_in()
 	
-func _move_cauldron_container_in():
-	var tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	cauldron.position.y = -50
-	tw.tween_property(cauldron, "position:y", 0, 0.5)
-	cauldron.show()
+	Events.has_played = true
 
 func _unlocked_recipe(item: ItemResource):
 	new_recipe.open(item)
@@ -84,7 +61,7 @@ func _move_to_shop():
 		
 		map = null
 		for p in Events.players:
-			player_join.setup_player(p, shop)
+			player_join.setup_player(p, shop.spawn_point.global_position)
 	)
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -105,7 +82,7 @@ func _setup_map():
 	map = Events.get_current_map().instantiate() as Map
 	wave_manager.setup(map)
 	for p in Events.players:
-		player_join.setup_player(p, map)
+		player_join.setup_player(p, map.spawn_point.global_position)
 
 	var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
 	c.setup_health_bar(cauldron_health_bar)

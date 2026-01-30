@@ -4,10 +4,9 @@ extends Area3D
 signal next()
 
 @export var continue_timer := 2.0
-@onready var csg_box_3d: CSGBox3D = $CSGBox3D
-@onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@export var mesh_instance_3d: MeshInstance3D
 
+var started := false
 var time := 0.0:
 	set(v):
 		time = clamp(v, 0, continue_timer)
@@ -15,18 +14,18 @@ var time := 0.0:
 
 func _ready() -> void:
 	time = 0.0
-	csg_box_3d.hide()
 	collision_mask = 1 << 1
 	collision_layer = 0
 	visibility_changed.connect(func(): monitoring = visible)
 
 func _process(delta: float) -> void:
-	if not monitoring: return
+	if not monitoring or started: return
 
 	if _all_players_inside():
 		time += delta
 
 		if time >= continue_timer:
+			started = true
 			time = 0
 			next.emit()
 

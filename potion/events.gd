@@ -16,7 +16,7 @@ const MAPS = [
 
 @export var max_players: int = 4
 
-var shown_inputs := false
+var has_played := false
 var players := []
 var total_souls := 0:
 	set(v):
@@ -30,13 +30,15 @@ var unlocked_upgrades: Array[UpgradeResource] = []
 
 var logger = KumaLog.new("Events")
 
+func reset_game():
+	unlocked_map = 0
+	total_souls = 0
+	has_played = false
+	unlocked_recipes = []
+	unlocked_upgrades = []
+
 func get_player_count() -> int:
 	return players.size()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_pressed():
-		player_input_received(event)
-
 
 func player_input_received(event: InputEvent):
 	var id = PlayerInput.create_id(event)

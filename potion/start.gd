@@ -13,9 +13,12 @@ func _ready() -> void:
 	continue_button.pressed.connect(_on_continue_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
-
+	
+	continue_button.visible = Events.has_played
+	
 func _on_new_pressed() -> void:
-	SceneManager.change_to_game(0)
+	Events.reset_game()
+	SceneManager.change_to_map_select()
 
 func _on_continue_pressed() -> void:
 	SceneManager.change_to_map_select()

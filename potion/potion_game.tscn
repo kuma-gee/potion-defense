@@ -123,7 +123,7 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
 size = Vector3(100, 0.1, 100)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "in_game_canvas", "menu", "join", "cauldron", "cauldron_health_bar")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar")]
 script = ExtResource("1_1w3wt")
 souls_label = NodePath("InGameCanvas/Control2/SoulContainer/HBoxContainer/Souls")
 recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
@@ -131,7 +131,6 @@ gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
 in_game_canvas = NodePath("InGameCanvas/Control2/GameUI")
 menu = NodePath("InGameCanvas/Control2/Control/Menu")
-join = NodePath("InGameCanvas/Control2/GameUI/Join")
 cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
 cauldron_health_bar = NodePath("InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/ProgressBar")
 
@@ -263,21 +262,6 @@ pivot_offset = Vector2(24, 24)
 texture = ExtResource("13_16d2i")
 expand_mode = 2
 stretch_mode = 5
-
-[node name="Join" type="MarginContainer" parent="InGameCanvas/Control2/GameUI"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -99.0
-offset_right = 99.0
-offset_bottom = 44.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 16
-
-[node name="Label" type="Label" parent="InGameCanvas/Control2/GameUI/Join"]
-layout_mode = 2
-text = "Press any key to join"
 
 [node name="SoulContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
 layout_mode = 0
