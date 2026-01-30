@@ -6,7 +6,6 @@ extends Node3D
 @export var gameover: GameoverScreen
 @export var new_recipe: NewRecipe
 @export var in_game_canvas: Control
-@export var controls_ui: Control
 @export var menu: Menu
 @export var join: Control
 @export var cauldron: Control
@@ -48,19 +47,10 @@ func _ready() -> void:
 	cauldron.visible = not Events.is_tutorial_level()
 	join.visible = Events.is_tutorial_level()
 
-	wave_manager.wave_started.connect(func(): 
+	wave_manager.wave_started.connect(func():
 		if cauldron.visible: return
 		_move_join_container_out()
 	)
-
-	if not Events.shown_inputs:
-		controls_ui.grab_focus()
-		controls_ui.focus_exited.connect(func():
-			if not Events.shown_inputs:
-				Events.shown_inputs = true
-				get_tree().paused = false
-		)
-		get_tree().paused = true
 
 func spawn_player(id: String) -> void:
 	player_join.setup_player(id, map if map else shop)

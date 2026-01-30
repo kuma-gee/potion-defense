@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2r2acm4ncnnc"]
+[gd_scene load_steps=3 format=3 uid="uid://d2r2acm4ncnnc"]
 
 [ext_resource type="Script" uid="uid://comenqvu3tial" path="res://potion/start.gd" id="1_7d6fn"]
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="1_nhxm7"]
 
 [node name="Start" type="Control" node_paths=PackedStringArray("new_button", "continue_button", "settings_button", "exit_button")]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_nhxm7")
 script = ExtResource("1_7d6fn")
 new_button = NodePath("VBoxContainer/New")
 continue_button = NodePath("VBoxContainer/Continue")
@@ -16,6 +18,7 @@ settings_button = NodePath("VBoxContainer/Settings")
 exit_button = NodePath("VBoxContainer/Exit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

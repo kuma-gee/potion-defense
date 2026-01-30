@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=28 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="6_8f45c"]
@@ -13,13 +13,9 @@
 [ext_resource type="AudioStream" uid="uid://jd3chc8aiyhf" path="res://assets/sound/sfx/紙を広げる1.mp3" id="13_khw37"]
 [ext_resource type="AudioStream" uid="uid://drswd3bimicqm" path="res://assets/sound/sfx/ページをめくる1.mp3" id="14_niktk"]
 [ext_resource type="AudioStream" uid="uid://c6eyhenn5fbu4" path="res://assets/sound/死神のリスト.mp3" id="16_m4gdw"]
-[ext_resource type="Script" uid="uid://m182jy5gu2ah" path="res://potion/ui/controls_menu.gd" id="17_ev7ur"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
-[ext_resource type="Texture2D" uid="uid://dhwcueeqtf578" path="res://assets/sprites/Controls_Keyboard.png" id="17_kavja"]
-[ext_resource type="Texture2D" uid="uid://bsqq2accut4u3" path="res://assets/sprites/Controls_Controller.png" id="18_ev7ur"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
-[ext_resource type="Texture2D" uid="uid://d76grpnwodjj" path="res://assets/sprites/UI_Close.png" id="20_0uxgy"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
@@ -127,14 +123,13 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
 size = Vector3(100, 0.1, 100)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "in_game_canvas", "controls_ui", "menu", "join", "cauldron", "cauldron_health_bar")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("souls_label", "recipe_ui", "gameover", "new_recipe", "in_game_canvas", "menu", "join", "cauldron", "cauldron_health_bar")]
 script = ExtResource("1_1w3wt")
 souls_label = NodePath("InGameCanvas/Control2/SoulContainer/HBoxContainer/Souls")
 recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
 in_game_canvas = NodePath("InGameCanvas/Control2/GameUI")
-controls_ui = NodePath("InGameCanvas/Control2/Control/Controls")
 menu = NodePath("InGameCanvas/Control2/Control/Menu")
 join = NodePath("InGameCanvas/Control2/GameUI/Join")
 cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
@@ -429,7 +424,7 @@ text = "Restart"
 layout_mode = 2
 text = "Back to map"
 
-[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "controls_btn", "ui", "controls", "recipe")]
+[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "ui", "recipe")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -442,9 +437,7 @@ script = ExtResource("11_6q2ph")
 continue_btn = NodePath("Main/VBoxContainer/Continue")
 restart_btn = NodePath("Main/VBoxContainer/Restart")
 back_btn = NodePath("Main/VBoxContainer/Back")
-controls_btn = NodePath("Main/VBoxContainer/Controls")
 ui = NodePath("Main")
-controls = NodePath("../Controls")
 recipe = NodePath("../Recipe")
 
 [node name="Main" type="CenterContainer" parent="InGameCanvas/Control2/Control/Menu"]
@@ -466,10 +459,6 @@ text = "Continue"
 [node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
-
-[node name="Controls" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
-layout_mode = 2
-text = "Controls"
 
 [node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
 layout_mode = 2
@@ -577,91 +566,6 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
-
-[node name="Controls" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("pages", "label", "prev_btn", "next_btn")]
-process_mode = 3
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-color = Color(0, 0, 0, 0.5882353)
-script = ExtResource("17_ev7ur")
-pages = [NodePath("CenterContainer/VBoxContainer/CenterContainer/Keyboard"), NodePath("CenterContainer/VBoxContainer/CenterContainer/Controller")]
-label = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Label")
-prev_btn = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Button2")
-next_btn = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Button")
-
-[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Controls"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer"]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -64.0
-offset_bottom = 64.0
-grow_horizontal = 0
-mouse_filter = 2
-
-[node name="TextureButton" type="TextureButton" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/Control/MarginContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-texture_normal = ExtResource("20_0uxgy")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Keyboard" type="TextureRect" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(1300, 0)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("17_kavja")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="Controller" type="TextureRect" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(1300, 0)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("18_ev7ur")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Button2" type="Label" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "<"
-
-[node name="Label" type="Label" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Keyboard"
-horizontal_alignment = 1
-
-[node name="Button" type="Label" parent="InGameCanvas/Control2/Control/Controls/CenterContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = ">"
 
 [node name="ShopBGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_m4gdw")

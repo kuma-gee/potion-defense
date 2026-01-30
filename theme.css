@@ -3,7 +3,7 @@ body {
 }
 
 VBoxContainer, HBoxContainer {
-  gap: 4;
+  gap: 8;
 }
 
 PanelContainer {

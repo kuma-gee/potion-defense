@@ -1,33 +1,92 @@
 extends Node
 
-const POTION_GAME = preload("uid://bquyk6n7heynp")
+const POTION_GAME = "uid://bquyk6n7heynp"
 const START = preload("uid://d2r2acm4ncnnc")
 const MAP_SELECT = preload("uid://ctnqcjceovl8r")
+
+@export var loading_bar: ProgressBar
+@export var continue_text: Label
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer: Timer = $Timer
 @onready var color_rect: ColorRect = $CanvasLayer/ColorRect
+@onready var min_load_timer: Timer = $MinLoadTimer
 
+var target_scene := ""
 var loading := false
 
+func _process(_delta: float) -> void:
+	_update_loading_progress()
+
 func _ready() -> void:
+	_to_target_scene()
 	timer.timeout.connect(func(): end_transition())
+	min_load_timer.timeout.connect(_on_min_loading_timeout)
+	BackgroundResourceLoader.resource_loaded.connect(_on_resource_loaded)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact") and target_scene and continue_text.visible:
+		_to_target_scene()
+
+func _on_min_loading_timeout():
+	_finish_loading()
+
+func _on_resource_loaded(_path: String, _res: Resource):
+	if min_load_timer.is_stopped() and target_scene != "":
+		_finish_loading()
+
+func _finish_loading():
+	loading_bar.hide()
+	continue_text.show()
+
+func _to_target_scene():
+	animation_player.play_backwards("show_loading")
+	
+	if target_scene:
+		get_tree().change_scene_to_file(target_scene)
+		await animation_player.animation_finished
+		timer.start()
+	
+	target_scene = ""
+	continue_text.hide()
+
+func _start_loading_to(path: String):
+	BackgroundResourceLoader.request_load(POTION_GAME)
+	
+	loading_bar.show()
+	continue_text.hide()
+	loading_bar.value = 0.0
+	animation_player.play("show_loading")
+	await animation_player.animation_finished
+
+	await get_tree().create_timer(0.5).timeout # dont show loading bar immediately
+	min_load_timer.start()
+	target_scene = path
+
+func _update_loading_progress() -> void:
+	if not loading_bar.visible or target_scene == "":
+		return
+	if min_load_timer.is_stopped():
+		loading_bar.value = 1.0
+		return
+	var wait_time: float = min_load_timer.wait_time
+	if wait_time <= 0.0:
+		loading_bar.value = 1.0
+		return
+	loading_bar.value = 1.0 - (min_load_timer.time_left / wait_time)
+
+func change_to_game(lvl = -1) -> void:
+	if lvl >= 0:
+		Events.level = lvl
+	
+	await start_transition()
+	_start_loading_to(POTION_GAME)
 
 func change_to_map_select():
 	change_scene(MAP_SELECT)
 
 func change_to_start() -> void:
 	change_scene(START)
-
-func change_to_game(lvl = -1, initial = false) -> void:
-	if lvl >= 0:
-		Events.level = lvl
-	
-	if not initial:
-		await start_transition()
-
-	get_tree().call_deferred("change_scene_to_packed", POTION_GAME)
-	timer.start()
 
 func change_scene(scene) -> void:
 	transition(func(): get_tree().change_scene_to_packed(scene))

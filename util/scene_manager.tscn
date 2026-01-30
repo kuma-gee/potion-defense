@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://q02ddkwjgfhg"]
+[gd_scene load_steps=8 format=3 uid="uid://q02ddkwjgfhg"]
 
 [ext_resource type="Script" uid="uid://ui1yrwtw1vlr" path="res://util/scene_manager.gd" id="1_2s4po"]
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="2_ln5k3"]
+[ext_resource type="Texture2D" uid="uid://bsqq2accut4u3" path="res://assets/sprites/Controls_Controller.png" id="3_xelpb"]
 
 [sub_resource type="Animation" id="Animation_ln5k3"]
 length = 0.001
@@ -15,6 +17,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Loading:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2s4po"]
@@ -33,17 +47,41 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_xelpb"]
+resource_name = "show_loading"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Loading:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ln5k3"]
 _data = {
 &"RESET": SubResource("Animation_ln5k3"),
-&"show": SubResource("Animation_2s4po")
+&"show": SubResource("Animation_2s4po"),
+&"show_loading": SubResource("Animation_xelpb")
 }
 
-[node name="SceneManager" type="Node"]
+[node name="SceneManager" type="Node" node_paths=PackedStringArray("loading_bar", "continue_text")]
 process_mode = 3
 script = ExtResource("1_2s4po")
+loading_bar = NodePath("CanvasLayer/Loading/MarginContainer/LoadingBar")
+continue_text = NodePath("CanvasLayer/Loading/MarginContainer/ContinueText")
+
+[node name="MinLoadTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -62,3 +100,57 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Loading" type="Control" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Controls" type="CenterContainer" parent="CanvasLayer/Loading"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Loading/Controls"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_xelpb")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Loading"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -64.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_ln5k3")
+theme_override_constants/margin_bottom = 32
+
+[node name="LoadingBar" type="ProgressBar" parent="CanvasLayer/Loading/MarginContainer"]
+custom_minimum_size = Vector2(400, 16)
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="ContinueText" type="Label" parent="CanvasLayer/Loading/MarginContainer"]
+layout_mode = 2
+text = "Press to continue"
+horizontal_alignment = 1
