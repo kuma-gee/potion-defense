@@ -30,8 +30,9 @@ func _ready() -> void:
 	get_tree().paused = false
 	_setup_map()
 	
+	_update_souls()
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
-	Events.souls_changed.connect(func(): souls_label.text = "%s" % Events.total_souls)
+	Events.souls_changed.connect(func(): _update_souls())
 	Events.move_to_shop.connect(_move_to_shop)
 	Events.cauldron_used.connect(func():
 		if wave_manager.can_start_wave():
@@ -43,6 +44,9 @@ func _ready() -> void:
 	)
 	
 	Events.has_played = true
+
+func _update_souls():
+	souls_label.text = "%s" % Events.total_souls
 
 func _unlocked_recipe(item: ItemResource):
 	new_recipe.open(item)
@@ -72,7 +76,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()
 	elif event.is_action_pressed("ui_cancel"):
-		menu.visible = not menu.visible
+		if menu.visible:
+			menu.hide_main()
+		else:
+			menu.show_main()
 
 func _setup_map():
 	shop.process_mode = Node.PROCESS_MODE_DISABLED

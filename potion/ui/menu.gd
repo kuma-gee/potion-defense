@@ -27,8 +27,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func show_main():
+	show()
 	ui.show()
 	continue_btn.grab_focus()
+
+func hide_main():
+	ui.hide()
+	hide()
 
 func _on_visibility_changed() -> void:
 	get_tree().paused = visible

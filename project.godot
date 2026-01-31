@@ -159,3 +159,7 @@ throw={
 3d_physics/layer_14="MouseLayer"
 3d_physics/layer_15="PlayerBlock"
 3d_physics/layer_16="Interactable"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.26950097, 0.3639387, 0.44286147, 1)

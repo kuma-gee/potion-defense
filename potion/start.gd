@@ -15,6 +15,7 @@ func _ready() -> void:
 	exit_button.pressed.connect(_on_exit_pressed)
 	
 	continue_button.visible = Events.has_played
+	new_button.grab_focus()
 	
 func _on_new_pressed() -> void:
 	Events.reset_game()

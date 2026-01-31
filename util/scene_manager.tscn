@@ -172,7 +172,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-text = "Interact / Pickup"
+text = "Pickup"
 vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]

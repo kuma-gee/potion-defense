@@ -3,7 +3,7 @@ extends Control
 
 signal saved(file)
 
-# @export var open_key: BaseButton
+# @export var apply_btn: BaseButton
 @export var code: TextEdit
 @export var file_name_label: Label
 @export var files_list: Control
@@ -42,7 +42,7 @@ func _update_files_list():
 func _add_files_to_list_rec(dir: String):
 	var items = DirAccess.get_files_at(dir)
 	for item in items:
-		if item.get_extension() == "css":
+		if item.get_extension() == "css" and load(item):
 			_add_to_list(dir, item)
 	
 	var dirs = DirAccess.get_directories_at(dir)
@@ -61,12 +61,6 @@ func _add_to_list(folder: String, file: String):
 	btn.pressed.connect(func(): open_file(full_path))
 	files_list.add_child(btn)
 
-# Did not find a better way to detect this
-# The default editor save event using _notification does not work, because the variables will be empty?
-func _input(event: InputEvent):
-	if event is InputEventKey and event.keycode == KEY_S and event.ctrl_pressed:
-		save_file(css_file)
-
 func _ready():
 	# open_key.pressed.connect(func(): file_dialog.popup(Rect2i(0, 0, 700, 600)))
 	file_dialog.file_selected.connect(func(p): open_file(p))
@@ -76,6 +70,21 @@ func _ready():
 	code.hide()
 	_update_label()
 	_update_files_list()
+
+func _notification(what: int):
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		save_file()
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		if not dirty and css_file and css_file != "":
+			open_file(css_file)
+		else: # shouldn't happen?
+			_update_files_list()
+
+# Did not find a better way to detect this
+# The default editor save event using _notification does not work, because the variables will be empty?
+func _input(event: InputEvent):
+	if event is InputEventKey and event.keycode == KEY_S and event.ctrl_pressed:
+		save_file(css_file)
 
 func _exit_tree():
 	save_file()

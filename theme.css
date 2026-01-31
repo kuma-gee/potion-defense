@@ -1,5 +1,10 @@
+:root {
+  --text-color: #e6be94;
+}
+
 body {
-  font-size: 20;
+  font-size: 24;
+  font-family: url(res://assets/Fredoka-Bold.ttf);
 }
 
 VBoxContainer, HBoxContainer {
@@ -7,8 +12,12 @@ VBoxContainer, HBoxContainer {
 }
 
 PanelContainer {
-  background: #333;
+  background: #483911;
   border-radius: 6;
+}
+
+Label {
+  color: var(--text-color);
 }
 
 Label.outlined {
@@ -17,6 +26,10 @@ Label.outlined {
 }
 
 Label.title {
+  font-size: 48;
+}
+
+Label.large {
   font-size: 32;
 }
 
@@ -25,4 +38,17 @@ ProgressBar {
   --styles-background-bg-color: #2d2d2d;
   --styles-fill-type: Flat;
   --styles-fill-bg-color: #ffffff;
+}
+
+Button {
+  background: #59452e;
+}
+
+Button:hover, Button:pressed, Button:focus {
+  background: #8f624a;
+}
+
+Button, Button:hover, Button:pressed, Button:focus {
+  color: var(--text-color);
+  padding: 8;
 }

@@ -14,3 +14,4 @@ func show_gameover() -> void:
 	get_tree().paused = true
 	show()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	restart_btn.grab_focus()

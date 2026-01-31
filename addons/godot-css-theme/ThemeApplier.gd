@@ -29,8 +29,9 @@ func _apply_to_theme(theme: Theme, stylesheet: Stylesheet, class_group: String) 
 		if _debug:
 			print("Setting properties for %s" % node_type)
 		var properties = stylesheet.get_class_properties(node_type, class_group)
-		if class_group != "" and node_type != GLOBAL_NODE:
-			var new_type = node_type + class_group.capitalize()
+		var clean_group = _sanitize_class_group(class_group)
+		if clean_group != "" and node_type != GLOBAL_NODE:
+			var new_type = node_type + clean_group.capitalize()
 			theme.set_type_variation(new_type, node_type)
 			print("Set type variation: %s" % [new_type])
 			node_type = new_type
@@ -184,3 +185,9 @@ func _parse_type(prefix: String, property: String, replace = true) -> String:
 	if replace:
 		value = value.replace("-", "_")
 	return value
+
+
+func _sanitize_class_group(value: String) -> String:
+	var regex := RegEx.new()
+	regex.compile("[^A-Za-z0-9_]")
+	return regex.sub(value, "", true)
