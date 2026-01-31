@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctnqcjceovl8r"]
+[gd_scene load_steps=15 format=3 uid="uid://ctnqcjceovl8r"]
 
 [ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
 [ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
@@ -13,27 +13,34 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyksw"]
 albedo_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
 albedo_texture = ExtResource("5_w6ren")
-uv1_scale = Vector3(10, 10, 10)
+uv1_scale = Vector3(100, 10, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1tq5y"]
-size = Vector2(40, 40)
+size = Vector2(400, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tq5y"]
-size = Vector3(80, 1, 80)
+size = Vector3(250.94812, 1, 80)
 
-[node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container", "dash_ui")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_f56hm"]
+size = Vector3(200.2998, 20.318115, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jm8ch"]
+size = Vector3(31.35, 12.525, 1)
+
+[node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container", "dash_ui", "right_wall")]
 script = ExtResource("1_1tq5y")
 map_button = ExtResource("2_1tq5y")
 map_container = NodePath("MapButtons")
 dash_ui = NodePath("CanvasLayer/Dash")
+right_wall = NodePath("Boudary/R")
 
 [node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
 script = ExtResource("3_o4dwm")
 player_root = NodePath("../PlayerSpawn")
 player_scene = ExtResource("3_1tq5y")
 
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 32.319, 26.817713)
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 29.265333, 25.439947)
 current = true
 fov = 20.0
 size = 10.832689
@@ -45,18 +52,19 @@ light_energy = 1.4
 [node name="MapButtons" type="Node3D" parent="."]
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
 
 [node name="Floor" type="Node3D" parent="."]
 
 [node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 0, 0)
 material_override = SubResource("StandardMaterial3D_gyksw")
 mesh = SubResource("PlaneMesh_1tq5y")
 
 [node name="FloorBody" type="StaticBody3D" parent="Floor"]
 
 [node name="FloorBody#CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.47406, -0.5, 0)
 shape = SubResource("BoxShape3D_1tq5y")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -139,3 +147,48 @@ stretch_mode = 5
 layout_mode = 2
 text = "Dash"
 horizontal_alignment = 1
+
+[node name="Boudary" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.721, 0.801)
+collision_layer = 16384
+collision_mask = 0
+
+[node name="T" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, -9)
+shape = SubResource("BoxShape3D_f56hm")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_jm8ch")
+
+[node name="R" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(0.19936793, 0, 0.9799246, 0, 1, 0, -0.9799246, 0, 0.19936793, 14.728676, 0, 0.47715425)
+shape = SubResource("BoxShape3D_f56hm")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/R"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_jm8ch")
+
+[node name="L" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(-0.18916397, 0, 0.9819455, 0, 1, 0, -0.9819455, 0, -0.18916397, -12, 0, 0.477)
+shape = SubResource("BoxShape3D_f56hm")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/L"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_jm8ch")
+
+[node name="B" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, 7.9999995)
+shape = SubResource("BoxShape3D_f56hm")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/B"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_jm8ch")

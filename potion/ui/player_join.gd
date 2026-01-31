@@ -7,7 +7,7 @@ extends Node
 
 var logger = KumaLog.new("PlayerJoin")
 
-func setup_player(id: String, pos := Vector3.ZERO) -> void:
+func setup_player(id: String, pos := Vector3.ZERO):
 	var player = _get_player_with_id(id)
 	if not player:
 		player = _create_player(id, player_root.get_child_count())
