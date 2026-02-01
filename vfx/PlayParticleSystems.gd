@@ -50,7 +50,7 @@ func _find_particles():
 
 	delays = existing_delays  # Restore old delays + new ones
 
-func _cleanup_delays(): # Remove delays for particles that no longer exist	
+func _cleanup_delays(): # Remove delays for particles that no longer exist
 	var valid_particle_names = particle_systems.map(func(p): return p.name)
 	for key in delays.keys():
 		if key not in valid_particle_names:

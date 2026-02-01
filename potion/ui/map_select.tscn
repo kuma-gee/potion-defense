@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ctnqcjceovl8r"]
+[gd_scene load_steps=18 format=3 uid="uid://ctnqcjceovl8r"]
 
 [ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
 [ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
@@ -20,6 +20,27 @@ size = Vector2(400, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tq5y"]
 size = Vector3(250.94812, 1, 80)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f56hm"]
+sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
+sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
+
+[sub_resource type="Sky" id="Sky_vravf"]
+sky_material = SubResource("ProceduralSkyMaterial_f56hm")
+
+[sub_resource type="Environment" id="Environment_jm8ch"]
+background_mode = 2
+sky = SubResource("Sky_vravf")
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/3 = 0.8
+glow_levels/4 = 0.3
+glow_levels/6 = 1.0
+glow_blend_mode = 0
+fog_light_color = Color(0.4106267, 0.45170838, 0.42324653, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.5449377, 0.8548759, 0.9480491, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f56hm"]
 size = Vector3(200.2998, 20.318115, 1)
@@ -58,6 +79,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
 
 [node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 0, 0)
+layers = 524288
 material_override = SubResource("StandardMaterial3D_gyksw")
 mesh = SubResource("PlaneMesh_1tq5y")
 
@@ -132,6 +154,9 @@ stretch_mode = 5
 layout_mode = 2
 text = "Press to join"
 horizontal_alignment = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jm8ch")
 
 [node name="Boudary" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.721, 0.801)

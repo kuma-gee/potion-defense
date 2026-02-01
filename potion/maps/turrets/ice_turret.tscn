@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c3jwn2bp7a8hm"]
+[gd_scene load_steps=27 format=3 uid="uid://c3jwn2bp7a8hm"]
 
 [ext_resource type="Script" uid="uid://dkc6iccst4ey8" path="res://potion/maps/turrets/continuous_turret.gd" id="1_3mhuf"]
 [ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="2_jfee1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://d0lvh6fkw24xy" path="res://shader/shield.gdshader" id="5_d1q1m"]
 [ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/frost_slow.tres" id="5_wyvk0"]
 [ext_resource type="ArrayMesh" uid="uid://b5pkmcktm2o3g" path="res://assets/particles/shapes/sm_disk_typeA.obj" id="6_x0p1t"]
+[ext_resource type="ArrayMesh" uid="uid://igxfevcgy1pl" path="res://assets/particles/shapes/half_sphere.obj" id="9_jmxuv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x0p1t"]
 radius = 3.0
@@ -54,10 +55,54 @@ shader_parameter/fade_texture = SubResource("CompressedTexture2D_uymmh")
 shader_parameter/fade_texture_scale = Vector2(1, 2.725)
 shader_parameter/proximity_fade_distance = 1.0
 
+[sub_resource type="Gradient" id="Gradient_drnhh"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wyvk0"]
+gradient = SubResource("Gradient_drnhh")
+
+[sub_resource type="Gradient" id="Gradient_d1q1m"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uymmh"]
+gradient = SubResource("Gradient_d1q1m")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jmxuv"]
+load_path = "res://.godot/imported/T_Noise_W5i.png-4eedef42e9da4a1cb71614283b79cba1.s3tc.ctex"
+
+[sub_resource type="Gradient" id="Gradient_4v31u"]
+colors = PackedColorArray(0, 0.67058825, 1, 1, 0, 1.4160296, 1.4160296, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hjxth"]
+gradient = SubResource("Gradient_4v31u")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fk6xe"]
+load_path = "res://.godot/imported/T_Noise56ko.png-f84ca8d3a287e2c60ccbbf005e6b34f5.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0b6n"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_d1q1m")
+shader_parameter/fresnel_power = 0.80999998189488
+shader_parameter/gradient_color = SubResource("GradientTexture1D_hjxth")
+shader_parameter/alpha_gradient = SubResource("GradientTexture1D_wyvk0")
+shader_parameter/opacity = 0.999999977648
+shader_parameter/overlay_texture = SubResource("CompressedTexture2D_fk6xe")
+shader_parameter/overlay_scale = Vector2(1, 2.5)
+shader_parameter/overlay_speed = Vector2(0.03, 0)
+shader_parameter/overlay_strength = 0.999999977648
+shader_parameter/fade_value = 0.01999999955296
+shader_parameter/fade_texture_divider = 6.95999986678208
+shader_parameter/fade_smooth = 0.999999977648
+shader_parameter/fade_mask = SubResource("GradientTexture2D_uymmh")
+shader_parameter/fade_texture = SubResource("CompressedTexture2D_jmxuv")
+shader_parameter/fade_texture_scale = Vector2(1, 2.725)
+shader_parameter/proximity_fade_distance = 1.0
+
 [node name="IceTurret" type="Node3D" node_paths=PackedStringArray("area", "visual")]
 script = ExtResource("1_3mhuf")
 area = NodePath("Frost")
-visual = NodePath("MeshInstance3D")
+visual = NodePath("Node3D")
 
 [node name="Frost" parent="." instance=ExtResource("2_jfee1")]
 lifetime = 0.0
@@ -67,7 +112,18 @@ element = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Frost"]
 shape = SubResource("SphereShape3D_x0p1t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, 0, 0.20913321, 0)
 material_override = SubResource("ShaderMaterial_fk6xe")
 mesh = ExtResource("6_x0p1t")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1.65, 0, 0, 0, 1.65, 0, 0, 0, 1.65, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_d0b6n")
+mesh = ExtResource("9_jmxuv")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

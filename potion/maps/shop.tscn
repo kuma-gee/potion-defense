@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=49 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
@@ -283,27 +283,6 @@ metadata/_custom_type_script = "uid://bi1cdqsyg4jht"
 script = ExtResource("19_3ckhd")
 size = Vector3(41.59415, 1, 8.264095)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6jtiw"]
-sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
-sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
-
-[sub_resource type="Sky" id="Sky_vxl4c"]
-sky_material = SubResource("ProceduralSkyMaterial_6jtiw")
-
-[sub_resource type="Environment" id="Environment_5n5y4"]
-background_mode = 2
-sky = SubResource("Sky_vxl4c")
-tonemap_mode = 3
-glow_enabled = true
-glow_levels/3 = 0.8
-glow_levels/4 = 0.3
-glow_levels/6 = 1.0
-glow_blend_mode = 0
-fog_light_color = Color(0.4106267, 0.45170838, 0.42324653, 1)
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.5449377, 0.8548759, 0.9480491, 1)
-
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_13ndi")
 spawn_point = NodePath("Spawn")
@@ -486,6 +465,3 @@ stream = ExtResource("21_4lc4r")
 volume_db = -10.0
 pitch_scale = 0.5
 bus = &"SFX"
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_5n5y4")

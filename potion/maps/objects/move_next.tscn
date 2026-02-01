@@ -52,7 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.44814992, 0)
 shape = SubResource("BoxShape3D_nojdy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.23261738, 0.20259166, -0.005646467)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.23261738, 0.057016134, -0.005646467)
 material_override = SubResource("ShaderMaterial_cfhwt")
 mesh = SubResource("PlaneMesh_tugip")
 

@@ -1,12 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxya3lrhur7jg"]
+[gd_scene load_steps=12 format=3 uid="uid://cxya3lrhur7jg"]
 
 [ext_resource type="Script" uid="uid://iyuvn8aicra8" path="res://potion/maps/turrets/one_shot_turret.gd" id="1_4u7gr"]
-[ext_resource type="PackedScene" uid="uid://cvrm4vmap3w15" path="res://potion/effect/poison_area.tscn" id="2_f1bnl"]
+[ext_resource type="PackedScene" uid="uid://0x2qt08iqg4f" path="res://potion/effect/poison_hit.tscn" id="2_f1bnl"]
 [ext_resource type="Script" uid="uid://enb0voissomg" path="res://potion/maps/objects/attack_range.gd" id="2_u7px2"]
+[ext_resource type="Shader" uid="uid://b6mab661at8y2" path="res://shader/poison_hit.tres" id="4_ug5ri"]
+[ext_resource type="Texture2D" uid="uid://dys85apxk1ya6" path="res://assets/particles/T_Noise_Wfk14.png" id="5_w5n3j"]
+[ext_resource type="Texture2D" uid="uid://cyyg8jcxacxq3" path="res://assets/particles/T_LiquidVertical_Wave.png" id="6_gpx6o"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_f1bnl"]
 height = 0.7451172
 radius = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_unfgd"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_ug5ri")
+shader_parameter/Circle_Color = Color(0.6039216, 1, 0.6509804, 1)
+shader_parameter/Noise_Speed = Vector2(0.1, 0)
+shader_parameter/Noise = ExtResource("5_w5n3j")
+shader_parameter/Extra_Opacity = 0.0
+shader_parameter/UV_Scale = Vector2(1, -0.255)
+shader_parameter/Texture_Lineal = ExtResource("6_gpx6o")
+shader_parameter/Alpha = 0.0
+
+[sub_resource type="Gradient" id="Gradient_lwi05"]
+offsets = PackedFloat32Array(0.45316455, 0.4835443, 0.6860759)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jwoet"]
+gradient = SubResource("Gradient_lwi05")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_um425"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_ug5ri")
+shader_parameter/Circle_Color = Color(0.6, 1, 0.64705884, 1)
+shader_parameter/Noise_Speed = Vector2(0, 0)
+shader_parameter/Extra_Opacity = 0.04400000209
+shader_parameter/UV_Scale = Vector2(1, 1)
+shader_parameter/Texture_Lineal = SubResource("GradientTexture2D_jwoet")
+shader_parameter/Alpha = 0.0
 
 [node name="PoisonTurret" type="Node3D"]
 script = ExtResource("1_4u7gr")
@@ -26,3 +60,21 @@ script = ExtResource("2_u7px2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange"]
 shape = SubResource("CylinderShape3D_f1bnl")
+
+[node name="PoisonHit" parent="." instance=ExtResource("2_f1bnl")]
+
+[node name="MeshInstance3D" parent="PoisonHit" index="0"]
+material_override = SubResource("ShaderMaterial_unfgd")
+
+[node name="MeshInstance3D2" parent="PoisonHit" index="1"]
+material_override = SubResource("ShaderMaterial_um425")
+
+[node name="PlayParticleSystems" parent="PoisonHit" index="4"]
+delays = {
+&"HalfSphere": 0.0,
+&"ImpactParticles": 0.0,
+&"ShockwaveGround": 0.0,
+&"puff_clouds": 0.0
+}
+
+[editable path="PoisonHit"]

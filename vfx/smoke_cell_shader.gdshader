@@ -16,8 +16,8 @@ void fragment() {
 	vec4 dissolve_tex = texture(DissolverTex, uv);
 	
 	ALBEDO = vec3(color.xyz);
-	ALPHA = dissolve_tex.r;
-	ALPHA_SCISSOR_THRESHOLD = alpha;
+	ALPHA = alpha;
+	//ALPHA_SCISSOR_THRESHOLD = alpha;
 }
 
 void light() {
