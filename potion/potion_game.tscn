@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene load_steps=31 format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="7_0uxgy"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="7_21lj0"]
+[ext_resource type="Script" uid="uid://bdgs5crexr4di" path="res://potion/ui/notification.gd" id="9_0uxgy"]
 [ext_resource type="PackedScene" uid="uid://8sutrd0e0ysa" path="res://potion/ui/soul_container.tscn" id="9_ev7ur"]
 [ext_resource type="Script" uid="uid://y5n83lpsitod" path="res://potion/ui/menu.gd" id="11_6q2ph"]
 [ext_resource type="Texture2D" uid="uid://b02a3kliv0civ" path="res://assets/Inputs/Keyboard & Mouse/Dark/Tab_Key_Dark.png" id="11_kavja"]
@@ -134,7 +135,7 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
 size = Vector3(100, 0.1, 100)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("recipe_ui", "gameover", "new_recipe", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("recipe_ui", "gameover", "new_recipe", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar", "notific")]
 script = ExtResource("1_1w3wt")
 recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
@@ -143,6 +144,7 @@ in_game_canvas = NodePath("InGameCanvas/Control2/GameUI")
 menu = NodePath("InGameCanvas/Control2/Control/Menu")
 cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
 cauldron_health_bar = NodePath("InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/ProgressBar")
+notific = NodePath("InGameCanvas/Control2/GameUI/Notification")
 
 [node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
@@ -280,6 +282,23 @@ pivot_offset = Vector2(24, 24)
 texture = ExtResource("13_16d2i")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="Notification" type="Label" parent="InGameCanvas/Control2/GameUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 54.0
+offset_right = 250.0
+offset_bottom = 134.0
+grow_horizontal = 2
+pivot_offset = Vector2(250, 40)
+theme_type_variation = &"LabelLarge"
+text = "Wave incoming!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_0uxgy")
 
 [node name="SoulContainer" parent="InGameCanvas/Control2" instance=ExtResource("9_ev7ur")]
 layout_mode = 0

@@ -8,6 +8,7 @@ extends Node3D
 @export var menu: Menu
 @export var cauldron: Control
 @export var cauldron_health_bar: ProgressBar
+@export var notific: Notification
 
 @onready var wave_manager: WaveManager = $WaveManager
 @onready var player_root: Node3D = $PlayerRoot
@@ -32,6 +33,7 @@ func _ready() -> void:
 	Events.cauldron_used.connect(func():
 		if wave_manager.can_start_wave():
 			wave_manager.next_wave()
+			notific.show_text("Wave %s incoming!" % wave_manager.wave)
 	)
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	Events.has_played = true
