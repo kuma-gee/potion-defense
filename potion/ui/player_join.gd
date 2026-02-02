@@ -1,20 +1,23 @@
 class_name PlayerJoin
 extends Node
 
+signal spawned_player()
+
 @export var player_root: Node3D
 @export var player_scene: PackedScene
 @export var spawn_distance := 1.0
 
 var logger = KumaLog.new("PlayerJoin")
 
-func setup_player(id: String, pos := Vector3.ZERO):
+func setup_player(id: String, pos := player_root.global_position):
 	var player = _get_player_with_id(id)
 	if not player:
 		player = _create_player(id, player_root.get_child_count())
 		player_root.add_child(player)
 
-	player.position = pos + _get_spawn_position(player.player_num) * spawn_distance
+	player.position = player_root.to_local(pos) + _get_spawn_position(player.player_num) * spawn_distance
 	player.reset()
+	spawned_player.emit()
  
 func _get_spawn_position(player_num: int) -> Vector3:
 	var expected_player_count = 4

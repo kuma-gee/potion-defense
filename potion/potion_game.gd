@@ -1,7 +1,6 @@
 class_name PotionGame
 extends Node3D
 
-@export var souls_label: Label
 @export var recipe_ui: RecipeBookUI
 @export var gameover: GameoverScreen
 @export var new_recipe: NewRecipe
@@ -14,7 +13,6 @@ extends Node3D
 @onready var player_root: Node3D = $PlayerRoot
 @onready var map_root: Node3D = $MapRoot
 @onready var player_join: PlayerJoin = $PlayerJoin
-@onready var shop: ShopMap = $Shop
 
 var map: Map:
 	set(v):
@@ -30,23 +28,13 @@ func _ready() -> void:
 	get_tree().paused = false
 	_setup_map()
 	
-	_update_souls()
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
-	Events.souls_changed.connect(func(): _update_souls())
-	Events.move_to_shop.connect(_move_to_shop)
 	Events.cauldron_used.connect(func():
 		if wave_manager.can_start_wave():
 			wave_manager.next_wave()
 	)
 	Events.picked_up_recipe.connect(_unlocked_recipe)
-	shop.next_level.connect(func():
-		SceneManager.transition(func(): _setup_map())
-	)
-	
 	Events.has_played = true
-
-func _update_souls():
-	souls_label.text = "%s" % Events.total_souls
 
 func _unlocked_recipe(item: ItemResource):
 	new_recipe.open(item)
@@ -54,24 +42,12 @@ func _unlocked_recipe(item: ItemResource):
 
 func _on_all_waves_completed() -> void:
 	map.map_finished()
-
-func _move_to_shop():
 	wave_manager.clear()
-	SceneManager.transition(func():
-		shop.process_mode = Node.PROCESS_MODE_INHERIT
-		shop.position.y = 0
-		shop.show()
-		shop.setup(map)
-		
-		map = null
-		for p in Events.players:
-			player_join.setup_player(p, shop.spawn_point.global_position)
-	)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed() and event is InputEventKey and event.keycode == KEY_F1:
 		Events.level += 1
-		_move_to_shop()
+		_on_all_waves_completed()
 	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()
@@ -82,10 +58,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			menu.show_main()
 
 func _setup_map():
-	shop.process_mode = Node.PROCESS_MODE_DISABLED
-	shop.position.y = 1000
-	shop.hide()
-	
 	map = Events.get_current_map().instantiate() as Map
 	wave_manager.setup(map)
 	for p in Events.players:
@@ -93,6 +65,3 @@ func _setup_map():
 
 	var c = get_tree().get_first_node_in_group("cauldron") as Cauldron
 	c.setup_health_bar(cauldron_health_bar)
-	
-	#if not Events.is_tutorial_level():
-		#wave_manager.next_wave()

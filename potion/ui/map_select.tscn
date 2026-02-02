@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ctnqcjceovl8r"]
+[gd_scene load_steps=25 format=3 uid="uid://ctnqcjceovl8r"]
 
 [ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
 [ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
@@ -6,9 +6,13 @@
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="3_o4dwm"]
 [ext_resource type="Texture2D" uid="uid://dyqil2ht6x2ef" path="res://assets/PrototypeTextures/Dark/texture_01.png" id="5_w6ren"]
 [ext_resource type="Texture2D" uid="uid://j0yx18cllr7m" path="res://assets/Inputs/Xbox Series/XboxSeriesX_A.png" id="6_gyksw"]
+[ext_resource type="Script" uid="uid://crf6i2pescuwe" path="res://potion/maps/move_next.gd" id="6_lqfst"]
 [ext_resource type="Texture2D" uid="uid://doipj88qoubh1" path="res://assets/Inputs/Keyboard & Mouse/Dark/Space_Key_Dark.png" id="7_2qtif"]
+[ext_resource type="Shader" uid="uid://cfpjitbm8xuor" path="res://shader/move_next.gdshader" id="7_xfbft"]
 [ext_resource type="Texture2D" uid="uid://oqltwv0kgy1v" path="res://assets/Inputs/Keyboard & Mouse/Dark/Shift_Alt_Key_Dark.png" id="8_f56hm"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="8_lqfst"]
 [ext_resource type="Texture2D" uid="uid://c5l6jq67mokil" path="res://assets/Inputs/Xbox Series/XboxSeriesX_B.png" id="8_sxurd"]
+[ext_resource type="PackedScene" uid="uid://8sutrd0e0ysa" path="res://potion/ui/soul_container.tscn" id="10_xfbft"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyksw"]
 albedo_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
@@ -16,21 +20,21 @@ albedo_texture = ExtResource("5_w6ren")
 uv1_scale = Vector3(100, 10, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1tq5y"]
-size = Vector2(400, 40)
+size = Vector2(400, 100)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tq5y"]
-size = Vector3(250.94812, 1, 80)
+size = Vector3(250.948, 1, 100)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f56hm"]
 sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
 sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
 
-[sub_resource type="Sky" id="Sky_vravf"]
+[sub_resource type="Sky" id="Sky_lqfst"]
 sky_material = SubResource("ProceduralSkyMaterial_f56hm")
 
 [sub_resource type="Environment" id="Environment_jm8ch"]
 background_mode = 2
-sky = SubResource("Sky_vravf")
+sky = SubResource("Sky_lqfst")
 tonemap_mode = 3
 glow_enabled = true
 glow_levels/3 = 0.8
@@ -47,6 +51,23 @@ size = Vector3(200.2998, 20.318115, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_jm8ch"]
 size = Vector3(31.35, 12.525, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfbft"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("7_xfbft")
+shader_parameter/albedo = Color(1, 1, 0, 0.90588236)
+shader_parameter/texture_albedo = ExtResource("8_lqfst")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/center_distance = 0.45
+shader_parameter/fill_amount = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_30ond"]
+size = Vector2(4, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lqfst"]
+size = Vector3(3.7678223, 1, 1.8212891)
 
 [node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container", "dash_ui", "right_wall")]
 script = ExtResource("1_1tq5y")
@@ -90,6 +111,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.47406, -0.5, 0)
 shape = SubResource("BoxShape3D_1tq5y")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SoulContainer" parent="CanvasLayer" instance=ExtResource("10_xfbft")]
+offset_right = 151.0
+offset_bottom = 88.0
 
 [node name="Dash" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 2
@@ -202,3 +227,27 @@ metadata/_edit_group_ = true
 visible = false
 layers = 524288
 mesh = SubResource("BoxMesh_jm8ch")
+
+[node name="MoveShop" type="Area3D" parent="." node_paths=PackedStringArray("mesh_instance_3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_lqfst")
+mesh_instance_3d = NodePath("MeshInstance3D")
+metadata/_custom_type_script = "uid://crf6i2pescuwe"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MoveShop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.07862449, 0)
+material_override = SubResource("ShaderMaterial_xfbft")
+mesh = SubResource("PlaneMesh_30ond")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MoveShop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.44814992, 0)
+shape = SubResource("BoxShape3D_lqfst")
+
+[node name="NameLabel" type="Label3D" parent="MoveShop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, 0)
+billboard = 1
+text = "Shop"
+font_size = 64

@@ -2,8 +2,9 @@ class_name UpgradesList
 extends Node3D
 
 @export var scene: PackedScene
-@export var offset = 2.0
-@export var max_count := 3
+@export var offset = Vector2(2.0, 0)
+@export var max_count := 0
+@export var random := false
 
 var open := false
 
@@ -14,12 +15,17 @@ func show_upgrades(upgrades: Array[UpgradeResource]) -> void:
 	for child in get_children():
 		child.queue_free()
 	
-	var x_offset = 0.0
-
-	upgrades.shuffle()
-	for up in range(min(upgrades.size(), max_count)):
+	if random:
+		upgrades.shuffle()
+	
+	var item_count = upgrades.size()
+	if max_count > 0:
+		item_count = min(upgrades.size(), max_count)
+	
+	var pos_offset = Vector2.ZERO
+	for up in range(item_count):
 		var select = scene.instantiate()
 		select.upgrade = upgrades[up]
-		select.position = Vector3(x_offset, 0, 0)
+		select.position = Vector3(pos_offset.x, 0, pos_offset.y)
 		add_child(select)
-		x_offset += offset
+		pos_offset += offset

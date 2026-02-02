@@ -3,6 +3,7 @@ extends Node
 const POTION_GAME = "uid://bquyk6n7heynp"
 const START = preload("uid://d2r2acm4ncnnc")
 const MAP_SELECT = preload("uid://ctnqcjceovl8r")
+const SHOP = preload("uid://cnhq46dfc2xlt")
 
 @export var loading_bar: ProgressBar
 @export var continue_text: Label
@@ -19,7 +20,10 @@ func _process(_delta: float) -> void:
 	_update_loading_progress()
 
 func _ready() -> void:
-	_to_target_scene()
+	animation_player.play_backwards("show_loading")
+	target_scene = ""
+	continue_text.hide()
+	
 	timer.timeout.connect(func(): end_transition())
 	min_load_timer.timeout.connect(_on_min_loading_timeout)
 	BackgroundResourceLoader.resource_loaded.connect(_on_resource_loaded)
@@ -40,14 +44,14 @@ func _finish_loading():
 	continue_text.show()
 
 func _to_target_scene():
+	if not target_scene: return
+		
 	animation_player.play_backwards("show_loading")
-	
-	if target_scene:
-		get_tree().change_scene_to_file(target_scene)
-		await animation_player.animation_finished
-		timer.start()
-	
+	get_tree().change_scene_to_file(target_scene)
 	target_scene = ""
+	
+	await animation_player.animation_finished
+	timer.start()
 	continue_text.hide()
 
 func _start_loading_to(path: String):
@@ -86,6 +90,9 @@ func change_to_game(lvl = -1) -> void:
 
 func change_to_map_select():
 	change_scene(MAP_SELECT)
+
+func change_to_shop():
+	change_scene(SHOP)
 
 func change_to_start() -> void:
 	change_scene(START)

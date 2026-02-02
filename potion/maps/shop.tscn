@@ -1,467 +1,203 @@
-[gd_scene load_steps=49 format=3 uid="uid://cnhq46dfc2xlt"]
+[gd_scene load_steps=24 format=3 uid="uid://cnhq46dfc2xlt"]
 
 [ext_resource type="Script" uid="uid://brq7wrvyt4152" path="res://potion/maps/shop_map.gd" id="1_13ndi"]
 [ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="3_13ndi"]
 [ext_resource type="PackedScene" uid="uid://m672asvd0bow" path="res://potion/maps/objects/upgrade_buy.tscn" id="5_hemba"]
-[ext_resource type="PackedScene" uid="uid://cm3pdnbvcnfpk" path="res://potion/maps/objects/move_next.tscn" id="5_nojdy"]
-[ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="5_orkik"]
-[ext_resource type="PackedScene" uid="uid://bta6ws6aiod4y" path="res://assets/fantasy/glTF/Stall_Cart_Empty.gltf" id="6_p00gg"]
+[ext_resource type="Texture2D" uid="uid://dyqil2ht6x2ef" path="res://assets/PrototypeTextures/Dark/texture_01.png" id="7_6d3tc"]
+[ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="7_hemba"]
 [ext_resource type="PackedScene" uid="uid://di33frcdi4fnw" path="res://potion/maps/objects/upgrade_select.tscn" id="7_p00gg"]
-[ext_resource type="PackedScene" uid="uid://dam3pr8acoru4" path="res://assets/models/bag.glb" id="8_tcxai"]
-[ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="9_6jtiw"]
-[ext_resource type="Script" uid="uid://cs261kr81nos4" path="res://addons/proton_scatter/src/scatter.gd" id="10_3ckhd"]
-[ext_resource type="Script" uid="uid://debrep4piyckd" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_ig3at"]
-[ext_resource type="Script" uid="uid://dn2cgqdslr83y" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="12_4lc4r"]
-[ext_resource type="Script" uid="uid://nfnuybelyha1" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="13_tcxai"]
-[ext_resource type="Script" uid="uid://58pmhmcjlrsq" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="14_6jtiw"]
-[ext_resource type="Script" uid="uid://biglik0cixdf8" path="res://addons/proton_scatter/src/modifiers/offset_scale.gd" id="14_ig3at"]
-[ext_resource type="Script" uid="uid://bcjar1kl4ip0k" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="15_5n5y4"]
-[ext_resource type="Script" uid="uid://dnkb1bbqb0ba3" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="16_d8qon"]
-[ext_resource type="Script" uid="uid://cshst085n6bla" path="res://addons/proton_scatter/src/scatter_item.gd" id="17_c537u"]
-[ext_resource type="Script" uid="uid://bxdsrs8aelkaf" path="res://addons/proton_scatter/src/scatter_shape.gd" id="18_s604t"]
-[ext_resource type="Script" uid="uid://bi1cdqsyg4jht" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="19_3ckhd"]
+[ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="8_nojdy"]
+[ext_resource type="Script" uid="uid://crf6i2pescuwe" path="res://potion/maps/move_next.gd" id="9_2vj38"]
+[ext_resource type="Shader" uid="uid://cfpjitbm8xuor" path="res://shader/move_next.gdshader" id="10_y2ofb"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="11_bwg74"]
+[ext_resource type="PackedScene" uid="uid://8sutrd0e0ysa" path="res://potion/ui/soul_container.tscn" id="12_y2ofb"]
 [ext_resource type="AudioStream" uid="uid://d4knupavmx455" path="res://assets/sound/sfx/soul-steal.mp3" id="21_4lc4r"]
-[ext_resource type="Shader" uid="uid://baf4o50ybhvcn" path="res://shader/terrain.gdshader" id="24_d8qon"]
-[ext_resource type="Texture2D" uid="uid://vleodlnu2eur" path="res://assets/sprites/TerrainMask.png" id="25_c537u"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hemba"]
-size = Vector3(2.491211, 3.074707, 1.4724121)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p00gg"]
+albedo_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+albedo_texture = ExtResource("7_6d3tc")
+uv1_scale = Vector3(100, 10, 10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2vj38"]
-size = Vector3(1.8752441, 2.4141235, 0.9707031)
+[sub_resource type="PlaneMesh" id="PlaneMesh_hemba"]
+size = Vector2(400, 100)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5n5y4"]
-transparency = 1
-shading_mode = 0
-albedo_texture = ExtResource("9_6jtiw")
+[sub_resource type="BoxShape3D" id="BoxShape3D_nojdy"]
+size = Vector3(250.948, 1, 100)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_d8qon"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rakl0"]
+size = Vector3(200.2998, 20.318115, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_hemba"]
-radius = 0.7569843
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_01vrg"]
-frequency = 0.0046
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xybiu"]
-noise = SubResource("FastNoiseLite_01vrg")
-seamless = true
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_eu0bj"]
-frequency = 0.0405
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b6o17"]
-noise = SubResource("FastNoiseLite_eu0bj")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_apx2g"]
-render_priority = 0
-shader = ExtResource("24_d8qon")
-shader_parameter/base_color = Color(0.1736078, 0.5221943, 0.17307043, 1)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_xybiu")
-shader_parameter/noise_scale = Vector2(2, 1)
-shader_parameter/noise_strength = 0.50000002375
-shader_parameter/secondary_color = Color(0.7343839, 0.544782, 0.38426673, 1)
-shader_parameter/secondary_texture = SubResource("NoiseTexture2D_b6o17")
-shader_parameter/secondary_scale = Vector2(2, 1)
-shader_parameter/secondary_noise_strength = 0.1610000076475
-shader_parameter/blend_mask = ExtResource("25_c537u")
-shader_parameter/mask_scale = Vector2(1, 1)
-shader_parameter/mask_offset = Vector2(0, 0)
-shader_parameter/light_smooth = 0.1
-shader_parameter/light_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
-shader_parameter/roughness = 0.8
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_csol4"]
-size = Vector2(60, 30)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6jtiw"]
-size = Vector3(49.450195, 0.5161133, 34.442383)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6d3tc"]
-size = Vector3(41.183594, 11.18335, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_p00gg"]
+[sub_resource type="BoxMesh" id="BoxMesh_6d3tc"]
 size = Vector3(31.35, 12.525, 1)
 
-[sub_resource type="Animation" id="Animation_hemba"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D2:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-8.43788, 21.794992, 17.248596)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Boudary/CollisionShape3D4:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-17.20428, 0, 0.47715425)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ShopArea:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PrepareArea:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Boudary/CollisionShape3D3:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.23342896, 0, 0.47715425)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ShopArea/MoveNext/CollisionShape3D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rakl0"]
+sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
+sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
 
-[sub_resource type="Animation" id="Animation_p00gg"]
-resource_name = "next"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D2:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-8.43788, 21.794992, 17.248596), Vector3(4.452714, 25.117346, 21.62257)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Boudary/CollisionShape3D4:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-17.20428, 0, 0.47715425), Vector3(-5.9540443, 0, 0.47715425)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ShopArea:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.63),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PrepareArea:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Boudary/CollisionShape3D3:position")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.23342896, 0, 0.47715425), Vector3(15.063331, 0, 0.47715425)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ShopArea/MoveNext/CollisionShape3D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.06666666),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="Sky" id="Sky_vravf"]
+sky_material = SubResource("ProceduralSkyMaterial_rakl0")
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_hemba"]
-_data = {
-&"RESET": SubResource("Animation_hemba"),
-&"next": SubResource("Animation_p00gg")
-}
+[sub_resource type="Environment" id="Environment_6d3tc"]
+background_mode = 2
+sky = SubResource("Sky_vravf")
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/3 = 0.8
+glow_levels/4 = 0.3
+glow_levels/6 = 1.0
+glow_blend_mode = 0
+fog_light_color = Color(0.4106267, 0.45170838, 0.42324653, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.5449377, 0.8548759, 0.9480491, 1)
 
-[sub_resource type="Resource" id="Resource_6jtiw"]
-script = ExtResource("13_tcxai")
-amount = 1300
-restrict_height = true
-reference_frame = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vj38"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("10_y2ofb")
+shader_parameter/albedo = Color(1, 1, 0, 0.90588236)
+shader_parameter/texture_albedo = ExtResource("11_bwg74")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/center_distance = 0.45
+shader_parameter/fill_amount = 0.0
 
-[sub_resource type="Resource" id="Resource_5n5y4"]
-script = ExtResource("14_ig3at")
-scale = Vector3(0.7, 0.7, 0.7)
-reference_frame = 2
+[sub_resource type="PlaneMesh" id="PlaneMesh_y2ofb"]
+size = Vector2(4, 2)
 
-[sub_resource type="Resource" id="Resource_d8qon"]
-script = ExtResource("14_6jtiw")
-position = Vector3(0.15, 0.15, 0.15)
-rotation = Vector3(0, 360, 0)
-scale = Vector3(0.1, 0.1, 0.1)
-reference_frame = 2
+[sub_resource type="BoxShape3D" id="BoxShape3D_bwg74"]
+size = Vector3(1.8105469, 1, 1.8212891)
 
-[sub_resource type="Resource" id="Resource_c537u"]
-script = ExtResource("15_5n5y4")
-offset_step = 0.2
-consecutive_step_multiplier = 0.75
-restrict_height = true
-
-[sub_resource type="Resource" id="Resource_s604t"]
-script = ExtResource("16_d8qon")
-ray_length = 5.0
-ray_offset = 5.0
-remove_points_on_miss = false
-
-[sub_resource type="Resource" id="Resource_g7nvb"]
-script = ExtResource("11_ig3at")
-stack = Array[ExtResource("12_4lc4r")]([SubResource("Resource_6jtiw"), SubResource("Resource_5n5y4"), SubResource("Resource_d8qon"), SubResource("Resource_c537u"), SubResource("Resource_s604t")])
-
-[sub_resource type="Resource" id="Resource_ig3at"]
-script = ExtResource("19_3ckhd")
-size = Vector3(41.59415, 1, 21.349104)
-metadata/_custom_type_script = "uid://bi1cdqsyg4jht"
-
-[sub_resource type="Resource" id="Resource_tcxai"]
-script = ExtResource("19_3ckhd")
-size = Vector3(41.59415, 1, 8.264095)
-
-[node name="Shop" type="Node3D" node_paths=PackedStringArray("spawn_point")]
+[node name="Shop" type="Node3D"]
 script = ExtResource("1_13ndi")
-spawn_point = NodePath("Spawn")
+
+[node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
+script = ExtResource("7_hemba")
+player_root = NodePath("../Spawn")
+player_scene = ExtResource("8_nojdy")
 
 [node name="Spawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.906274, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8192334, 0, 0)
 
-[node name="ShopArea" type="Node3D" parent="."]
-
-[node name="ShopOpen" type="Area3D" parent="ShopArea" node_paths=PackedStringArray("sprite")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.744837, 0, -3.0903616)
-script = ExtResource("5_orkik")
-sprite = NodePath("Ring")
-metadata/_custom_type_script = "uid://buns64rcufm7p"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopArea/ShopOpen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0373535, 0)
-shape = SubResource("BoxShape3D_hemba")
-
-[node name="Stall_Cart_Empty2" parent="ShopArea/ShopOpen" instance=ExtResource("6_p00gg")]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="ShopArea/ShopOpen"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopArea/ShopOpen/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26474, 0)
-shape = SubResource("BoxShape3D_2vj38")
-
-[node name="EquipmentsSelect" type="Node3D" parent="ShopArea/ShopOpen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1103907, 0, 0)
-script = ExtResource("3_13ndi")
-scene = ExtResource("5_hemba")
-metadata/_custom_type_script = "uid://b1fc7q2ij1jat"
-
-[node name="Ring" type="MeshInstance3D" parent="ShopArea/ShopOpen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.034931183, 0)
-material_override = SubResource("StandardMaterial3D_5n5y4")
-mesh = SubResource("PlaneMesh_d8qon")
-skeleton = NodePath("../bag")
-
-[node name="MoveNext" parent="ShopArea" instance=ExtResource("5_nojdy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2007165, 0.50231934, 0.20821929)
-
-[node name="PrepareArea" type="Node3D" parent="."]
-visible = false
-
-[node name="Inventory" type="Area3D" parent="PrepareArea" node_paths=PackedStringArray("sprite")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2653794, 0, -2.826951)
-script = ExtResource("5_orkik")
-sprite = NodePath("Ring")
-metadata/_custom_type_script = "uid://buns64rcufm7p"
-
-[node name="Equipment" type="Node3D" parent="PrepareArea/Inventory"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5644822, 0, 0.041305542)
+[node name="Equipment" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.041052, 0, -3.2076645)
 script = ExtResource("3_13ndi")
 scene = ExtResource("7_p00gg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PrepareArea/Inventory"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2854886, 0)
-shape = SubResource("SphereShape3D_hemba")
-
-[node name="Ring" type="MeshInstance3D" parent="PrepareArea/Inventory"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.034931183, 0)
-material_override = SubResource("StandardMaterial3D_5n5y4")
-mesh = SubResource("PlaneMesh_d8qon")
-skeleton = NodePath("../bag")
-
-[node name="bag" parent="PrepareArea/Inventory" instance=ExtResource("8_tcxai")]
-
-[node name="MoveNext" parent="PrepareArea" instance=ExtResource("5_nojdy")]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 13.827876, 0, 0)
-
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, -8.43788, 21.794992, 17.248596)
-current = true
-fov = 20.0
-size = 10.832689
-
-[node name="Ground" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_apx2g")
-mesh = SubResource("PlaneMesh_csol4")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1286077)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24194336, 0)
-shape = SubResource("BoxShape3D_6jtiw")
-
-[node name="Boudary" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7214756, 0.03148842)
-collision_layer = 16384
-collision_mask = 0
-
-[node name="T" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6679058, 0, -7.415165)
-shape = SubResource("BoxShape3D_6d3tc")
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
-visible = false
-layers = 524288
-mesh = SubResource("BoxMesh_p00gg")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(0.19936793, 0, 0.9799246, 0, 1, 0, -0.9799246, 0, 0.19936793, 0.23342896, 0, 0.47715425)
-shape = SubResource("BoxShape3D_6d3tc")
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D3"]
-visible = false
-layers = 524288
-mesh = SubResource("BoxMesh_p00gg")
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(-0.19936791, 0, 0.97992474, 0, 1, 0, -0.97992474, 0, -0.19936791, -17.20428, 0, 0.47715425)
-shape = SubResource("BoxShape3D_6d3tc")
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/CollisionShape3D4"]
-visible = false
-layers = 524288
-mesh = SubResource("BoxMesh_p00gg")
-
-[node name="B" type="CollisionShape3D" parent="Boudary"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.026639)
-visible = false
-shape = SubResource("BoxShape3D_6d3tc")
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/B"]
-layers = 524288
-mesh = SubResource("BoxMesh_p00gg")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.5607952, 0.80293584, 0.20199712, 0.06951529, -0.28877157, 0.95487106, 0.8250311, -0.5214452, -0.21775804, 0.0665164, 34.353207, 0)
-light_color = Color(0.8852149, 0.8612659, 0.44731557, 1)
-light_cull_mask = 4294443007
-shadow_enabled = true
-shadow_caster_mask = 4294443007
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_hemba")
-}
-
-[node name="ProtonScatter" type="Node3D" parent="."]
-script = ExtResource("10_3ckhd")
-modifier_stack = SubResource("Resource_g7nvb")
-Performance/use_chunks = true
-Performance/chunk_dimensions = Vector3(15, 15, 15)
-metadata/_custom_type_script = "uid://cs261kr81nos4"
-
-[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
-script = ExtResource("17_c537u")
-path = "uid://bpipf7qid4cjd"
-
-[node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
-script = ExtResource("17_c537u")
-path = "uid://bg8p2vaxlso2r"
-
-[node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
-script = ExtResource("17_c537u")
-proportion = 10
-path = "uid://ds60i68rwksna"
-
-[node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
-script = ExtResource("18_s604t")
-shape = SubResource("Resource_ig3at")
-
-[node name="ScatterShape2" type="Node3D" parent="ProtonScatter"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
-script = ExtResource("18_s604t")
-negative = true
-shape = SubResource("Resource_tcxai")
+[node name="ShopItems" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.430868, 0, -3.4994364)
+script = ExtResource("3_13ndi")
+scene = ExtResource("5_hemba")
+offset = Vector2(0, 2)
+max_count = 5
+random = true
+metadata/_custom_type_script = "uid://b1fc7q2ij1jat"
 
 [node name="Purchased" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_4lc4r")
 volume_db = -10.0
 pitch_scale = 0.5
 bus = &"SFX"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 29.265333, 25.439947)
+current = true
+fov = 20.0
+size = 10.832689
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 0, 0)
+layers = 524288
+material_override = SubResource("StandardMaterial3D_p00gg")
+mesh = SubResource("PlaneMesh_hemba")
+
+[node name="FloorBody" type="StaticBody3D" parent="Floor"]
+
+[node name="FloorBody#CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.47406, -0.5, 0)
+shape = SubResource("BoxShape3D_nojdy")
+
+[node name="Boudary" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.721, 0.801)
+collision_layer = 16384
+collision_mask = 0
+
+[node name="T" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, -9)
+shape = SubResource("BoxShape3D_rakl0")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_6d3tc")
+
+[node name="R" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(0.19936793, 0, 0.9799246, 0, 1, 0, -0.9799246, 0, 0.19936793, 12, 0, 0.477)
+shape = SubResource("BoxShape3D_rakl0")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/R"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_6d3tc")
+
+[node name="L" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(-0.18916397, 0, 0.9819455, 0, 1, 0, -0.9819455, 0, -0.18916397, -12, 0, 0.477)
+shape = SubResource("BoxShape3D_rakl0")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/L"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_6d3tc")
+
+[node name="B" type="CollisionShape3D" parent="Boudary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, 7.9999995)
+shape = SubResource("BoxShape3D_rakl0")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/B"]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_6d3tc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6d3tc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+light_energy = 1.4
+
+[node name="MoveShop" type="Area3D" parent="." node_paths=PackedStringArray("mesh_instance_3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_2vj38")
+mesh_instance_3d = NodePath("MeshInstance3D")
+metadata/_custom_type_script = "uid://crf6i2pescuwe"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MoveShop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.07862449, 0)
+material_override = SubResource("ShaderMaterial_2vj38")
+mesh = SubResource("PlaneMesh_y2ofb")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MoveShop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.44814992, 0)
+shape = SubResource("BoxShape3D_bwg74")
+
+[node name="NameLabel" type="Label3D" parent="MoveShop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, 0)
+billboard = 1
+text = "Maps
+"
+font_size = 64
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SoulContainer" parent="CanvasLayer" instance=ExtResource("12_y2ofb")]
+offset_right = 151.0
+offset_bottom = 88.0

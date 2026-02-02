@@ -11,6 +11,8 @@ extends Node3D
 
 @onready var player_join: PlayerJoin = $PlayerJoin
 @onready var camera_3d: Camera3D = $Camera3D
+@onready var move_shop: MoveNext = $MoveShop
+@onready var player_spawn: Node3D = $PlayerSpawn
 
 var max_pos := Vector3.ZERO
 var min_pos := Vector3.ZERO
@@ -18,14 +20,17 @@ var min_pos := Vector3.ZERO
 func _ready() -> void:
 	get_tree().paused = false
 	
-	Events.player_has_joined.connect(spawn_player)
+	Events.player_has_joined.connect(func(id): player_join.setup_player(id, get_player_spawn_pos()))
+	player_join.spawned_player.connect(func(): dash_ui.show())
 	dash_ui.visible = not Events.players.is_empty()
 	
-	for player_id in Events.players:
-		spawn_player(player_id)
+	move_shop.next.connect(func(): SceneManager.change_to_shop())
+	_setup_map()
 
+func _setup_map():
 	var total_maps: int = Events.MAPS.size()
 	var start_x: float = 0
+	
 	for i in range(total_maps):
 		var node := map_button.instantiate() as MapButton
 		var index: int = i
@@ -35,13 +40,27 @@ func _ready() -> void:
 		node.next.connect(func(): SceneManager.change_to_game(index))
 		map_container.add_child(node)
 		max_pos = node.global_position
+		
+		if i == Events.level:
+			move_shop.global_position.x = node.global_position.x
 
+	move_shop.visible = not Events.unlocked_shop_items.is_empty()
+	
 	if right_wall:
 		right_wall.global_position.x = max_pos.x + right_wall_offset
+	
+	var center = get_player_spawn_pos()
+	for player_id in Events.players:
+		player_join.setup_player(player_id, center)
+	
+	camera_3d.global_position.x = move_shop.global_position.x
 
-func spawn_player(id: String) -> void:
-	player_join.setup_player(id)
-	dash_ui.show()
+func get_player_spawn_pos():
+	var center = player_spawn.global_position
+	if move_shop.global_position.x > 0:
+		center.x = move_shop.global_position.x
+		center.z = 4
+	return center
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed():

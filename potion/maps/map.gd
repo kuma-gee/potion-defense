@@ -35,7 +35,7 @@ func map_finished():
 	# 	recipe.recipe = new_recipe
 	# 	recipe.tree_exiting.connect(func(): _show_next_level_area())
 	# else:
-	Events.finished_level()
+	Events.finished_level(self)
 	_show_next_level_area()
 
 func _show_next_level_area():

@@ -1,6 +1,5 @@
 extends Node
 
-signal move_to_shop()
 signal souls_changed()
 signal cauldron_used()
 signal cauldron_destroyed()
@@ -27,6 +26,7 @@ var level := 0
 var unlocked_map := 0
 var unlocked_recipes: Array[ItemResource.Type] = []
 var unlocked_upgrades: Array[UpgradeResource] = []
+var unlocked_shop_items: Array[UpgradeResource] = []
 
 var logger = KumaLog.new("Events")
 
@@ -36,6 +36,7 @@ func reset_game():
 	has_played = false
 	unlocked_recipes = []
 	unlocked_upgrades = []
+	unlocked_shop_items = []
 
 func get_player_count() -> int:
 	return players.size()
@@ -52,18 +53,21 @@ func player_input_received(event: InputEvent):
 	players.append(id)
 	player_has_joined.emit(id)
 
-func next_level():
-	level += 1
-	move_to_shop.emit()
-	
 func get_current_map():
 	if level < MAPS.size():
 		return load(MAPS[level]).scene
 	return null
 
-func finished_level():
-	unlocked_map = max(level + 1, unlocked_map)
+func finished_level(map: Map):
+	unlocked_map = max(level, unlocked_map)
+	for item in map.upgrades:
+		if not item in unlocked_shop_items:
+			unlocked_shop_items.append(item)
+
 	logger.info("Finished level %d, total souls: %d" % [level, total_souls])
+
+func next_level():
+	SceneManager.change_to_map_select()
 
 func is_tutorial_level() -> bool:
 	return level == 0
