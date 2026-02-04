@@ -4,6 +4,7 @@ extends Node3D
 @export var recipe_ui: RecipeBookUI
 @export var gameover: GameoverScreen
 @export var new_recipe: NewRecipe
+@export var recipe_container: Control
 @export var in_game_canvas: Control
 @export var menu: Menu
 @export var cauldron: Control
@@ -33,14 +34,16 @@ func _ready() -> void:
 	Events.cauldron_used.connect(func():
 		if wave_manager.can_start_wave():
 			wave_manager.next_wave()
-			notific.show_text("Wave %s incoming!" % wave_manager.wave)
 	)
+	wave_manager.wave_started.connect(func(): notific.show_text("Wave %s incoming!" % wave_manager.wave))
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	Events.has_played = true
+	recipe_container.visible = not Events.unlocked_recipes.is_empty()
 
 func _unlocked_recipe(item: ItemResource):
 	new_recipe.open(item)
 	recipe_ui.update_unlocked(Events.unlocked_recipes)
+	recipe_container.show()
 
 func _on_all_waves_completed() -> void:
 	map.map_finished()

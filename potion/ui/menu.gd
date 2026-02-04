@@ -4,9 +4,7 @@ extends Control
 @export var continue_btn: Button
 @export var restart_btn: Button
 @export var back_btn: Button
-
 @export var ui: Control
-@export var recipe: RecipeBookUI
 
 @onready var main: CenterContainer = $Main
 
@@ -19,7 +17,6 @@ func _ready() -> void:
 	back_btn.pressed.connect(func(): SceneManager.change_to_map_select())
 	
 	visibility_changed.connect(_on_visibility_changed)
-	recipe.focus_exited.connect(func(): show_main())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed("ui_cancel"):

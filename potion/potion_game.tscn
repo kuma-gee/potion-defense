@@ -135,11 +135,12 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
 size = Vector3(100, 0.1, 100)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("recipe_ui", "gameover", "new_recipe", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar", "notific")]
+[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("recipe_ui", "gameover", "new_recipe", "recipe_container", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar", "notific")]
 script = ExtResource("1_1w3wt")
 recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
 new_recipe = NodePath("InGameCanvas/Control2/NewRecipe")
+recipe_container = NodePath("InGameCanvas/Control2/RecipeContainer")
 in_game_canvas = NodePath("InGameCanvas/Control2/GameUI")
 menu = NodePath("InGameCanvas/Control2/Control/Menu")
 cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
@@ -157,6 +158,7 @@ metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
 [node name="RestTimer" type="Timer" parent="WaveManager"]
+wait_time = 3.0
 one_shot = true
 
 [node name="EnemiesRoot" type="Node3D" parent="."]
@@ -436,7 +438,7 @@ text = "Restart"
 layout_mode = 2
 text = "Back to map"
 
-[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "ui", "recipe")]
+[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "ui")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -450,7 +452,6 @@ continue_btn = NodePath("Main/VBoxContainer/Continue")
 restart_btn = NodePath("Main/VBoxContainer/Restart")
 back_btn = NodePath("Main/VBoxContainer/Back")
 ui = NodePath("Main")
-recipe = NodePath("../Recipe")
 
 [node name="Main" type="CenterContainer" parent="InGameCanvas/Control2/Control/Menu"]
 layout_mode = 1
