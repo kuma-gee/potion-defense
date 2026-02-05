@@ -1,31 +1,27 @@
 class_name Turret
 extends RayInteractable
 
+const GROUP = "GOLEM"
 const POTION_TURRETS = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://baxxwp86stwe6"),
 	ItemResource.Type.POTION_BLIZZARD: preload("uid://c3jwn2bp7a8hm"),
 	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cxya3lrhur7jg"),
 }
 
-@export_category("Fuel")
 @export var progress_bar: ProgressBar
 @export var max_fuel := 100.0
 @export var potion_fuel_amount := 50.0
 @export var fuel_consumption_rate := 1.0
 
-@export_category("Price")
-@export var unlock_cost := 20
-@export var price_label: Label
 @export var price_container: Control
 
 @onready var turret_body: Node3D = $TurretBody
 
-var is_unlocked := false:
+var golem_type = null:
 	set(v):
-		is_unlocked = v
-		progress_bar.visible = v
-		price_container.visible = not v
-		turret_body.visible = v
+		golem_type = v
+		progress_bar.visible = v != null
+		turret_body.visible = v != null
 		
 var current_fuel := 0.0:
 	set(v):
@@ -63,12 +59,12 @@ var potion_turret: PotionTurret
 
 func _ready() -> void:
 	super()
+	add_to_group(GROUP)
 	
-	is_unlocked = false
+	golem_type = null
 	current_fuel = 0.0
 	out_of_fuel = true
 	progress_bar.max_value = max_fuel
-	price_label.text = "%s" % unlock_cost
 	_on_unhovered(null)
 	
 	hovered.connect(_on_hovered)
@@ -76,15 +72,17 @@ func _ready() -> void:
 	interacted.connect(_on_interacted)
 
 func _on_hovered(_actor):
-	if not is_unlocked:
+	if has_golems():
 		price_container.show()
 
 func _on_unhovered(_actor):
-	if not is_unlocked:
-		price_container.hide()
+	price_container.hide()
+
+func has_golems():
+	return Events.get_golem_counts().values().reduce(func(a, b): return a + b, 0) > 0
 
 func _process(delta: float) -> void:
-	if not is_unlocked or not potion_turret:
+	if not golem_type or not potion_turret:
 		return
 	
 	var consumption = potion_turret.get_consumption(delta)
@@ -99,21 +97,15 @@ func _process(delta: float) -> void:
 	else:
 		potion_turret.deactivate()
 
-
 func _on_interacted(actor: FPSPlayer) -> void:
-	if not is_unlocked:
+	if has_golems():
 		_try_unlock()
-	else:
+	elif golem_type != null:
 		_try_add_potion(actor)
 
 func _try_unlock() -> void:
-	if Events.total_souls >= unlock_cost:
-		Events.total_souls -= unlock_cost
-		is_unlocked = true
-		progress_bar.show()
-		print("Turret unlocked!")
-	else:
-		print("Not enough souls to unlock turret. Need: %d, Have: %d" % [unlock_cost, Events.total_souls])
+	golem_type = Events.get_golem_counts().keys()[0]
+	progress_bar.show()
 
 func _try_add_potion(actor: FPSPlayer) -> void:
 	if not actor.has_method("is_holding_potion") or not actor.has_method("release_item"):

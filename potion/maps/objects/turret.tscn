@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5y8qr3g4h2o1"]
+[gd_scene format=3 uid="uid://b5y8qr3g4h2o1"]
 
 [ext_resource type="Script" uid="uid://cchr0c554wyhk" path="res://potion/maps/objects/turret.gd" id="1_turret"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="2_nkuj2"]
@@ -13,36 +13,30 @@ top_radius = 0.3
 bottom_radius = 0.3
 height = 0.3
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_turret"]
-top_radius = 0.2
-bottom_radius = 0.2
-height = 0.4
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_nkuj2"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
-[node name="Turret" type="Area3D" node_paths=PackedStringArray("progress_bar", "price_label", "price_container")]
+[node name="Turret" type="Area3D" unique_id=2096355469 node_paths=PackedStringArray("progress_bar", "price_container")]
 script = ExtResource("1_turret")
 progress_bar = NodePath("Sprite3D/SubViewport/VBoxContainer/ProgressBar")
-unlock_cost = 0
-price_label = NodePath("Sprite3D/SubViewport/VBoxContainer/HBoxContainer/Price")
 price_container = NodePath("Sprite3D/SubViewport/VBoxContainer/HBoxContainer")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=401301463]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5948242, 0)
 shape = SubResource("CylinderShape3D_collision")
 
-[node name="Base" type="MeshInstance3D" parent="."]
+[node name="Base" type="MeshInstance3D" parent="." unique_id=1054338291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("CylinderMesh_base")
 
-[node name="TurretBody" type="Node3D" parent="."]
+[node name="TurretBody" type="Node3D" parent="." unique_id=1512376370]
+visible = false
 
-[node name="Mesh" type="MeshInstance3D" parent="TurretBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6377543, 0)
-mesh = SubResource("CylinderMesh_turret")
+[node name="CSGBox3D" type="CSGBox3D" parent="TurretBody" unique_id=60208746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49357164, 0)
+size = Vector3(0.7089844, 1, 0.52124023)
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1345268658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6540267, 0)
 billboard = 1
 double_sided = false
@@ -50,11 +44,11 @@ no_depth_test = true
 texture_filter = 0
 texture = SubResource("ViewportTexture_nkuj2")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=2060247846]
 transparent_bg = true
 size = Vector2i(160, 32)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport" unique_id=1277452391]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -63,7 +57,7 @@ grow_vertical = 2
 theme = ExtResource("2_nkuj2")
 alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Sprite3D/SubViewport/VBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="Sprite3D/SubViewport/VBoxContainer" unique_id=896573560]
 visible = false
 custom_minimum_size = Vector2(80, 24)
 layout_mode = 2
@@ -72,18 +66,18 @@ theme = ExtResource("2_nkuj2")
 max_value = 1.0
 show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/VBoxContainer" unique_id=857900560]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="TextureRect" type="TextureRect" parent="Sprite3D/SubViewport/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Sprite3D/SubViewport/VBoxContainer/HBoxContainer" unique_id=760224337]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_nkuj2")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Price" type="Label" parent="Sprite3D/SubViewport/VBoxContainer/HBoxContainer"]
+[node name="Price" type="Label" parent="Sprite3D/SubViewport/VBoxContainer/HBoxContainer" unique_id=2072710748]
 layout_mode = 2
 text = "10"
 horizontal_alignment = 1

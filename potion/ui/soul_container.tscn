@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://8sutrd0e0ysa"]
+[gd_scene format=3 uid="uid://8sutrd0e0ysa"]
 
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="1_my4l4"]
 [ext_resource type="Script" uid="uid://cg4okm68vawnd" path="res://potion/ui/soul_container.gd" id="1_qlnan"]
 [ext_resource type="Texture2D" uid="uid://prev5x2ki3jf" path="res://assets/sprites/UI_Soul.png" id="2_my4l4"]
 
-[node name="SoulContainer" type="MarginContainer" node_paths=PackedStringArray("souls_label")]
+[node name="SoulContainer" type="MarginContainer" unique_id=985602191 node_paths=PackedStringArray("souls_label")]
 offset_right = 107.0
 offset_bottom = 80.0
+theme = ExtResource("1_my4l4")
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
@@ -13,28 +15,28 @@ theme_override_constants/margin_bottom = 8
 script = ExtResource("1_qlnan")
 souls_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/Souls")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1746356423]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1372289350]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=635716777]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1465631723]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("2_my4l4")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Souls" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Souls" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=830268636]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 theme_override_constants/outline_size = 8

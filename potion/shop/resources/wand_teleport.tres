@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="WandResource" load_steps=3 format=3 uid="uid://cotho06ohio7x"]
+[gd_resource type="Resource" script_class="WandResource" format=3 uid="uid://cotho06ohio7x"]
 
 [ext_resource type="Texture2D" uid="uid://bbd6ka3hqgxfx" path="res://assets/sprites/Upgrade_WandReturn.png" id="1_4d6oi"]
-[ext_resource type="Script" uid="uid://fyvkpyi3xxto" path="res://potion/wands/wand_resource.gd" id="1_sst26"]
+[ext_resource type="Script" uid="uid://fyvkpyi3xxto" path="res://potion/shop/wand_resource.gd" id="1_sst26"]
 
 [resource]
 script = ExtResource("1_sst26")

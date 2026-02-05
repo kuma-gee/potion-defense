@@ -92,14 +92,32 @@ func has_upgrade(up: UpgradeResource) -> bool:
 	return up in unlocked_upgrades
 
 func buy_upgrade(up: UpgradeResource):
-	if not up in unlocked_upgrades:
-		if total_souls >= up.price:
-			total_souls -= up.price
-			unlocked_upgrades.append(up)
-			upgrade_unlocked.emit()
-			print("Unlocked upgrades: %s" % up.name)
-			return true
-		else:
-			print("Not enough souls to buy upgrade: %s" % up.name)
-
+	if total_souls >= up.price:
+		total_souls -= up.price
+		unlocked_upgrades.append(up)
+		upgrade_unlocked.emit()
+		print("Unlocked upgrades: %s" % up.name)
+		return true
+		
+	print("Not enough souls to buy upgrade: %s" % up.name)
 	return false
+
+func get_golem_counts() -> Dictionary[GolemResource.Type, int]:
+	var used_types = get_tree().get_nodes_in_group(Turret.GROUP).map(func(x): return x.golem_type)
+	
+	var counts: Dictionary[GolemResource.Type, int] = {}
+	for up in unlocked_upgrades:
+		if not up is GolemResource: continue
+		var golem = up as GolemResource
+		var type = golem.type
+		
+		if type in used_types:
+			used_types.erase(type)
+			continue
+		
+		if not counts.has(type):
+			counts[type] = 0
+		
+		counts[type] += 1
+	
+	return counts

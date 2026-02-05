@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bnh078xxhjtqf"]
+[gd_scene format=3 uid="uid://bnh078xxhjtqf"]
 
 [ext_resource type="Script" uid="uid://cgrmgkjehdobf" path="res://potion/effect/explosion.gd" id="1_obbvw"]
 [ext_resource type="Texture2D" uid="uid://ciespxrctvqsp" path="res://assets/particles/explosion_decal.png" id="3_45phi"]
@@ -352,10 +352,10 @@ _data = {
 &"start": SubResource("Animation_smxr1")
 }
 
-[node name="Explosion" type="Node3D"]
+[node name="Explosion" type="Node3D" unique_id=765294686]
 script = ExtResource("1_obbvw")
 
-[node name="PlayParticleSystems" type="Node3D" parent="."]
+[node name="PlayParticleSystems" type="Node3D" parent="." unique_id=1465807215]
 script = ExtResource("8_jc8tt")
 delays = {
 &"CenterSphere": 0.0,
@@ -366,19 +366,19 @@ delays = {
 }
 metadata/_custom_type_script = "uid://bkrembvwcg1br"
 
-[node name="Decal" type="Decal" parent="PlayParticleSystems"]
+[node name="Decal" type="Decal" parent="PlayParticleSystems" unique_id=368433145]
 size = Vector3(2.5, 2.5, 2.5)
 texture_albedo = ExtResource("3_45phi")
 texture_emission = ExtResource("4_nk4vk")
 modulate = Color(1, 0.5875, 0.00999999, 0)
 cull_mask = 524288
 
-[node name="OmniLight3D" type="OmniLight3D" parent="PlayParticleSystems"]
+[node name="OmniLight3D" type="OmniLight3D" parent="PlayParticleSystems" unique_id=578213078]
 light_color = Color(1, 0.483333, 0, 1)
 light_energy = 0.0
 omni_range = 4.0
 
-[node name="HighDust" type="GPUParticles3D" parent="PlayParticleSystems"]
+[node name="HighDust" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=1939011403]
 visible = false
 material_override = SubResource("StandardMaterial3D_xpt46")
 emitting = false
@@ -389,7 +389,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_eiin1")
 draw_pass_1 = ExtResource("6_xpt46")
 
-[node name="GroundDust" type="GPUParticles3D" parent="PlayParticleSystems"]
+[node name="GroundDust" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=152549403]
 material_override = SubResource("StandardMaterial3D_xpt46")
 emitting = false
 amount = 32
@@ -399,7 +399,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_xpt46")
 draw_pass_1 = ExtResource("6_xpt46")
 
-[node name="CenterSphere" type="GPUParticles3D" parent="PlayParticleSystems"]
+[node name="CenterSphere" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=743455942]
 material_override = SubResource("StandardMaterial3D_p5ont")
 emitting = false
 amount = 1
@@ -408,7 +408,7 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_p5ont")
 draw_pass_1 = SubResource("SphereMesh_xpt46")
 
-[node name="Streaks" type="GPUParticles3D" parent="PlayParticleSystems"]
+[node name="Streaks" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=1167719651]
 material_override = SubResource("ShaderMaterial_d4wka")
 emitting = false
 amount = 16
@@ -420,7 +420,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_eb4q0")
 draw_pass_1 = SubResource("QuadMesh_stehy")
 
-[node name="ImpactParticles" type="GPUParticles3D" parent="PlayParticleSystems"]
+[node name="ImpactParticles" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=1635039677]
 material_override = SubResource("StandardMaterial3D_jc8tt")
 emitting = false
 amount = 40
@@ -432,23 +432,21 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_r1uv0")
 draw_pass_1 = SubResource("QuadMesh_r1uv0")
 
-[node name="SmallHit" parent="." instance=ExtResource("3_ylwkm")]
+[node name="SmallHit" parent="." unique_id=447146672 instance=ExtResource("3_ylwkm")]
 element = 1
 damage = 50.0
 force = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit" unique_id=1737462854]
 shape = SubResource("SphereShape3D_cmr3i")
 
-[node name="CleanupTimer" type="Timer" parent="."]
+[node name="CleanupTimer" type="Timer" parent="." unique_id=674616702]
 wait_time = 2.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_obbvw")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=50679981]
+libraries/ = SubResource("AnimationLibrary_obbvw")
 
-[node name="SFXPlayer" type="Node" parent="."]
+[node name="SFXPlayer" type="Node" parent="." unique_id=114763080]
 script = ExtResource("4_smxr1")
 audio = ExtResource("5_obbvw")
 pitch = 2.0

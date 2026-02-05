@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=3 uid="uid://bjemhxyjs5ne6"]
+[gd_scene format=3 uid="uid://bjemhxyjs5ne6"]
 
 [ext_resource type="Script" uid="uid://b4aianeydif4r" path="res://player/fps_player.gd" id="1_krq8x"]
 [ext_resource type="Script" uid="uid://dvlvxhnejec1d" path="res://player/shield.gd" id="3_04f7j"]
@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://c2v2cb6gbgcfs" path="res://assets/sprites/Upgrade_WandSpeed.png" id="17_aqjxd"]
 [ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="17_r8c67"]
 [ext_resource type="PackedScene" uid="uid://dtsb8nyoqgtva" path="res://potion/maps/objects/progress.tscn" id="18_21wd0"]
-[ext_resource type="Script" uid="uid://b4gg3ttms2rww" path="res://potion/wands/wand_ability.gd" id="18_nky6h"]
+[ext_resource type="Script" uid="uid://b4gg3ttms2rww" path="res://potion/shop/wand_ability.gd" id="18_nky6h"]
 [ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="19_nky6h"]
 [ext_resource type="AudioStream" uid="uid://ch2kkwcm7rk2m" path="res://assets/sound/sfx/dash.mp3" id="22_0ms2b"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="23_21ptp"]

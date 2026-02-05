@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bquyk6n7heynp"]
+[gd_scene format=3 uid="uid://bquyk6n7heynp"]
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
@@ -135,7 +135,7 @@ bg_color = Color(0.8866618, 0.83570474, 0.8183721, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mtc6"]
 size = Vector3(100, 0.1, 100)
 
-[node name="PotionBase" type="Node3D" node_paths=PackedStringArray("recipe_ui", "gameover", "new_recipe", "recipe_container", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar", "notific")]
+[node name="PotionBase" type="Node3D" unique_id=1063237841 node_paths=PackedStringArray("recipe_ui", "gameover", "new_recipe", "recipe_container", "in_game_canvas", "menu", "cauldron", "cauldron_health_bar", "notific")]
 script = ExtResource("1_1w3wt")
 recipe_ui = NodePath("InGameCanvas/Control2/Control/Recipe")
 gameover = NodePath("InGameCanvas/Control2/Control/Gameover")
@@ -147,7 +147,7 @@ cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
 cauldron_health_bar = NodePath("InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/ProgressBar")
 notific = NodePath("InGameCanvas/Control2/GameUI/Notification")
 
-[node name="WaveManager" type="Node" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
+[node name="WaveManager" type="Node" parent="." unique_id=1187267849 node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
 script = ExtResource("19_fqivl")
 wave_label = NodePath("../InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer/Wave")
 enemy_spawn_root = NodePath("../EnemiesRoot")
@@ -155,27 +155,27 @@ spawn_timer = NodePath("SpawnTimer")
 rest_timer = NodePath("RestTimer")
 metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
 
-[node name="SpawnTimer" type="Timer" parent="WaveManager"]
+[node name="SpawnTimer" type="Timer" parent="WaveManager" unique_id=1483275744]
 
-[node name="RestTimer" type="Timer" parent="WaveManager"]
+[node name="RestTimer" type="Timer" parent="WaveManager" unique_id=2000712958]
 wait_time = 3.0
 one_shot = true
 
-[node name="EnemiesRoot" type="Node3D" parent="."]
+[node name="EnemiesRoot" type="Node3D" parent="." unique_id=1659001714]
 
-[node name="MapRoot" type="Node3D" parent="."]
+[node name="MapRoot" type="Node3D" parent="." unique_id=1036562058]
 
-[node name="PlayerRoot" type="Node3D" parent="."]
+[node name="PlayerRoot" type="Node3D" parent="." unique_id=90731606]
 
-[node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
+[node name="PlayerJoin" type="Node" parent="." unique_id=1055241465 node_paths=PackedStringArray("player_root")]
 script = ExtResource("24_8mtc6")
 player_root = NodePath("../PlayerRoot")
 player_scene = ExtResource("17_ho6vn")
 
-[node name="InGameCanvas" type="CanvasLayer" parent="."]
+[node name="InGameCanvas" type="CanvasLayer" parent="." unique_id=1171187555]
 layer = 10
 
-[node name="Control2" type="Control" parent="InGameCanvas"]
+[node name="Control2" type="Control" parent="InGameCanvas" unique_id=1246511240]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,7 +185,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("7_21lj0")
 
-[node name="GameUI" type="Control" parent="InGameCanvas/Control2"]
+[node name="GameUI" type="Control" parent="InGameCanvas/Control2" unique_id=1614948068]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -194,7 +194,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI"]
+[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI" unique_id=229050770]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -207,32 +207,32 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer" unique_id=1336141387]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer" unique_id=1828287118]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer" unique_id=2036003633]
 layout_mode = 2
 
-[node name="Wave" type="Label" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Wave" type="Label" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=2128545948]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Wave 1/4"
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=2021902720]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("7_0uxgy")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Cauldron" type="MarginContainer" parent="InGameCanvas/Control2/GameUI"]
+[node name="Cauldron" type="MarginContainer" parent="InGameCanvas/Control2/GameUI" unique_id=765858460]
 custom_minimum_size = Vector2(500, 40)
 layout_mode = 0
 offset_left = 710.0
@@ -244,10 +244,10 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/GameUI/Cauldron"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/GameUI/Cauldron" unique_id=529428027]
 layout_mode = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer" unique_id=1785917834]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -257,14 +257,14 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_8q1rh")
 value = 29.52
 show_percentage = false
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer" unique_id=155871943]
 layout_mode = 2
 theme_override_constants/margin_left = 6
 
-[node name="Control" type="Control" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/MarginContainer"]
+[node name="Control" type="Control" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/MarginContainer" unique_id=589370202]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/MarginContainer/Control"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/MarginContainer/Control" unique_id=1369287502]
 material = SubResource("ShaderMaterial_ux70s")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 1
@@ -285,7 +285,7 @@ texture = ExtResource("13_16d2i")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Notification" type="Label" parent="InGameCanvas/Control2/GameUI"]
+[node name="Notification" type="Label" parent="InGameCanvas/Control2/GameUI" unique_id=1248533566]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -302,11 +302,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_0uxgy")
 
-[node name="SoulContainer" parent="InGameCanvas/Control2" instance=ExtResource("9_ev7ur")]
+[node name="SoulContainer" parent="InGameCanvas/Control2" unique_id=518483562 instance=ExtResource("9_ev7ur")]
 layout_mode = 0
 show_if_available = false
 
-[node name="RecipeContainer" type="MarginContainer" parent="InGameCanvas/Control2"]
+[node name="RecipeContainer" type="MarginContainer" parent="InGameCanvas/Control2" unique_id=917517351]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -319,14 +319,14 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer" unique_id=774491811]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("6_i3qjy")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/RecipeContainer/TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/RecipeContainer/TextureRect" unique_id=1317970237]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -336,21 +336,21 @@ offset_right = 72.0
 grow_vertical = 0
 theme_override_constants/separation = 4
 
-[node name="TextureRect2" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer/TextureRect/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer/TextureRect/HBoxContainer" unique_id=972043596]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("12_ev7ur")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer/TextureRect/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/RecipeContainer/TextureRect/HBoxContainer" unique_id=1211796810]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("11_kavja")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="NewRecipe" type="TextureRect" parent="InGameCanvas/Control2" node_paths=PackedStringArray("item")]
+[node name="NewRecipe" type="TextureRect" parent="InGameCanvas/Control2" unique_id=45909253 node_paths=PackedStringArray("item")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -370,7 +370,7 @@ stretch_mode = 5
 script = ExtResource("11_m0roi")
 item = NodePath("MarginContainer/PanelContainer")
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/NewRecipe"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/NewRecipe" unique_id=1163564696]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -382,15 +382,13 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="PanelContainer" parent="InGameCanvas/Control2/NewRecipe/MarginContainer" instance=ExtResource("19_1w3wt")]
+[node name="PanelContainer" parent="InGameCanvas/Control2/NewRecipe/MarginContainer" unique_id=2085771327 instance=ExtResource("19_1w3wt")]
 layout_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/Control2/NewRecipe"]
-libraries = {
-&"": SubResource("AnimationLibrary_i3qjy")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InGameCanvas/Control2/NewRecipe" unique_id=252953946]
+libraries/ = SubResource("AnimationLibrary_i3qjy")
 
-[node name="Control" type="Control" parent="InGameCanvas/Control2"]
+[node name="Control" type="Control" parent="InGameCanvas/Control2" unique_id=1173584973]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -399,7 +397,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Gameover" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("restart_btn", "back_btn")]
+[node name="Gameover" type="ColorRect" parent="InGameCanvas/Control2/Control" unique_id=397399063 node_paths=PackedStringArray("restart_btn", "back_btn")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -412,7 +410,7 @@ script = ExtResource("20_kavja")
 restart_btn = NodePath("CenterContainer/VBoxContainer/Restart")
 back_btn = NodePath("CenterContainer/VBoxContainer/Back")
 
-[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Gameover"]
+[node name="CenterContainer" type="CenterContainer" parent="InGameCanvas/Control2/Control/Gameover" unique_id=1905831565]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -420,25 +418,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer" unique_id=1205306535]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer" unique_id=864185236]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Gameover"
 horizontal_alignment = 1
 
-[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer" unique_id=859648920]
 layout_mode = 2
 text = "Restart"
 
-[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Gameover/CenterContainer/VBoxContainer" unique_id=1932601261]
 layout_mode = 2
 text = "Back to map"
 
-[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "ui")]
+[node name="Menu" type="ColorRect" parent="InGameCanvas/Control2/Control" unique_id=774832975 node_paths=PackedStringArray("continue_btn", "restart_btn", "back_btn", "ui")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -453,7 +451,7 @@ restart_btn = NodePath("Main/VBoxContainer/Restart")
 back_btn = NodePath("Main/VBoxContainer/Back")
 ui = NodePath("Main")
 
-[node name="Main" type="CenterContainer" parent="InGameCanvas/Control2/Control/Menu"]
+[node name="Main" type="CenterContainer" parent="InGameCanvas/Control2/Control/Menu" unique_id=821557258]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -461,23 +459,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Menu/Main"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Menu/Main" unique_id=1431649314]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Continue" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+[node name="Continue" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1465388486]
 layout_mode = 2
 text = "Continue"
 
-[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1344983879]
 layout_mode = 2
 text = "Restart"
 
-[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer"]
+[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1787659819]
 layout_mode = 2
 text = "Back to map"
 
-[node name="Recipe" type="ColorRect" parent="InGameCanvas/Control2/Control" node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
+[node name="Recipe" type="ColorRect" parent="InGameCanvas/Control2/Control" unique_id=1327591186 node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
 process_mode = 3
 visible = false
 layout_mode = 1
@@ -497,17 +495,17 @@ ingredient_container = NodePath("PanelContainer/VBoxContainer/MarginContainer/VB
 potion_item = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/Potion")
 page_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Page")
 
-[node name="OpenSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipe"]
+[node name="OpenSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipe" unique_id=811664775]
 stream = ExtResource("13_khw37")
 volume_db = -15.0
 pitch_scale = 1.5
 
-[node name="CloseSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipe"]
+[node name="CloseSound" type="AudioStreamPlayer" parent="InGameCanvas/Control2/Control/Recipe" unique_id=1680416599]
 stream = ExtResource("14_niktk")
 volume_db = -15.0
 pitch_scale = 1.5
 
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/Control/Recipe"]
+[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/Control/Recipe" unique_id=2065711610]
 custom_minimum_size = Vector2(400, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -523,10 +521,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_33pbe")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer" unique_id=393222591]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer" unique_id=1133558774]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 32
@@ -534,62 +532,62 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer" unique_id=2102703259]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 32
 
-[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Ingredients" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=650084376]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1117647654]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Potion" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("19_1w3wt")]
+[node name="Potion" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=562266363 instance=ExtResource("19_1w3wt")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer" unique_id=1769037168]
 layout_mode = 2
 
-[node name="Prev" type="Button" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Prev" type="Button" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer" unique_id=848435682]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Prev"
 
-[node name="Page" type="Label" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Page" type="Label" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer" unique_id=645261035]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/outline_size = 5
 text = "0/0"
 horizontal_alignment = 1
 
-[node name="Next" type="Button" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Next" type="Button" parent="InGameCanvas/Control2/Control/Recipe/PanelContainer/VBoxContainer/HBoxContainer" unique_id=762111507]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Next"
 
-[node name="ShopBGM" type="AudioStreamPlayer" parent="."]
+[node name="ShopBGM" type="AudioStreamPlayer" parent="." unique_id=1378808492]
 stream = ExtResource("16_m4gdw")
 volume_db = -25.0
 bus = &"BGM"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=528307113]
 collision_layer = 8193
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=185773771]
 shape = SubResource("BoxShape3D_8mtc6")
 
 [connection signal="game_over" from="WaveManager" to="InGameCanvas/Control2/Control/Gameover" method="show_gameover"]

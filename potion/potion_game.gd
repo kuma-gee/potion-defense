@@ -50,9 +50,12 @@ func _on_all_waves_completed() -> void:
 	wave_manager.clear()
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_pressed() and event is InputEventKey and event.keycode == KEY_F1:
-		Events.level += 1
-		_on_all_waves_completed()
+	if event.is_pressed() and event is InputEventKey:
+		if event.keycode == KEY_F1:
+			Events.level += 1
+			_on_all_waves_completed()
+		elif event.keycode == KEY_F2:
+			Events.collect_soul(100)
 	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()
