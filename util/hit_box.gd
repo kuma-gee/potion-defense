@@ -13,6 +13,12 @@ func _ready() -> void:
 func has_element() -> bool:
 	return element != ElementalArea.Element.NONE
 
+func apply_potion(potion: PotionResource, multiplier: float = 1.0):
+	element = potion.element
+	damage = potion.damage * multiplier
+
+# !!! This cannot be called immediately in _ready
+# !!! Add a short delay before
 func hit():
 	for b in get_overlapping_areas():
 		if b is ElementalArea and has_element():

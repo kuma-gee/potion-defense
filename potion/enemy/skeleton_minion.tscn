@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b6oe0nxhrpwln"]
+[gd_scene format=3 uid="uid://b6oe0nxhrpwln"]
 
 [ext_resource type="PackedScene" uid="uid://bbpop2ylo0vfo" path="res://potion/enemy/skeleton.tscn" id="1_40km2"]
 [ext_resource type="Script" uid="uid://cuspqvicid1n2" path="res://util/hit_box.gd" id="2_26fy3"]
@@ -143,10 +143,10 @@ _data = {
 &"move": SubResource("Animation_pg0n3")
 }
 
-[node name="Minion" instance=ExtResource("1_40km2")]
+[node name="Minion" unique_id=1591539757 instance=ExtResource("1_40km2")]
 speed = 0.7
 
-[node name="HitBox" type="Area3D" parent="." index="0" node_paths=PackedStringArray("hit_sound")]
+[node name="HitBox" type="Area3D" parent="." index="0" unique_id=960033315 node_paths=PackedStringArray("hit_sound")]
 transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, -3.5458186e-08, 0.8815528, -0.7548276)
 collision_layer = 0
 collision_mask = 16
@@ -155,17 +155,15 @@ damage = 3.0
 hit_sound = NodePath("../Hit")
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" index="0" unique_id=1583271764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5527137e-15, 0, 0.08331299)
 shape = SubResource("BoxShape3D_rajcq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=425154530]
 root_node = NodePath("../Skeleton_Minion")
-libraries = {
-&"": SubResource("AnimationLibrary_xtrx3")
-}
+libraries/ = SubResource("AnimationLibrary_xtrx3")
 
-[node name="Skeleton_Minion" parent="." index="2" instance=ExtResource("3_beogp")]
+[node name="Skeleton_Minion" parent="." index="2" unique_id=529908520 instance=ExtResource("3_beogp")]
 transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Skeleton_Minion/Rig" index="0"]
@@ -253,7 +251,7 @@ bones/40/position = Vector3(-0.5108437, 0.78831214, 0.059736922)
 bones/40/rotation = Quaternion(-0.7582528, -1.527369e-07, 0.65196073, -1.1175871e-08)
 bones/40/scale = Vector3(1, 1.0000001, 1)
 
-[node name="Hit" type="AudioStreamPlayer" parent="." index="11"]
+[node name="Hit" type="AudioStreamPlayer" parent="." index="11" unique_id=602099678]
 stream = ExtResource("4_rblvq")
 volume_db = -25.0
 pitch_scale = 1.5

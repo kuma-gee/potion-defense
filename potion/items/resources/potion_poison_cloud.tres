@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dacyc21swomek"]
+[gd_resource type="Resource" script_class="PotionResource" format=3 uid="uid://dacyc21swomek"]
 
-[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Script" uid="uid://cqm1noax7iwpw" path="res://potion/items/resources/potion_resource.gd" id="1_jva1f"]
 [ext_resource type="Texture2D" uid="uid://df25uri316jim" path="res://assets/sprites/Items_Potion.png" id="2_jva1f"]
 
 [resource]
-script = ExtResource("1_item_res")
-type = 28
-name = "Poison Cloud"
+script = ExtResource("1_jva1f")
+element = 4
+color = Color(0.50980395, 1, 0.32941177, 1)
 texture = ExtResource("2_jva1f")

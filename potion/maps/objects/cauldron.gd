@@ -250,7 +250,10 @@ func _check_final_mix():
 			_add_item(potion)
 		success_anim.play("init")
 
-		var color = CauldronItem.POTION_COLORS.get(potion, Color.WHITE)
+		var potion_resource: PotionResource = ItemResource.get_resource(potion) as PotionResource
+		var color: Color = Color.WHITE
+		if potion_resource:
+			color = potion_resource.color
 		water_mesh.material_override.set_shader_parameter("water_color", color * 1.5)
 
 func _failed_potion():

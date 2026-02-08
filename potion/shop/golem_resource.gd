@@ -7,3 +7,6 @@ enum Type {
 }
 
 @export var type := Type.MELEE
+@export var scene: PackedScene
+@export var consumption := 1.0
+@export var attack_speed := 5.0

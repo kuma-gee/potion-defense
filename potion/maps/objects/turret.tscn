@@ -11,7 +11,7 @@ radius = 0.48535156
 [sub_resource type="CylinderMesh" id="CylinderMesh_base"]
 top_radius = 0.3
 bottom_radius = 0.3
-height = 0.3
+height = 0.1
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_nkuj2"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -26,15 +26,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5948242, 0)
 shape = SubResource("CylinderShape3D_collision")
 
 [node name="Base" type="MeshInstance3D" parent="." unique_id=1054338291]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015444279, 0)
 mesh = SubResource("CylinderMesh_base")
-
-[node name="TurretBody" type="Node3D" parent="." unique_id=1512376370]
-visible = false
-
-[node name="CSGBox3D" type="CSGBox3D" parent="TurretBody" unique_id=60208746]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49357164, 0)
-size = Vector3(0.7089844, 1, 0.52124023)
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1345268658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6540267, 0)

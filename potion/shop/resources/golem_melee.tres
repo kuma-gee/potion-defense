@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" uid="uid://be0c06p5m860i" path="res://potion/shop/golem_resource.gd" id="1_4jvat"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_8ltor"]
+[ext_resource type="PackedScene" uid="uid://bhjjbjpsw25pp" path="res://potion/maps/turrets/golem_melee.tscn" id="2_tr6t8"]
 
 [resource]
 script = ExtResource("1_4jvat")
+scene = ExtResource("2_tr6t8")
+consumption = 5.0
 name = "Golem Melee"
 description = "Attacks close enemies"
 price = 50

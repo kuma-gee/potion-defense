@@ -1,14 +1,6 @@
 class_name CauldronItem
 extends Control
 
-const POTION_COLORS = {
-	ItemResource.Type.POTION_FIRE_BOMB: Color.RED,
-	ItemResource.Type.POTION_SLIME: Color.BLUE,
-	ItemResource.Type.POTION_POISON_CLOUD: Color.SEA_GREEN,
-	ItemResource.Type.POTION_LIGHTNING: Color.YELLOW,
-	ItemResource.Type.POTION_BLIZZARD: Color.SKY_BLUE,
-}
-
 @export var texture_rect: TextureRect
 @export var label: Label
 
@@ -35,7 +27,10 @@ func _ready() -> void:
 func set_potion_color() -> void:
 	if not item: return
 
-	var color = POTION_COLORS.get(item.type, Color.WHITE)
+	var potion = item as PotionResource
+	var color := Color.WHITE
+	if potion:
+		color = potion.color
 	var mat = texture_rect.material as ShaderMaterial
 	mat.set_shader_parameter("enabled", color != null)
 	mat.set_shader_parameter("color", color)

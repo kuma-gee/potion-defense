@@ -3,7 +3,7 @@ extends Area3D
 
 signal next()
 
-@export var continue_timer := 2.0
+@export var continue_timer := 0.5
 @export var mesh_instance_3d: MeshInstance3D
 
 var started := false

@@ -52,6 +52,7 @@ static func spawn_effect(type: ItemResource.Type, pos: Vector3) -> Node:
 	var scene = EFFECT_SCENES.get(type, null)
 	if scene:
 		var node = scene.instantiate()
+		node.potion = ItemResource.get_resource(type) as PotionResource
 		node.position = pos
 		return node
 	return null

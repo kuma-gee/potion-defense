@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ctnqcjceovl8r"]
+[gd_scene format=3 uid="uid://ctnqcjceovl8r"]
 
 [ext_resource type="Script" uid="uid://up75ixyepm5q" path="res://potion/ui/map_select.gd" id="1_1tq5y"]
 [ext_resource type="PackedScene" uid="uid://btcuvegmc8huh" path="res://potion/ui/map_button.tscn" id="2_1tq5y"]
@@ -69,54 +69,54 @@ size = Vector2(4, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_lqfst"]
 size = Vector3(3.7678223, 1, 1.8212891)
 
-[node name="MapSelect" type="Node3D" node_paths=PackedStringArray("map_container", "dash_ui", "right_wall")]
+[node name="MapSelect" type="Node3D" unique_id=2064021489 node_paths=PackedStringArray("map_container", "dash_ui", "right_wall")]
 script = ExtResource("1_1tq5y")
 map_button = ExtResource("2_1tq5y")
 map_container = NodePath("MapButtons")
 dash_ui = NodePath("CanvasLayer/Dash/VBoxContainer/HBoxContainer2")
 right_wall = NodePath("Boudary/R")
 
-[node name="PlayerJoin" type="Node" parent="." node_paths=PackedStringArray("player_root")]
+[node name="PlayerJoin" type="Node" parent="." unique_id=1203153814 node_paths=PackedStringArray("player_root")]
 script = ExtResource("3_o4dwm")
 player_root = NodePath("../PlayerSpawn")
 player_scene = ExtResource("3_1tq5y")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1600628387]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 29.265333, 25.439947)
 current = true
 fov = 20.0
 size = 10.832689
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1857955967]
 transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
 light_energy = 1.4
 
-[node name="MapButtons" type="Node3D" parent="."]
+[node name="MapButtons" type="Node3D" parent="." unique_id=41700234]
 
-[node name="PlayerSpawn" type="Node3D" parent="."]
+[node name="PlayerSpawn" type="Node3D" parent="." unique_id=760714140]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
 
-[node name="Floor" type="Node3D" parent="."]
+[node name="Floor" type="Node3D" parent="." unique_id=1711321761]
 
-[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor" unique_id=1873099225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 0, 0)
 layers = 524288
 material_override = SubResource("StandardMaterial3D_gyksw")
 mesh = SubResource("PlaneMesh_1tq5y")
 
-[node name="FloorBody" type="StaticBody3D" parent="Floor"]
+[node name="FloorBody" type="StaticBody3D" parent="Floor" unique_id=940377252]
 
-[node name="FloorBody#CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorBody"]
+[node name="FloorBody#CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorBody" unique_id=414701638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.47406, -0.5, 0)
 shape = SubResource("BoxShape3D_1tq5y")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1227566007]
 
-[node name="SoulContainer" parent="CanvasLayer" instance=ExtResource("10_xfbft")]
+[node name="SoulContainer" parent="CanvasLayer" unique_id=802928150 instance=ExtResource("10_xfbft")]
 offset_right = 151.0
 offset_bottom = 88.0
 
-[node name="Dash" type="MarginContainer" parent="CanvasLayer"]
+[node name="Dash" type="MarginContainer" parent="CanvasLayer" unique_id=595320207]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -128,107 +128,107 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dash"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dash" unique_id=1579246710]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Dash/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Dash/VBoxContainer" unique_id=237132934]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer2" unique_id=1424359273]
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 texture = ExtResource("8_sxurd")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer2" unique_id=1941874792]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("8_f56hm")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer2" unique_id=943118450]
 layout_mode = 2
 text = "Dash"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Dash/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Dash/VBoxContainer" unique_id=1109819230]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer" unique_id=722516110]
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 texture = ExtResource("6_gyksw")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer" unique_id=285675809]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("7_2qtif")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Dash/VBoxContainer/HBoxContainer" unique_id=566427420]
 layout_mode = 2
 text = "Press to join"
 horizontal_alignment = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=724746252]
 environment = SubResource("Environment_jm8ch")
 
-[node name="Boudary" type="StaticBody3D" parent="."]
+[node name="Boudary" type="StaticBody3D" parent="." unique_id=1896493052]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.721, 0.801)
 collision_layer = 16384
 collision_mask = 0
 
-[node name="T" type="CollisionShape3D" parent="Boudary"]
+[node name="T" type="CollisionShape3D" parent="Boudary" unique_id=427093025]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, -9)
 shape = SubResource("BoxShape3D_f56hm")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/T" unique_id=1983442988]
 visible = false
 layers = 524288
 mesh = SubResource("BoxMesh_jm8ch")
 
-[node name="R" type="CollisionShape3D" parent="Boudary"]
+[node name="R" type="CollisionShape3D" parent="Boudary" unique_id=116384233]
 transform = Transform3D(0.19936793, 0, 0.9799246, 0, 1, 0, -0.9799246, 0, 0.19936793, 14.728676, 0, 0.47715425)
 shape = SubResource("BoxShape3D_f56hm")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/R"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/R" unique_id=139695413]
 visible = false
 layers = 524288
 mesh = SubResource("BoxMesh_jm8ch")
 
-[node name="L" type="CollisionShape3D" parent="Boudary"]
+[node name="L" type="CollisionShape3D" parent="Boudary" unique_id=498741348]
 transform = Transform3D(-0.18916397, 0, 0.9819455, 0, 1, 0, -0.9819455, 0, -0.18916397, -12, 0, 0.477)
 shape = SubResource("BoxShape3D_f56hm")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/L"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/L" unique_id=137099932]
 visible = false
 layers = 524288
 mesh = SubResource("BoxMesh_jm8ch")
 
-[node name="B" type="CollisionShape3D" parent="Boudary"]
+[node name="B" type="CollisionShape3D" parent="Boudary" unique_id=552049719]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, 7.9999995)
 shape = SubResource("BoxShape3D_f56hm")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/B"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boudary/B" unique_id=142437583]
 visible = false
 layers = 524288
 mesh = SubResource("BoxMesh_jm8ch")
 
-[node name="MoveShop" type="Area3D" parent="." node_paths=PackedStringArray("mesh_instance_3d")]
+[node name="MoveShop" type="Area3D" parent="." unique_id=54456181 node_paths=PackedStringArray("mesh_instance_3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 collision_layer = 0
 collision_mask = 2
@@ -236,17 +236,17 @@ script = ExtResource("6_lqfst")
 mesh_instance_3d = NodePath("MeshInstance3D")
 metadata/_custom_type_script = "uid://crf6i2pescuwe"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MoveShop"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MoveShop" unique_id=257802896]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.07862449, 0)
 material_override = SubResource("ShaderMaterial_xfbft")
 mesh = SubResource("PlaneMesh_30ond")
 skeleton = NodePath("../CollisionShape3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MoveShop"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MoveShop" unique_id=687681863]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22369385, 0.44814992, 0)
 shape = SubResource("BoxShape3D_lqfst")
 
-[node name="NameLabel" type="Label3D" parent="MoveShop"]
+[node name="NameLabel" type="Label3D" parent="MoveShop" unique_id=1049517340]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, 0)
 billboard = 1
 text = "Shop"

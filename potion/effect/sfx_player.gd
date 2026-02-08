@@ -1,3 +1,4 @@
+class_name SFXPlayer
 extends Node
 
 @export var audio: AudioStream

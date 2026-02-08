@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2r2acm4ncnnc"]
+[gd_scene format=3 uid="uid://d2r2acm4ncnnc"]
 
 [ext_resource type="Script" uid="uid://comenqvu3tial" path="res://potion/start.gd" id="1_7d6fn"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="1_nhxm7"]
 [ext_resource type="Texture2D" uid="uid://d17464ikssg2g" path="res://assets/sprites/potion_shield.svg" id="3_lhk1y"]
 
-[node name="Start" type="Control" node_paths=PackedStringArray("new_button", "continue_button", "settings_button", "exit_button")]
+[node name="Start" type="Control" unique_id=923401342 node_paths=PackedStringArray("new_button", "continue_button", "settings_button", "exit_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ continue_button = NodePath("VBoxContainer2/VBoxContainer/Continue")
 settings_button = NodePath("VBoxContainer2/VBoxContainer/Settings")
 exit_button = NodePath("VBoxContainer2/VBoxContainer/Exit")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1747039111]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1588651552]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,43 +41,43 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 200
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2" unique_id=1730384254]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="VBoxContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer2/HBoxContainer" unique_id=1297682717]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "Potion"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/HBoxContainer" unique_id=99118714]
 layout_mode = 2
 texture = ExtResource("3_lhk1y")
 
-[node name="Label2" type="Label" parent="VBoxContainer2/HBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer2/HBoxContainer" unique_id=263940463]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "Defense"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2" unique_id=1089104540]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
-[node name="New" type="Button" parent="VBoxContainer2/VBoxContainer"]
+[node name="New" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=1064664803]
 layout_mode = 2
 text = "New Game"
 
-[node name="Continue" type="Button" parent="VBoxContainer2/VBoxContainer"]
+[node name="Continue" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=527474691]
 layout_mode = 2
 text = "Continue"
 
-[node name="Settings" type="Button" parent="VBoxContainer2/VBoxContainer"]
+[node name="Settings" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=1147339235]
 visible = false
 layout_mode = 2
 text = "Settings"
 
-[node name="Exit" type="Button" parent="VBoxContainer2/VBoxContainer"]
+[node name="Exit" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=128554431]
 layout_mode = 2
 text = "Exit"

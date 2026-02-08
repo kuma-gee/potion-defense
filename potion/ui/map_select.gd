@@ -26,7 +26,7 @@ func _ready() -> void:
 	
 	move_shop.next.connect(func(): SceneManager.change_to_shop())
 	_setup_map()
-
+	
 func _setup_map():
 	var total_maps: int = Events.MAPS.size()
 	var start_x: float = 0

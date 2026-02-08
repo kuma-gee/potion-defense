@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://c15ds4tq8d2vs"]
+[gd_resource type="Resource" script_class="PotionResource" format=3 uid="uid://c15ds4tq8d2vs"]
 
-[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
+[ext_resource type="Script" uid="uid://cqm1noax7iwpw" path="res://potion/items/resources/potion_resource.gd" id="1_s5fdh"]
 [ext_resource type="Texture2D" uid="uid://df25uri316jim" path="res://assets/sprites/Items_Potion.png" id="2_s5fdh"]
 
 [resource]
-script = ExtResource("1_item_res")
-type = 27
-name = "Blizzard"
+script = ExtResource("1_s5fdh")
+element = 2
+color = Color(0, 0.77254903, 1, 1)
 texture = ExtResource("2_s5fdh")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqsb8dcdmlb48"]
+[gd_scene format=3 uid="uid://bqsb8dcdmlb48"]
 
 [ext_resource type="Shader" uid="uid://brpxo4jool5jb" path="res://shader/potion_ui.gdshader" id="1_ksfjx"]
 [ext_resource type="Shader" uid="uid://3r11ipnxstql" path="res://shader/circle_fill.gdshader" id="2_8qvv2"]
@@ -20,24 +20,24 @@ shader = ExtResource("1_ksfjx")
 shader_parameter/enabled = true
 shader_parameter/color = Color(0, 0, 0, 1)
 
-[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("texture_rect", "label")]
+[node name="PanelContainer" type="PanelContainer" unique_id=927658086 node_paths=PackedStringArray("texture_rect", "label")]
 theme_override_styles/panel = SubResource("StyleBoxEmpty_i48dj")
 script = ExtResource("2_bojww")
 texture_rect = NodePath("MarginContainer/CauldronItem")
 label = NodePath("MarginContainer/CauldronItem/Label")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=379268269]
 material = SubResource("ShaderMaterial_umabc")
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1421427541]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="CauldronItem" type="TextureRect" parent="MarginContainer"]
+[node name="CauldronItem" type="TextureRect" parent="MarginContainer" unique_id=716443176]
 material = SubResource("ShaderMaterial_8qvv2")
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -45,7 +45,7 @@ texture = ExtResource("2_ksfjx")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/CauldronItem"]
+[node name="Label" type="Label" parent="MarginContainer/CauldronItem" unique_id=1423828152]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

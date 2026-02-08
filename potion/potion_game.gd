@@ -56,6 +56,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_on_all_waves_completed()
 		elif event.keycode == KEY_F2:
 			Events.collect_soul(100)
+		elif event.keycode == KEY_F3:
+			Events.enemy_move_speed_multipler += 0.1 * (-1.0 if event.shift_pressed else 1.0)
 	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()

@@ -28,6 +28,9 @@ var unlocked_recipes: Array[ItemResource.Type] = []
 var unlocked_upgrades: Array[UpgradeResource] = []
 var unlocked_shop_items: Array[UpgradeResource] = []
 
+# Debug variables
+var enemy_move_speed_multipler = 1.0
+
 var logger = KumaLog.new("Events")
 
 func reset_game():
@@ -102,22 +105,21 @@ func buy_upgrade(up: UpgradeResource):
 	print("Not enough souls to buy upgrade: %s" % up.name)
 	return false
 
-func get_golem_counts() -> Dictionary[GolemResource.Type, int]:
-	var used_types = get_tree().get_nodes_in_group(Turret.GROUP).map(func(x): return x.golem_type)
+func get_golem_counts() -> Dictionary[GolemResource, int]:
+	var used_types = get_tree().get_nodes_in_group(Turret.GROUP).map(func(x): return x.golem_res)
 	
-	var counts: Dictionary[GolemResource.Type, int] = {}
+	var counts: Dictionary[GolemResource, int] = {}
 	for up in unlocked_upgrades:
 		if not up is GolemResource: continue
 		var golem = up as GolemResource
-		var type = golem.type
 		
-		if type in used_types:
-			used_types.erase(type)
+		if golem in used_types:
+			used_types.erase(golem)
 			continue
 		
-		if not counts.has(type):
-			counts[type] = 0
+		if not counts.has(golem):
+			counts[golem] = 0
 		
-		counts[type] += 1
+		counts[golem] += 1
 	
 	return counts

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b36xk56a0wmoo"]
+[gd_scene format=3 uid="uid://b36xk56a0wmoo"]
 
 [ext_resource type="Script" uid="uid://cxwrswl4exd3d" path="res://potion/items/scenes/potion.gd" id="1_u5iux"]
 [ext_resource type="PackedScene" uid="uid://cdma1u0ll1cvr" path="res://potion/items/scenes/potion_model.tscn" id="2_nxe1v"]
@@ -10,18 +10,18 @@ radius = 0.095214844
 [sub_resource type="SphereShape3D" id="SphereShape3D_yedi4"]
 radius = 0.29316995
 
-[node name="PotionEmptyVisual" type="CollisionShape3D"]
+[node name="PotionEmptyVisual" type="CollisionShape3D" unique_id=28686528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036865234, 0)
 shape = SubResource("CylinderShape3D_nxe1v")
 script = ExtResource("1_u5iux")
 potion_type = 0
 
-[node name="PotionModel" parent="." instance=ExtResource("2_nxe1v")]
+[node name="PotionModel" parent="." unique_id=1677247 instance=ExtResource("2_nxe1v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14272481, 0)
 
-[node name="HitArea" type="Area3D" parent="."]
+[node name="HitArea" type="Area3D" parent="." unique_id=1111040785]
 collision_layer = 0
 collision_mask = 128
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea" unique_id=1768658929]
 shape = SubResource("SphereShape3D_yedi4")

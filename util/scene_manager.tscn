@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://q02ddkwjgfhg"]
+[gd_scene format=3 uid="uid://q02ddkwjgfhg"]
 
 [ext_resource type="Script" uid="uid://ui1yrwtw1vlr" path="res://util/scene_manager.gd" id="1_2s4po"]
 [ext_resource type="Texture2D" uid="uid://doipj88qoubh1" path="res://assets/Inputs/Keyboard & Mouse/Dark/Space_Key_Dark.png" id="2_cxxc0"]
@@ -100,29 +100,27 @@ _data = {
 &"show_loading": SubResource("Animation_xelpb")
 }
 
-[node name="SceneManager" type="Node" node_paths=PackedStringArray("loading_bar", "continue_text")]
+[node name="SceneManager" type="Node" unique_id=344688059 node_paths=PackedStringArray("loading_bar", "continue_text")]
 process_mode = 3
 script = ExtResource("1_2s4po")
 loading_bar = NodePath("CanvasLayer/Loading/MarginContainer/LoadingBar")
 continue_text = NodePath("CanvasLayer/Loading/MarginContainer/ContinueText")
 
-[node name="MinLoadTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
-
-[node name="Timer" type="Timer" parent="."]
+[node name="MinLoadTimer" type="Timer" parent="." unique_id=1469399250]
 wait_time = 0.5
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ln5k3")
-}
+[node name="Timer" type="Timer" parent="." unique_id=473828241]
+wait_time = 0.5
+one_shot = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=674495291]
+libraries/ = SubResource("AnimationLibrary_ln5k3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1737444731]
 layer = 100
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=249641901]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -131,7 +129,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Loading" type="Control" parent="CanvasLayer"]
+[node name="Loading" type="Control" parent="CanvasLayer" unique_id=1955956932]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -143,7 +141,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_ln5k3")
 
-[node name="Controls" type="CenterContainer" parent="CanvasLayer/Loading"]
+[node name="Controls" type="CenterContainer" parent="CanvasLayer/Loading" unique_id=1211944615]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,55 +150,55 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Loading/Controls"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Loading/Controls" unique_id=1818307322]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer" unique_id=109085191]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "Controls"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer" unique_id=1487005058]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer" unique_id=1641336225]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="Label" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1221992902]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Pickup"
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="Label3" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1058588774]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Throw"
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="Label2" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=231436908]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Action"
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer" unique_id=158968807]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1284614372]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=677007409]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("3_0i461")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=208607864]
 visible = false
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -208,48 +206,48 @@ texture = ExtResource("2_cxxc0")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2109104954]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("6_stbgg")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=74966348]
 layout_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=735240694]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("4_stbgg")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1131655315]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("9_kwytc")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=619579952]
 layout_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1605448988]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("6_scw7r")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=85556196]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = ExtResource("8_kwytc")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Loading"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Loading" unique_id=707706911]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -264,14 +262,14 @@ grow_vertical = 0
 theme = ExtResource("2_ln5k3")
 theme_override_constants/margin_bottom = 32
 
-[node name="LoadingBar" type="ProgressBar" parent="CanvasLayer/Loading/MarginContainer"]
+[node name="LoadingBar" type="ProgressBar" parent="CanvasLayer/Loading/MarginContainer" unique_id=1607145613]
 custom_minimum_size = Vector2(400, 16)
 layout_mode = 2
 max_value = 1.0
 step = 0.001
 show_percentage = false
 
-[node name="ContinueText" type="Label" parent="CanvasLayer/Loading/MarginContainer"]
+[node name="ContinueText" type="Label" parent="CanvasLayer/Loading/MarginContainer" unique_id=623934354]
 layout_mode = 2
 text = "Press to continue"
 horizontal_alignment = 1

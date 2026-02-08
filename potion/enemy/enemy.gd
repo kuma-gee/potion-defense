@@ -88,7 +88,7 @@ func _move_to_target():
 			_update_navigation_target()
 		return
 	
-	var sp = get_actual_speed()
+	var sp = get_actual_speed() * Events.enemy_move_speed_multipler
 	var next_position = nav_agent.get_next_path_position()
 	next_position.y = global_position.y
 	var direction = global_position.direction_to(next_position)

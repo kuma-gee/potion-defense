@@ -27,6 +27,12 @@ enum Process {
 	PULVERIZE,
 }
 
+const POTION_ELEMENTS = {
+	Type.POTION_FIRE_BOMB: ElementalArea.Element.FIRE,
+	Type.POTION_BLIZZARD: ElementalArea.Element.ICE,
+	Type.POTION_POISON_CLOUD: ElementalArea.Element.POISON,
+}
+
 const PROCESS_ICONS = {
 	Process.CRUSH: ACTION_CRUSH,
 	Process.PULVERIZE: ACTION_CRUSH,
