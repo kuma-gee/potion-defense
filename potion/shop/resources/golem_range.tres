@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GolemResource" format=3 uid="uid://dwk2vqa7m3p4m"]
+
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_3fbl6"]
+[ext_resource type="PackedScene" uid="uid://dmdmbrvol16xs" path="res://potion/maps/turrets/golem_range.tscn" id="2_3fbl6"]
+[ext_resource type="Script" uid="uid://be0c06p5m860i" path="res://potion/shop/golem_resource.gd" id="3_i1bxc"]
+
+[resource]
+script = ExtResource("3_i1bxc")
+scene = ExtResource("2_3fbl6")
+consumption = 2.0
+attack_speed = 1.0
+type = 2
+name = "Golem Range"
+description = "Applied potion effect to nearby enemies"
+price = 50
+icon = ExtResource("1_3fbl6")
+metadata/_custom_type_script = "uid://be0c06p5m860i"

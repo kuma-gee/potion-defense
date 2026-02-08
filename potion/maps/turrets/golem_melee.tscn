@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxvhofofxnp0c" path="res://potion/maps/turrets/golem_melee.gd" id="1_k61gf"]
 [ext_resource type="PackedScene" uid="uid://d4euvyigqih71" path="res://potion/maps/turrets/golem_melee_hit.tscn" id="2_4ufi4"]
-[ext_resource type="Texture2D" uid="uid://b65tr0wpntmms" path="res://assets/particles/T_texr41.png" id="3_ci64g"]
+[ext_resource type="Script" uid="uid://2oohmhjr1iwm" path="res://potion/maps/turrets/enemy_attack_range.gd" id="4_4n4v3"]
 [ext_resource type="ArrayMesh" uid="uid://b5pkmcktm2o3g" path="res://assets/particles/shapes/sm_disk_typeA.obj" id="4_ng1da"]
 
 [sub_resource type="Gradient" id="Gradient_4n4v3"]
@@ -20,34 +20,10 @@ albedo_texture = SubResource("GradientTexture2D_h6ube")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_rp0u0"]
 height = 1.0446777
-radius = 2.5
+radius = 3.5
 
 [sub_resource type="Animation" id="Animation_4n4v3"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../TargetIndicator:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../TargetIndicator:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_4ufi4"]
 resource_name = "attack"
@@ -59,36 +35,12 @@ tracks/0/path = NodePath("..")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1.0666667),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"spawn_attack"
 }]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../TargetIndicator:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.9666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../TargetIndicator:scale")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.43333334, 1.4333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ci64g"]
@@ -111,20 +63,6 @@ _data = {
 radius = 0.32177734
 height = 1.1674805
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6ube"]
-transparency = 1
-blend_mode = 1
-shading_mode = 0
-diffuse_mode = 3
-specular_mode = 2
-disable_ambient_light = true
-disable_fog = true
-disable_specular_occlusion = true
-albedo_color = Color(1, 0, 0, 1)
-albedo_texture = ExtResource("3_ci64g")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_pw34n"]
-
 [node name="GolemMelee" type="Node3D" unique_id=1327377660]
 script = ExtResource("1_k61gf")
 attack_scene = ExtResource("2_4ufi4")
@@ -138,6 +76,7 @@ mesh = ExtResource("4_ng1da")
 [node name="AttackArea" type="Area3D" parent="." unique_id=150751211]
 collision_layer = 0
 collision_mask = 4
+script = ExtResource("4_4n4v3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea" unique_id=1140776509]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5740967, 0)
@@ -157,12 +96,6 @@ shape = SubResource("CapsuleShape3D_rp0u0")
 [node name="CSGBox3D" type="CSGBox3D" parent="GolemMeleeBody" unique_id=635442700]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50668526, 0)
 size = Vector3(0.60180664, 1, 0.3474121)
-
-[node name="TargetIndicator" type="MeshInstance3D" parent="." unique_id=322630296]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12586594, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_h6ube")
-mesh = SubResource("PlaneMesh_pw34n")
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=273497848]
 one_shot = true

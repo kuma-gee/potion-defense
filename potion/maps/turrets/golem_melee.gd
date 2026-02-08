@@ -8,12 +8,10 @@ const ENEMY_GROUP = "Enemy"
 @export var attack_scene: PackedScene
 
 @onready var golem_melee_body: CharacterBody3D = $GolemMeleeBody
-@onready var attack_area: Area3D = $AttackArea
+@onready var attack_area: EnemyAttackRange = $AttackArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var target_indicator: MeshInstance3D = $TargetIndicator
 @onready var attack_timer: Timer = $AttackTimer
 
-var is_attacking := false
 var current_target: Node3D = null
 
 func get_consumption(delta: float):
@@ -22,17 +20,13 @@ func get_consumption(delta: float):
 	return golem.consumption * delta
 
 func process(_delta: float) -> void:
-	_update_current_target()
 	_move_to_target()
 	
-	if not attack_timer.is_stopped(): return
-	
-	if animation_player.current_animation == "attack":
-		if is_instance_valid(current_target):
-			target_indicator.global_position = current_target.global_position
+	if animation_player.current_animation == "attack" or not attack_timer.is_stopped():
 		return
 	
-	if is_instance_valid(current_target):
+	current_target = attack_area.get_target()
+	if current_target:
 		_attack()
 
 func _update_current_target() -> void:
@@ -41,14 +35,7 @@ func _update_current_target() -> void:
 			current_target = null
 
 	if current_target == null:
-		current_target = _get_next_target()
-
-func _get_next_target() -> Node3D:
-	for body in attack_area.get_overlapping_bodies():
-		var target := body as Node3D
-		if target != null and is_instance_valid(target) and _is_enemy(target):
-			return target
-	return null
+		current_target = attack_area.get_target()
 
 func _move_to_target() -> void:
 	var velocity: Vector3 = Vector3.ZERO
@@ -75,12 +62,9 @@ func _attack():
 func spawn_attack():
 	var node = attack_scene.instantiate()
 	node.potion = potion
-	node.position = current_target.global_position + current_target.velocity
+	node.target = current_target
 	get_tree().current_scene.add_child(node)
 	attack_timer.start(golem.attack_speed)
-
-func _is_enemy(body: Node3D) -> bool:
-	return body.is_in_group(ENEMY_GROUP)
 
 func _is_in_move_area(body: Node3D) -> bool:
 	return body in attack_area.get_overlapping_bodies()

@@ -66,6 +66,9 @@ func _died():
 	death_sound.play_randomized()
 	move_sound.stop()
 
+func is_dead():
+	return hurt_box.is_dead()
+
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
 		return

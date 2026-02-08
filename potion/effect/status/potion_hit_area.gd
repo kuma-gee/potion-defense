@@ -55,7 +55,7 @@ func _apply_status_effect_to_target(target: Node, effect: StatusEffect) -> void:
 	tick_timers[effect] = 0.0
 
 func start_lifetime(time = lifetime) -> void:
-	if is_finished: return
+	if is_finished and time <= 0: return
 	lifetime_timer.start(time)
 
 func is_active():

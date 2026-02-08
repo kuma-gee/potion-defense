@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c684oj6gh0t68"]
+[gd_scene format=3 uid="uid://c684oj6gh0t68"]
 
 [ext_resource type="PackedScene" uid="uid://1tm80mmecc04" path="res://vfx/blue_beam_impact.tscn" id="1_0xjk3"]
 [ext_resource type="Script" uid="uid://j534dif84bdq" path="res://potion/effect/blizzard_area.gd" id="1_xdjkm"]
@@ -247,40 +247,38 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_6bwcj"]
 radius = 1.141749
 
-[node name="blizzard_area" type="Node3D"]
+[node name="blizzard_area" type="Node3D" unique_id=603795471]
 script = ExtResource("1_xdjkm")
 
-[node name="BlueBeamImpact" parent="." instance=ExtResource("1_0xjk3")]
+[node name="BlueBeamImpact" parent="." unique_id=509904545 instance=ExtResource("1_0xjk3")]
 on_spawn = false
 
-[node name="Frost" parent="." instance=ExtResource("2_xr23e")]
+[node name="Frost" parent="." unique_id=438911459 instance=ExtResource("2_xr23e")]
 effects = Array[ExtResource("4_xdjkm")]([ExtResource("3_6bwcj"), ExtResource("3_hfew4")])
 element = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Frost"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Frost" unique_id=2032611175]
 shape = SubResource("SphereShape3D_fnmtw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1509978461]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 visible = false
 material_override = SubResource("ShaderMaterial_xdjkm")
 mesh = ExtResource("7_6bwcj")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_tgqho")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1419826575]
+libraries/ = SubResource("AnimationLibrary_tgqho")
 
-[node name="CleanupTimer" type="Timer" parent="."]
+[node name="CleanupTimer" type="Timer" parent="." unique_id=1452428118]
 
-[node name="SmallHit" parent="." instance=ExtResource("10_xdjkm")]
+[node name="SmallHit" parent="." unique_id=1183878926 instance=ExtResource("10_xdjkm")]
 element = 2
 damage = 25.0
 force = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit" unique_id=1909293612]
 shape = SubResource("SphereShape3D_6bwcj")
 
-[node name="SFXPlayer" type="Node" parent="."]
+[node name="SFXPlayer" type="Node" parent="." unique_id=536415483]
 script = ExtResource("12_16oji")
 audio = ExtResource("13_1ojp3")

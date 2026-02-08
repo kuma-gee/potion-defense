@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://4b4wtovd6oah"]
+
+[ext_resource type="Script" uid="uid://b3nbdjkunlrgx" path="res://potion/maps/turrets/golem_area.gd" id="1_do0os"]
+[ext_resource type="ArrayMesh" uid="uid://b5pkmcktm2o3g" path="res://assets/particles/shapes/sm_disk_typeA.obj" id="3_8en22"]
+[ext_resource type="PackedScene" uid="uid://b51rjqlcrtr33" path="res://potion/effect/status/character_status_area.tscn" id="4_mgh42"]
+[ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="5_ilqmb"]
+[ext_resource type="Resource" uid="uid://s3xs8moxxs1k" path="res://potion/effect/resources/frost_slow.tres" id="7_fonxt"]
+
+[sub_resource type="Gradient" id="Gradient_4n4v3"]
+offsets = PackedFloat32Array(0, 0.9484127, 1)
+colors = PackedColorArray(0, 0.7999997, 1, 0, 0.12643681, 0.8252871, 1, 0.12643681, 0, 1, 0.88333344, 0.5882353)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h6ube"]
+gradient = SubResource("Gradient_4n4v3")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pw34n"]
+render_priority = 5
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_h6ube")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7fe3t"]
+radius = 3.5
+
+[sub_resource type="Animation" id="Animation_4n4v3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_4ufi4"]
+resource_name = "attack"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ci64g"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_ng1da"]
+resource_name = "move"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ci64g"]
+_data = {
+&"RESET": SubResource("Animation_4n4v3"),
+&"attack": SubResource("Animation_4ufi4"),
+&"idle": SubResource("Animation_ci64g"),
+&"move": SubResource("Animation_ng1da")
+}
+
+[node name="GolemArea" type="Node3D" unique_id=1327377660]
+script = ExtResource("1_do0os")
+
+[node name="RangeAlways" type="MeshInstance3D" parent="." unique_id=1624834960]
+transform = Transform3D(0.91, 0, 0, 0, 0.91, 0, 0, 0, 0.91, 0, 0.21583009, 0)
+material_override = SubResource("StandardMaterial3D_pw34n")
+cast_shadow = 0
+mesh = ExtResource("3_8en22")
+
+[node name="StatusArea" parent="." unique_id=1185346958 instance=ExtResource("4_mgh42")]
+lifetime = 0.0
+effects = Array[ExtResource("5_ilqmb")]([ExtResource("7_fonxt")])
+element = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StatusArea" unique_id=1120028639]
+shape = SubResource("SphereShape3D_7fe3t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=174851033]
+libraries/ = SubResource("AnimationLibrary_ci64g")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=635442700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15760961, 0)
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="DisableTimer" type="Timer" parent="." unique_id=1820175083]
+one_shot = true

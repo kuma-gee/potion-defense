@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://btcuvegmc8huh"]
+[gd_scene format=3 uid="uid://btcuvegmc8huh"]
 
 [ext_resource type="Script" uid="uid://cx3y1kqakf700" path="res://potion/ui/map_button.gd" id="1_8t5o0"]
 [ext_resource type="Shader" uid="uid://cfpjitbm8xuor" path="res://shader/move_next.gdshader" id="2_1no0t"]
@@ -21,30 +21,30 @@ shader_parameter/fill_amount = 0.0
 [sub_resource type="PlaneMesh" id="PlaneMesh_1no0t"]
 size = Vector2(3, 3)
 
-[node name="MapButton" type="Area3D" node_paths=PackedStringArray("name_label", "lock_label", "mesh_instance_3d")]
+[node name="MapButton" type="Area3D" unique_id=1752918592 node_paths=PackedStringArray("name_label", "lock_label", "mesh_instance_3d")]
 script = ExtResource("1_8t5o0")
 name_label = NodePath("Labels/NameLabel")
 lock_label = NodePath("Labels/LockLabel")
 original_color = Color(1, 1, 0, 0.90588236)
 mesh_instance_3d = NodePath("MeshInstance3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=537519960]
 shape = SubResource("BoxShape3D_1no0t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1780246159]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 material_override = SubResource("ShaderMaterial_1no0t")
 mesh = SubResource("PlaneMesh_1no0t")
 
-[node name="Labels" type="Node3D" parent="."]
+[node name="Labels" type="Node3D" parent="." unique_id=1121507233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
 
-[node name="NameLabel" type="Label3D" parent="Labels"]
+[node name="NameLabel" type="Label3D" parent="Labels" unique_id=1604850097]
 billboard = 1
 text = "Map"
 font_size = 64
 
-[node name="LockLabel" type="Label3D" parent="Labels"]
+[node name="LockLabel" type="Label3D" parent="Labels" unique_id=1196361320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 billboard = 1
 modulate = Color(1, 0.2, 0.2, 1)
