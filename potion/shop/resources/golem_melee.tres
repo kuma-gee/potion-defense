@@ -3,11 +3,17 @@
 [ext_resource type="Script" uid="uid://be0c06p5m860i" path="res://potion/shop/golem_resource.gd" id="1_4jvat"]
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_8ltor"]
 [ext_resource type="PackedScene" uid="uid://bhjjbjpsw25pp" path="res://potion/maps/turrets/golem_melee.tscn" id="2_tr6t8"]
+[ext_resource type="Script" uid="uid://tn5223illhw3" path="res://potion/shop/golem_upgrade_resource.gd" id="4_liqri"]
+[ext_resource type="Resource" uid="uid://do0suoqwygh37" path="res://potion/shop/resources/golem_upgrade_consumption.tres" id="5_84g61"]
+[ext_resource type="Resource" uid="uid://cj1yrqqlcyqb1" path="res://potion/shop/resources/golem_upgrade_atk_speed.tres" id="5_ib41p"]
+[ext_resource type="Resource" uid="uid://c2cfcxr80c8wt" path="res://potion/shop/resources/golem_upgrade_damage.tres" id="7_8u2fw"]
+[ext_resource type="Resource" uid="uid://dlb8gnsv12cuo" path="res://potion/shop/resources/golem_upgrade_range.tres" id="8_jeqlg"]
 
 [resource]
 script = ExtResource("1_4jvat")
 scene = ExtResource("2_tr6t8")
 consumption = 5.0
+upgrades = Array[ExtResource("4_liqri")]([ExtResource("5_ib41p"), ExtResource("5_84g61"), ExtResource("7_8u2fw"), ExtResource("8_jeqlg")])
 name = "Golem Melee"
 description = "Attacks close enemies"
 price = 50

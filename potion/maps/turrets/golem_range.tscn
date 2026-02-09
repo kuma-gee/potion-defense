@@ -45,10 +45,11 @@ _data = {
 &"attack": SubResource("Animation_c331b")
 }
 
-[node name="GolemRange" type="Node3D" unique_id=1327377660 node_paths=PackedStringArray("spawn_pos")]
+[node name="GolemRange" type="Node3D" unique_id=1327377660 node_paths=PackedStringArray("spawn_pos", "range_mesh")]
 script = ExtResource("1_c331b")
 spawn_pos = NodePath("Spawn")
 attack_scene = ExtResource("2_nuaf2")
+range_mesh = NodePath("Range")
 
 [node name="EnemyAttackRange" type="Area3D" parent="." unique_id=486431731]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)

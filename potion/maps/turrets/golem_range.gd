@@ -14,9 +14,8 @@ extends Golem
 
 var current_target: Node3D
 
-func get_consumption(delta: float):
-	if not current_target and attack_timer.is_stopped(): return 0.0
-	return golem.consumption * delta
+func is_active():
+	return current_target != null or not attack_timer.is_stopped()
 
 func process(_delta: float) -> void:
 	if animation_player.current_animation == "attack" or not attack_timer.is_stopped():

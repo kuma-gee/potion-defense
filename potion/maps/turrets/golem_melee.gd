@@ -14,10 +14,8 @@ const ENEMY_GROUP = "Enemy"
 
 var current_target: Node3D = null
 
-func get_consumption(delta: float):
-	if not attack_area.has_overlapping_bodies():
-		return 0.0
-	return golem.consumption * delta
+func is_active():
+	return attack_area.has_overlapping_bodies()
 
 func process(_delta: float) -> void:
 	_move_to_target()

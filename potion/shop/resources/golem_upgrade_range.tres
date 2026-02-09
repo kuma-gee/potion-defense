@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GolemUpgradeResource" format=3 uid="uid://dlb8gnsv12cuo"]
+
+[ext_resource type="Script" uid="uid://tn5223illhw3" path="res://potion/shop/golem_upgrade_resource.gd" id="1_qu4i6"]
+
+[resource]
+script = ExtResource("1_qu4i6")
+stat = 2
+values = Array[float]([2.0, 3.0, 5.0])
+price_increase = 1.65
+name = "Range"
+description = "Increase range"
+price = 50
+metadata/_custom_type_script = "uid://tn5223illhw3"

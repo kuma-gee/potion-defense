@@ -57,23 +57,19 @@ func _ready() -> void:
 func _on_hovered(_actor):
 	if has_golems() and golem == null:
 		price_container.show()
-	else:
-		var golem_range = get_golem_range()
-		if golem_range:
-			golem_range.show()
-
+	elif golem:
+		golem.on_hover()
+		
 func _on_unhovered(_actor):
 	price_container.hide()
-	
-	var golem_range = get_golem_range()
-	if golem_range:
-		golem_range.hide()
+	if golem:
+		golem.on_unhover()
 
 func get_golem_range():
 	return golem.get_node_or_null("Range") if golem else null
 
 func has_golems():
-	return Events.get_golem_counts().values().reduce(func(a, b): return a + b, 0) > 0
+	return Events.has_available_golems()
 
 func _process(delta: float) -> void:
 	if not golem_res:
@@ -95,13 +91,14 @@ func _on_interacted(actor: FPSPlayer) -> void:
 		_try_add_potion(actor)
 
 func _try_unlock() -> void:
-	golem_res = Events.get_golem_counts().keys()[0]
+	# TODO: golem type select
+	golem_res = Events.get_available_golem_counts().keys()[0]
 	progress_bar.show()
 
 	var node = golem_res.scene.instantiate()
 	golem = node
-	add_child(node)
 	node.golem = golem_res
+	add_child(node)
 	node.global_position  = global_position
 
 func _try_add_potion(actor: FPSPlayer) -> void:

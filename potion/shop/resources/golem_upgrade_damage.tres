@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GolemUpgradeResource" format=3 uid="uid://c2cfcxr80c8wt"]
+
+[ext_resource type="Script" uid="uid://tn5223illhw3" path="res://potion/shop/golem_upgrade_resource.gd" id="1_wbymj"]
+
+[resource]
+script = ExtResource("1_wbymj")
+stat = 1
+values = Array[float]([1.05, 1.1, 1.2, 1.25])
+price_increase = 1.55
+name = "Damage"
+description = "Increase damage"
+price = 50
+metadata/_custom_type_script = "uid://tn5223illhw3"

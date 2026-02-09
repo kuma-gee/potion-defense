@@ -3,15 +3,23 @@
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_3fbl6"]
 [ext_resource type="PackedScene" uid="uid://dmdmbrvol16xs" path="res://potion/maps/turrets/golem_range.tscn" id="2_3fbl6"]
 [ext_resource type="Script" uid="uid://be0c06p5m860i" path="res://potion/shop/golem_resource.gd" id="3_i1bxc"]
+[ext_resource type="Script" uid="uid://tn5223illhw3" path="res://potion/shop/golem_upgrade_resource.gd" id="4_i1bxc"]
+[ext_resource type="Resource" uid="uid://cj1yrqqlcyqb1" path="res://potion/shop/resources/golem_upgrade_atk_speed.tres" id="5_4wrys"]
+[ext_resource type="Resource" uid="uid://do0suoqwygh37" path="res://potion/shop/resources/golem_upgrade_consumption.tres" id="5_ji4pp"]
+[ext_resource type="Resource" uid="uid://c2cfcxr80c8wt" path="res://potion/shop/resources/golem_upgrade_damage.tres" id="7_17byy"]
+[ext_resource type="Resource" uid="uid://dlb8gnsv12cuo" path="res://potion/shop/resources/golem_upgrade_range.tres" id="8_5of2i"]
+[ext_resource type="Resource" uid="uid://bf0yateihr1dx" path="res://potion/shop/resources/golem_upgrade_projectile_count.tres" id="8_17byy"]
 
 [resource]
 script = ExtResource("3_i1bxc")
 scene = ExtResource("2_3fbl6")
 consumption = 2.0
 attack_speed = 1.0
+upgrades = Array[ExtResource("4_i1bxc")]([ExtResource("5_4wrys"), ExtResource("5_ji4pp"), ExtResource("7_17byy"), ExtResource("8_17byy"), ExtResource("8_5of2i")])
+price_increase = 2.0
 type = 2
 name = "Golem Range"
 description = "Applied potion effect to nearby enemies"
-price = 50
+price = 70
 icon = ExtResource("1_3fbl6")
 metadata/_custom_type_script = "uid://be0c06p5m860i"

@@ -3,13 +3,19 @@
 [ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="1_q6da5"]
 [ext_resource type="PackedScene" uid="uid://4b4wtovd6oah" path="res://potion/maps/turrets/golem_area.tscn" id="2_q6da5"]
 [ext_resource type="Script" uid="uid://be0c06p5m860i" path="res://potion/shop/golem_resource.gd" id="3_2bt38"]
+[ext_resource type="Script" uid="uid://tn5223illhw3" path="res://potion/shop/golem_upgrade_resource.gd" id="4_2bt38"]
+[ext_resource type="Resource" uid="uid://do0suoqwygh37" path="res://potion/shop/resources/golem_upgrade_consumption.tres" id="5_6mlrw"]
+[ext_resource type="Resource" uid="uid://cj1yrqqlcyqb1" path="res://potion/shop/resources/golem_upgrade_atk_speed.tres" id="5_vk1bw"]
+[ext_resource type="Resource" uid="uid://c2cfcxr80c8wt" path="res://potion/shop/resources/golem_upgrade_damage.tres" id="7_pk06x"]
+[ext_resource type="Resource" uid="uid://dlb8gnsv12cuo" path="res://potion/shop/resources/golem_upgrade_range.tres" id="8_hdtv2"]
 
 [resource]
 script = ExtResource("3_2bt38")
-type = 1
 scene = ExtResource("2_q6da5")
+upgrades = Array[ExtResource("4_2bt38")]([ExtResource("5_vk1bw"), ExtResource("5_6mlrw"), ExtResource("7_pk06x"), ExtResource("8_hdtv2")])
+type = 1
 name = "Golem Area"
 description = "Applied potion effect to nearby enemies"
-price = 50
+price = 60
 icon = ExtResource("1_q6da5")
 metadata/_custom_type_script = "uid://be0c06p5m860i"

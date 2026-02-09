@@ -10,8 +10,8 @@ signal finished()
 @export var effects: Array[StatusEffect] = []
 
 var lifetime_timer: Timer
-var is_finished := false
 var tick_timers: Dictionary = {}
+var is_finished := false
 
 func _ready() -> void:
 	super()
@@ -35,7 +35,7 @@ func _ready() -> void:
 		start_lifetime()
 
 	area_entered.connect(func(a):
-		if a is HurtBox:
+		if a is HurtBox and not is_finished:
 			for effect in effects:
 				_apply_status_effect_to_target(a, effect)
 	)

@@ -28,6 +28,9 @@ var unlocked_recipes: Array[ItemResource.Type] = []
 var unlocked_upgrades: Array[UpgradeResource] = []
 var unlocked_shop_items: Array[UpgradeResource] = []
 
+var golem_counts: Dictionary[GolemResource, int] = {}
+var golem_upgrades: Dictionary[GolemResource, Array] = {}
+
 # Debug variables
 var enemy_move_speed_multipler = 1.0
 
@@ -40,6 +43,8 @@ func reset_game():
 	unlocked_recipes = []
 	unlocked_upgrades = []
 	unlocked_shop_items = []
+	golem_counts = {}
+	golem_upgrades = {}
 
 func get_player_count() -> int:
 	return players.size()
@@ -95,31 +100,94 @@ func has_upgrade(up: UpgradeResource) -> bool:
 	return up in unlocked_upgrades
 
 func buy_upgrade(up: UpgradeResource):
-	if total_souls >= up.price:
-		total_souls -= up.price
-		unlocked_upgrades.append(up)
-		upgrade_unlocked.emit()
-		print("Unlocked upgrades: %s" % up.name)
-		return true
-		
-	print("Not enough souls to buy upgrade: %s" % up.name)
-	return false
+	if total_souls < up.price:
+		print("Not enough souls to buy upgrade: %s" % up.name)
+		return false
 
-func get_golem_counts() -> Dictionary[GolemResource, int]:
+	total_souls -= up.price
+
+	if up is GolemResource:
+		var golem = up as GolemResource
+		if not up in golem_counts:
+			golem_counts[golem] = 0
+		golem_counts[golem] += 1
+		upgrade_unlocked.emit()
+
+		print("Bought golem: %s, total count: %d" % [up.name, golem_counts[golem]])
+		return
+
+	unlocked_upgrades.append(up)
+	upgrade_unlocked.emit()
+	print("Unlocked upgrades: %s" % up.name)
+
+	return true
+
+#region Golem Upgrades
+
+func buy_golem_upgrade(golem: GolemResource, up: GolemUpgradeResource):
+	if not has_bought_golem(golem):
+		print("Golem not unlocked: %s" % golem.name)
+		return false
+
+	if total_souls < up.price:
+		print("Not enough souls to buy upgrade: %s" % up.name)
+		return false
+
+	var count = get_golem_upgrade_count(golem, up)
+	if count >= up.values.size():
+		print("Max upgrade level reached for %s: %d" % [up.name, count])
+		return false
+
+	total_souls -= up.price
+	if not golem in golem_upgrades:
+		golem_upgrades[golem] = []
+	golem_upgrades[golem].append(up)
+
+	upgrade_unlocked.emit()
+	print("Unlocked golem upgrade: %s for golem type %s" % [up.name, golem.name])
+	return true
+
+func get_golem_upgrades(golem: GolemResource) -> Array[GolemUpgradeResource]:
+	return golem_upgrades.get(golem, [])
+
+func get_golem_count(upgrade: UpgradeResource):
+	return golem_counts.get(upgrade, 0)
+		
+func get_golem_upgrade_count(golem: GolemResource, upgrade: GolemUpgradeResource) -> int:
+	if not golem in golem_upgrades:
+		return 0
+	return golem_upgrades[golem].count(upgrade)
+
+func get_golem_upgrade_value(golem: GolemResource, upgrade_type: GolemUpgradeResource.Type) -> float:
+	var mult: float = 1.0
+	for upgrade in get_golem_upgrades(golem):
+		if upgrade.type == upgrade_type:
+			var level = get_golem_upgrade_count(golem, upgrade)
+			if level > 0 and level <= upgrade.values.size():
+				mult *= upgrade.values[level - 1]
+	return mult
+	
+func get_available_golem_counts() -> Dictionary[GolemResource, int]:
 	var used_types = get_tree().get_nodes_in_group(Turret.GROUP).map(func(x): return x.golem_res)
 	
-	var counts: Dictionary[GolemResource, int] = {}
-	for up in unlocked_upgrades:
-		if not up is GolemResource: continue
-		var golem = up as GolemResource
+	var counts: Dictionary[GolemResource, int] = golem_counts.duplicate()
+	for type in used_types:
+		if not type is GolemResource: continue
+		var golem = type as GolemResource
 		
-		if golem in used_types:
-			used_types.erase(golem)
-			continue
-		
-		if not counts.has(golem):
-			counts[golem] = 0
-		
-		counts[golem] += 1
+		if golem in counts:
+			counts[golem] = max(0, counts[golem] - 1)
 	
 	return counts
+
+func has_available_golems() -> bool:
+	var counts = get_available_golem_counts()
+	for golem in counts.keys():
+		if counts[golem] > 0:
+			return true
+	return false
+
+func has_bought_golem(golem: GolemResource) -> bool:
+	return golem_counts[golem] > 0
+
+#endregion

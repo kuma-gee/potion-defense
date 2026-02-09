@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://m672asvd0bow"]
+[gd_scene format=3 uid="uid://m672asvd0bow"]
 
 [ext_resource type="Script" uid="uid://kinvxqgq5da8" path="res://potion/maps/objects/upgrade_buy.gd" id="1_40cgg"]
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="2_k2j3k"]
@@ -38,39 +38,39 @@ albedo_texture = ExtResource("4_sg0dy")
 [sub_resource type="ViewportTexture" id="ViewportTexture_40cgg"]
 viewport_path = NodePath("Name/SubViewport")
 
-[node name="UpgradeBuy" type="Area3D" node_paths=PackedStringArray("name_label", "description_label", "sprite")]
+[node name="UpgradeBuy" type="Area3D" unique_id=1256635043 node_paths=PackedStringArray("name_label", "description_label", "sprite")]
 script = ExtResource("1_40cgg")
 name_label = NodePath("Name/SubViewport/CenterContainer/VBoxContainer/Label")
 description_label = NodePath("Details/SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Desc")
 sprite = NodePath("Details")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
-[node name="Icon" type="Sprite3D" parent="."]
+[node name="Icon" type="Sprite3D" parent="." unique_id=2051449105]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.7444525, 0)
 material_override = SubResource("ShaderMaterial_w35hp")
 billboard = 1
 double_sided = false
 texture = ExtResource("2_sg0dy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=766936537]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54851913, 0)
 shape = SubResource("SphereShape3D_hemba")
 
-[node name="Details" type="Sprite3D" parent="."]
+[node name="Details" type="Sprite3D" parent="." unique_id=613759291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8327088, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_cwysg")
 
-[node name="Ring" type="MeshInstance3D" parent="Details"]
+[node name="Ring" type="MeshInstance3D" parent="Details" unique_id=584616304]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -2.7911658, 0)
 material_override = SubResource("StandardMaterial3D_k2j3k")
 mesh = SubResource("PlaneMesh_w35hp")
 skeleton = NodePath("../bag")
 
-[node name="SubViewport" type="SubViewport" parent="Details"]
+[node name="SubViewport" type="SubViewport" parent="Details" unique_id=1690255460]
 transparent_bg = true
 
-[node name="CenterContainer" type="CenterContainer" parent="Details/SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="Details/SubViewport" unique_id=330993956]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -80,43 +80,43 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_40cgg")
 
-[node name="PanelContainer" type="PanelContainer" parent="Details/SubViewport/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Details/SubViewport/CenterContainer" unique_id=1278970286]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Details/SubViewport/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Details/SubViewport/CenterContainer/PanelContainer" unique_id=1036253452]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Details/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Details/SubViewport/CenterContainer/PanelContainer/MarginContainer" unique_id=1063624]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Details/SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="Details/SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1009169751]
 visible = false
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
 text = "Name"
 horizontal_alignment = 1
 
-[node name="Desc" type="Label" parent="Details/SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="Details/SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2146209733]
 layout_mode = 2
 text = "A somewhat reasonable lengthed description of the upgrade for the player"
 autowrap_mode = 3
 
-[node name="Name" type="Sprite3D" parent="."]
+[node name="Name" type="Sprite3D" parent="." unique_id=143178953]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37101555, 0.341434)
 billboard = 1
 double_sided = false
 no_depth_test = true
 texture = SubResource("ViewportTexture_40cgg")
 
-[node name="SubViewport" type="SubViewport" parent="Name"]
+[node name="SubViewport" type="SubViewport" parent="Name" unique_id=1193235723]
 transparent_bg = true
 
-[node name="CenterContainer" type="CenterContainer" parent="Name/SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="Name/SubViewport" unique_id=2032351970]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -124,10 +124,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_40cgg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Name/SubViewport/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Name/SubViewport/CenterContainer" unique_id=1038590324]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Name/SubViewport/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Name/SubViewport/CenterContainer/VBoxContainer" unique_id=1657927124]
 layout_mode = 2
 theme_type_variation = &"LabelOutlined"
 text = "Upgrade (100)"

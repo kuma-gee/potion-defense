@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GolemUpgradeResource" format=3 uid="uid://cj1yrqqlcyqb1"]
+
+[ext_resource type="Script" uid="uid://tn5223illhw3" path="res://potion/shop/golem_upgrade_resource.gd" id="1_b43hy"]
+
+[resource]
+script = ExtResource("1_b43hy")
+stat = 3
+values = Array[float]([0.9, 0.8, 0.65, 0.5])
+price_increase = 1.8
+name = "Attack Speed"
+description = "Increase attack speed"
+price = 60
+metadata/_custom_type_script = "uid://tn5223illhw3"

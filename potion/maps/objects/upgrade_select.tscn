@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://di33frcdi4fnw"]
+[gd_scene format=3 uid="uid://di33frcdi4fnw"]
 
 [ext_resource type="Script" uid="uid://bv6swedqiwvia" path="res://potion/maps/upgrade_select.gd" id="1_cwysg"]
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="2_4by0j"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="3_4iyb0"]
 [ext_resource type="Texture2D" uid="uid://5em6sf5icjtg" path="res://assets/sprites/Upgrade_ImmunityCloak.png" id="3_8ygfq"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="3_v3wr1"]
+[ext_resource type="Script" uid="uid://b1fc7q2ij1jat" path="res://potion/maps/upgrades_list.gd" id="7_au3du"]
+[ext_resource type="PackedScene" uid="uid://m672asvd0bow" path="res://potion/maps/objects/upgrade_buy.tscn" id="8_xffxh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ygfq"]
 resource_local_to_scene = true
@@ -35,38 +37,48 @@ albedo_texture = ExtResource("3_4iyb0")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8ygfq"]
 
-[node name="UpgradeSelect" type="Area3D" node_paths=PackedStringArray("name_label", "description_label", "sprite")]
+[node name="UpgradeSelect" type="Area3D" unique_id=417618749 node_paths=PackedStringArray("name_label", "description_label", "count_label", "sprite")]
 script = ExtResource("1_cwysg")
 name_label = NodePath("SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Name")
 description_label = NodePath("SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Desc")
+count_label = NodePath("Count")
 sprite = NodePath("Details")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
-[node name="Icon" type="Sprite3D" parent="."]
+[node name="Icon" type="Sprite3D" parent="." unique_id=108543050]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.71916616, 0)
 material_override = SubResource("ShaderMaterial_8ygfq")
 billboard = 1
 texture = ExtResource("2_v3wr1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=624188318]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54851913, 0)
 shape = SubResource("SphereShape3D_hemba")
 
-[node name="Details" type="Sprite3D" parent="."]
+[node name="Count" type="Label3D" parent="." unique_id=1569807427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.17437887)
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "0x"
+font_size = 64
+outline_size = 32
+
+[node name="Details" type="Sprite3D" parent="." unique_id=617368550]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8327088, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_cwysg")
 
-[node name="Ring" type="MeshInstance3D" parent="Details"]
+[node name="Ring" type="MeshInstance3D" parent="Details" unique_id=1236099119]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -2.7911658, 0)
 material_override = SubResource("StandardMaterial3D_4by0j")
 mesh = SubResource("PlaneMesh_8ygfq")
 skeleton = NodePath("../bag")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1006375157]
 transparent_bg = true
 
-[node name="CenterContainer" type="CenterContainer" parent="SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="SubViewport" unique_id=687807692]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -76,27 +88,34 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_v3wr1")
 
-[node name="PanelContainer" type="PanelContainer" parent="SubViewport/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="SubViewport/CenterContainer" unique_id=1586880953]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SubViewport/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/CenterContainer/PanelContainer" unique_id=211543076]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer" unique_id=321626841]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=613684237]
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
 text = "Name"
 horizontal_alignment = 1
 
-[node name="Desc" type="Label" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="SubViewport/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1952301142]
 layout_mode = 2
 text = "A somewhat reasonable lengthed description of the upgrade for the player"
 autowrap_mode = 3
+
+[node name="UpgradesList" type="Node3D" parent="." unique_id=1575403565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6865478)
+script = ExtResource("7_au3du")
+scene = ExtResource("8_xffxh")
+offset = Vector2(0, -2)
+metadata/_custom_type_script = "uid://b1fc7q2ij1jat"

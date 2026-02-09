@@ -63,9 +63,10 @@ _data = {
 radius = 0.32177734
 height = 1.1674805
 
-[node name="GolemMelee" type="Node3D" unique_id=1327377660]
+[node name="GolemMelee" type="Node3D" unique_id=1327377660 node_paths=PackedStringArray("range_mesh")]
 script = ExtResource("1_k61gf")
 attack_scene = ExtResource("2_4ufi4")
+range_mesh = NodePath("Range")
 
 [node name="Range" type="MeshInstance3D" parent="." unique_id=1624834960]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0.21583009, 0)
