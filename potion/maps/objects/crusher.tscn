@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv1a0h2dlytsf"]
+[gd_scene format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/maps/objects/processing_item.tscn" id="1_vmpsg"]
 [ext_resource type="PackedScene" uid="uid://cn1142lp317en" path="res://assets/models/crusher.glb" id="3_jp6c7"]
@@ -10,10 +10,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(0.80371094, 0.4440918, 0.7421875)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mrer8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_qt4f4"]
 viewport_path = NodePath("Progress/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ccjue"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_75ouy"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6wcrg"]
@@ -31,28 +31,29 @@ shader_parameter/glowAngle = 1.57
 shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
-[node name="Crusher" instance=ExtResource("1_vmpsg")]
+[node name="Crusher" unique_id=665903306 instance=ExtResource("1_vmpsg")]
+process_time = 2.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
 shape = SubResource("BoxShape3D_vv5mg")
 
-[node name="crusher" parent="." index="1" instance=ExtResource("3_jp6c7")]
+[node name="crusher" parent="." index="1" unique_id=789804080 instance=ExtResource("3_jp6c7")]
 
 [node name="ProcessTimer" parent="." index="2"]
 wait_time = 2.0
 
 [node name="Progress" parent="." index="5"]
-texture = SubResource("ViewportTexture_mrer8")
+texture = SubResource("ViewportTexture_qt4f4")
 
 [node name="ItemPopup" parent="." index="6"]
-texture = SubResource("ViewportTexture_ccjue")
+texture = SubResource("ViewportTexture_75ouy")
 
 [node name="Icon" parent="." index="7"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
 material_override = SubResource("ShaderMaterial_6wcrg")
 
-[node name="Sfx" type="AudioStreamPlayer" parent="." index="9"]
+[node name="Sfx" type="AudioStreamPlayer" parent="." index="9" unique_id=2132663254]
 stream = ExtResource("3_k4pkg")
 pitch_scale = 0.8
 bus = &"SFX"

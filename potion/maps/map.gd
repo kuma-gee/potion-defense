@@ -4,7 +4,7 @@ extends Node3D
 const GROUP = "map"
 
 @export var spawn_point: Node3D
-@export var wave_resource: WaveResource
+@export var wave_resources: Array[WaveResource] = []
 @export var upgrades: Array[UpgradeResource]
 @export var new_recipe: ItemResource
 @export var initial_recipe: ItemResource

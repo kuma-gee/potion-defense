@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://dem3o8q2bkkt4"]
+
+[ext_resource type="PackedScene" uid="uid://dc1f5ocm8nays" path="res://potion/items/scenes/mushroom.tscn" id="1_l5ncw"]
+[ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_y3kxl"]
+[ext_resource type="Texture2D" uid="uid://bkeqj8hjnalr2" path="res://assets/sprites/Items_IceShardCrushed.png" id="3_l5ncw"]
+
+[resource]
+script = ExtResource("2_y3kxl")
+texture = ExtResource("3_l5ncw")
+scene = ExtResource("1_l5ncw")

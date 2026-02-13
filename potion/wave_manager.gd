@@ -1,13 +1,15 @@
 class_name WaveManager
 extends Node
 
+const ENEMY_GROUP := Enemy.GROUP
+
 signal game_over()
 signal wave_started()
 signal wave_completed()
 signal all_waves_completed()
 
 @export var wave_label: Label
-@export var wave_resource: WaveResource
+@export var wave_resources: Array[WaveResource] = []
 @export var enemy_spawn_root: Node3D
 
 @export var spawn_timer: Timer
@@ -20,13 +22,13 @@ var paths: Array[Path3D]
 
 var spawn_plan: Array[Dictionary] = []
 var current_spawn_index: int = 0
-var difficulty := 1.0
+var current_spawn_interval: float = 0.0
 
-var max_wave := 0
-var wave = 0:
+var max_wave: int = 0
+var wave: int = 0:
 	set(v):
 		wave = v
-		if wave_resource:
+		if wave_label:
 			wave_label.text = "Wave %s / %s" % [wave, max_wave]
 
 func _ready() -> void:
@@ -35,28 +37,24 @@ func _ready() -> void:
 	rest_timer.timeout.connect(next_wave)
 	Events.cauldron_destroyed.connect(func(): game_over.emit())
 
-func setup(map: Map):
+func setup(map: Map) -> void:
 	clear()
 	
-	wave_resource = map.wave_resource
+	wave_resources = map.wave_resources
 	paths = map.paths
 	
-	if wave_resource == null:
-		push_error("WaveManager: No wave_resource found in map")
+	if wave_resources.is_empty():
+		push_error("WaveManager: No wave resources found in map")
 		return
 	
-	max_wave = wave_resource.max_waves
-	difficulty = wave_resource.initial_difficulty
+	max_wave = wave_resources.size()
 	wave = 0
 
-func _calculate_wave_budget() -> float:
-	return wave_resource.base_enemy_value * difficulty
-
-func can_start_wave():
+func can_start_wave() -> bool:
 	return not is_wave_active and wave < max_wave
 
 func next_wave() -> void:
-	if is_wave_active or not wave_resource:
+	if is_wave_active:
 		return
 	
 	if wave > max_wave:
@@ -68,21 +66,23 @@ func next_wave() -> void:
 	is_wave_active = true
 	is_final_wave = false
 	
-	difficulty = wave_resource.initial_difficulty * (1.0 + (wave - 1) * 0.3)
+	var wave_index: int = _get_wave_index(wave)
+	if wave_index < 0:
+		is_wave_active = false
+		return
 	
-	var wave_budget = _calculate_wave_budget()
-	spawn_plan = _plan_wave_spawns(wave_budget)
+	current_spawn_interval = _get_spawn_interval(wave_index)
+	spawn_plan = _plan_wave_spawns(wave_index)
 	
-	print("Starting Wave %d with budget %.1f (difficulty: %.2f) - %d spawns planned" % [wave, wave_budget, difficulty, spawn_plan.size()])
+	print("Starting Wave %d - %d spawns planned" % [wave, spawn_plan.size()])
 	wave_started.emit()
 	_schedule_next_spawn()
 
 func _schedule_next_spawn() -> void:
-	if not is_wave_active or not wave_resource:
+	if not is_wave_active:
 		return
 
-	var difficulty_speed_multiplier = 1.0 / (1.0 + (difficulty - 1.0) * 0.1)
-	var interval = wave_resource.base_spawn_interval * difficulty_speed_multiplier
+	var interval: float = current_spawn_interval
 	interval = max(interval, 0.5)
 	spawn_timer.start(interval)
 	print("Next spawn in %s" % interval)
@@ -99,49 +99,44 @@ func _on_spawn_enemy() -> void:
 	_spawn_planned_enemy()
 	_schedule_next_spawn()
 
-func _plan_wave_spawns(wave_budget: float) -> Array[Dictionary]:
+func _plan_wave_spawns(wave_index: int) -> Array[Dictionary]:
 	var plan: Array[Dictionary] = []
-	var used_budget: float = 0.0
-	var available_enemies = wave_resource.enemies.duplicate()
+	var available_enemies: Array[EnemyResource] = _get_wave_enemies(wave_index)
+	var enemy_count: int = _get_wave_enemy_count(wave_index)
 	
-	var waves_from_end = max_wave - wave
-	if wave_resource.new_enemy and waves_from_end < 2:
-		available_enemies.append(wave_resource.new_enemy)
+	if available_enemies.is_empty():
+		push_error("WaveManager: No enemies configured for wave %d" % wave)
+		return plan
+	
+	if enemy_count <= 0:
+		push_error("WaveManager: Invalid enemy count for wave %d" % wave)
+		return plan
 	
 	if paths.is_empty():
 		push_error("WaveManager: No lanes available for spawning")
 		return plan
 	
-	while used_budget < wave_budget:
-		var remaining_budget = wave_budget - used_budget
-		var affordable_enemies = _get_affordable_enemies(available_enemies, remaining_budget)
-		
-		if affordable_enemies.is_empty():
-			break
-		
-		var enemy_res = _pick_weighted_enemy(affordable_enemies, remaining_budget, wave_budget)
-		var path = paths[randi() % paths.size()]
-		
+	for i in range(enemy_count):
+		var enemy_res: EnemyResource = available_enemies[randi() % available_enemies.size()]
+		var path: Path3D = paths[randi() % paths.size()]
 		plan.append({
 			"enemy_resource": enemy_res,
 			"path": path,
 		})
-		
-		used_budget += enemy_res.enemy_value
 	
-	print("Planned %d spawns for wave %d (budget: %.1f/%.1f)" % [plan.size(), wave, used_budget, wave_budget])
+	print("Planned %d spawns for wave %d" % [plan.size(), wave])
 	return plan
 
 func _spawn_planned_enemy() -> void:
 	if current_spawn_index >= spawn_plan.size():
 		return
 	
-	var spawn_data = spawn_plan[current_spawn_index]
-	var enemy_res = spawn_data["enemy_resource"] as EnemyResource
-	var path = spawn_data["path"] as Path3D
+	var spawn_data: Dictionary = spawn_plan[current_spawn_index]
+	var enemy_res: EnemyResource = spawn_data["enemy_resource"] as EnemyResource
+	var path: Path3D = spawn_data["path"] as Path3D
 	
-	var enemy_scene = enemy_res.scene
-	var enemy = enemy_scene.instantiate() as Node3D
+	var enemy_scene: PackedScene = enemy_res.scene
+	var enemy: Node3D = enemy_scene.instantiate() as Node3D
 	enemy.path = path
 	enemy.souls = enemy_res.soul_amount
 	enemy.position = path.curve.get_point_position(0)
@@ -149,45 +144,42 @@ func _spawn_planned_enemy() -> void:
 	enemy_spawn_root.add_child(enemy)
 	
 	current_spawn_index += 1
-	print("Spawned enemy %d/%d with value %d (Wave %d)" % [current_spawn_index, spawn_plan.size(), enemy_res.enemy_value, wave])
+	print("Spawned enemy %d/%d (Wave %d)" % [current_spawn_index, spawn_plan.size(), wave])
 
-func _get_affordable_enemies(enemies: Array[EnemyResource], budget: float) -> Array[EnemyResource]:
-	var affordable: Array[EnemyResource] = []
-	for enemy in enemies:
-		if enemy.enemy_value <= budget:
-			affordable.append(enemy)
-	return affordable
+func _get_wave_index(wave_index: int) -> int:
+	if wave_resources.is_empty():
+		push_error("WaveManager: No wave data in map")
+		return -1
+	
+	var index: int = wave_index - 1
+	if index < 0 or index >= wave_resources.size():
+		push_error("WaveManager: Invalid wave index %d" % wave_index)
+		return -1
+	
+	return index
 
-func _pick_weighted_enemy(enemies: Array[EnemyResource], remaining_budget: float, wave_budget: float) -> EnemyResource:
-	if enemies.is_empty():
-		push_error("WaveManager: No enemies available to pick from")
-		return null
-	
-	var budget_ratio = remaining_budget / wave_budget
-	var weighted_enemies: Array[EnemyResource] = []
-	
-	for enemy in enemies:
-		var base_weight: float
-		if budget_ratio > 0.5:
-			base_weight = 1.0 / max(enemy.enemy_value, 1.0)
-		else:
-			base_weight = float(enemy.enemy_value)
-		
-		var weight_count = max(1, int(base_weight * 10))
-		for i in range(weight_count):
-			weighted_enemies.append(enemy)
-	
-	if weighted_enemies.is_empty():
-		return enemies[0]
-	
-	return weighted_enemies[randi() % weighted_enemies.size()]
+func _get_wave_enemy_count(wave_index: int) -> int:
+	if wave_index < 0 or wave_index >= wave_resources.size():
+		return 0
+	return wave_resources[wave_index].enemy_count
+
+func _get_wave_enemies(wave_index: int) -> Array[EnemyResource]:
+	if wave_index < 0 or wave_index >= wave_resources.size():
+		return [] as Array[EnemyResource]
+	return wave_resources[wave_index].enemies
+
+func _get_spawn_interval(wave_index: int) -> float:
+	if wave_index < 0 or wave_index >= wave_resources.size():
+		return 0.0
+	var resource: WaveResource = wave_resources[wave_index]
+	return resource.base_spawn_interval
 
 func _on_enemy_removed() -> void:
 	if not is_wave_active or not is_inside_tree() or current_spawn_index < spawn_plan.size():
 		return
 	
 	await get_tree().create_timer(0.5).timeout
-	if get_tree().get_node_count_in_group(Enemy.GROUP) == 0:
+	if get_tree().get_node_count_in_group(ENEMY_GROUP) == 0:
 		_on_wave_completed()
 
 func _on_wave_completed() -> void:
@@ -200,7 +192,7 @@ func _on_wave_completed() -> void:
 	else:
 		wave_completed.emit()
 
-func clear():
+func clear() -> void:
 	is_wave_active = false
 	is_final_wave = false
 	spawn_plan.clear()
@@ -211,7 +203,6 @@ func clear():
 	_clear_all_enemies()
 
 func _clear_all_enemies() -> void:
-	"""Remove all active enemies"""
-	for enemy in get_tree().get_nodes_in_group(Enemy.GROUP):
+	for enemy in get_tree().get_nodes_in_group(ENEMY_GROUP):
 		if is_instance_valid(enemy):
 			enemy.queue_free()

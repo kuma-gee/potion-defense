@@ -14,7 +14,7 @@ signal died()
 @export var mix_icon: Texture2D
 @export var mix_time_per_item := 4.0
 @export var mixing_speed_increase := 2.0
-@export var potion_size := 2
+@export var potion_size := 1
 
 @export var progress_container: Control
 @export var overheat_progress: Range

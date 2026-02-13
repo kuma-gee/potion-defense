@@ -434,7 +434,7 @@ draw_pass_1 = SubResource("QuadMesh_r1uv0")
 
 [node name="SmallHit" parent="." unique_id=447146672 instance=ExtResource("3_ylwkm")]
 element = 1
-damage = 50.0
+damage = 30.0
 force = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit" unique_id=1737462854]

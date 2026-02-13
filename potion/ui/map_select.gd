@@ -44,7 +44,7 @@ func _setup_map():
 		if i == Events.level:
 			move_shop.global_position.x = node.global_position.x
 
-	move_shop.visible = not Events.unlocked_shop_items.is_empty()
+	move_shop.visible = not Events.unlocked_shop_items.is_empty() and false
 	
 	if right_wall:
 		right_wall.global_position.x = max_pos.x + right_wall_offset

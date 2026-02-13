@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://c1iqm3nhm3m8q"]
+[gd_scene format=3 uid="uid://c1iqm3nhm3m8q"]
 
 [ext_resource type="PackedScene" uid="uid://bbpop2ylo0vfo" path="res://potion/enemy/skeleton.tscn" id="1_ll7cd"]
 [ext_resource type="Script" uid="uid://bm2r4gbb2amt8" path="res://potion/enemy/fire_skeleton.gd" id="2_dj6t6"]
@@ -426,103 +426,6 @@ billboard_type = 3
 keep_scale = true
 
 [sub_resource type="VisualShader" id="VisualShader_wdwd8"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec2 Speed_Vector = vec2(0.000000, 0.000000);
-uniform sampler2D tex_frg_26;
-uniform float Distortion_Intensity = 8.0;
-uniform sampler2D tex_frg_33 : source_color;
-uniform sampler2D tex_frg_27;
-
-
-
-void vertex() {
-	mat4 n_out2p0;
-// GetBillboardMatrix:2
-	{
-		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
-		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		n_out2p0 = VIEW_MATRIX * __wm;
-	}
-
-
-// Output:0
-	MODELVIEW_MATRIX = n_out2p0;
-
-
-}
-
-void fragment() {
-// Input:20
-	vec4 n_out20p0 = COLOR;
-	float n_out20p4 = n_out20p0.a;
-
-
-// Input:28
-	vec2 n_out28p0 = UV;
-
-
-// Vector2Parameter:10
-	vec2 n_out10p0 = Speed_Vector;
-
-
-// Input:15
-	float n_out15p0 = TIME;
-
-
-// VectorOp:14
-	vec2 n_out14p0 = n_out10p0 * vec2(n_out15p0);
-
-
-// UVFunc:9
-	vec2 n_in9p1 = vec2(1.00000, 1.00000);
-	vec2 n_out9p0 = n_out14p0 * n_in9p1 + UV;
-
-
-// Texture2D:26
-	vec4 n_out26p0 = texture(tex_frg_26, n_out9p0);
-	float n_out26p1 = n_out26p0.r;
-
-
-// FloatParameter:31
-	float n_out31p0 = Distortion_Intensity;
-
-
-// FloatOp:30
-	float n_out30p0 = n_out26p1 / n_out31p0;
-
-
-// Texture2D:33
-	vec4 n_out33p0 = texture(tex_frg_33, UV);
-	float n_out33p1 = n_out33p0.r;
-
-
-// FloatOp:34
-	float n_out34p0 = n_out30p0 * n_out33p1;
-
-
-// VectorOp:29
-	vec2 n_out29p0 = n_out28p0 + vec2(n_out34p0);
-
-
-// Texture2D:27
-	vec4 n_out27p0 = texture(tex_frg_27, n_out29p0);
-	float n_out27p1 = n_out27p0.r;
-
-
-// FloatOp:35
-	float n_out35p0 = n_out20p4 * n_out27p1;
-
-
-// Output:0
-	ALBEDO = vec3(n_out20p0.xyz);
-	ALPHA = n_out35p0;
-
-
-}
-"
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_4t7ka")
 nodes/vertex/2/position = Vector2(71.4713, 405.681)
@@ -626,58 +529,6 @@ billboard_type = 3
 keep_scale = true
 
 [sub_resource type="VisualShader" id="VisualShader_wxkg8"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform sampler2D MainTexture : filter_linear;
-
-
-
-void vertex() {
-	mat4 n_out2p0;
-// GetBillboardMatrix:2
-	{
-		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
-		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		n_out2p0 = VIEW_MATRIX * __wm;
-	}
-
-
-// Output:0
-	MODELVIEW_MATRIX = n_out2p0;
-
-
-}
-
-void fragment() {
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(MainTexture, UV);
-
-
-// Input:4
-	vec4 n_out4p0 = COLOR;
-
-
-// VectorOp:5
-	vec4 n_out5p0 = n_out3p0 * n_out4p0;
-
-
-// VectorDecompose:6
-	float n_out6p0 = n_out5p0.x;
-	float n_out6p1 = n_out5p0.y;
-	float n_out6p2 = n_out5p0.z;
-	float n_out6p3 = n_out5p0.w;
-
-
-// Output:0
-	ALBEDO = vec3(n_out5p0.xyz);
-	ALPHA = n_out6p3;
-
-
-}
-"
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_xcpxr")
 nodes/vertex/2/position = Vector2(71.4713, 405.681)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
@@ -731,52 +582,50 @@ turbulence_influence_max = 0.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_w46aa"]
 
-[node name="FireSkeleton" instance=ExtResource("1_ll7cd")]
+[node name="FireSkeleton" unique_id=1317366292 instance=ExtResource("1_ll7cd")]
 script = ExtResource("2_dj6t6")
 max_charges = 3
 burning_speed = 1.5
 max_attack_count = 1
 speed = 0.7
 
-[node name="HurtBox" parent="." index="0"]
+[node name="HurtBox" parent="." index="0" unique_id=1426683145]
 resistance = Dictionary[int, float]({
-1: 0.8,
+1: 1.0,
 2: -0.2,
 3: 0.0,
 4: 0.0
 })
-max_health = 30.0
+max_health = 15.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
-libraries = {
-&"": SubResource("AnimationLibrary_0qolm")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8" unique_id=1349463910]
+libraries/ = SubResource("AnimationLibrary_0qolm")
 
-[node name="HitBox" type="Area3D" parent="." index="9"]
+[node name="HitBox" type="Area3D" parent="." index="9" unique_id=1176082603]
 transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, -3.5458186e-08, 0.8815528, -0.703918)
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("3_epxrq")
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" index="0" unique_id=1919549018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.21679688)
 shape = SubResource("BoxShape3D_marap")
 
-[node name="ExplosionHitBox" type="Area3D" parent="." index="10"]
+[node name="ExplosionHitBox" type="Area3D" parent="." index="10" unique_id=1618408904]
 transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, 0, 0.95031404, 0)
 collision_layer = 0
 collision_mask = 24
 script = ExtResource("3_epxrq")
 element = 1
-damage = 30.0
+damage = 20.0
 force = 10
 metadata/_custom_type_script = "uid://cuspqvicid1n2"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionHitBox" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionHitBox" index="0" unique_id=2026725877]
 shape = SubResource("SphereShape3D_q7elp")
 
-[node name="Skeleton_Minion" parent="." index="11" instance=ExtResource("4_pofti")]
+[node name="Skeleton_Minion" parent="." index="11" unique_id=875090316 instance=ExtResource("4_pofti")]
 transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Skeleton_Minion/Rig" index="0"]
@@ -893,11 +742,11 @@ layers = 2
 [node name="Skeleton_Minion_LegRight" parent="Skeleton_Minion/Rig/Skeleton3D" index="8"]
 layers = 2
 
-[node name="ZeldaFire" type="Node3D" parent="." index="12"]
+[node name="ZeldaFire" type="Node3D" parent="." index="12" unique_id=123917417]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9507835, 0)
 visible = false
 
-[node name="Smoke" type="GPUParticles3D" parent="ZeldaFire" index="0"]
+[node name="Smoke" type="GPUParticles3D" parent="ZeldaFire" index="0" unique_id=1005372691]
 transform = Transform3D(1, 0, 0, 0, 1, 3.55271e-15, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_3w20v")
 ignore_occlusion_culling = true
@@ -908,7 +757,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_kllo2")
 draw_pass_1 = SubResource("QuadMesh_1ddtj")
 
-[node name="Ember" type="GPUParticles3D" parent="ZeldaFire" index="1"]
+[node name="Ember" type="GPUParticles3D" parent="ZeldaFire" index="1" unique_id=395022831]
 material_override = SubResource("ShaderMaterial_sbvf7")
 amount = 50
 lifetime = 3.0
@@ -916,7 +765,7 @@ randomness = 0.23
 process_material = SubResource("ParticleProcessMaterial_pofti")
 draw_pass_1 = SubResource("QuadMesh_go1c0")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire" index="2"]
+[node name="OmniLight3D" type="OmniLight3D" parent="ZeldaFire" index="2" unique_id=2106494989]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0561353, 0)
 light_color = Color(1, 0.603922, 0, 1)
 light_energy = 8.94
@@ -925,23 +774,23 @@ light_specular = 0.992
 light_cull_mask = 4294967293
 omni_range = 3.0
 
-[node name="RedBeamImpact" parent="." index="13" instance=ExtResource("8_8woa4")]
+[node name="RedBeamImpact" parent="." index="13" unique_id=767631481 instance=ExtResource("8_8woa4")]
 
-[node name="ElementalArea" type="Area3D" parent="." index="14"]
+[node name="ElementalArea" type="Area3D" parent="." index="14" unique_id=724852883]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9931407, 0)
 script = ExtResource("9_6fhoe")
 metadata/_custom_type_script = "uid://bmxiv2l1dkflu"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ElementalArea" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElementalArea" index="0" unique_id=1953390965]
 shape = SubResource("SphereShape3D_w46aa")
 
-[node name="Explosion" type="AudioStreamPlayer" parent="." index="15"]
+[node name="Explosion" type="AudioStreamPlayer" parent="." index="15" unique_id=1984144386]
 stream = ExtResource("9_dvjrj")
 volume_db = -10.0
 pitch_scale = 0.8
 bus = &"SFX"
 
-[node name="Charge" type="AudioStreamPlayer" parent="." index="16"]
+[node name="Charge" type="AudioStreamPlayer" parent="." index="16" unique_id=758483297]
 stream = ExtResource("10_rdach")
 volume_db = -15.0
 bus = &"SFX"

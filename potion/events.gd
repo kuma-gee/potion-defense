@@ -67,7 +67,7 @@ func get_current_map():
 	return null
 
 func finished_level(map: Map):
-	unlocked_map = max(level, unlocked_map)
+	unlocked_map = max(level + 1, unlocked_map)
 	for item in map.upgrades:
 		if not item in unlocked_shop_items:
 			unlocked_shop_items.append(item)
