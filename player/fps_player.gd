@@ -533,6 +533,7 @@ func calculate_trajectory_points(start_position: Vector3, initial_velocity: Vect
 	var query = PhysicsRayQueryParameters3D.create(Vector3.ZERO, Vector3.ZERO)
 	query.collide_with_areas = false
 	query.collide_with_bodies = true
+	query.collision_mask = (1 << 0) | (1 << 1) | (1 << 2)
 	
 	for i in range(trajectory_point_count):
 		points.append(pos)

@@ -11,6 +11,9 @@ uniform vec4 secondary_color: source_color = vec4(0.4, 0.3, 0.2, 1.0);
 uniform sampler2D secondary_texture: source_color, filter_linear_mipmap, repeat_enable;
 uniform vec2 secondary_scale = vec2(1.0, 1.0);
 uniform float secondary_noise_strength: hint_range(0.0, 1.0) = 0.3;
+uniform sampler2D height_map: source_color, filter_linear_mipmap, repeat_enable;
+uniform vec2 height_scale = vec2(1.0, 1.0);
+uniform float height_strength: hint_range(0.0, 2.0) = 0.2;
 uniform sampler2D blend_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
 uniform vec2 mask_scale = vec2(1.0, 1.0);
 uniform vec2 mask_offset = vec2(0.0, 0.0);
@@ -21,6 +24,12 @@ uniform vec3 light_color: source_color = vec3(1.0);
 uniform vec3 shadow_color: source_color;
 
 uniform float roughness: hint_range(0.0, 1.0) = 0.8;
+
+void vertex() {
+    vec2 height_uv = UV * height_scale;
+    float height_value = texture(height_map, height_uv).r;
+    VERTEX.y += height_value * height_strength;
+}
 
 void fragment() {
 	vec2 noise_uv = UV * noise_scale;

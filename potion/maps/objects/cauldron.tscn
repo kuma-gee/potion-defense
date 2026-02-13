@@ -1030,7 +1030,7 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_k7m8g"]
 radius = 0.6346844
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qaxpm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hadb"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("20_qaxpm")
@@ -1300,7 +1300,7 @@ shape = SubResource("SphereShape3D_k7m8g")
 
 [node name="SpriteTextureOutlined" parent="." unique_id=330286478 instance=ExtResource("20_crw35")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.07, 3.072, 0)
-material_override = SubResource("ShaderMaterial_qaxpm")
+material_override = SubResource("ShaderMaterial_6hadb")
 texture = ExtResource("9_v5itp")
 
 [node name="Shield" type="Node3D" parent="." unique_id=993404761]

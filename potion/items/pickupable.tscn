@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bryjvapfcc2mh"]
+[gd_scene format=3 uid="uid://bryjvapfcc2mh"]
 
 [ext_resource type="Script" uid="uid://b5wpkniyftdno" path="res://potion/items/pickupable.gd" id="1_pickupable"]
 [ext_resource type="Script" uid="uid://buns64rcufm7p" path="res://player/ray_interactable.gd" id="2_5qq00"]
@@ -12,9 +12,9 @@ radius = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_4w043"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Pickupable" type="RigidBody3D" node_paths=PackedStringArray("item_pop", "interactable")]
+[node name="Pickupable" type="RigidBody3D" unique_id=1725524514 node_paths=PackedStringArray("item_pop", "interactable")]
 collision_layer = 32
-collision_mask = 16387
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_4e6pr")
 lock_rotation = true
 contact_monitor = true
@@ -23,16 +23,16 @@ script = ExtResource("1_pickupable")
 item_pop = NodePath("ItemPopup")
 interactable = NodePath("RayInteractable")
 
-[node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="RayInteractable" type="Area3D" parent="." unique_id=1404155378 node_paths=PackedStringArray("sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("2_5qq00")
 sprite = NodePath("../ItemPopup")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable" unique_id=1087843922]
 shape = SubResource("SphereShape3D_5qq00")
 
-[node name="ItemPopup" parent="." instance=ExtResource("3_4w043")]
+[node name="ItemPopup" parent="." unique_id=38752764 instance=ExtResource("3_4w043")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0637207, 0)
 texture = SubResource("ViewportTexture_4w043")

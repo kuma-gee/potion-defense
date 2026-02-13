@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlc5pt3hyp5a7"]
+[gd_scene format=3 uid="uid://dlc5pt3hyp5a7"]
 
 [ext_resource type="Script" uid="uid://bqwbs514q32vs" path="res://potion/maps/tree.gd" id="1_bycdv"]
 [ext_resource type="PackedScene" uid="uid://erun8c2pkh6i" path="res://assets/nature/glTF/Tree_1_B_Color1.gltf" id="2_0itfb"]
@@ -7,28 +7,28 @@
 [ext_resource type="PackedScene" uid="uid://dayjq7xy2ww1q" path="res://assets/nature/glTF/Tree_1_A_Color1.gltf" id="3_t10dn"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_0itfb"]
-height = 10.408325
+height = 4.1574097
 radius = 0.58203125
 
-[node name="Tree" type="Node3D"]
-transform = Transform3D(0.11985669, 0, 1.0619336, 0, 1.0686761, 0, -1.0619336, 0, 0.11985669, 0, 0, 0)
+[node name="Tree" type="Node3D" unique_id=1786111245]
+transform = Transform3D(0.9561428, 0, -0.501726, 0, 1.0797861, 0, 0.501726, 0, 0.9561428, 0, 0, 0)
 script = ExtResource("1_bycdv")
 
-[node name="Tree_4_A_Color12" parent="." instance=ExtResource("2_blib2")]
+[node name="Tree_4_A_Color12" parent="." unique_id=1866832977 instance=ExtResource("2_blib2")]
 
 [node name="Tree_4_A_Color1" parent="Tree_4_A_Color12" index="0"]
 surface_material_override/0 = ExtResource("3_oqdt8")
 
-[node name="Tree_1_B_Color12" parent="." instance=ExtResource("2_0itfb")]
+[node name="Tree_1_B_Color12" parent="." unique_id=1419457458 instance=ExtResource("2_0itfb")]
 visible = false
 
-[node name="Tree_1_A_Color12" parent="." instance=ExtResource("3_t10dn")]
+[node name="Tree_1_A_Color12" parent="." unique_id=278413683 instance=ExtResource("3_t10dn")]
 visible = false
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=977504008]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, 1, 0, 5.2280893, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=721632153]
+transform = Transform3D(1, 0, 5.9604645e-08, 0, 0.9999994, 0, -5.9604645e-08, 0, 1, 0, 2.102631, 0)
 shape = SubResource("CylinderShape3D_0itfb")
 
 [editable path="Tree_4_A_Color12"]
