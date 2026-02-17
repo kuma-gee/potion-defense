@@ -29,12 +29,6 @@ enum Process {
 	DISTILL,
 }
 
-const POTION_ELEMENTS = {
-	Type.POTION_FIRE_BOMB: ElementalArea.Element.FIRE,
-	Type.POTION_BLIZZARD: ElementalArea.Element.ICE,
-	Type.POTION_POISON_CLOUD: ElementalArea.Element.POISON,
-}
-
 const PROCESS_ICONS = {
 	Process.CRUSH: ACTION_CRUSH,
 	Process.PULVERIZE: ACTION_CRUSH,
@@ -44,8 +38,8 @@ const PROCESSES = {
 	Process.CRUSH: {
 		Type.CRYSTAL: Type.CRYSTAL_CRUSHED,
 	},
-	Process.PULVERIZE: {
-		Type.SHARD_FRAGMENT: Type.SHARD_FRAGMENT_PULVERIZED,
+	Process.DISTILL: {
+		Type.FROST_MUSHROOM: Type.MUSHROOM_DISTILLED,
 	},
 }
 

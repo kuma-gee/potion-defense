@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://csiavq076wjrx"]
+[gd_scene format=3 uid="uid://csiavq076wjrx"]
 
 [ext_resource type="Script" uid="uid://bxmjv37bmrlaj" path="res://vfx/explosion_vfx.gd" id="1_vjgue"]
 [ext_resource type="Shader" uid="uid://dpqsia4sjvs85" path="res://vfx/streak_vfx.tres" id="2_dqbw7"]
@@ -172,148 +172,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_saqft"]
 
 [sub_resource type="VisualShader" id="VisualShader_24mi5"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec2 CloudMove;
-uniform sampler2D Texture2DParameter;
-uniform float CloudIntensity;
-uniform vec4 SmokeColor : source_color;
-uniform sampler2D DissolveTexture;
-uniform sampler2D depth_tex_frg_30 : hint_depth_texture;
-uniform vec4 FlareColor : source_color;
-uniform float FlareStrength;
-uniform sampler2D FlareTexture;
-
-
-
-void vertex() {
-// Input:2
-	vec3 n_out2p0 = VERTEX;
-
-
-// Input:3
-	vec3 n_out3p0 = NORMAL;
-
-
-// Input:10
-	float n_out10p0 = TIME;
-
-
-// Vector2Parameter:13
-	vec2 n_out13p0 = CloudMove;
-
-
-// VectorOp:11
-	vec2 n_out11p0 = vec2(n_out10p0) * n_out13p0;
-
-
-// UVFunc:9
-	vec2 n_in9p1 = vec2(1.00000, 1.00000);
-	vec2 n_out9p0 = n_out11p0 * n_in9p1 + UV;
-
-
-	vec4 n_out7p0;
-// Texture2D:7
-	n_out7p0 = texture(Texture2DParameter, n_out9p0);
-	float n_out7p1 = n_out7p0.r;
-
-
-// FloatParameter:12
-	float n_out12p0 = CloudIntensity;
-
-
-// FloatOp:8
-	float n_out8p0 = n_out7p1 * n_out12p0;
-
-
-// VectorOp:6
-	vec3 n_out6p0 = n_out3p0 * vec3(n_out8p0);
-
-
-// VectorOp:4
-	vec3 n_out4p0 = n_out2p0 + n_out6p0;
-
-
-// Output:0
-	VERTEX = n_out4p0;
-
-
-}
-
-void fragment() {
-// ColorParameter:6
-	vec4 n_out6p0 = SmokeColor;
-
-
-// Input:28
-	vec4 n_out28p0 = COLOR;
-	float n_out28p4 = n_out28p0.a;
-
-
-	vec4 n_out19p0;
-// Texture2D:19
-	n_out19p0 = texture(DissolveTexture, UV);
-
-
-// Step:25
-	float n_out25p0 = step(n_out28p4, n_out19p0.x);
-
-
-	float n_out30p0;
-// ProximityFade:30
-	float n_in30p0 = 1.00000;
-	{
-		float __depth_tex = texture(depth_tex_frg_30, SCREEN_UV).r;
-		vec4 __depth_world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, __depth_tex, 1.0);
-		__depth_world_pos.xyz /= __depth_world_pos.w;
-		n_out30p0 = clamp(1.0 - smoothstep(__depth_world_pos.z + n_in30p0, __depth_world_pos.z, VERTEX.z), 0.0, 1.0);
-	}
-
-
-// FloatOp:29
-	float n_out29p0 = n_out25p0 * n_out30p0;
-
-
-// ColorParameter:7
-	vec4 n_out7p0 = FlareColor;
-
-
-// FloatParameter:9
-	float n_out9p0 = FlareStrength;
-
-
-// VectorOp:8
-	vec3 n_out8p0 = vec3(n_out7p0.xyz) * vec3(n_out9p0);
-
-
-// Input:26
-	vec4 n_out26p0 = COLOR;
-	float n_out26p1 = n_out26p0.r;
-
-
-	vec4 n_out12p0;
-// Texture2D:12
-	n_out12p0 = texture(FlareTexture, UV);
-
-
-// SmoothStep:13
-	float n_in13p1 = 1.00000;
-	float n_out13p0 = smoothstep(n_out26p1, n_in13p1, n_out12p0.x);
-
-
-// VectorOp:14
-	vec3 n_out14p0 = n_out8p0 * vec3(n_out13p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out6p0.xyz);
-	ALPHA = n_out29p0;
-	EMISSION = n_out14p0;
-
-
-}
-"
 nodes/vertex/0/position = Vector2(1520, 220)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_le77e")
 nodes/vertex/2/position = Vector2(220, 80)
@@ -725,10 +583,10 @@ scale_curve = SubResource("CurveTexture_i6s84")
 
 [sub_resource type="QuadMesh" id="QuadMesh_vcupu"]
 
-[node name="ExplosionVFX" type="Node3D"]
+[node name="ExplosionVFX" type="Node3D" unique_id=1674643528]
 script = ExtResource("1_vjgue")
 
-[node name="Smoke" type="GPUParticles3D" parent="."]
+[node name="Smoke" type="GPUParticles3D" parent="." unique_id=1863897735]
 material_override = SubResource("ShaderMaterial_vjgue")
 lifetime = 0.6
 one_shot = true
@@ -737,7 +595,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_1w1ux")
 draw_pass_1 = SubResource("SphereMesh_4bgkl")
 
-[node name="Streaks" type="GPUParticles3D" parent="."]
+[node name="Streaks" type="GPUParticles3D" parent="." unique_id=1847125441]
 material_override = SubResource("ShaderMaterial_d4wka")
 emitting = false
 lifetime = 0.4
@@ -748,17 +606,15 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_x2kdr")
 draw_pass_1 = SubResource("QuadMesh_stehy")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=380503563]
 light_color = Color(1, 0.483333, 0, 1)
 light_energy = 20.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4q3nj")
-}
-autoplay = "start"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1865800446]
+libraries/ = SubResource("AnimationLibrary_4q3nj")
+autoplay = &"start"
 
-[node name="Flare" type="GPUParticles3D" parent="."]
+[node name="Flare" type="GPUParticles3D" parent="." unique_id=568654933]
 material_override = SubResource("StandardMaterial3D_k1pk8")
 amount = 4
 lifetime = 0.5
@@ -768,12 +624,12 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_ug7mk")
 draw_pass_1 = SubResource("QuadMesh_vcupu")
 
-[node name="Decal" type="Decal" parent="."]
+[node name="Decal" type="Decal" parent="." unique_id=175610956]
 size = Vector3(3, 3, 3)
 texture_albedo = ExtResource("4_erun6")
 texture_emission = ExtResource("5_ie8lq")
 emission_energy = 2.0
 modulate = Color(1, 0.5875, 0.00999999, 1)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1915029661]
 size = Vector3(3.7509766, 0.001, 3.6660156)

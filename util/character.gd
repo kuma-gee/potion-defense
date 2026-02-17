@@ -43,3 +43,6 @@ func slow(type: String, factor: float) -> void:
 		slow_effects.erase(type)
 	else:
 		slow_effects[type] = factor
+
+func freeze(_time: float):
+	pass

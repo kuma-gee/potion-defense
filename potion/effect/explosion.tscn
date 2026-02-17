@@ -390,6 +390,7 @@ process_material = SubResource("ParticleProcessMaterial_eiin1")
 draw_pass_1 = ExtResource("6_xpt46")
 
 [node name="GroundDust" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=152549403]
+visible = false
 material_override = SubResource("StandardMaterial3D_xpt46")
 emitting = false
 amount = 32

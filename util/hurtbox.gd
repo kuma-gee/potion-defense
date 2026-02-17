@@ -45,7 +45,7 @@ func hit(dmg: float, knockback = Vector3.ZERO, element = ElementalArea.Element.N
 		if dmg <= 0.0:
 			return
 	
-	var mult = 1.0 - (resistance[element] if element in resistance else 0.0)
+	var mult = 1.0 - get_resistance(element)
 	var effective_dmg = dmg * mult
 	health -= effective_dmg
 
@@ -64,7 +64,7 @@ func apply_effect(effect: StatusEffect):
 		if eff.element != ElementalArea.Element.NONE:
 			elemental_hit.emit(eff.element)
 
-			var resist = resistance[eff.element] if eff.element in resistance else 0.0
+			var resist = get_resistance(eff.element)
 			if resist >= 1.0:
 				return  # Immune to this effect
 
@@ -72,6 +72,9 @@ func apply_effect(effect: StatusEffect):
 				eff.duration *= (1.0 - resist)
 
 		status_manager.apply_effect(eff)
+
+func get_resistance(elem: ElementalArea.Element):
+	return resistance[elem] if elem in resistance else 0.0
 
 func is_dead():
 	return health <= 0

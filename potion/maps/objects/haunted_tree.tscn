@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b0t6byvkksmb3"]
+
+[ext_resource type="PackedScene" uid="uid://b4nrek7myrlxk" path="res://assets/nature/glTF/Tree_Bare_1_C_Color1.gltf" id="1_hxffs"]
+[ext_resource type="Script" uid="uid://bqwbs514q32vs" path="res://potion/maps/tree.gd" id="1_lft5s"]
+[ext_resource type="PackedScene" uid="uid://cpcy8qxap2g67" path="res://assets/nature/glTF/DeadTree_2.gltf" id="2_elylf"]
+[ext_resource type="Texture2D" uid="uid://vu1u7n5xs7fi" path="res://assets/models/base_texture.png" id="3_lfej7"]
+[ext_resource type="PackedScene" uid="uid://dojaxm8tak0xh" path="res://assets/nature/glTF/DeadTree_1.gltf" id="3_r55nv"]
+[ext_resource type="PackedScene" uid="uid://c170vg7pr47x7" path="res://assets/nature/glTF/DeadTree_3.gltf" id="4_lfej7"]
+[ext_resource type="PackedScene" uid="uid://cd803iuoxpk18" path="res://assets/nature/glTF/DeadTree_4.gltf" id="5_h44p4"]
+[ext_resource type="PackedScene" uid="uid://cqru51673whwg" path="res://assets/nature/glTF/DeadTree_5.gltf" id="6_ul268"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h44p4"]
+albedo_color = Color(0.32941177, 0.47058824, 0.34117648, 1)
+albedo_texture = ExtResource("3_lfej7")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lft5s"]
+height = 2.3342896
+radius = 0.4555664
+
+[node name="HauntedTree" type="StaticBody3D" unique_id=1785057812]
+script = ExtResource("1_lft5s")
+
+[node name="Tree_Bare_1_C_Color12" parent="." unique_id=1991851606 instance=ExtResource("1_hxffs")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="Tree_Bare_1_C_Color1" parent="Tree_Bare_1_C_Color12" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_h44p4")
+
+[node name="DeadTree_22" parent="." unique_id=1890840425 instance=ExtResource("2_elylf")]
+visible = false
+
+[node name="DeadTree_12" parent="." unique_id=1680484412 instance=ExtResource("3_r55nv")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
+
+[node name="DeadTree_32" parent="." unique_id=696230480 instance=ExtResource("4_lfej7")]
+visible = false
+
+[node name="DeadTree_42" parent="." unique_id=1345550484 instance=ExtResource("5_h44p4")]
+visible = false
+
+[node name="DeadTree_52" parent="." unique_id=1100054255 instance=ExtResource("6_ul268")]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=995954938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0885315, 0)
+shape = SubResource("CylinderShape3D_lft5s")
+
+[editable path="Tree_Bare_1_C_Color12"]

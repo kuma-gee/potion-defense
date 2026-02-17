@@ -1,4 +1,4 @@
-[gd_scene load_steps=182 format=3 uid="uid://cvrm4vmap3w15"]
+[gd_scene format=3 uid="uid://cvrm4vmap3w15"]
 
 [ext_resource type="Script" uid="uid://ballhkvidthlg" path="res://potion/effect/poison_area.gd" id="1_2udlr"]
 [ext_resource type="Script" uid="uid://dqh5gugy0cs1" path="res://potion/effect/status/status_effect.gd" id="4_2udlr"]
@@ -107,148 +107,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_yf6oi"]
 
 [sub_resource type="VisualShader" id="VisualShader_c6ebo"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, fog_disabled;
-
-uniform sampler2D Vertex_Noise : source_color;
-uniform float Proximity_Fade : hint_range(0.0, 1.0) = 0.20000000298023;
-uniform sampler2D depth_tex_frg_2 : hint_depth_texture;
-uniform float Hard_Shadow_min = 0.0;
-uniform float Hard_Shadow_max = 0.10000000149012;
-uniform float Shadow_Min = 0.10000000149012;
-uniform float Shadow_Max = 1.0;
-
-
-
-void vertex() {
-// Input:3
-	vec3 n_out3p0 = VERTEX;
-
-
-// Input:2
-	vec3 n_out2p0 = NORMAL;
-
-
-// Input:10
-	float n_out10p0 = TIME;
-
-
-// Vector2Constant:12
-	vec2 n_out12p0 = vec2(0.100000, 1.000000);
-
-
-// VectorOp:11
-	vec2 n_out11p0 = vec2(n_out10p0) * n_out12p0;
-
-
-// UVFunc:9
-	vec2 n_in9p1 = vec2(1.00000, 1.00000);
-	vec2 n_out9p0 = n_out11p0 * n_in9p1 + UV;
-
-
-	vec4 n_out15p0;
-// Texture2D:15
-	n_out15p0 = texture(Vertex_Noise, n_out9p0);
-	float n_out15p1 = n_out15p0.r;
-
-
-// VectorOp:8
-	vec3 n_out8p0 = n_out2p0 * vec3(n_out15p1);
-
-
-// FloatConstant:6
-	float n_out6p0 = -0.600000;
-
-
-// VectorOp:5
-	vec3 n_out5p0 = n_out8p0 * vec3(n_out6p0);
-
-
-// VectorOp:4
-	vec3 n_out4p0 = n_out3p0 + n_out5p0;
-
-
-// Output:0
-	VERTEX = n_out4p0;
-
-
-}
-
-void fragment() {
-// Input:3
-	vec4 n_out3p0 = COLOR;
-	float n_out3p4 = n_out3p0.a;
-
-
-// FloatParameter:20
-	float n_out20p0 = Proximity_Fade;
-
-
-	float n_out2p0;
-// ProximityFade:2
-	{
-		float __depth_tex = texture(depth_tex_frg_2, SCREEN_UV).r;
-		vec4 __depth_world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, __depth_tex, 1.0);
-		__depth_world_pos.xyz /= __depth_world_pos.w;
-		n_out2p0 = clamp(1.0 - smoothstep(__depth_world_pos.z + n_out20p0, __depth_world_pos.z, VERTEX.z), 0.0, 1.0);
-	}
-
-
-// FloatOp:5
-	float n_out5p0 = n_out3p4 * n_out2p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out5p0;
-
-
-}
-
-void light() {
-// FloatParameter:6
-	float n_out6p0 = Hard_Shadow_min;
-
-
-// FloatParameter:7
-	float n_out7p0 = Hard_Shadow_max;
-
-
-// Input:2
-	vec3 n_out2p0 = NORMAL;
-
-
-// Fresnel:12
-	float n_in12p3 = 1.00000;
-	float n_out12p0 = pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in12p3);
-
-
-// DotProduct:4
-	float n_out4p0 = dot(n_out2p0, vec3(n_out12p0));
-
-
-// SmoothStep:5
-	vec3 n_out5p0 = smoothstep(vec3(n_out6p0), vec3(n_out7p0), vec3(n_out4p0));
-
-
-// FloatParameter:9
-	float n_out9p0 = Shadow_Min;
-
-
-// FloatParameter:11
-	float n_out11p0 = Shadow_Max;
-
-
-// Clamp:10
-	vec3 n_out10p0 = clamp(n_out5p0, vec3(n_out9p0), vec3(n_out11p0));
-
-
-// Output:0
-	DIFFUSE_LIGHT = n_out10p0;
-
-
-}
-"
 flags/fog_disabled = true
 nodes/vertex/0/position = Vector2(640, 160)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_fej4m")
@@ -389,99 +247,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_h3ylg"]
 
 [sub_resource type="VisualShader" id="VisualShader_r67y7"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_front, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, fog_disabled;
-
-uniform sampler2D Vertex_Noise : source_color;
-uniform float Texture_Power = 1.0;
-uniform float Outline_Thinkness = 0.10000000149012;
-uniform vec4 ColorParameter : source_color;
-
-
-
-void vertex() {
-// Input:3
-	vec3 n_out3p0 = VERTEX;
-
-
-// Input:2
-	vec3 n_out2p0 = NORMAL;
-
-
-// Input:10
-	float n_out10p0 = TIME;
-
-
-// Vector2Constant:12
-	vec2 n_out12p0 = vec2(0.100000, 1.000000);
-
-
-// VectorOp:11
-	vec2 n_out11p0 = vec2(n_out10p0) * n_out12p0;
-
-
-// UVFunc:9
-	vec2 n_in9p1 = vec2(1.00000, 1.00000);
-	vec2 n_out9p0 = n_out11p0 * n_in9p1 + UV;
-
-
-	vec4 n_out15p0;
-// Texture2D:15
-	n_out15p0 = texture(Vertex_Noise, n_out9p0);
-	float n_out15p1 = n_out15p0.r;
-
-
-// FloatFunc:16
-	float n_out16p0 = 1.0 - n_out15p1;
-
-
-// FloatParameter:18
-	float n_out18p0 = Texture_Power;
-
-
-// FloatOp:17
-	float n_out17p0 = pow(n_out16p0, n_out18p0);
-
-
-// VectorOp:8
-	vec3 n_out8p0 = n_out2p0 * vec3(n_out17p0);
-
-
-// FloatParameter:6
-	float n_out6p0 = Outline_Thinkness;
-
-
-// VectorOp:5
-	vec3 n_out5p0 = n_out8p0 * vec3(n_out6p0);
-
-
-// VectorOp:4
-	vec3 n_out4p0 = n_out3p0 + n_out5p0;
-
-
-// Output:0
-	VERTEX = n_out4p0;
-
-
-}
-
-void fragment() {
-// ColorParameter:21
-	vec4 n_out21p0 = ColorParameter;
-
-
-// Input:3
-	vec4 n_out3p0 = COLOR;
-	float n_out3p4 = n_out3p0.a;
-
-
-// Output:0
-	ALBEDO = vec3(n_out21p0.xyz);
-	ALPHA = n_out3p4;
-
-
-}
-"
 modes/cull = 1
 flags/unshaded = true
 flags/shadows_disabled = true
@@ -673,148 +438,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_7iw74"]
 
 [sub_resource type="VisualShader" id="VisualShader_g6j8c"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, fog_disabled;
-
-uniform sampler2D Vertex_Noise : source_color;
-uniform float Proximity_Fade : hint_range(0.0, 1.0) = 0.20000000298023;
-uniform sampler2D depth_tex_frg_2 : hint_depth_texture;
-uniform float Hard_Shadow_min = 0.0;
-uniform float Hard_Shadow_max = 0.10000000149012;
-uniform float Shadow_Min = 0.10000000149012;
-uniform float Shadow_Max = 1.0;
-
-
-
-void vertex() {
-// Input:3
-	vec3 n_out3p0 = VERTEX;
-
-
-// Input:2
-	vec3 n_out2p0 = NORMAL;
-
-
-// Input:10
-	float n_out10p0 = TIME;
-
-
-// Vector2Constant:12
-	vec2 n_out12p0 = vec2(0.100000, 1.000000);
-
-
-// VectorOp:11
-	vec2 n_out11p0 = vec2(n_out10p0) * n_out12p0;
-
-
-// UVFunc:9
-	vec2 n_in9p1 = vec2(1.00000, 1.00000);
-	vec2 n_out9p0 = n_out11p0 * n_in9p1 + UV;
-
-
-	vec4 n_out15p0;
-// Texture2D:15
-	n_out15p0 = texture(Vertex_Noise, n_out9p0);
-	float n_out15p1 = n_out15p0.r;
-
-
-// VectorOp:8
-	vec3 n_out8p0 = n_out2p0 * vec3(n_out15p1);
-
-
-// FloatConstant:6
-	float n_out6p0 = -0.600000;
-
-
-// VectorOp:5
-	vec3 n_out5p0 = n_out8p0 * vec3(n_out6p0);
-
-
-// VectorOp:4
-	vec3 n_out4p0 = n_out3p0 + n_out5p0;
-
-
-// Output:0
-	VERTEX = n_out4p0;
-
-
-}
-
-void fragment() {
-// Input:3
-	vec4 n_out3p0 = COLOR;
-	float n_out3p4 = n_out3p0.a;
-
-
-// FloatParameter:20
-	float n_out20p0 = Proximity_Fade;
-
-
-	float n_out2p0;
-// ProximityFade:2
-	{
-		float __depth_tex = texture(depth_tex_frg_2, SCREEN_UV).r;
-		vec4 __depth_world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, __depth_tex, 1.0);
-		__depth_world_pos.xyz /= __depth_world_pos.w;
-		n_out2p0 = clamp(1.0 - smoothstep(__depth_world_pos.z + n_out20p0, __depth_world_pos.z, VERTEX.z), 0.0, 1.0);
-	}
-
-
-// FloatOp:5
-	float n_out5p0 = n_out3p4 * n_out2p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out5p0;
-
-
-}
-
-void light() {
-// FloatParameter:6
-	float n_out6p0 = Hard_Shadow_min;
-
-
-// FloatParameter:7
-	float n_out7p0 = Hard_Shadow_max;
-
-
-// Input:2
-	vec3 n_out2p0 = NORMAL;
-
-
-// Fresnel:12
-	float n_in12p3 = 1.00000;
-	float n_out12p0 = pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in12p3);
-
-
-// DotProduct:4
-	float n_out4p0 = dot(n_out2p0, vec3(n_out12p0));
-
-
-// SmoothStep:5
-	vec3 n_out5p0 = smoothstep(vec3(n_out6p0), vec3(n_out7p0), vec3(n_out4p0));
-
-
-// FloatParameter:9
-	float n_out9p0 = Shadow_Min;
-
-
-// FloatParameter:11
-	float n_out11p0 = Shadow_Max;
-
-
-// Clamp:10
-	vec3 n_out10p0 = clamp(n_out5p0, vec3(n_out9p0), vec3(n_out11p0));
-
-
-// Output:0
-	DIFFUSE_LIGHT = n_out10p0;
-
-
-}
-"
 flags/fog_disabled = true
 nodes/vertex/0/position = Vector2(640, 160)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_omjbr")
@@ -955,99 +578,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_gg1ql"]
 
 [sub_resource type="VisualShader" id="VisualShader_5jxne"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_front, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, fog_disabled;
-
-uniform sampler2D Vertex_Noise : source_color;
-uniform float Texture_Power = 1.0;
-uniform float Outline_Thinkness = 0.10000000149012;
-uniform vec4 ColorParameter : source_color;
-
-
-
-void vertex() {
-// Input:3
-	vec3 n_out3p0 = VERTEX;
-
-
-// Input:2
-	vec3 n_out2p0 = NORMAL;
-
-
-// Input:10
-	float n_out10p0 = TIME;
-
-
-// Vector2Constant:12
-	vec2 n_out12p0 = vec2(0.100000, 1.000000);
-
-
-// VectorOp:11
-	vec2 n_out11p0 = vec2(n_out10p0) * n_out12p0;
-
-
-// UVFunc:9
-	vec2 n_in9p1 = vec2(1.00000, 1.00000);
-	vec2 n_out9p0 = n_out11p0 * n_in9p1 + UV;
-
-
-	vec4 n_out15p0;
-// Texture2D:15
-	n_out15p0 = texture(Vertex_Noise, n_out9p0);
-	float n_out15p1 = n_out15p0.r;
-
-
-// FloatFunc:16
-	float n_out16p0 = 1.0 - n_out15p1;
-
-
-// FloatParameter:18
-	float n_out18p0 = Texture_Power;
-
-
-// FloatOp:17
-	float n_out17p0 = pow(n_out16p0, n_out18p0);
-
-
-// VectorOp:8
-	vec3 n_out8p0 = n_out2p0 * vec3(n_out17p0);
-
-
-// FloatParameter:6
-	float n_out6p0 = Outline_Thinkness;
-
-
-// VectorOp:5
-	vec3 n_out5p0 = n_out8p0 * vec3(n_out6p0);
-
-
-// VectorOp:4
-	vec3 n_out4p0 = n_out3p0 + n_out5p0;
-
-
-// Output:0
-	VERTEX = n_out4p0;
-
-
-}
-
-void fragment() {
-// ColorParameter:21
-	vec4 n_out21p0 = ColorParameter;
-
-
-// Input:3
-	vec4 n_out3p0 = COLOR;
-	float n_out3p4 = n_out3p0.a;
-
-
-// Output:0
-	ALBEDO = vec3(n_out21p0.xyz);
-	ALPHA = n_out3p4;
-
-
-}
-"
 modes/cull = 1
 flags/unshaded = true
 flags/shadows_disabled = true
@@ -1199,71 +729,6 @@ billboard_type = 0
 keep_scale = true
 
 [sub_resource type="VisualShader" id="VisualShader_137j8"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec4 Color : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-uniform float Outline : hint_range(0.0, 1.0) = 0.85000002384186;
-uniform sampler2D Hit_texture : source_color;
-
-
-
-void vertex() {
-// GetBillboardMatrix:2
-	// Node is disabled and code is not generated.
-}
-
-void fragment() {
-// ColorParameter:10
-	vec4 n_out10p0 = Color;
-
-
-// FloatParameter:8
-	float n_out8p0 = Outline;
-
-
-	vec4 n_out4p0;
-// Texture2D:4
-	n_out4p0 = texture(Hit_texture, UV);
-	float n_out4p1 = n_out4p0.r;
-
-
-// Step:6
-	float n_out6p0 = step(n_out8p0, n_out4p1);
-
-
-// VectorOp:7
-	vec4 n_out7p0 = n_out10p0 * vec4(n_out6p0);
-
-
-// Input:2
-	vec4 n_out2p0 = COLOR;
-	float n_out2p1 = n_out2p0.r;
-	float n_out2p4 = n_out2p0.a;
-
-
-// Clamp:11
-	float n_in11p1 = 0.08000;
-	float n_in11p2 = 0.90000;
-	float n_out11p0 = clamp(n_out2p1, n_in11p1, n_in11p2);
-
-
-// FloatOp:5
-	float n_out5p0 = n_out4p1 * n_out2p4;
-
-
-// SmoothStep:12
-	float n_in12p1 = 0.90000;
-	float n_out12p0 = smoothstep(n_out11p0, n_in12p1, n_out5p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out7p0.xyz);
-	ALPHA = n_out12p0;
-
-
-}
-"
 modes/cull = 2
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_k3wh0")
@@ -1411,87 +876,6 @@ hint = 1
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_4rmeo"]
 
 [sub_resource type="VisualShader" id="VisualShader_7g3nj"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec4 Circle_Color : source_color;
-uniform float Extra_Opacity : hint_range(0.0, 1.0);
-uniform sampler2D Texture_Lineal : source_color, repeat_disable;
-uniform sampler2D tex_frg_10;
-
-
-
-void fragment() {
-// ColorParameter:7
-	vec4 n_out7p0 = Circle_Color;
-
-
-// Input:17
-	vec4 n_out17p0 = COLOR;
-	float n_out17p4 = n_out17p0.a;
-
-
-// FloatParameter:8
-	float n_out8p0 = Extra_Opacity;
-
-
-// Input:14
-	vec4 n_out14p0 = COLOR;
-	float n_out14p1 = n_out14p0.r;
-
-
-	float n_out15p0;
-// Remap:15
-	float n_in15p1 = 0.00000;
-	float n_in15p2 = 1.00000;
-	float n_in15p3 = 0.80000;
-	float n_in15p4 = -0.40000;
-	{
-		float __input_range = n_in15p2 - n_in15p1;
-		float __output_range = n_in15p4 - n_in15p3;
-		n_out15p0 = n_in15p3 + __output_range * ((n_out14p1 - n_in15p1) / __input_range);
-	}
-
-
-// VectorCompose:16
-	float n_in16p0 = 0.00000;
-	vec2 n_out16p0 = vec2(n_in16p0, n_out15p0);
-
-
-// UVFunc:3
-	vec2 n_in3p1 = vec2(1.00000, 1.00000);
-	vec2 n_out3p0 = n_out16p0 * n_in3p1 + UV;
-
-
-	vec4 n_out13p0;
-// Texture2D:13
-	n_out13p0 = texture(Texture_Lineal, n_out3p0);
-	float n_out13p1 = n_out13p0.r;
-
-
-// FloatOp:9
-	float n_out9p0 = n_out8p0 + n_out13p1;
-
-
-// Texture2D:10
-	vec4 n_out10p0 = texture(tex_frg_10, UV);
-
-
-// FloatOp:11
-	float n_out11p0 = n_out9p0 * n_out10p0.x;
-
-
-// FloatOp:18
-	float n_out18p0 = n_out17p4 * n_out11p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out7p0.xyz);
-	ALPHA = n_out18p0;
-
-
-}
-"
 flags/unshaded = true
 nodes/fragment/0/position = Vector2(1000, 160)
 nodes/fragment/3/node = SubResource("VisualShaderNodeUVFunc_ue3wc")
@@ -1752,22 +1136,22 @@ _data = {
 &"start": SubResource("Animation_2svyx")
 }
 
-[node name="PoisonArea" type="Node3D"]
+[node name="PoisonArea" type="Node3D" unique_id=1162897963]
 script = ExtResource("1_2udlr")
 explosion_vfx = ExtResource("12_hx0xm")
 
-[node name="Poison" parent="." instance=ExtResource("13_hx0xm")]
+[node name="Poison" parent="." unique_id=1324805659 instance=ExtResource("13_hx0xm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2369788, 0)
 effects = Array[ExtResource("4_2udlr")]([ExtResource("6_0452k")])
 element = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Poison"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Poison" unique_id=444954546]
 shape = SubResource("SphereShape3D_ikj7i")
 
-[node name="VFX_Puff_styleB" type="Node3D" parent="."]
+[node name="VFX_Puff_styleB" type="Node3D" parent="." unique_id=832915373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1844606, 0)
 
-[node name="puff_clouds2" type="GPUParticles3D" parent="VFX_Puff_styleB"]
+[node name="puff_clouds2" type="GPUParticles3D" parent="VFX_Puff_styleB" unique_id=1058870217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06760192, 0)
 material_override = SubResource("ShaderMaterial_lnhmi")
 material_overlay = SubResource("ShaderMaterial_ltq3l")
@@ -1776,7 +1160,7 @@ lifetime = 6.0
 process_material = SubResource("ParticleProcessMaterial_uvyjl")
 draw_pass_1 = SubResource("SphereMesh_dogjh")
 
-[node name="puff_clouds" type="GPUParticles3D" parent="VFX_Puff_styleB"]
+[node name="puff_clouds" type="GPUParticles3D" parent="VFX_Puff_styleB" unique_id=1500653431]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06760192, 0)
 material_override = SubResource("ShaderMaterial_aoqac")
 material_overlay = SubResource("ShaderMaterial_otpwg")
@@ -1788,7 +1172,7 @@ explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_s8oxs")
 draw_pass_1 = SubResource("SphereMesh_dogjh")
 
-[node name="sparks" type="GPUParticles3D" parent="VFX_Puff_styleB"]
+[node name="sparks" type="GPUParticles3D" parent="VFX_Puff_styleB" unique_id=740694999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.068355024, 0)
 layers = 4
 material_override = SubResource("ShaderMaterial_2j26q")
@@ -1800,7 +1184,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ko0pe")
 draw_pass_1 = SubResource("QuadMesh_18vik")
 
-[node name="expansive_Wave" type="GPUParticles3D" parent="VFX_Puff_styleB"]
+[node name="expansive_Wave" type="GPUParticles3D" parent="VFX_Puff_styleB" unique_id=1841415586]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0826718, 0)
 material_override = SubResource("ShaderMaterial_3fy2l")
 emitting = false
@@ -1810,29 +1194,25 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_8hqh7")
 draw_pass_1 = ExtResource("13_pnyr6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="VFX_Puff_styleB"]
-libraries = {
-&"": SubResource("AnimationLibrary_k4m0j")
-}
-autoplay = "init"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VFX_Puff_styleB" unique_id=89247682]
+libraries/ = SubResource("AnimationLibrary_k4m0j")
+autoplay = &"init"
 
-[node name="LargeHit" parent="." instance=ExtResource("11_2udlr")]
+[node name="LargeHit" parent="." unique_id=47479473 instance=ExtResource("11_2udlr")]
 element = 1
 damage = 80.0
 force = 10
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LargeHit"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LargeHit" unique_id=1332418337]
 shape = SubResource("SphereShape3D_3mrsm")
 
-[node name="Cleanup" type="Timer" parent="."]
+[node name="Cleanup" type="Timer" parent="." unique_id=565264154]
 wait_time = 3.0
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_hx0xm")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1693955127]
+libraries/ = SubResource("AnimationLibrary_hx0xm")
 
-[node name="SFXPlayer" type="Node" parent="."]
+[node name="SFXPlayer" type="Node" parent="." unique_id=189641605]
 script = ExtResource("11_hx0xm")
 audio = ExtResource("12_r6r3l")

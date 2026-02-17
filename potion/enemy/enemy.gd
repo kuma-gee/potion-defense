@@ -3,25 +3,15 @@ extends Character
 
 const GROUP = "Enemy"
 
-enum State {
-	ATTACK,
-	MOVE,
-	KNOCKBACK,
-	DEAD,
-}
-
-@export var max_attack_count: int = 3
-
 @onready var attack_range: RayCast3D = $AttackRange
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var soul_spawner: ObjectSpawner = $SoulSpawner
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var move_sound: RandomizedLoopSfx = $MoveSound
 @onready var death_sound: RandomizedLoopSfx = $DeathSound
+@onready var freeze_timer: Timer = $FreezeTimer
+@onready var animation_tree: EnemyAnimationTree = $AnimationTree
 
-var state = null
-var attack_count := 0
 var path: Path3D
 var current_path_point := 0
 var souls := 1
@@ -32,30 +22,27 @@ func _ready() -> void:
 
 	move()
 	hurt_box.died.connect(func(): _died())
-	animation_player.animation_finished.connect(func(a): _on_animation_finished(a))
 	hurt_box.knockbacked.connect(func(_k): knockback_state())
+	animation_tree.animation_finished.connect(func(a): _on_animation_finished(a))
+	freeze_timer.timeout.connect(func(): unfreeze())
 	
 	move_sound.play_randomized()
 	if path:
 		_update_navigation_target()
 
 func _on_animation_finished(anim: String):
-	match state:
-		State.DEAD: _on_death_finished()
-		#State.KNOCKBACK: _on_knockback_finished()
-		State.ATTACK: _on_attack_finished(anim)
-
-func _on_knockback_finished():
-	move()
+	match animation_tree.state:
+		"dead": _on_death_finished()
+		"attack": _on_attack_finished(anim)
 
 func _on_death_finished():
 	get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
 
 func _on_attack_finished(_anim: String):
 	if attack_range.is_colliding():
-		_play_attack()
+		animation_tree.attack()
 	else:
-		move()
+		animation_tree.move()
 
 func _died():
 	died()
@@ -72,13 +59,17 @@ func is_dead():
 func _physics_process(delta: float) -> void:
 	if hurt_box.is_dead():
 		return
+		
+	if not freeze_timer.is_stopped():
+		velocity = Vector3.ZERO
+		return
 	
-	match state:
-		State.KNOCKBACK:
+	match animation_tree.state:
+		"knockback":
 			apply_knockback(delta)
 			if not has_knockback():
-				_on_knockback_finished()
-		State.MOVE:
+				move()
+		"move":
 			if attack_range.is_colliding():
 				attack()
 			else:
@@ -113,32 +104,29 @@ func _update_navigation_target():
 	nav_agent.target_position = target_position
 
 #region STATES
-func died(anim = "death"):
-	if state == State.DEAD: return
-	state = State.DEAD
-	animation_player.play(anim)
+func died():
+	animation_tree.died()
+
+func freeze(time: float) -> void:
+	if hurt_box.is_dead(): return
+	move_sound.stop()
+	animation_tree.active = false
+	freeze_timer.start(time)
+
+func unfreeze():
+	animation_tree.active = true
+	animation_tree.move()
+	move_sound.start()
 
 func attack():
-	if state != State.MOVE: return
-
-	state = State.ATTACK
-	_play_attack()
-
-func _play_attack():
-	animation_player.play("attack%s" % attack_count)
+	if hurt_box.is_dead(): return
+	animation_tree.attack()
 	
-	attack_count += 1
-	if attack_count >= max_attack_count:
-		attack_count = 0
-
-func move(anim = "move"):
-	if state == State.DEAD: return
-	state = State.MOVE
-	if animation_player.current_animation != anim:
-		animation_player.play(anim)
+func move():
+	if hurt_box.is_dead(): return
+	animation_tree.move()
 
 func knockback_state():
-	if state == State.DEAD or state == State.KNOCKBACK: return
-	state = State.KNOCKBACK
-	animation_player.play("knockback")
+	if hurt_box.is_dead(): return
+	animation_tree.knockback()
 #endregion STATES

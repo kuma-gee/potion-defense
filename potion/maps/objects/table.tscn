@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://t5hlanwweip7"]
+[gd_scene format=3 uid="uid://t5hlanwweip7"]
 
 [ext_resource type="Script" uid="uid://dhv03andtviti" path="res://potion/maps/objects/table.gd" id="1_ppnb3"]
 [ext_resource type="Script" uid="uid://cneuwfr2eouyv" path="res://potion/maps/objects/placeable_slott.gd" id="3_r3je8"]
@@ -10,7 +10,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ch2ja"]
 size = Vector3(0.46875, 0.7, 0.5)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_r3je8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_slx8l"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l27k1"]
@@ -28,10 +28,10 @@ albedo_texture = ExtResource("6_slx8l")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_slx8l"]
 
-[node name="Table" type="Node3D"]
+[node name="Table" type="Node3D" unique_id=861167268]
 script = ExtResource("1_ppnb3")
 
-[node name="RayInteractable" type="Area3D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="RayInteractable" type="Area3D" parent="." unique_id=1150660848 node_paths=PackedStringArray("sprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49788457, 0)
 collision_layer = 32768
 collision_mask = 32768
@@ -39,28 +39,28 @@ script = ExtResource("3_r3je8")
 sprite = NodePath("../Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RayInteractable" unique_id=1474386304]
 shape = SubResource("BoxShape3D_ch2ja")
 
-[node name="ItemPopup" parent="RayInteractable" instance=ExtResource("4_l27k1")]
+[node name="ItemPopup" parent="RayInteractable" unique_id=162148963 instance=ExtResource("4_l27k1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0261984, 0)
-texture = SubResource("ViewportTexture_r3je8")
+texture = SubResource("ViewportTexture_slx8l")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=500185112]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=355714363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20594406, 0)
 shape = SubResource("BoxShape3D_l27k1")
 
-[node name="table" parent="." instance=ExtResource("5_r3je8")]
+[node name="table" parent="." unique_id=1177216191 instance=ExtResource("5_r3je8")]
 
 [node name="Workbench" parent="table" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_v8saa")
 
-[node name="ItemPosition" type="Marker3D" parent="."]
+[node name="ItemPosition" type="Marker3D" parent="." unique_id=861075728]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45377576, 0)
 
-[node name="Ring" type="MeshInstance3D" parent="."]
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=1083430763]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.4496851, 0)
 material_override = SubResource("StandardMaterial3D_bnjy8")
 mesh = SubResource("PlaneMesh_slx8l")

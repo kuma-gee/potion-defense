@@ -20,6 +20,7 @@ var fire_charges := 1:
 		elemental_area.element = ElementalArea.Element.FIRE if on else ElementalArea.Element.NONE
 		fire.visible = on
 		red_beam_impact.visible = on
+		animation_tree.extra_state = "burn" if on else "none"
 
 func _ready() -> void:
 	super()
@@ -32,22 +33,13 @@ func _ready() -> void:
 		elif elem == ElementalArea.Element.ICE:
 			fire_charges = 0
 			hurt_box.resistance[ElementalArea.Element.FIRE] = 0.0
-			if animation_player.current_animation == "explode":
-				move()
 	)
 
-func _play_attack():
-	if fire_charges > 0:
-		animation_player.play("explode")
-		return
-	
-	super()
-
 func _on_attack_finished(anim: String):
-	if anim == "explode":
-		died("death_explode")
+	if is_burning():
+		animation_tree.died()
 		return
-	
+
 	super(anim)
 
 func is_burning():
@@ -55,6 +47,3 @@ func is_burning():
 
 func get_actual_speed(s = speed):
 	return super(s if not is_burning() else burning_speed)
-
-func move(anim = "move"):
-	super(anim if not is_burning() else "run")

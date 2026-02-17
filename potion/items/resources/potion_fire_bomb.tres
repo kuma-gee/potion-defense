@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_tih24")
-damage = 50.0
+damage = 30.0
 element = 1
 color = Color(1, 0, 0, 1)
 texture = ExtResource("2_tih24")
