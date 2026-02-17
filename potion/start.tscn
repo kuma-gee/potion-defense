@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://comenqvu3tial" path="res://potion/start.gd" id="1_7d6fn"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="1_nhxm7"]
 [ext_resource type="Texture2D" uid="uid://d17464ikssg2g" path="res://assets/sprites/potion_shield.svg" id="3_lhk1y"]
+[ext_resource type="PackedScene" uid="uid://qobb7gkl4k45" path="res://coop-ui/text_button.tscn" id="4_lhk1y"]
 
 [node name="Start" type="Control" unique_id=923401342 node_paths=PackedStringArray("new_button", "continue_button", "settings_button", "exit_button")]
 layout_mode = 3
@@ -65,19 +66,20 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
-[node name="New" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=1064664803]
+[node name="New" parent="VBoxContainer2/VBoxContainer" unique_id=1536151447 instance=ExtResource("4_lhk1y")]
 layout_mode = 2
 text = "New Game"
+initial_focus = true
 
-[node name="Continue" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=527474691]
+[node name="Continue" parent="VBoxContainer2/VBoxContainer" unique_id=1799195133 instance=ExtResource("4_lhk1y")]
 layout_mode = 2
 text = "Continue"
 
-[node name="Settings" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=1147339235]
+[node name="Settings" parent="VBoxContainer2/VBoxContainer" unique_id=4525029 instance=ExtResource("4_lhk1y")]
 visible = false
 layout_mode = 2
 text = "Settings"
 
-[node name="Exit" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=128554431]
+[node name="Exit" parent="VBoxContainer2/VBoxContainer" unique_id=2048108537 instance=ExtResource("4_lhk1y")]
 layout_mode = 2
 text = "Exit"

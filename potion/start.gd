@@ -1,9 +1,9 @@
 extends Control
 
-@export var new_button: Button
-@export var continue_button: Button
-@export var settings_button: Button
-@export var exit_button: Button
+@export var new_button: BaseButton
+@export var continue_button: BaseButton
+@export var settings_button: BaseButton
+@export var exit_button: BaseButton
 
 func _ready() -> void:
 	get_tree().paused = false
@@ -15,7 +15,6 @@ func _ready() -> void:
 	exit_button.pressed.connect(_on_exit_pressed)
 	
 	continue_button.visible = Events.has_played
-	new_button.grab_focus()
 	
 func _on_new_pressed() -> void:
 	Events.reset_game()

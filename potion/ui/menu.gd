@@ -1,9 +1,9 @@
 class_name Menu
 extends Control
 
-@export var continue_btn: Button
-@export var restart_btn: Button
-@export var back_btn: Button
+@export var continue_btn: BaseButton
+@export var restart_btn: BaseButton
+@export var back_btn: BaseButton
 @export var ui: Control
 
 @onready var main: CenterContainer = $Main
@@ -26,7 +26,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func show_main():
 	show()
 	ui.show()
-	continue_btn.grab_focus()
 
 func hide_main():
 	ui.hide()

@@ -40,11 +40,11 @@ ProgressBar {
   --styles-fill-bg-color: #ffffff;
 }
 
-Button {
+Button, PanelContainer.text-button {
   background: #59452e;
 }
 
-Button:hover, Button:pressed, Button:focus {
+Button:hover, Button:pressed, Button:focus, PanelContainer.text-button-focused {
   background: #8f624a;
 }
 

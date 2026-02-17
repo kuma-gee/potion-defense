@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://drswd3bimicqm" path="res://assets/sound/sfx/ページをめくる1.mp3" id="14_niktk"]
 [ext_resource type="AudioStream" uid="uid://c6eyhenn5fbu4" path="res://assets/sound/死神のリスト.mp3" id="16_m4gdw"]
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
+[ext_resource type="PackedScene" uid="uid://qobb7gkl4k45" path="res://coop-ui/text_button.tscn" id="18_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
 [ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
@@ -463,15 +464,16 @@ grow_vertical = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Continue" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1465388486]
+[node name="Continue" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1536151447 instance=ExtResource("18_1w3wt")]
 layout_mode = 2
 text = "Continue"
+initial_focus = true
 
-[node name="Restart" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1344983879]
+[node name="Restart" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1601439995 instance=ExtResource("18_1w3wt")]
 layout_mode = 2
 text = "Restart"
 
-[node name="Back" type="Button" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1787659819]
+[node name="Back" parent="InGameCanvas/Control2/Control/Menu/Main/VBoxContainer" unique_id=1349513675 instance=ExtResource("18_1w3wt")]
 layout_mode = 2
 text = "Back to map"
 
