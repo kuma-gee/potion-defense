@@ -11,7 +11,6 @@ extends Node3D
 @export var cauldron_health_bar: ProgressBar
 @export var notific: Notification
 
-@onready var wave_manager: WaveManager = $WaveManager
 @onready var player_root: Node3D = $PlayerRoot
 @onready var map_root: Node3D = $MapRoot
 @onready var player_join: PlayerJoin = $PlayerJoin
@@ -30,12 +29,6 @@ func _ready() -> void:
 	get_tree().paused = false
 	_setup_map()
 	
-	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
-	Events.cauldron_used.connect(func():
-		if wave_manager.can_start_wave():
-			wave_manager.next_wave()
-	)
-	wave_manager.wave_started.connect(func(): notific.show_text("Wave %s incoming!" % wave_manager.wave))
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	Events.has_played = true
 	recipe_container.visible = not Events.unlocked_recipes.is_empty()
@@ -45,15 +38,11 @@ func _unlocked_recipe(item: ItemResource):
 	recipe_ui.update_unlocked(Events.unlocked_recipes)
 	recipe_container.show()
 
-func _on_all_waves_completed() -> void:
-	map.map_finished()
-	wave_manager.clear()
-	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed() and event is InputEventKey:
 		if event.keycode == KEY_F1:
-			Events.level += 1
-			_on_all_waves_completed()
+			#Events.level += 1
+			map.map_finished()
 		elif event.keycode == KEY_F2:
 			Events.collect_soul(1000)
 		elif event.keycode == KEY_F3:
@@ -69,7 +58,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _setup_map():
 	map = Events.get_current_map().instantiate() as Map
-	wave_manager.setup(map)
+	map.notify.connect(notific.show_text)
+	
 	for p in Events.players:
 		player_join.setup_player(p, map.spawn_point.global_position)
 

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://daxas7d6ow58c"]
+
+[ext_resource type="PackedScene" uid="uid://be32gejhcdt0h" path="res://potion/enemy/water_skeleton.tscn" id="1_tuurr"]
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="2_dchee"]
+
+[resource]
+script = ExtResource("2_dchee")
+scene = ExtResource("1_tuurr")
+enemy_value = 1.5
+soul_amount = 2

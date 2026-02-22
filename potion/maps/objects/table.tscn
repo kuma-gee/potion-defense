@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="6_slx8l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ch2ja"]
-size = Vector3(0.46875, 0.7, 0.5)
+size = Vector3(0.7, 0.7, 0.7)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_slx8l"]
 viewport_path = NodePath("SubViewport")
@@ -27,6 +27,57 @@ shading_mode = 0
 albedo_texture = ExtResource("6_slx8l")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_slx8l"]
+
+[sub_resource type="Animation" id="Animation_bnjy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemPosition:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.45377576, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_slx8l"]
+resource_name = "float"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemPosition:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.45377576, 0), Vector3(0, 1.0464576, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finish_floating"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bnjy8"]
+_data = {
+&"RESET": SubResource("Animation_bnjy8"),
+&"float": SubResource("Animation_slx8l")
+}
 
 [node name="Table" type="Node3D" unique_id=861167268]
 script = ExtResource("1_ppnb3")
@@ -64,5 +115,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45377576, 0)
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.4496851, 0)
 material_override = SubResource("StandardMaterial3D_bnjy8")
 mesh = SubResource("PlaneMesh_slx8l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=845839238]
+libraries/ = SubResource("AnimationLibrary_bnjy8")
 
 [editable path="table"]

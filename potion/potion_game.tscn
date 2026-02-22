@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://clcoqwyyr1mau" path="res://potion/potion_game.gd" id="1_1w3wt"]
 [ext_resource type="Texture2D" uid="uid://qwy5trrg85ch" path="res://assets/sprites/UI_Recipe.png" id="6_i3qjy"]
-[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="7_0uxgy"]
 [ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="7_21lj0"]
 [ext_resource type="Script" uid="uid://bdgs5crexr4di" path="res://potion/ui/notification.gd" id="9_0uxgy"]
 [ext_resource type="PackedScene" uid="uid://8sutrd0e0ysa" path="res://potion/ui/soul_container.tscn" id="9_ev7ur"]
@@ -19,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://bjemhxyjs5ne6" path="res://player/fps_player.tscn" id="17_ho6vn"]
 [ext_resource type="PackedScene" uid="uid://qobb7gkl4k45" path="res://coop-ui/text_button.tscn" id="18_1w3wt"]
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="19_1w3wt"]
-[ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="19_fqivl"]
 [ext_resource type="Script" uid="uid://hvt4yogrf1dd" path="res://potion/ui/gameover_screen.gd" id="20_kavja"]
 [ext_resource type="Script" uid="uid://j5po78o2gfbr" path="res://potion/ui/player_join.gd" id="24_8mtc6"]
 [ext_resource type="Script" uid="uid://dx61xjyqwyuhi" path="res://potion/ui/recipe_book_ui.gd" id="34_bo5nf"]
@@ -148,20 +146,6 @@ cauldron = NodePath("InGameCanvas/Control2/GameUI/Cauldron")
 cauldron_health_bar = NodePath("InGameCanvas/Control2/GameUI/Cauldron/HBoxContainer/ProgressBar")
 notific = NodePath("InGameCanvas/Control2/GameUI/Notification")
 
-[node name="WaveManager" type="Node" parent="." unique_id=1187267849 node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
-script = ExtResource("19_fqivl")
-wave_label = NodePath("../InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer/Wave")
-enemy_spawn_root = NodePath("../EnemiesRoot")
-spawn_timer = NodePath("SpawnTimer")
-rest_timer = NodePath("RestTimer")
-metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
-
-[node name="SpawnTimer" type="Timer" parent="WaveManager" unique_id=1483275744]
-
-[node name="RestTimer" type="Timer" parent="WaveManager" unique_id=2000712958]
-wait_time = 3.0
-one_shot = true
-
 [node name="EnemiesRoot" type="Node3D" parent="." unique_id=1659001714]
 
 [node name="MapRoot" type="Node3D" parent="." unique_id=1036562058]
@@ -194,44 +178,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="WaveContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI" unique_id=229050770]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -129.0
-offset_bottom = 68.0
-grow_horizontal = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer" unique_id=1336141387]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer" unique_id=1828287118]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer" unique_id=2036003633]
-layout_mode = 2
-
-[node name="Wave" type="Label" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=2128545948]
-layout_mode = 2
-theme_type_variation = &"LabelLarge"
-text = "Wave 1/4"
-
-[node name="TextureRect" type="TextureRect" parent="InGameCanvas/Control2/GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=2021902720]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-texture = ExtResource("7_0uxgy")
-expand_mode = 2
-stretch_mode = 5
 
 [node name="Cauldron" type="MarginContainer" parent="InGameCanvas/Control2/GameUI" unique_id=765858460]
 custom_minimum_size = Vector2(500, 40)
@@ -591,5 +537,3 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=185773771]
 shape = SubResource("BoxShape3D_8mtc6")
-
-[connection signal="game_over" from="WaveManager" to="InGameCanvas/Control2/Control/Gameover" method="show_gameover"]

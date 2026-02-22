@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://c0uj6lyst5swj"]
+
+[ext_resource type="PackedScene" uid="uid://bsn6o2mwnhvkf" path="res://potion/enemy/skeleton_ghost.tscn" id="1_7v3to"]
+[ext_resource type="Script" uid="uid://jkmvuqukowwe" path="res://potion/maps/waves/enemy_resource.gd" id="2_womcg"]
+
+[resource]
+script = ExtResource("2_womcg")
+scene = ExtResource("1_7v3to")
+enemy_value = 1.3
+soul_amount = 2

@@ -25,27 +25,6 @@ size = Vector2(400, 100)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tq5y"]
 size = Vector3(250.948, 1, 100)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f56hm"]
-sky_top_color = Color(0.3209423, 0.4196947, 0.8050482, 1)
-sky_horizon_color = Color(0.4974376, 0.66501486, 0.88796425, 1)
-
-[sub_resource type="Sky" id="Sky_lqfst"]
-sky_material = SubResource("ProceduralSkyMaterial_f56hm")
-
-[sub_resource type="Environment" id="Environment_jm8ch"]
-background_mode = 2
-sky = SubResource("Sky_lqfst")
-tonemap_mode = 3
-glow_enabled = true
-glow_levels/3 = 0.8
-glow_levels/4 = 0.3
-glow_levels/6 = 1.0
-glow_blend_mode = 0
-fog_light_color = Color(0.4106267, 0.45170838, 0.42324653, 1)
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.5449377, 0.8548759, 0.9480491, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_f56hm"]
 size = Vector3(200.2998, 20.318115, 1)
 
@@ -179,9 +158,6 @@ stretch_mode = 5
 layout_mode = 2
 text = "Press to join"
 horizontal_alignment = 1
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=724746252]
-environment = SubResource("Environment_jm8ch")
 
 [node name="Boudary" type="StaticBody3D" parent="." unique_id=1896493052]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.721, 0.801)

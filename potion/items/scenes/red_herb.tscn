@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://devp4ralvjicb"]
+[gd_scene format=3 uid="uid://devp4ralvjicb"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_5k4g1"]
 [ext_resource type="PackedScene" uid="uid://cv3h7itlmf37t" path="res://assets/nature/glTF/Petal_3.gltf" id="2_taovy"]
@@ -21,7 +21,7 @@ albedo_texture = ExtResource("4_yo4xb")
 [sub_resource type="PlaneMesh" id="PlaneMesh_aox8i"]
 size = Vector2(3, 3)
 
-[node name="RedHerbVisual" type="Area3D" node_paths=PackedStringArray("sprite")]
+[node name="RedHerbVisual" type="Area3D" unique_id=1240194477 node_paths=PackedStringArray("sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_5k4g1")
@@ -29,16 +29,16 @@ sound = ExtResource("2_yo4xb")
 sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
-[node name="Petal_32" parent="." instance=ExtResource("2_taovy")]
+[node name="Petal_32" parent="." unique_id=5386452 instance=ExtResource("2_taovy")]
 
 [node name="Petal_3" parent="Petal_32" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_taovy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=329990720]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25677764, 0)
 shape = SubResource("SphereShape3D_5k4g1")
 
-[node name="Ring" type="MeshInstance3D" parent="."]
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=491897239]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_ty8ja")
 mesh = SubResource("PlaneMesh_aox8i")

@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://d0i2iv4hop3f0"]
+
+[ext_resource type="PackedScene" uid="uid://cvtynmm2m1iav" path="res://assets/models/log.glb" id="1_28q3s"]
+[ext_resource type="PackedScene" uid="uid://t5hlanwweip7" path="res://potion/maps/objects/table.tscn" id="2_u74d0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_28q3s"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_u74d0"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_csb82"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mkewd"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_28q3s"]
+size = Vector3(1.8603516, 1.1831665, 4.1191406)
+
+[node name="LogTable" type="Node3D" unique_id=1708989531]
+
+[node name="log" parent="." unique_id=1430166060 instance=ExtResource("1_28q3s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267, 0)
+
+[node name="Table5" parent="log" unique_id=861167268 instance=ExtResource("2_u74d0")]
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027490973, 0.11530182, 1.4981127)
+
+[node name="ItemPopup" parent="log/Table5/RayInteractable" parent_id_path=PackedInt32Array(861167268, 1150660848) index="1" unique_id=162148963]
+texture = SubResource("ViewportTexture_28q3s")
+
+[node name="table" parent="log/Table5" index="2" unique_id=1177216191]
+visible = false
+
+[node name="Table6" parent="log" unique_id=2060151583 instance=ExtResource("2_u74d0")]
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027491093, 0.11530182, 0.49811268)
+
+[node name="ItemPopup" parent="log/Table6/RayInteractable" parent_id_path=PackedInt32Array(2060151583, 1150660848) index="1" unique_id=162148963]
+texture = SubResource("ViewportTexture_u74d0")
+
+[node name="table" parent="log/Table6" index="2" unique_id=1177216191]
+visible = false
+
+[node name="Table7" parent="log" unique_id=1842390430 instance=ExtResource("2_u74d0")]
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027491093, 0.11530182, -0.5018873)
+
+[node name="ItemPopup" parent="log/Table7/RayInteractable" parent_id_path=PackedInt32Array(1842390430, 1150660848) index="1" unique_id=162148963]
+texture = SubResource("ViewportTexture_csb82")
+
+[node name="table" parent="log/Table7" index="2" unique_id=1177216191]
+visible = false
+
+[node name="Table8" parent="log" unique_id=1593629211 instance=ExtResource("2_u74d0")]
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027490973, 0.11530182, -1.5018873)
+
+[node name="ItemPopup" parent="log/Table8/RayInteractable" parent_id_path=PackedInt32Array(1593629211, 1150660848) index="1" unique_id=162148963]
+texture = SubResource("ViewportTexture_mkewd")
+
+[node name="table" parent="log/Table8" index="2" unique_id=1177216191]
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1471167658]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1391125420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22720337, 0)
+shape = SubResource("BoxShape3D_28q3s")
+
+[editable path="log/Table5"]
+[editable path="log/Table5/table"]
+[editable path="log/Table6"]
+[editable path="log/Table6/table"]
+[editable path="log/Table7"]
+[editable path="log/Table7/table"]
+[editable path="log/Table8"]
+[editable path="log/Table8/table"]

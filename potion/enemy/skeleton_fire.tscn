@@ -329,6 +329,7 @@ advance_mode = 2
 advance_expression = "extra_state != \"burn\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_23jia"]
+switch_mode = 2
 advance_mode = 2
 advance_expression = "extra_state != \"burn\""
 

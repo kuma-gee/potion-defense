@@ -51,7 +51,9 @@ signal died()
 @onready var shield: Shield = $Shield
 @onready var dash_sound: RandomizedLoopSfx = $DashSound
 @onready var spawn_puff: GPUParticles3D = $SpawnPuff
+@onready var invincibility_timer: Timer = $InvincibilityTimer
 
+var is_dropped := false
 var death_timer := 0.0:
 	set(v):
 		death_timer = v
@@ -94,6 +96,7 @@ var item_count := 0:
 	set(v):
 		item_count = v
 		item_texture.set_count(v)
+
 var held_item_type: ItemResource = null:
 	set(v):
 		held_item_type = v
@@ -134,12 +137,7 @@ func _ready():
 	catch_area.body_entered.connect(_on_catch_area_body_entered)
 
 	revive_interact.monitorable = false
-	hurt_box.died.connect(func():
-		reset()
-		revive_progress.show()
-		revive_interact.set_deferred("monitorable", true)
-		anim.died()
-	)
+	hurt_box.died.connect(func(): health_death())
 
 	wand_ability.start_charge.connect(func(): freeze_player())
 	wand_ability.finish_charge.connect(func(): unfreeze_player())
@@ -184,6 +182,21 @@ func _ready():
 		_debug_potion_spawn(event)
 	)
 
+func health_death():
+	reset()
+	revive_progress.show()
+	revive_interact.set_deferred("monitorable", true)
+	anim.died()
+
+func drop_death():
+	if not invincibility_timer.is_stopped(): return
+	
+	reset()
+	death_timer = 0.0
+	is_dropped = true
+	revive_progress.show()
+	body.hide()
+
 func _debug_potion_spawn(event: InputEvent):
 	if not event is InputEventKey or event.is_released(): return
 	var key = event as InputEventKey
@@ -207,11 +220,11 @@ func get_input_direction() -> Vector3:
 	return direction
 
 func _physics_process(delta):
-	if is_frozen or hurt_box.is_dead() or shield.is_active:
+	if is_frozen or hurt_box.is_dead() or shield.is_active or is_dropped:
 		velocity = Vector3.ZERO
 		walk_vfx.emitting = false
 		
-		if hurt_box.is_dead():
+		if hurt_box.is_dead() or is_dropped:
 			death_timer += delta * (1.0 if not reviving_player else revive_assist_increase)
 			if death_timer >= death_time:
 				death_timer = 0.0

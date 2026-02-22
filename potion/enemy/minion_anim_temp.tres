@@ -1,0 +1,144 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://cwm2avqtulnhp"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wnckd"]
+animation = &"skeleton_anim/1H_Melee_Attack_Chop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tqihq"]
+animation = &"skeleton_anim/1H_Melee_Attack_Slice_Horizontal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t2u0c"]
+animation = &"1H_Melee_Attack_Slice_Horizontal"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g1hp3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mmrhr"]
+advance_mode = 2
+advance_expression = "attack_count == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yrf8v"]
+advance_mode = 2
+advance_expression = "attack_count == 2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_inw8j"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pfi18"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wyll6"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d3xdw"]
+states/1H_Melee_Attack_Chop/node = SubResource("AnimationNodeAnimation_wnckd")
+states/1H_Melee_Attack_Chop/position = Vector2(481, 33)
+states/1H_Melee_Attack_Jump_Chop/node = SubResource("AnimationNodeAnimation_tqihq")
+states/1H_Melee_Attack_Jump_Chop/position = Vector2(481, 110)
+states/1H_Melee_Attack_Slice_Horizontal/node = SubResource("AnimationNodeAnimation_t2u0c")
+states/1H_Melee_Attack_Slice_Horizontal/position = Vector2(478, 187)
+transitions = ["Start", "1H_Melee_Attack_Chop", SubResource("AnimationNodeStateMachineTransition_g1hp3"), "Start", "1H_Melee_Attack_Jump_Chop", SubResource("AnimationNodeStateMachineTransition_mmrhr"), "Start", "1H_Melee_Attack_Slice_Horizontal", SubResource("AnimationNodeStateMachineTransition_yrf8v"), "1H_Melee_Attack_Chop", "End", SubResource("AnimationNodeStateMachineTransition_inw8j"), "1H_Melee_Attack_Jump_Chop", "End", SubResource("AnimationNodeStateMachineTransition_pfi18"), "1H_Melee_Attack_Slice_Horizontal", "End", SubResource("AnimationNodeStateMachineTransition_wyll6")]
+graph_offset = Vector2(-103, -54)
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_inw8j"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pfi18"]
+animation = &"skeleton_anim/1H_Melee_Attack_Chop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yrf8v"]
+animation = &"skeleton_anim/1H_Melee_Attack_Jump_Chop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wyll6"]
+animation = &"skeleton_anim/1H_Melee_Attack_Slice_Horizontal"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h5cue"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v0cld"]
+advance_mode = 2
+advance_expression = "attack_count == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5r8au"]
+advance_mode = 2
+advance_expression = "attack_count == 2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m37cy"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sd8go"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ral5w"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_h5cue"]
+states/Start/position = Vector2(103, 116)
+states/skeleton_anim_1H_Melee_Attack_Chop/node = SubResource("AnimationNodeAnimation_pfi18")
+states/skeleton_anim_1H_Melee_Attack_Chop/position = Vector2(449, 45)
+states/skeleton_anim_1H_Melee_Attack_Jump_Chop/node = SubResource("AnimationNodeAnimation_yrf8v")
+states/skeleton_anim_1H_Melee_Attack_Jump_Chop/position = Vector2(449, 129)
+states/skeleton_anim_1H_Melee_Attack_Slice_Horizontal/node = SubResource("AnimationNodeAnimation_wyll6")
+states/skeleton_anim_1H_Melee_Attack_Slice_Horizontal/position = Vector2(449, 223)
+transitions = ["Start", "skeleton_anim_1H_Melee_Attack_Chop", SubResource("AnimationNodeStateMachineTransition_h5cue"), "Start", "skeleton_anim_1H_Melee_Attack_Jump_Chop", SubResource("AnimationNodeStateMachineTransition_v0cld"), "Start", "skeleton_anim_1H_Melee_Attack_Slice_Horizontal", SubResource("AnimationNodeStateMachineTransition_5r8au"), "skeleton_anim_1H_Melee_Attack_Chop", "End", SubResource("AnimationNodeStateMachineTransition_m37cy"), "skeleton_anim_1H_Melee_Attack_Jump_Chop", "End", SubResource("AnimationNodeStateMachineTransition_sd8go"), "skeleton_anim_1H_Melee_Attack_Slice_Horizontal", "End", SubResource("AnimationNodeStateMachineTransition_ral5w")]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_mmrhr"]
+graph_offset = Vector2(-43.54471, 19.933136)
+nodes/output/position = Vector2(1380, 280)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_h5cue")
+nodes/StateMachine/position = Vector2(660, 440)
+nodes/Attack/node = SubResource("AnimationNodeOneShot_inw8j")
+nodes/Attack/position = Vector2(1140, 280)
+node_connections = [&"output", 0, &"Attack", &"Attack", 1, &"StateMachine"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8gto7"]
+animation = &"skeleton_anim/Death_C_Skeletons"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ofdta"]
+animation = &"skeleton_anim/Hit_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d3xdw"]
+animation = &"skeleton_anim/Walking_D_Skeletons"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d3xdw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8gto7"]
+advance_mode = 2
+advance_expression = "state == \"dead\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ofdta"]
+advance_mode = 2
+advance_expression = "state == \"knockback\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wnckd"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "state != \"knockback\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqihq"]
+advance_mode = 2
+advance_expression = "state == \"attack\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t2u0c"]
+advance_mode = 2
+advance_expression = "state != \"attack\""
+
+[resource]
+states/Attack/node = SubResource("AnimationNodeStateMachine_d3xdw")
+states/Attack/position = Vector2(466, 211)
+states/BlendTree/node = SubResource("AnimationNodeBlendTree_mmrhr")
+states/BlendTree/position = Vector2(639, 199)
+states/Dead/node = SubResource("AnimationNodeAnimation_8gto7")
+states/Dead/position = Vector2(622, 100)
+states/End/position = Vector2(1020, 100)
+states/Hit/node = SubResource("AnimationNodeAnimation_ofdta")
+states/Hit/position = Vector2(466, 1)
+states/Move/node = SubResource("AnimationNodeAnimation_d3xdw")
+states/Move/position = Vector2(466, 100)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_d3xdw"), "Move", "Dead", SubResource("AnimationNodeStateMachineTransition_8gto7"), "Move", "Hit", SubResource("AnimationNodeStateMachineTransition_ofdta"), "Hit", "Move", SubResource("AnimationNodeStateMachineTransition_wnckd"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_tqihq"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_t2u0c")]
+graph_offset = Vector2(-114, -109)

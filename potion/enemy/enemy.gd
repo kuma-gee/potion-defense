@@ -3,6 +3,9 @@ extends Character
 
 const GROUP = "Enemy"
 
+@export var spawn_anim := false
+@export var target_end := false
+
 @onready var attack_range: RayCast3D = $AttackRange
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
@@ -20,7 +23,11 @@ func _ready() -> void:
 	super()
 	add_to_group(GROUP)
 
-	move()
+	if spawn_anim:
+		animation_tree.spawn()
+	else:
+		move()
+	
 	hurt_box.died.connect(func(): _died())
 	hurt_box.knockbacked.connect(func(_k): knockback_state())
 	animation_tree.animation_finished.connect(func(a): _on_animation_finished(a))
@@ -34,6 +41,7 @@ func _on_animation_finished(anim: String):
 	match animation_tree.state:
 		"dead": _on_death_finished()
 		"attack": _on_attack_finished(anim)
+		"spawn": move()
 
 func _on_death_finished():
 	get_tree().create_timer(2.0).timeout.connect(func(): queue_free())
@@ -77,6 +85,8 @@ func _physics_process(delta: float) -> void:
 
 func _move_to_target():
 	if nav_agent.is_navigation_finished():
+		if target_end:
+			return
 		if path and current_path_point < path.curve.point_count:
 			current_path_point += 1
 			_update_navigation_target()
@@ -97,10 +107,14 @@ func _move_to_target():
 	move()
 
 func _update_navigation_target():
-	if not path or current_path_point >= path.curve.point_count:
+	if not path or path.curve.point_count == 0:
+		return
+
+	if not target_end and current_path_point >= path.curve.point_count:
 		return
 	
-	var target_position = path.curve.get_point_position(current_path_point)
+	var target_index := path.curve.point_count - 1 if target_end else current_path_point
+	var target_position = path.curve.get_point_position(target_index)
 	nav_agent.target_position = target_position
 
 #region STATES

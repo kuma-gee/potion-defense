@@ -37,7 +37,7 @@ var enemy_move_speed_multipler = 1.0
 var logger = KumaLog.new("Events")
 
 func reset_game():
-	unlocked_map = 0
+	unlocked_map = 10
 	total_souls = 0
 	has_played = false
 	unlocked_recipes = []

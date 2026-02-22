@@ -44,6 +44,8 @@
 [ext_resource type="PackedScene" uid="uid://6sb1sv1x82og" path="res://assets/models/map01.glb" id="36_w0jfr"]
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="38_6jtsf"]
 [ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="39_mrfcg"]
+[ext_resource type="Script" uid="uid://pqmqplp7jwir" path="res://potion/maps/objects/enemy_path.gd" id="45_51c0o"]
+[ext_resource type="PackedScene" uid="uid://dpyoeiw7mn0ac" path="res://potion/maps/waves/wave_manager.tscn" id="46_8jmgh"]
 
 [sub_resource type="Resource" id="Resource_6jtsf"]
 script = ExtResource("2_vravf")
@@ -71,39 +73,39 @@ base_spawn_interval = 7.5
 enemies = Array[ExtResource("3_46uui")]([ExtResource("4_io850")])
 metadata/_custom_type_script = "uid://duah648hndjpr"
 
-[sub_resource type="Resource" id="Resource_mrfcg"]
+[sub_resource type="Resource" id="Resource_ilnkx"]
 script = ExtResource("16_7j3mi")
 amount = 1000
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_51c0o"]
+[sub_resource type="Resource" id="Resource_vxl4c"]
 script = ExtResource("17_w0jfr")
 scale = Vector3(0.6, 0.6, 0.6)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_8jmgh"]
+[sub_resource type="Resource" id="Resource_s3glg"]
 script = ExtResource("18_6jtsf")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(0, 360, 0)
 scale = Vector3(0.1, 0.1, 0.1)
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_ilnkx"]
+[sub_resource type="Resource" id="Resource_p23px"]
 script = ExtResource("19_mrfcg")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
 restrict_height = true
 
-[sub_resource type="Resource" id="Resource_vxl4c"]
+[sub_resource type="Resource" id="Resource_dcnhl"]
 script = ExtResource("20_51c0o")
 ray_length = 5.0
 ray_offset = 5.0
 remove_points_on_miss = false
 
-[sub_resource type="Resource" id="Resource_s3glg"]
+[sub_resource type="Resource" id="Resource_a6ose"]
 script = ExtResource("14_s1gox")
-stack = Array[ExtResource("15_q6dh1")]([SubResource("Resource_mrfcg"), SubResource("Resource_51c0o"), SubResource("Resource_8jmgh"), SubResource("Resource_ilnkx"), SubResource("Resource_vxl4c")])
+stack = Array[ExtResource("15_q6dh1")]([SubResource("Resource_ilnkx"), SubResource("Resource_vxl4c"), SubResource("Resource_s3glg"), SubResource("Resource_p23px"), SubResource("Resource_dcnhl")])
 
 [sub_resource type="Resource" id="Resource_u31sw"]
 script = ExtResource("23_vxl4c")
@@ -188,10 +190,10 @@ size = Vector3(31.35, 12.525, 1)
 [sub_resource type="FogMaterial" id="FogMaterial_6jtsf"]
 density = 0.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_w453v"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_n774j"]
 viewport_path = NodePath("CurrentItem/SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnkjj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wt8h2"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("38_6jtsf")
@@ -234,7 +236,7 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.02
 volumetric_fog_albedo = Color(0.5449377, 0.8548759, 0.9480491, 1)
 
-[node name="map_01" type="Node3D" unique_id=2025734219 node_paths=PackedStringArray("spawn_point", "paths", "proton_scatter")]
+[node name="map_01" type="Node3D" unique_id=2025734219 node_paths=PackedStringArray("spawn_point", "paths", "wave_manager", "proton_scatter")]
 script = ExtResource("1_f7537")
 spawn_point = NodePath("Cauldron")
 wave_resources = Array[ExtResource("2_vravf")]([SubResource("Resource_6jtsf"), SubResource("Resource_w453v"), SubResource("Resource_vnkjj"), SubResource("Resource_u16sr")])
@@ -243,6 +245,7 @@ new_recipe = ExtResource("7_0cpyx")
 initial_recipe = ExtResource("12_sqjp0")
 paths = [NodePath("Path3D")]
 entrance_scene = ExtResource("11_w0jfr")
+wave_manager = NodePath("WaveManager")
 proton_scatter = [NodePath("ProtonScatter")]
 
 [node name="ProtonScatter" type="Node3D" parent="." unique_id=1298331776]
@@ -250,7 +253,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1286077)
 visible = false
 script = ExtResource("13_rp5qj")
 enable_updates_in_game = true
-modifier_stack = SubResource("Resource_s3glg")
+modifier_stack = SubResource("Resource_a6ose")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 metadata/_custom_type_script = "uid://cs261kr81nos4"
@@ -327,95 +330,95 @@ shape = SubResource("BoxShape3D_fv6ge")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="Tree" parent="NavigationRegion3D/Trees" unique_id=977037153 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.35248184, 0, -0.8646, 0, 0.9336898, 0, 0.8646, 0, 0.35248184, 9.942253, 0, -8.81278)
+transform = Transform3D(0.78640115, 0, -0.75539017, 0, 1.0904316, 0, 0.75539017, 0, 0.78640115, 9.942253, 0, -8.81278)
 metadata/_edit_group_ = true
 
 [node name="Tree2" parent="NavigationRegion3D/Trees" unique_id=1272384270 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.08754787, 0, 0.9128191, 0, 0.9170078, 0, -0.9128191, 0, -0.08754787, 13.28964, -9.536743e-07, -11.325323)
+transform = Transform3D(-0.016137145, 0, -1.04288, 0, 1.0430049, 0, 1.04288, 0, -0.016137145, 13.28964, -9.536743e-07, -11.325323)
 metadata/_edit_group_ = true
 
 [node name="Tree12" parent="NavigationRegion3D/Trees" unique_id=2070272193 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.93195426, 0, 0.3984003, 0, 1.0135391, 0, -0.3984003, 0, -0.93195426, 16.65941, -9.536743e-07, -10.350927)
+transform = Transform3D(0.7358601, 0, -0.6214146, 0, 0.96314394, 0, 0.6214146, 0, 0.7358601, 16.65941, -9.536743e-07, -10.350927)
 metadata/_edit_group_ = true
 
 [node name="Tree13" parent="NavigationRegion3D/Trees" unique_id=1842595008 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.62920296, 0, 0.7851435, 0, 1.0061544, 0, -0.7851435, 0, -0.62920296, 13.373501, -9.536743e-07, -6.7944098)
+transform = Transform3D(0.5405867, 0, 0.84179246, 0, 1.0004241, 0, -0.84179246, 0, 0.5405867, 13.373501, -9.536743e-07, -6.7944098)
 metadata/_edit_group_ = true
 
 [node name="Tree3" parent="NavigationRegion3D/Trees" unique_id=1540567165 instance=ExtResource("4_f7537")]
-transform = Transform3D(1.0531119, 0, 0.113158256, 0, 1.059174, 0, -0.113158256, 0, 1.0531119, 6.8206954, 0, -10.635493)
+transform = Transform3D(-0.9159601, 0, 0.19241829, 0, 0.9359528, 0, -0.19241829, 0, -0.9159601, 6.8206954, 0, -10.635493)
 metadata/_edit_group_ = true
 
 [node name="Tree4" parent="NavigationRegion3D/Trees" unique_id=1114595768 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.022668257, 0, 0.9506555, 0, 0.95092577, 0, -0.9506555, 0, -0.022668257, 4.014695, -1.9073486e-06, -8.125891)
+transform = Transform3D(-0.82763445, 0, -0.692137, 0, 1.0789033, 0, 0.692137, 0, -0.82763445, 4.014695, -1.9073486e-06, -8.125891)
 metadata/_edit_group_ = true
 
 [node name="Tree5" parent="NavigationRegion3D/Trees" unique_id=1478485774 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.7727529, 0, 0.66316134, 0, 1.0182976, 0, -0.66316134, 0, 0.7727529, 1.3645887, -1.9073486e-06, -9.588449)
+transform = Transform3D(0.7795306, 0, -0.5322179, 0, 0.94388765, 0, 0.5322179, 0, 0.7795306, 1.3645887, -1.9073486e-06, -9.588449)
 metadata/_edit_group_ = true
 
 [node name="Tree11" parent="NavigationRegion3D/Trees" unique_id=1313802550 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.18489254, 0, -1.0820929, 0, 1.0977751, 0, 1.0820929, 0, -0.18489254, -2.07663, 0, -11.507846)
+transform = Transform3D(-0.9246378, 0, -0.57332504, 0, 1.0879599, 0, 0.57332504, 0, -0.9246378, -2.07663, 0, -11.507846)
 metadata/_edit_group_ = true
 
 [node name="Tree6" parent="NavigationRegion3D/Trees" unique_id=1711898838 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.88578475, 0, 0.21897697, 0, 0.91245025, 0, -0.21897697, 0, 0.88578475, -5.438188, -1.9073486e-06, -10.094023)
+transform = Transform3D(0.45515776, 0, 0.9334305, 0, 1.0384898, 0, -0.9334305, 0, 0.45515776, -5.438188, -1.9073486e-06, -10.094023)
 metadata/_edit_group_ = true
 
 [node name="Tree7" parent="NavigationRegion3D/Trees" unique_id=217756823 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.37703085, 0, -0.86391366, 0, 0.9426023, 0, 0.86391366, 0, -0.37703085, -8.701509, 0, -10.991832)
+transform = Transform3D(-0.59648967, 0, 0.8185393, 0, 1.0128211, 0, -0.8185393, 0, -0.59648967, -8.701509, 0, -10.991832)
 metadata/_edit_group_ = true
 
 [node name="Tree8" parent="NavigationRegion3D/Trees" unique_id=821411713 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.78668475, 0, -0.7013233, 0, 1.0539105, 0, 0.7013233, 0, -0.78668475, -9.648558, 0, -7.3093505)
+transform = Transform3D(-0.8027168, 0, 0.5333048, 0, 0.9637262, 0, -0.5333048, 0, -0.8027168, -9.648558, 0, -7.3093505)
 metadata/_edit_group_ = true
 
 [node name="Tree9" parent="NavigationRegion3D/Trees" unique_id=472469462 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.75832784, 0, 0.6218735, 0, 0.9807078, 0, -0.6218735, 0, -0.75832784, -11.484874, -9.536743e-07, -4.368755)
+transform = Transform3D(-1.0633707, 0, 0.18530704, 0, 1.0793961, 0, -0.18530704, 0, -1.0633707, -11.484874, -9.536743e-07, -4.368755)
 metadata/_edit_group_ = true
 
 [node name="Tree10" parent="NavigationRegion3D/Trees" unique_id=540153628 instance=ExtResource("4_f7537")]
-transform = Transform3D(1.0537267, 0, -0.08309021, 0, 1.0569977, 0, 0.08309021, 0, 1.0537267, -10.8048115, 0, -1.2051616)
+transform = Transform3D(0.8278187, 0, 0.52996254, 0, 0.9829263, 0, -0.52996254, 0, 0.8278187, -10.8048115, 0, -1.2051616)
 metadata/_edit_group_ = true
 
 [node name="Tree14" parent="NavigationRegion3D/Trees" unique_id=1504835938 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.3490827, 0, 0.97639614, 0, 1.0369225, 0, -0.97639614, 0, 0.3490827, -9.676649, -9.536743e-07, 3.0888786)
+transform = Transform3D(-0.96159995, 0, 0.1938764, 0, 0.98094976, 0, -0.1938764, 0, -0.96159995, -9.676649, -9.536743e-07, 3.0888786)
 metadata/_edit_group_ = true
 
 [node name="Tree16" parent="NavigationRegion3D/Trees" unique_id=668275025 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.22133164, 0, 0.9425322, 0, 0.96817076, 0, -0.9425322, 0, 0.22133164, -12.9180975, 0, 3.337915)
+transform = Transform3D(-0.21147302, 0, 0.9411508, 0, 0.96461684, 0, -0.9411508, 0, -0.21147302, -12.9180975, 0, 3.337915)
 metadata/_edit_group_ = true
 
 [node name="Tree17" parent="NavigationRegion3D/Trees" unique_id=1978949734 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.98917085, 0, 0.31722516, 0, 1.038793, 0, -0.31722516, 0, -0.98917085, -10.352496, 9.536743e-07, 6.6221485)
+transform = Transform3D(-0.87597954, 0, 0.2781635, 0, 0.91908383, 0, -0.2781635, 0, -0.87597954, -10.352496, 9.536743e-07, 6.6221485)
 metadata/_edit_group_ = true
 
 [node name="Tree19" parent="NavigationRegion3D/Trees" unique_id=591876698 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.18960768, 0, -1.0037133, 0, 1.0214653, 0, 1.0037133, 0, 0.18960768, -6.4277225, 9.536743e-07, 6.1188226)
+transform = Transform3D(0.9778242, 0, 0.4800247, 0, 1.0892951, 0, -0.4800247, 0, 0.9778242, -6.4277225, 9.536743e-07, 6.1188226)
 metadata/_edit_group_ = true
 
 [node name="Tree20" parent="NavigationRegion3D/Trees" unique_id=1507291246 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.24352798, 0, -0.9893428, 0, 1.0188744, 0, 0.9893428, 0, 0.24352798, 0.33001637, 9.536743e-07, 5.4580293)
+transform = Transform3D(-0.0061674854, 0, 1.0227866, 0, 1.0228052, 0, -1.0227866, 0, -0.0061674854, 0.33001637, 9.536743e-07, 5.4580293)
 metadata/_edit_group_ = true
 
 [node name="Tree23" parent="NavigationRegion3D/Trees" unique_id=401739548 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.6635854, 0, 0.79805773, 0, 1.0379026, 0, -0.79805773, 0, 0.6635854, -2.6598997, 1.9073486e-06, 7.337798)
+transform = Transform3D(0.028078306, 0, 1.0738063, 0, 1.0741733, 0, -1.0738063, 0, 0.028078306, -2.6598997, 1.9073486e-06, 7.337798)
 metadata/_edit_group_ = true
 
 [node name="Tree21" parent="NavigationRegion3D/Trees" unique_id=22138103 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.7916695, 0, -0.62857836, 0, 1.0108666, 0, 0.62857836, 0, 0.7916695, 3.8628979, 9.536743e-07, 6.582429)
+transform = Transform3D(0.9832924, 0, -0.40926096, 0, 1.0650626, 0, 0.40926096, 0, 0.9832924, 3.8628979, 9.536743e-07, 6.582429)
 metadata/_edit_group_ = true
 
 [node name="Tree22" parent="NavigationRegion3D/Trees" unique_id=2122249634 instance=ExtResource("4_f7537")]
-transform = Transform3D(-0.8148811, 0, 0.54192346, 0, 0.97862774, 0, -0.54192346, 0, -0.8148811, 7.014168, 0, 4.4765306)
+transform = Transform3D(-0.08751356, 0, 1.052567, 0, 1.0561988, 0, -1.052567, 0, -0.08751356, 7.014168, 0, 4.4765306)
 metadata/_edit_group_ = true
 
 [node name="Tree25" parent="NavigationRegion3D/Trees" unique_id=825867817 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.25606504, 0, 0.96366304, 0, 0.9971037, 0, -0.96366304, 0, 0.25606504, 12.2010975, 0, 4.563258)
+transform = Transform3D(0.8097069, 0, 0.65001684, 0, 1.0383387, 0, -0.65001684, 0, 0.8097069, 12.2010975, 0, 4.563258)
 metadata/_edit_group_ = true
 
 [node name="Tree24" parent="NavigationRegion3D/Trees" unique_id=369623913 instance=ExtResource("4_f7537")]
-transform = Transform3D(0.99615717, 0, 0.37706718, 0, 1.0651332, 0, -0.37706718, 0, 0.99615717, 9.929495, 0, 7.0013504)
+transform = Transform3D(-0.012339929, 0, 0.9837859, 0, 0.98386335, 0, -0.9837859, 0, -0.012339929, 9.929495, 0, 7.0013504)
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="NavigationRegion3D" unique_id=1201014849 instance=ExtResource("15_io850")]
@@ -569,10 +572,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -0.991)
 visible = false
 
 [node name="CurrentItem" parent="Cauldron" index="4" unique_id=790965568]
-texture = SubResource("ViewportTexture_w453v")
+texture = SubResource("ViewportTexture_n774j")
 
 [node name="SpriteTextureOutlined" parent="Cauldron" index="11" unique_id=330286478]
-material_override = SubResource("ShaderMaterial_vnkjj")
+material_override = SubResource("ShaderMaterial_wt8h2")
 
 [node name="Camera3D2" type="Camera3D" parent="." unique_id=1088566736]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 1.8643975, 32.31937, 25.912586)
@@ -598,9 +601,21 @@ metadata/_custom_type_script = "uid://byss77ynwhvcc"
 
 [node name="Path3D" type="Path3D" parent="." unique_id=1003431480]
 curve = SubResource("Curve3D_nakt5")
+script = ExtResource("45_51c0o")
+enemies = Array[ExtResource("3_46uui")]([ExtResource("4_io850")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=289942532]
 environment = SubResource("Environment_mrfcg")
+
+[node name="WaveManager" parent="." unique_id=1521507309 node_paths=PackedStringArray("paths") instance=ExtResource("46_8jmgh")]
+max_wave = 4
+start_enemy_value = 2
+enemy_value_increase = 1.5
+spawn_interval = 6.0
+paths = [NodePath("../Path3D")]
+
+[node name="RestTimer" parent="WaveManager" index="1" unique_id=341833824]
+wait_time = 6.0
 
 [editable path="NavigationRegion3D/Trees/Tree"]
 [editable path="NavigationRegion3D/Trees/Tree/Tree_4_A_Color12"]
@@ -613,3 +628,4 @@ environment = SubResource("Environment_mrfcg")
 [editable path="NavigationRegion3D/map01"]
 [editable path="Cauldron"]
 [editable path="Cauldron/cauldron"]
+[editable path="WaveManager"]

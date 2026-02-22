@@ -13,12 +13,17 @@ func setup_player(id: String, pos := player_root.global_position):
 	var player = _get_player_with_id(id)
 	if not player:
 		player = _create_player(id, player_root.get_child_count())
+		player.position = get_start_position(player, pos)
 		player_root.add_child(player)
-
-	player.position = player_root.to_local(pos) + _get_spawn_position(player.player_num) * spawn_distance
+	else:
+		player.position = get_start_position(player, pos)
+	
 	player.reset()
 	spawned_player.emit()
- 
+
+func get_start_position(player: FPSPlayer, pos := player_root.global_position):
+	return player_root.to_local(pos) + _get_spawn_position(player.player_num) * spawn_distance 
+
 func _get_spawn_position(player_num: int) -> Vector3:
 	var expected_player_count = 4
 	var dir = Vector3.RIGHT
@@ -41,8 +46,8 @@ func _create_player(input_id: String, player_num: int):
 		var pos = player.global_position
 		player.queue_free()
 
+		new_player.position = pos
 		player_root.add_child(new_player)
-		new_player.global_position = pos
 	)
 	return player
 

@@ -46,3 +46,6 @@ func slow(type: String, factor: float) -> void:
 
 func freeze(_time: float):
 	pass
+
+func drop_death():
+	pass

@@ -8,6 +8,8 @@ const MAX_SPAWN_ATTEMPTS := 10
 @export var max_count: int = 6
 @export var spawn_parent: Node3D
 @export var spawn_shape: CollisionShape3D
+@export var movement_direction: Vector3 = Vector3.ZERO
+@export var spawn_timer: RandomTimer
 
 @onready var respawn_timer: RandomTimer = $RespawnTimer
 
@@ -22,8 +24,15 @@ func _ready() -> void:
 
 func _fill_to_max() -> void:
 	while spawned_items.size() < max_count:
-		if not _spawn_ingredient():
+		if not await _spawn_ingredient_with_delay():
 			break
+
+func _spawn_ingredient_with_delay() -> bool:
+	if spawn_timer and spawn_timer.wait_time > 0.0:
+		if spawn_timer.is_stopped():
+			spawn_timer.start_random()
+		await spawn_timer.timeout
+	return _spawn_ingredient()
 
 func _spawn_ingredient() -> bool:
 	if spawned_items.size() >= max_count or not resource:
@@ -46,6 +55,7 @@ func _spawn_ingredient() -> bool:
 		return false
 
 	ingredient.res = resource
+	ingredient.movement_direction = movement_direction
 	parent_node.add_child(ingredient)
 	ingredient.global_position = spawn_point
 	spawned_items.append(ingredient)
@@ -92,7 +102,7 @@ func _is_position_free(point: Vector3) -> bool:
 	return result.is_empty()
 
 func _on_respawn_timeout() -> void:
-	if not _spawn_ingredient():
+	if not await _spawn_ingredient_with_delay():
 		_schedule_respawn()
 
 func _schedule_respawn() -> void:

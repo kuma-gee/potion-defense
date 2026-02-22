@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dpyoeiw7mn0ac"]
+
+[ext_resource type="Script" uid="uid://d4dbk8ol8tvjc" path="res://potion/wave_manager.gd" id="1_n85oc"]
+[ext_resource type="Theme" uid="uid://n7hr8dqhk2ls" path="res://theme.css" id="2_ffxv7"]
+[ext_resource type="Texture2D" uid="uid://b26o7ob7o2den" path="res://icon.svg" id="3_ggc5w"]
+
+[node name="WaveManager" type="Node" unique_id=1521507309 node_paths=PackedStringArray("wave_label", "enemy_spawn_root", "spawn_timer", "rest_timer")]
+script = ExtResource("1_n85oc")
+wave_label = NodePath("GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer/Wave")
+enemy_spawn_root = NodePath("EnemySpawn")
+spawn_timer = NodePath("SpawnTimer")
+rest_timer = NodePath("RestTimer")
+max_wave = 8
+start_enemy_value = 6
+enemy_value_increase = 2.0
+metadata/_custom_type_script = "uid://d4dbk8ol8tvjc"
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=131141448]
+
+[node name="RestTimer" type="Timer" parent="." unique_id=341833824]
+wait_time = 5.0
+one_shot = true
+
+[node name="GameUI" type="Control" parent="." unique_id=1137864555]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_ffxv7")
+
+[node name="WaveContainer" type="MarginContainer" parent="GameUI" unique_id=1562278578]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -129.0
+offset_bottom = 68.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="GameUI/WaveContainer" unique_id=1922058653]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameUI/WaveContainer/PanelContainer" unique_id=1488738894]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI/WaveContainer/PanelContainer/MarginContainer" unique_id=1376342556]
+layout_mode = 2
+
+[node name="Wave" type="Label" parent="GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=818401586]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Wave 1/4"
+
+[node name="TextureRect" type="TextureRect" parent="GameUI/WaveContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=405220342]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_ggc5w")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="EnemySpawn" type="Node3D" parent="." unique_id=558959641]

@@ -1,9 +1,12 @@
 class_name EnemyAnimationTree
 extends AnimationTree
 
-@export var max_attack_count: int = 3
-var attack_count := 0
+const ATTACK = "parameters/Attack/request"
+const SPAWN = "parameters/Spawn/request"
 
+@export var max_attack_count: int = 3
+
+var attack_count := 0
 var state = ""
 var extra_state = ""
 
@@ -18,8 +21,13 @@ func move():
 	state = "move"
 
 func attack():
+	state = "attack"
 	attack_count += 1
 	if attack_count >= max_attack_count:
 		attack_count = 0
 	
-	state = "attack"
+	set(ATTACK, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+func spawn():
+	state = "spawn"
+	set(SPAWN, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
