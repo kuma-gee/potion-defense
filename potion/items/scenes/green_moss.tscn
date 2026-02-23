@@ -1,26 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://5xa7uenugfd8"]
+[gd_scene format=3 uid="uid://5xa7uenugfd8"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_78mwr"]
 [ext_resource type="PackedScene" uid="uid://d1m714aukj0ct" path="res://assets/models/moss.glb" id="2_6i4m7"]
-[ext_resource type="Texture2D" uid="uid://vu1u7n5xs7fi" path="res://assets/models/base_texture.png" id="3_i0r38"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nlae7"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = ExtResource("3_i0r38")
+[ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="3_i0r38"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6i4m7"]
 
-[node name="GreenMossVisual" type="Area3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nlae7"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("3_i0r38")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x18j3"]
+size = Vector2(3, 3)
+
+[node name="GreenMossVisual" type="Area3D" unique_id=914679747 node_paths=PackedStringArray("lifetime", "sprite")]
 script = ExtResource("1_78mwr")
+lifetime = NodePath("RemoveTimer")
+sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://c1ph2gdxcgu0n"
 
-[node name="moss" parent="." instance=ExtResource("2_6i4m7")]
-
-[node name="Icosphere" parent="moss" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_nlae7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=629101650]
 shape = SubResource("SphereShape3D_6i4m7")
 
-[editable path="moss"]
+[node name="moss" parent="." unique_id=1118986182 instance=ExtResource("2_6i4m7")]
+
+[node name="RemoveTimer" type="Timer" parent="." unique_id=345159246]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=905482322]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_nlae7")
+mesh = SubResource("PlaneMesh_x18j3")

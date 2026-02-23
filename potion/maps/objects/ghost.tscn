@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://th0wykomr5mp"]
+
+[ext_resource type="PackedScene" uid="uid://c06p4kq3bujyj" path="res://assets/models/ghost.glb" id="1_nqykl"]
+[ext_resource type="Script" uid="uid://c4lt6ncxgojtp" path="res://potion/maps/objects/ghost.gd" id="1_y2ta6"]
+[ext_resource type="Resource" uid="uid://c3mcqueui0db2" path="res://potion/items/resources/moss.tres" id="2_l0t06"]
+[ext_resource type="Shader" uid="uid://b205mi257hk2a" path="res://shader/ghost.gdshader" id="2_y2ta6"]
+
+[sub_resource type="Gradient" id="Gradient_nqykl"]
+offsets = PackedFloat32Array(0, 0.48314607, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.61048687, 0.61048687, 0.61048687, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y2ta6"]
+gradient = SubResource("Gradient_nqykl")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0t06"]
+render_priority = 0
+shader = ExtResource("2_y2ta6")
+shader_parameter/globalfade = 0.570000027075
+shader_parameter/mask_texture = SubResource("GradientTexture2D_y2ta6")
+shader_parameter/color = Color(0.66999996, 1, 0.87899995, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nqykl"]
+height = 1.7368164
+radius = 0.60058594
+
+[node name="Ghost" type="CharacterBody3D" unique_id=2133349134]
+script = ExtResource("1_y2ta6")
+drop_item = ExtResource("2_l0t06")
+
+[node name="ghost" parent="." unique_id=1358296593 instance=ExtResource("1_nqykl")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+
+[node name="Ghost" parent="ghost" index="0" unique_id=1473408077]
+surface_material_override/0 = SubResource("ShaderMaterial_l0t06")
+
+[node name="PlayerDetection" type="Area3D" parent="." unique_id=185590534]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetection" unique_id=470742398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9025879, 0)
+shape = SubResource("CylinderShape3D_nqykl")
+
+[editable path="ghost"]

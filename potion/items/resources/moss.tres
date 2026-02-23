@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://c3mcqueui0db2"]
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://c3mcqueui0db2"]
 
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="1_item_res"]
 [ext_resource type="PackedScene" uid="uid://5xa7uenugfd8" path="res://potion/items/scenes/green_moss.tscn" id="1_m7sfm"]

@@ -9,6 +9,7 @@ enum Element {
 	ICE,
 	LIGHTNING,
 	POISON,
+	HOLY,
 }
 
 signal received(element: Element)

@@ -24,7 +24,7 @@ size = Vector3(1.8603516, 1.1831665, 4.1191406)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.267, 0)
 
 [node name="Table5" parent="log" unique_id=861167268 instance=ExtResource("2_u74d0")]
-transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027490973, 0.11530182, 1.4981127)
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027490973, 0.15867993, 1.4981127)
 
 [node name="ItemPopup" parent="log/Table5/RayInteractable" parent_id_path=PackedInt32Array(861167268, 1150660848) index="1" unique_id=162148963]
 texture = SubResource("ViewportTexture_28q3s")
@@ -33,7 +33,7 @@ texture = SubResource("ViewportTexture_28q3s")
 visible = false
 
 [node name="Table6" parent="log" unique_id=2060151583 instance=ExtResource("2_u74d0")]
-transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027491093, 0.11530182, 0.49811268)
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027491093, 0.15867993, 0.49811268)
 
 [node name="ItemPopup" parent="log/Table6/RayInteractable" parent_id_path=PackedInt32Array(2060151583, 1150660848) index="1" unique_id=162148963]
 texture = SubResource("ViewportTexture_u74d0")
@@ -42,7 +42,7 @@ texture = SubResource("ViewportTexture_u74d0")
 visible = false
 
 [node name="Table7" parent="log" unique_id=1842390430 instance=ExtResource("2_u74d0")]
-transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027491093, 0.11530182, -0.5018873)
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027491093, 0.15867993, -0.5018873)
 
 [node name="ItemPopup" parent="log/Table7/RayInteractable" parent_id_path=PackedInt32Array(1842390430, 1150660848) index="1" unique_id=162148963]
 texture = SubResource("ViewportTexture_csb82")
@@ -51,7 +51,7 @@ texture = SubResource("ViewportTexture_csb82")
 visible = false
 
 [node name="Table8" parent="log" unique_id=1593629211 instance=ExtResource("2_u74d0")]
-transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027490973, 0.11530182, -1.5018873)
+transform = Transform3D(-0.99993706, -0.011222231, 8.742278e-08, -0.011222231, 0.99993706, 0, -8.741728e-08, -9.810787e-10, -1, 0.027490973, 0.15867993, -1.5018873)
 
 [node name="ItemPopup" parent="log/Table8/RayInteractable" parent_id_path=PackedInt32Array(1593629211, 1150660848) index="1" unique_id=162148963]
 texture = SubResource("ViewportTexture_mkewd")
