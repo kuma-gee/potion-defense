@@ -49,7 +49,7 @@ const PROCESSES = {
 }
 
 const RECIPIES = {
-	Type.POTION_FIRE_BOMB: [Type.RED_HERB_CUTTED, Type.CRYSTAL_CRUSHED],
+	Type.POTION_FIRE_BOMB: [Type.RED_HERB_CUTTED, Type.CRYSTAL],
 	Type.POTION_BLIZZARD: [Type.FROST_MUSHROOM, Type.CRYSTAL_CRUSHED],
 	Type.POTION_HOLY: [Type.MOSS, Type.MOSS, Type.CRYSTAL_CRUSHED],
 	
@@ -102,8 +102,13 @@ static func get_resource(t: ItemResource.Type) -> ItemResource:
 	var res_path = "res://potion/items/resources/%s.tres" % Type.keys()[t].to_lower()
 	return ResourceLoader.load(res_path) as ItemResource
 
-static func find_potential_recipe(items: Array, exact = false):
+static func find_potential_recipe(items: Array, exact = false, available_potions: Array[ItemResource] = []):
+	var available = available_potions.map(func(p): return p.type)
+
 	for result in RECIPIES.keys():
+		if available.size() > 0 and not available.has(result):
+			continue
+
 		var required_items = RECIPIES[result]
 		
 		if exact and items.size() != required_items.size():

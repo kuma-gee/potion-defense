@@ -10,11 +10,7 @@ signal hit()
 const EFFECT_SCENES = {
 	ItemResource.Type.POTION_FIRE_BOMB: preload("uid://bnh078xxhjtqf"),
 	ItemResource.Type.POTION_BLIZZARD: preload("uid://c684oj6gh0t68"),
-	ItemResource.Type.POTION_POISON_CLOUD: preload("uid://cvrm4vmap3w15"),
-	
-	ItemResource.Type.POTION_PARALYSIS: preload("uid://cckgdr5i01p5d"),
-	ItemResource.Type.POTION_SLIME: preload("uid://df2iboydwrtbj"),
-	ItemResource.Type.POTION_LIGHTNING: preload("uid://d1n4byccvwsct"),
+	ItemResource.Type.POTION_HOLY: preload("uid://cscxdp7clvk3k"),
 }
 
 func _ready() -> void:
@@ -27,7 +23,8 @@ func is_hitting_enemy():
 func set_potion_type(new_type: ItemResource.Type) -> void:
 	potion_type = new_type
 	potion_model.type = potion_type
-
+	if new_type == ItemResource.Type.POTION_HOLY:
+		hit_area.collision_mask |= (1 << 12)
 
 func on_hit() -> void:
 	var spawn_position = _get_ground_position()

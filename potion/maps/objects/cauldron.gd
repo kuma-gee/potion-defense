@@ -20,6 +20,7 @@ signal died()
 @export var overheat_progress: Range
 @export var overheat_time := 6.0
 @export var overheat_decrease := -1.0
+@export var available_potions: Array[ItemResource] = []
 
 @export_category("Water")
 @export var water_mesh: MeshInstance3D
@@ -237,13 +238,13 @@ func _unfreeze_mixing_player() -> void:
 		mixing_player = null
 
 func _check_mixing_items() -> void:
-	var potion = ItemResource.find_potential_recipe(items)
+	var potion = ItemResource.find_potential_recipe(items, false, available_potions)
 	if potion == null:
 		_failed_potion()
 		return
 
 func _check_final_mix():
-	var potion = ItemResource.find_potential_recipe(items, true)
+	var potion = ItemResource.find_potential_recipe(items, true, available_potions)
 	if potion:
 		_clear_items()
 		for i in range(potion_size):

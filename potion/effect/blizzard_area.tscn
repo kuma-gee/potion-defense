@@ -162,11 +162,11 @@ _data = {
 &"start": SubResource("Animation_6bwcj")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_6bwcj"]
-radius = 1.141749
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_bubsx"]
 radius = 1.2737213
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6bwcj"]
+radius = 1.141749
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bubsx"]
 render_priority = -1
@@ -270,8 +270,9 @@ radius = 1.2470359
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6bwcj"]
 albedo_color = Color(0, 0, 0, 1)
 
-[node name="blizzard_area" type="Node3D" unique_id=603795471]
+[node name="blizzard_area" type="Node3D" unique_id=603795471 node_paths=PackedStringArray("small_hit")]
 script = ExtResource("1_xdjkm")
+small_hit = NodePath("PlayParticleSystems/SmallHit")
 
 [node name="CleanupTimer" type="Timer" parent="." unique_id=1452428118]
 one_shot = true
@@ -279,14 +280,6 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=865820762]
 libraries/ = SubResource("AnimationLibrary_xdjkm")
 autoplay = &"start"
-
-[node name="SmallHit" parent="." unique_id=1183878926 instance=ExtResource("10_xdjkm")]
-element = 2
-damage = 25.0
-force = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit" unique_id=1909293612]
-shape = SubResource("SphereShape3D_6bwcj")
 
 [node name="SFXPlayer" type="Node" parent="." unique_id=536415483]
 script = ExtResource("12_16oji")
@@ -305,9 +298,18 @@ script = ExtResource("15_cr7q4")
 delays = {
 &"CenterSphere": 0.0,
 &"ImpactParticles": 0.2,
+&"SmallHit": 0.0,
 &"Streaks": 0.0
 }
 metadata/_custom_type_script = "uid://bkrembvwcg1br"
+
+[node name="SmallHit" parent="PlayParticleSystems" unique_id=1183878926 instance=ExtResource("10_xdjkm")]
+element = 2
+damage = 25.0
+force = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayParticleSystems/SmallHit" unique_id=1909293612]
+shape = SubResource("SphereShape3D_6bwcj")
 
 [node name="Streaks" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=1510498496]
 visible = false

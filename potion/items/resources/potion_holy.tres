@@ -5,4 +5,7 @@
 
 [resource]
 script = ExtResource("1_xu75b")
+damage = -10.0
+element = 5
+color = Color(1, 1, 0.7294118, 1)
 texture = ExtResource("2_3xm0x")

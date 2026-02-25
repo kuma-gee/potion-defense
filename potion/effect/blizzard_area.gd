@@ -1,10 +1,11 @@
 extends Node3D
 
 @export var freeze_time := 3.0
+@export var small_hit: HitBox
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var cleanup_timer: Timer = $CleanupTimer
 @onready var freeze_area: Area3D = $FreezeArea
-@onready var small_hit: HitBox = $SmallHit
 
 var potion: PotionResource
 
