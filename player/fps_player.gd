@@ -151,7 +151,7 @@ func _ready():
 	)
 	
 	player_input.input_event.connect(func(event: InputEvent):
-		if hurt_box.is_dead(): return
+		if is_respawnable(): return
 		
 		if event is InputEventMouseMotion:
 			mouse_position = event.position
@@ -210,7 +210,7 @@ func _debug_potion_spawn(event: InputEvent):
 		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_BLIZZARD)
 		# equip_wand(preload("uid://dvcguwvkv4lg6"))
 	elif key.keycode == KEY_3:
-		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_POISON_CLOUD)
+		held_item_type = ItemResource.get_resource(ItemResource.Type.POTION_HOLY)
 		# equip_wand(preload("uid://cotho06ohio7x"))
 
 func get_input_direction() -> Vector3:
@@ -219,12 +219,18 @@ func get_input_direction() -> Vector3:
 	var direction = input
 	return direction
 
+func is_disabled():
+	return is_frozen or hurt_box.is_dead() or is_dropped
+
+func is_respawnable():
+	return hurt_box.is_dead() or is_dropped
+
 func _physics_process(delta):
-	if is_frozen or hurt_box.is_dead() or shield.is_active or is_dropped:
+	if is_disabled() or shield.is_active:
 		velocity = Vector3.ZERO
 		walk_vfx.emitting = false
 		
-		if hurt_box.is_dead() or is_dropped:
+		if is_respawnable():
 			death_timer += delta * (1.0 if not reviving_player else revive_assist_increase)
 			if death_timer >= death_time:
 				death_timer = 0.0
@@ -544,9 +550,11 @@ func calculate_trajectory_points(start_position: Vector3, initial_velocity: Vect
 	
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(Vector3.ZERO, Vector3.ZERO)
-	query.collide_with_areas = false
+	query.collide_with_areas = true
 	query.collide_with_bodies = true
 	query.collision_mask = (1 << 0) | (1 << 1) | (1 << 2)
+	if held_item_type.type == ItemResource.Type.POTION_HOLY:
+		query.collision_mask |= (1 << 12)
 	
 	for i in range(trajectory_point_count):
 		points.append(pos)

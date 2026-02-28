@@ -8,6 +8,7 @@ signal wave_started()
 signal wave_completed()
 signal all_waves_completed()
 
+@export var obstacle_manager: ObstacleManager
 @export var wave_label: Label
 @export var enemy_spawn_root: Node3D
 
@@ -60,6 +61,9 @@ func next_wave() -> void:
 	
 	print("Starting Wave %d - value budget %.2f" % [wave, remaining_enemy_value_budget])
 	wave_started.emit()
+	if obstacle_manager:
+		obstacle_manager.start()
+	
 	_schedule_next_spawn()
 
 func _schedule_next_spawn() -> void:
@@ -177,6 +181,8 @@ func _on_enemy_removed() -> void:
 func _on_wave_completed() -> void:
 	is_wave_active = false
 	spawn_timer.stop()
+	if obstacle_manager:
+		obstacle_manager.stop()
 
 	print("Wave %d completed!" % wave)
 	if wave >= max_wave:

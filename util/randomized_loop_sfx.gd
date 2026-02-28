@@ -12,7 +12,7 @@ const GROUP = "AudioSFX"
 var active := false
 
 func _ready() -> void:
-	add_to_group(GROUP)
+	add_to_group(get_group())
 
 	if one_shot:
 		finished.connect(func(): active = false)
@@ -21,6 +21,9 @@ func _ready() -> void:
 			if active:
 				play_randomized()
 			)
+
+func get_group():
+	return GROUP + "_" + id
 
 func start():
 	active = true
@@ -40,7 +43,7 @@ func play_randomized():
 
 func _count_same_audio_plays() -> int:
 	var count := 0
-	for node in get_tree().get_nodes_in_group(GROUP):
-		if node is AudioStreamPlayer and node.id == id and node.playing:
+	for node in get_tree().get_nodes_in_group(get_group()):
+		if node is AudioStreamPlayer and node.playing:
 			count += 1
 	return count

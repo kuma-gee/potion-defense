@@ -14,6 +14,7 @@ signal elemental_hit(element: ElementalArea.Element)
 	ElementalArea.Element.POISON: 0.0,
 }
 
+@export var anti_heal := false
 @export var invincibility_timer: Timer
 @export var shield: Shield
 @export var status_manager: StatusEffectManager
@@ -37,25 +38,34 @@ func set_max_health(new_max_health: float):
 	health_changed.emit()
 
 func hit(dmg: float, knockback = Vector3.ZERO, element = ElementalArea.Element.NONE):
-	if is_dead() or is_invincible():
+	if is_dead(): return
+	if is_invincible() and dmg > 0:
 		return
 	
-	if shield:
+	if shield and dmg > 0:
 		dmg = shield.shield_damage(dmg)
 		if dmg <= 0.0:
 			return
 	
 	var mult = 1.0 - get_resistance(element)
 	var effective_dmg = dmg * mult
-	health -= effective_dmg
+	
+	if dmg > 0:
+		health -= effective_dmg
+		damaged.emit(effective_dmg)
+		if effective_dmg > 0 and knockback:
+			knockback.y = 0
+			knockbacked.emit(knockback * mult)
+	elif dmg < 0:
+		if anti_heal and element == ElementalArea.Element.HOLY:
+			var x = abs(effective_dmg)
+			health -= x
+			damaged.emit(x)
+		else:
+			health -= effective_dmg # Healing
 
-	damaged.emit(effective_dmg)
 	if element != ElementalArea.Element.NONE:
 		elemental_hit.emit(element)
-
-	if effective_dmg > 0 and knockback:
-		knockback.y = 0
-		knockbacked.emit(knockback * mult)
 
 func apply_effect(effect: StatusEffect):
 	if status_manager and effect:

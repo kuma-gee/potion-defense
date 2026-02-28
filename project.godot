@@ -160,6 +160,7 @@ throw={
 3d_physics/layer_6="Throwable"
 3d_physics/layer_8="EnemyHurt"
 3d_physics/layer_11="Elemental"
+3d_physics/layer_13="HolyLayer"
 3d_physics/layer_14="MouseLayer"
 3d_physics/layer_15="PlayerBlock"
 3d_physics/layer_16="Interactable"

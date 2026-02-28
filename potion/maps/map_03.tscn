@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://c3mcqueui0db2" path="res://potion/items/resources/moss.tres" id="11_7knav"]
 [ext_resource type="PackedScene" uid="uid://c1v1sluycsjxx" path="res://potion/maps/ingredient_spawn_area.tscn" id="11_wargs"]
 [ext_resource type="Resource" uid="uid://61d6yq6b1l8q" path="res://potion/items/resources/red_herb.tres" id="12_3oco7"]
-[ext_resource type="Resource" uid="uid://pi03sfcu5jp1" path="res://potion/items/resources/frost_mushroom.tres" id="13_x4nuj"]
+[ext_resource type="Resource" uid="uid://pi03sfcu5jp1" path="res://potion/items/resources/frost_leaf.tres" id="13_x4nuj"]
 [ext_resource type="PackedScene" uid="uid://dlc5pt3hyp5a7" path="res://potion/maps/tree.tscn" id="14_mn6ay"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/maps/objects/storage.tscn" id="15_viykh"]
 [ext_resource type="Resource" uid="uid://cspcf2cuasl1w" path="res://potion/items/resources/crystal.tres" id="16_64je7"]

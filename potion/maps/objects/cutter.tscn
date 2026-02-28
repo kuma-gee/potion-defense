@@ -9,13 +9,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(0.80371094, 0.4440918, 0.7421875)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_qt4f4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_fsw0a"]
 viewport_path = NodePath("Progress/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_75ouy"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_rotk1"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wcrg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hptp3"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("3_8lqj2")
@@ -42,14 +42,14 @@ shape = SubResource("BoxShape3D_vv5mg")
 wait_time = 2.0
 
 [node name="Progress" parent="." index="4"]
-texture = SubResource("ViewportTexture_qt4f4")
+texture = SubResource("ViewportTexture_fsw0a")
 
 [node name="ItemPopup" parent="." index="5"]
-texture = SubResource("ViewportTexture_75ouy")
+texture = SubResource("ViewportTexture_rotk1")
 
 [node name="Icon" parent="." index="6"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_6wcrg")
+material_override = SubResource("ShaderMaterial_hptp3")
 
 [node name="Sfx" type="AudioStreamPlayer" parent="." index="8" unique_id=2132663254]
 stream = ExtResource("5_188kx")

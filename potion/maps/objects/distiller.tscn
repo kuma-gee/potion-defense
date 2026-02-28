@@ -7,15 +7,15 @@
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="5_ntl8x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
-size = Vector3(0.80371094, 0.4440918, 0.7421875)
+size = Vector3(1.0527344, 1.0256348, 1.0351563)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_qt4f4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_vwcli"]
 viewport_path = NodePath("Progress/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_75ouy"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_euas7"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wcrg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1bq3"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("2_euas7")
@@ -30,27 +30,35 @@ shader_parameter/glowAngle = 1.57
 shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vwcli"]
+
 [node name="Distiller" unique_id=665903306 instance=ExtResource("1_vwcli")]
 automatic = true
 process_time = 5.0
 process = 2
+allow_only_valid = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46320844, 0)
 shape = SubResource("BoxShape3D_vv5mg")
 
 [node name="ProcessTimer" parent="." index="1"]
 wait_time = 2.0
 
 [node name="Progress" parent="." index="4"]
-texture = SubResource("ViewportTexture_qt4f4")
+texture = SubResource("ViewportTexture_vwcli")
 
 [node name="ItemPopup" parent="." index="5"]
-texture = SubResource("ViewportTexture_75ouy")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2402164, 0)
+texture = SubResource("ViewportTexture_euas7")
 
 [node name="Icon" parent="." index="6"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_6wcrg")
+material_override = SubResource("ShaderMaterial_w1bq3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=351159239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5135597, 0)
+shape = SubResource("BoxShape3D_vwcli")
 
 [node name="Sfx" type="AudioStreamPlayer" parent="." index="8" unique_id=2132663254]
 stream = ExtResource("4_vwcli")
@@ -62,5 +70,9 @@ min_pitch = 0.7
 max_pitch = 0.9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." index="9" unique_id=170249706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10431644, 0)
-size = Vector3(0.2, 0.2, 0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22045341, 0)
+size = Vector3(1, 0.42871094, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." index="10" unique_id=1025672453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62076694, 0)
+size = Vector3(0.39257813, 0.37380177, 0.38110352)

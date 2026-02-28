@@ -272,7 +272,7 @@ albedo_color = Color(0, 0, 0, 1)
 
 [node name="blizzard_area" type="Node3D" unique_id=603795471 node_paths=PackedStringArray("small_hit")]
 script = ExtResource("1_xdjkm")
-small_hit = NodePath("PlayParticleSystems/SmallHit")
+small_hit = NodePath("SmallHit")
 
 [node name="CleanupTimer" type="Timer" parent="." unique_id=1452428118]
 one_shot = true
@@ -293,23 +293,22 @@ metadata/_custom_type_script = "uid://bmxiv2l1dkflu"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ElementalArea" unique_id=555418922]
 shape = SubResource("SphereShape3D_bubsx")
 
+[node name="SmallHit" parent="." unique_id=1183878926 instance=ExtResource("10_xdjkm")]
+element = 2
+damage = 25.0
+force = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallHit" unique_id=1909293612]
+shape = SubResource("SphereShape3D_6bwcj")
+
 [node name="PlayParticleSystems" type="Node3D" parent="." unique_id=1543387720]
 script = ExtResource("15_cr7q4")
 delays = {
 &"CenterSphere": 0.0,
 &"ImpactParticles": 0.2,
-&"SmallHit": 0.0,
 &"Streaks": 0.0
 }
 metadata/_custom_type_script = "uid://bkrembvwcg1br"
-
-[node name="SmallHit" parent="PlayParticleSystems" unique_id=1183878926 instance=ExtResource("10_xdjkm")]
-element = 2
-damage = 25.0
-force = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayParticleSystems/SmallHit" unique_id=1909293612]
-shape = SubResource("SphereShape3D_6bwcj")
 
 [node name="Streaks" type="GPUParticles3D" parent="PlayParticleSystems" unique_id=1510498496]
 visible = false

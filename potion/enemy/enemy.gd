@@ -106,6 +106,18 @@ func _move_to_target():
 	move_and_slide()
 	move()
 
+	var collision = get_last_slide_collision()
+	if collision:
+		for i in collision.get_collision_count():
+			var collider = collision.get_collider(i)
+			if collider is WaterCurrent:
+				var current: WaterCurrent = collider as WaterCurrent
+				var spawn = current.get_closest_spawn(global_position)
+				if spawn:
+					global_position = spawn.global_transform.origin
+					animation_tree.spawn()
+				break
+
 func _update_navigation_target():
 	if not path or path.curve.point_count == 0:
 		return
@@ -119,6 +131,7 @@ func _update_navigation_target():
 
 #region STATES
 func died():
+	animation_tree.active = true
 	animation_tree.died()
 
 func freeze(time: float) -> void:
@@ -138,6 +151,7 @@ func attack():
 	
 func move():
 	if hurt_box.is_dead(): return
+	animation_tree.active = true
 	animation_tree.move()
 
 func knockback_state():

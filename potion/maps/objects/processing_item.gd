@@ -5,6 +5,7 @@ extends RayInteractable
 @export var process_time: float = 3.0
 @export var process := ItemResource.Process.CRUSH
 @export var progress_bar: ProgressBar
+@export var allow_only_valid := false
 
 @onready var item_processing = ItemResource.PROCESSES.get(process, {})
 @onready var overheat_timer: Timer = $OverheatTimer
@@ -91,13 +92,16 @@ func interact(actor: FPSPlayer):
 	
 	if not actor.has_item(): return
 	
+	if allow_only_valid and not _can_process(actor.held_item_type):
+		return
+	
 	item = actor.release_item()
 	if automatic and _can_process():
 		process_timer = 0.0
 		processing = true
 
-func _can_process() -> bool:
-	return item != null and item_processing.has(item.type)
+func _can_process(i = item) -> bool:
+	return i != null and item_processing.has(i.type)
 
 func release(actor: FPSPlayer):
 	if automatic: return

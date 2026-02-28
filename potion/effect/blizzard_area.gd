@@ -17,4 +17,5 @@ func _ready() -> void:
 func _freeze():
 	for body in freeze_area.get_overlapping_bodies():
 		if body is Character:
+			small_hit.hit()
 			body.freeze(freeze_time)

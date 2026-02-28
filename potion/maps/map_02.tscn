@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cef48svqhif5a" path="res://potion/maps/objects/cauldron.tscn" id="6_pc26i"]
 [ext_resource type="PackedScene" uid="uid://m8roxd1usklp" path="res://potion/maps/objects/storage.tscn" id="6_sbk3e"]
 [ext_resource type="AudioStream" uid="uid://8a8a1i5eannm" path="res://assets/sound/Apparition’s_Lullaby.mp3" id="7_3dyxf"]
-[ext_resource type="Resource" uid="uid://pi03sfcu5jp1" path="res://potion/items/resources/frost_mushroom.tres" id="7_6o1gw"]
+[ext_resource type="Resource" uid="uid://pi03sfcu5jp1" path="res://potion/items/resources/frost_leaf.tres" id="7_6o1gw"]
 [ext_resource type="PackedScene" uid="uid://d2mj8ink6l5d7" path="res://potion/maps/forest_entrance.tscn" id="8_r6apc"]
 [ext_resource type="Shader" uid="uid://baf4o50ybhvcn" path="res://shader/terrain.gdshader" id="9_nqqg5"]
 [ext_resource type="Script" uid="uid://dlb6qrjaljxep" path="res://potion/maps/level.gd" id="9_xw8a5"]

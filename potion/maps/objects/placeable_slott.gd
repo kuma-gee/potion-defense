@@ -1,3 +1,4 @@
+class_name PlaceableSlot
 extends RayInteractable
 
 signal placed(item: ItemResource)

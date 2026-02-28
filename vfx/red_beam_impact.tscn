@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=3 uid="uid://dks6w4ls71yt6"]
+[gd_scene format=3 uid="uid://dks6w4ls71yt6"]
 
 [ext_resource type="Script" uid="uid://bkrembvwcg1br" path="res://vfx/PlayParticleSystems.gd" id="1_kfubg"]
 [ext_resource type="Texture2D" uid="uid://ce37fcn8ptva0" path="res://assets/particles/course/Circle.png" id="2_q7ym2"]
@@ -110,63 +110,6 @@ parameter_name = "Speed"
 operator = 2
 
 [sub_resource type="VisualShader" id="VisualShader_wheaq"]
-code = "shader_type spatial;
-render_mode blend_add, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec2 Speed;
-uniform sampler2D Texture;
-uniform sampler2D Mask;
-
-
-
-void fragment() {
-// Input:3
-	vec4 n_out3p0 = COLOR;
-	float n_out3p4 = n_out3p0.a;
-
-
-// Input:7
-	float n_out7p0 = TIME;
-
-
-// Vector2Parameter:8
-	vec2 n_out8p0 = Speed;
-
-
-// VectorOp:9
-	vec3 n_out9p0 = vec3(n_out7p0) * vec3(n_out8p0, 0.0);
-
-
-// UVFunc:6
-	vec2 n_in6p1 = vec2(1.00000, 1.00000);
-	vec2 n_out6p0 = vec2(n_out9p0.xy) * n_in6p1 + UV;
-
-
-	vec4 n_out4p0;
-// Texture2D:4
-	n_out4p0 = texture(Texture, n_out6p0);
-
-
-	vec4 n_out11p0;
-// Texture2D:11
-	n_out11p0 = texture(Mask, UV);
-
-
-// FloatOp:12
-	float n_out12p0 = n_out4p0.x * n_out11p0.x;
-
-
-// FloatOp:5
-	float n_out5p0 = n_out3p4 * n_out12p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out5p0;
-
-
-}
-"
 modes/blend = 1
 modes/cull = 2
 flags/unshaded = true
@@ -384,63 +327,6 @@ parameter_name = "Speed"
 operator = 2
 
 [sub_resource type="VisualShader" id="VisualShader_u73fl"]
-code = "shader_type spatial;
-render_mode blend_add, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec2 Speed;
-uniform sampler2D Texture;
-uniform sampler2D Mask;
-
-
-
-void fragment() {
-// Input:3
-	vec4 n_out3p0 = COLOR;
-	float n_out3p4 = n_out3p0.a;
-
-
-// Input:7
-	float n_out7p0 = TIME;
-
-
-// Vector2Parameter:8
-	vec2 n_out8p0 = Speed;
-
-
-// VectorOp:9
-	vec3 n_out9p0 = vec3(n_out7p0) * vec3(n_out8p0, 0.0);
-
-
-// UVFunc:6
-	vec2 n_in6p1 = vec2(1.00000, 1.00000);
-	vec2 n_out6p0 = vec2(n_out9p0.xy) * n_in6p1 + UV;
-
-
-	vec4 n_out4p0;
-// Texture2D:4
-	n_out4p0 = texture(Texture, n_out6p0);
-
-
-	vec4 n_out11p0;
-// Texture2D:11
-	n_out11p0 = texture(Mask, UV);
-
-
-// FloatOp:12
-	float n_out12p0 = n_out4p0.x * n_out11p0.x;
-
-
-// FloatOp:5
-	float n_out5p0 = n_out3p4 * n_out12p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out5p0;
-
-
-}
-"
 modes/blend = 1
 modes/cull = 2
 flags/unshaded = true
@@ -765,102 +651,6 @@ billboard_type = 3
 keep_scale = true
 
 [sub_resource type="VisualShader" id="VisualShader_ogfon"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform sampler2D Texture;
-uniform vec2 DissolveTiling = vec2(1.000000, 1.000000);
-uniform vec2 DissolveSpeed = vec2(0.000000, 0.000000);
-uniform sampler2D Dissolve;
-uniform float DissolveAmount : hint_range(0.0, 1.0) = 0.0;
-
-
-
-void vertex() {
-	mat4 n_out2p0;
-// GetBillboardMatrix:2
-	{
-		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
-		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		n_out2p0 = VIEW_MATRIX * __wm;
-	}
-
-
-// Output:0
-	MODELVIEW_MATRIX = n_out2p0;
-
-
-}
-
-void fragment() {
-// Input:16
-	vec4 n_out16p0 = COLOR;
-
-
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(Texture, UV);
-
-
-// Input:8
-	vec2 n_out8p0 = UV;
-
-
-// Vector2Parameter:9
-	vec2 n_out9p0 = DissolveTiling;
-
-
-// VectorOp:10
-	vec3 n_out10p0 = vec3(n_out8p0, 0.0) * vec3(n_out9p0, 0.0);
-
-
-// Input:7
-	float n_out7p0 = TIME;
-
-
-// Vector2Parameter:12
-	vec2 n_out12p0 = DissolveSpeed;
-
-
-// VectorOp:11
-	vec3 n_out11p0 = vec3(n_out7p0) * vec3(n_out12p0, 0.0);
-
-
-// UVFunc:6
-	vec2 n_in6p1 = vec2(1.00000, 1.00000);
-	vec2 n_out6p0 = vec2(n_out11p0.xy) * n_in6p1 + vec2(n_out10p0.xy);
-
-
-	vec4 n_out4p0;
-// Texture2D:4
-	n_out4p0 = texture(Dissolve, n_out6p0);
-
-
-// VectorOp:13
-	vec3 n_out13p0 = vec3(n_out3p0.xyz) * vec3(n_out4p0.xyz);
-
-
-// FloatParameter:15
-	float n_out15p0 = DissolveAmount;
-
-
-// Mix:14
-	vec4 n_out14p0 = mix(n_out3p0, vec4(n_out13p0, 0.0), n_out15p0);
-
-
-// VectorOp:17
-	vec4 n_out17p0 = n_out16p0 * n_out14p0;
-	float n_out17p4 = n_out17p0.a;
-
-
-// Output:0
-	ALBEDO = vec3(n_out17p0.xyz);
-	ALPHA = n_out17p4;
-
-
-}
-"
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_kqr78")
 nodes/vertex/2/position = Vector2(100, 460)
@@ -935,7 +725,7 @@ scale_max = 2.0
 scale_curve = SubResource("CurveTexture_wrtb3")
 color = Color(0, 0, 0, 1)
 
-[node name="RedBeamImpact" type="Node3D"]
+[node name="RedBeamImpact" type="Node3D" unique_id=1324913025]
 script = ExtResource("1_kfubg")
 delays = {
 &"AnticipationParticles": 0.0,
@@ -953,7 +743,7 @@ delays = {
 &"Smoke": 1.4
 }
 
-[node name="AnticipationParticles" type="GPUParticles3D" parent="."]
+[node name="AnticipationParticles" type="GPUParticles3D" parent="." unique_id=609589848]
 material_override = SubResource("StandardMaterial3D_35c7g")
 emitting = false
 amount = 50
@@ -963,7 +753,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_ah3pt")
 draw_pass_1 = SubResource("QuadMesh_35c7g")
 
-[node name="Cylinder" type="GPUParticles3D" parent="."]
+[node name="Cylinder" type="GPUParticles3D" parent="." unique_id=997070934]
 material_override = SubResource("ShaderMaterial_bjukh")
 emitting = false
 amount = 1
@@ -973,7 +763,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_tpni7")
 draw_pass_1 = ExtResource("4_os1wd")
 
-[node name="CircleGround" type="GPUParticles3D" parent="."]
+[node name="CircleGround" type="GPUParticles3D" parent="." unique_id=367813052]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_tc0qk")
 emitting = false
@@ -984,7 +774,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_b1rdv")
 draw_pass_1 = SubResource("QuadMesh_nb1nt")
 
-[node name="ImpaceFlare" type="GPUParticles3D" parent="."]
+[node name="ImpaceFlare" type="GPUParticles3D" parent="." unique_id=269912145]
 material_override = SubResource("StandardMaterial3D_r4b1s")
 emitting = false
 amount = 2
@@ -995,7 +785,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_r4b1s")
 draw_pass_1 = SubResource("QuadMesh_u834y")
 
-[node name="ImpactParticles" type="GPUParticles3D" parent="."]
+[node name="ImpactParticles" type="GPUParticles3D" parent="." unique_id=395616269]
 material_override = SubResource("StandardMaterial3D_35c7g")
 emitting = false
 amount = 60
@@ -1007,7 +797,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_bcirq")
 draw_pass_1 = SubResource("QuadMesh_w3v2p")
 
-[node name="HalfSphere" type="GPUParticles3D" parent="."]
+[node name="HalfSphere" type="GPUParticles3D" parent="." unique_id=1195663512]
 material_override = SubResource("ShaderMaterial_2mp5q")
 emitting = false
 amount = 1
@@ -1017,7 +807,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_l2gpd")
 draw_pass_1 = ExtResource("8_a24ld")
 
-[node name="ShockwaveGround" type="GPUParticles3D" parent="."]
+[node name="ShockwaveGround" type="GPUParticles3D" parent="." unique_id=1452780002]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_1pekq")
 emitting = false
@@ -1027,7 +817,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_k6stb")
 draw_pass_1 = SubResource("QuadMesh_nb1nt")
 
-[node name="ShockwaveRings" type="GPUParticles3D" parent="."]
+[node name="ShockwaveRings" type="GPUParticles3D" parent="." unique_id=777684873]
 material_override = SubResource("ShaderMaterial_ffcej")
 emitting = false
 amount = 5
@@ -1039,9 +829,10 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_wheaq")
 draw_pass_1 = ExtResource("11_h0a4y")
 
-[node name="GroundMarkBright" type="GPUParticles3D" parent="."]
+[node name="GroundMarkBright" type="GPUParticles3D" parent="." unique_id=585102624]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_6p4q2")
+emitting = false
 amount = 1
 lifetime = 1.89
 one_shot = true
@@ -1049,9 +840,10 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_6e4pq")
 draw_pass_1 = SubResource("QuadMesh_nb1nt")
 
-[node name="GroundMarkDark" type="GPUParticles3D" parent="."]
+[node name="GroundMarkDark" type="GPUParticles3D" parent="." unique_id=2049003958]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_1vpcs")
+emitting = false
 amount = 1
 lifetime = 4.5
 one_shot = true
@@ -1059,9 +851,10 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_4j635")
 draw_pass_1 = SubResource("QuadMesh_nb1nt")
 
-[node name="GroundBeamDark" type="GPUParticles3D" parent="."]
+[node name="GroundBeamDark" type="GPUParticles3D" parent="." unique_id=107077147]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_mqgew")
+emitting = false
 amount = 1
 lifetime = 6.0
 one_shot = true
@@ -1069,7 +862,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_vl1nw")
 draw_pass_1 = SubResource("QuadMesh_nb1nt")
 
-[node name="Fire" type="GPUParticles3D" parent="."]
+[node name="Fire" type="GPUParticles3D" parent="." unique_id=104809185]
 visible = false
 material_override = SubResource("ShaderMaterial_61j21")
 emitting = false
@@ -1080,7 +873,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_kfubg")
 draw_pass_1 = SubResource("QuadMesh_kfubg")
 
-[node name="Smoke" type="GPUParticles3D" parent="."]
+[node name="Smoke" type="GPUParticles3D" parent="." unique_id=145399960]
 visible = false
 material_override = SubResource("ShaderMaterial_gi8k8")
 emitting = false
