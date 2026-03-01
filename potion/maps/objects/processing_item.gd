@@ -1,3 +1,4 @@
+class_name ProcessingItem
 extends RayInteractable
 
 @export var automatic := false
@@ -122,7 +123,13 @@ func action_released(actor: FPSPlayer):
 	if working_player != actor: return
 	processing = false
 	process_timer = 0.0
-	
+	reset_player()
+
+func reset_item():
+	item = null
+	reset_player()
+
+func reset_player():
 	if working_player:
 		working_player.unfreeze_player()
 		working_player = null

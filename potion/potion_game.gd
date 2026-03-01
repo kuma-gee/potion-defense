@@ -47,6 +47,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			Events.collect_soul(1000)
 		elif event.keycode == KEY_F3:
 			Events.enemy_move_speed_multipler += 0.5 * (-1.0 if event.shift_pressed else 1.0)
+		elif event.keycode == KEY_F4:
+			Events.show_dmg_labels = not Events.show_dmg_labels
 	
 	if event.is_action_pressed("recipes"):
 		recipe_ui.pause()

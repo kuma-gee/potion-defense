@@ -1284,7 +1284,7 @@ wait_time = 6.0
 one_shot = true
 
 [node name="OverheatStartTimer" type="Timer" parent="." unique_id=782834689]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
 
 [node name="HurtBox" type="Area3D" parent="." unique_id=65320650]

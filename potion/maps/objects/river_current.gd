@@ -18,8 +18,10 @@ func activate():
 	timer.start()
 	
 	for area in interactable_detector.get_overlapping_areas():
-		if area is PlaceableSlot:
+		if area is PlaceableSlot and area.has_item():
 			area.item = null
+		elif area is ProcessingItem and area.item != null:
+			area.reset_item()
 
 func deactivate():
 	super()

@@ -9,6 +9,8 @@ func _ready() -> void:
 	timer.timeout.connect(func(): hide())
 	hurt_box.damaged.connect(func(dmg):
 		label.text = "%s" % dmg
-		timer.start()
-		show()
+		
+		if Events.show_dmg_labels:
+			timer.start()
+			show()
 	)

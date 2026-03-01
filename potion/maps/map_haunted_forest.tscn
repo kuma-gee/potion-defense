@@ -233,73 +233,73 @@ wave_manager = NodePath("WaveManager")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6605663, 0.0076732635, -0.23904508)
 
 [node name="HauntedTree121" parent="Branching01" unique_id=1785057812 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-1.028416, 0, -0.07444837, 0, 1.0311072, 0, 0.07444837, 0, -1.028416, 0.20471382, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.29929394, 0, 1.0199931, 0, 1.062997, 0, -1.0199931, 0, 0.29929394, 0.20471382, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree122" parent="Branching01" unique_id=1360558393 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.80322284, 0, 0.6013231, 0, 1.0033726, 0, -0.6013231, 0, -0.80322284, 1.2047138, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.8662822, 0, -0.49071535, 0, 0.9956136, 0, 0.49071535, 0, 0.8662822, 1.2047138, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree124" parent="Branching01" unique_id=1032628105 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.6682118, 0, 0.80835164, 0, 1.04878, 0, -0.80835164, 0, 0.6682118, 0.5932727, 4.7683716e-07, 0.31355345)
+transform = Transform3D(0.9637108, 0, 0.3911627, 0, 1.0400705, 0, -0.3911627, 0, 0.9637108, 0.5932727, 4.7683716e-07, 0.31355345)
 
 [node name="HauntedTree125" parent="Branching01" unique_id=567294396 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.11610282, 0, -1.0100722, 0, 1.016723, 0, 1.0100722, 0, -0.11610282, -0.5979147, 4.7683716e-07, 0.02992016)
+transform = Transform3D(0.35031745, 0, 0.9500053, 0, 1.0125376, 0, -0.9500053, 0, 0.35031745, -0.5979147, 4.7683716e-07, 0.02992016)
 
 [node name="HauntedTree123" parent="Branching01" unique_id=1519846024 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.3450599, 0, -0.842595, 0, 0.91051227, 0, 0.842595, 0, 0.3450599, -1.4675207, 4.7683716e-07, -0.55897814)
+transform = Transform3D(-0.26466, 0, 0.97733086, 0, 1.0125318, 0, -0.97733086, 0, -0.26466, -1.4675207, 4.7683716e-07, -0.55897814)
 
 [node name="Branching02" type="Node3D" parent="." unique_id=698940155]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.118911, 0.0076732635, 7.01828)
 
 [node name="HauntedTree121" parent="Branching02" unique_id=874541003 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.81255025, 0, 0.4260179, 0, 0.917458, 0, -0.4260179, 0, -0.81255025, 0.20471382, 4.7683716e-07, -0.34624594)
+transform = Transform3D(-0.8517979, 0, -0.54159814, 0, 1.0093999, 0, 0.54159814, 0, -0.8517979, 0.20471382, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree122" parent="Branching02" unique_id=1545161478 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.30720174, 0, -1.0033853, 0, 1.0493593, 0, 1.0033853, 0, -0.30720174, 1.2047138, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.25105911, 0, 1.0201995, 0, 1.0506369, 0, -1.0201995, 0, 0.25105911, 1.2047138, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree124" parent="Branching02" unique_id=216460949 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9995952, 0, 0.3246229, 0, 1.0509856, 0, -0.3246229, 0, 0.9995952, 0.5932727, 4.7683716e-07, 0.31355345)
+transform = Transform3D(0.26756433, 0, -0.9406145, 0, 0.9779296, 0, 0.9406145, 0, 0.26756433, 0.5932727, 4.7683716e-07, 0.31355345)
 
 [node name="HauntedTree125" parent="Branching02" unique_id=531380849 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.908737, 0, -0.25043035, 0, 0.94261247, 0, 0.25043035, 0, -0.908737, -0.5979147, 4.7683716e-07, 0.02992016)
+transform = Transform3D(-1.0463879, 0, -0.27229804, 0, 1.0812372, 0, 0.27229804, 0, -1.0463879, -0.5979147, 4.7683716e-07, 0.02992016)
 
 [node name="HauntedTree123" parent="Branching02" unique_id=311057177 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.48918423, 0, 0.79397446, 0, 0.9325753, 0, -0.79397446, 0, 0.48918423, -1.4675207, 4.7683716e-07, -0.55897814)
+transform = Transform3D(0.4206687, 0, 1.0121083, 0, 1.0960499, 0, -1.0121083, 0, 0.4206687, -1.4675207, 4.7683716e-07, -0.55897814)
 
 [node name="Branching03" type="Node3D" parent="." unique_id=1878430206]
 transform = Transform3D(-0.39796478, 0, 0.9174008, 0, 1, 0, -0.9174008, 0, -0.39796478, 2.596447, 0.0076732635, -0.8078947)
 
 [node name="HauntedTree121" parent="Branching03" unique_id=341086711 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.38172376, 0, -0.94902027, 0, 1.0229137, 0, 0.94902027, 0, 0.38172376, 0.20471382, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.7286486, 0, 0.56897634, 0, 0.9244798, 0, -0.56897634, 0, 0.7286486, 0.20471382, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree122" parent="Branching03" unique_id=489355733 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.05756514, 0, -1.029303, 0, 1.0309114, 0, 1.029303, 0, -0.05756514, 1.2047138, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.569788, 0, 0.7348824, 0, 0.9298981, 0, -0.7348824, 0, 0.569788, 1.2047138, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree124" parent="Branching03" unique_id=835829894 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9845518, 0, -0.43316507, 0, 1.0756273, 0, 0.43316507, 0, 0.9845518, 0.5932727, 4.7683716e-07, 0.31355345)
+transform = Transform3D(0.63325644, 0, 0.77190304, 0, 0.9984228, 0, -0.77190304, 0, 0.63325644, 0.5932727, 4.7683716e-07, 0.31355345)
 
 [node name="HauntedTree125" parent="Branching03" unique_id=11662626 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.015499951, 0, 1.0709693, 0, 1.0710815, 0, -1.0709693, 0, -0.015499951, -0.5979147, 4.7683716e-07, 0.02992016)
+transform = Transform3D(0.9486245, 0, -0.21893191, 0, 0.9735603, 0, 0.21893191, 0, 0.9486245, -0.5979147, 4.7683716e-07, 0.02992016)
 
 [node name="HauntedTree123" parent="Branching03" unique_id=1287183069 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.7200936, 0, -0.68310887, 0, 0.9925586, 0, 0.68310887, 0, 0.7200936, -1.4675207, 4.7683716e-07, -0.55897814)
+transform = Transform3D(0.9437478, 0, -0.20052978, 0, 0.96481717, 0, 0.20052978, 0, 0.9437478, -1.4675207, 4.7683716e-07, -0.55897814)
 
 [node name="Branching04" type="Node3D" parent="." unique_id=946158811]
 transform = Transform3D(0.1140528, 0, 0.9934747, 0, 1, 0, -0.9934747, 0, 0.1140528, 1.7203712, 0.0076732635, -8.609619)
 
 [node name="HauntedTree121" parent="Branching04" unique_id=207834177 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8604004, 0, -0.60760707, 0, 1.0533162, 0, 0.60760707, 0, -0.8604004, 0.20471382, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.8930057, 0, 0.21335919, 0, 0.9181402, 0, -0.21335919, 0, 0.8930057, 0.20471382, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree122" parent="Branching04" unique_id=1750460336 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.6638405, 0, 0.8349374, 0, 1.0666792, 0, -0.8349374, 0, -0.6638405, 1.2047138, 4.7683716e-07, -0.34624594)
+transform = Transform3D(0.7786703, 0, 0.703072, 0, 1.0491128, 0, -0.703072, 0, 0.7786703, 1.2047138, 4.7683716e-07, -0.34624594)
 
 [node name="HauntedTree124" parent="Branching04" unique_id=394312159 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.7587254, 0, 0.5125017, 0, 0.9155994, 0, -0.5125017, 0, 0.7587254, 0.5932727, 4.7683716e-07, 0.31355345)
+transform = Transform3D(-1.0404421, 0, -0.039192114, 0, 1.04118, 0, 0.039192114, 0, -1.0404421, 0.5932727, 4.7683716e-07, 0.31355345)
 
 [node name="HauntedTree125" parent="Branching04" unique_id=965666775 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9381366, 0, 0.32060438, 0, 0.99140674, 0, -0.32060438, 0, 0.9381366, -0.5979147, 4.7683716e-07, 0.02992016)
+transform = Transform3D(-0.32142183, 0, -0.938606, 0, 0.99211556, 0, 0.938606, 0, -0.32142183, -0.5979147, 4.7683716e-07, 0.02992016)
 
 [node name="HauntedTree123" parent="Branching04" unique_id=1176225833 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-1.0502682, 0, 0.00075287145, 0, 1.0502684, 0, -0.00075287145, 0, -1.0502682, -1.4675207, 4.7683716e-07, -0.55897814)
+transform = Transform3D(0.08688242, 0, -1.0743811, 0, 1.0778884, 0, 1.0743811, 0, 0.08688242, -1.4675207, 4.7683716e-07, -0.55897814)
 
 [node name="Red" parent="." unique_id=1162081655 node_paths=PackedStringArray("spawn_shape") instance=ExtResource("15_xnmo7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021759033, 0.0076732635, -0.018543243)
@@ -355,313 +355,313 @@ transform = Transform3D(-0.999937, -0.01122223, 8.742277e-08, -0.011222233, 0.99
 [node name="Trees" type="Node3D" parent="NavigationRegion3D" unique_id=1738945837]
 
 [node name="HauntedTree18" parent="NavigationRegion3D/Trees" unique_id=1519796495 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.5159971, 0, 0.777399, 0, 0.9330607, 0, -0.777399, 0, 0.5159971, 1.6534607, 4.7683716e-07, -2.6139975)
+transform = Transform3D(0.9566927, 0, -0.10625329, 0, 0.962575, 0, 0.10625329, 0, 0.9566927, 1.6534607, 4.7683716e-07, -2.6139975)
 
 [node name="HauntedTree100" parent="NavigationRegion3D/Trees" unique_id=339535474 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8267314, 0, -0.59729165, 0, 1.0199226, 0, 0.59729165, 0, -0.8267314, 1.6534607, 4.7683716e-07, -3.6139975)
+transform = Transform3D(0.7028106, 0, -0.76861566, 0, 1.0414954, 0, 0.76861566, 0, 0.7028106, 1.6534607, 4.7683716e-07, -3.6139975)
 
 [node name="HauntedTree101" parent="NavigationRegion3D/Trees" unique_id=84799593 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.5207738, 0, -0.8203138, 0, 0.97165847, 0, 0.8203138, 0, 0.5207738, 1.6534607, 4.7683716e-07, -4.6139975)
+transform = Transform3D(0.81556207, 0, -0.640412, 0, 1.0369518, 0, 0.640412, 0, 0.81556207, 1.6534607, 4.7683716e-07, -4.6139975)
 
 [node name="HauntedTree102" parent="NavigationRegion3D/Trees" unique_id=1930279841 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8568597, 0, -0.494423, 0, 0.9892738, 0, 0.494423, 0, -0.8568597, 1.6534607, 4.7683716e-07, -5.6139975)
+transform = Transform3D(0.13562395, 0, -1.0520947, 0, 1.0608002, 0, 1.0520947, 0, 0.13562395, 1.6534607, 4.7683716e-07, -5.6139975)
 
 [node name="HauntedTree103" parent="NavigationRegion3D/Trees" unique_id=762479603 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.011669279, 0, -0.9180264, 0, 0.91810054, 0, 0.9180264, 0, 0.011669279, 1.6534607, 4.7683716e-07, -6.6139975)
+transform = Transform3D(-0.47578266, 0, -0.82987565, 0, 0.9565891, 0, 0.82987565, 0, -0.47578266, 1.6534607, 4.7683716e-07, -6.6139975)
 
 [node name="HauntedTree72" parent="NavigationRegion3D/Trees" unique_id=1364414451 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.4710656, 0, 0.8265001, 0, 0.95131767, 0, -0.8265001, 0, -0.4710656, 11.6534605, 4.7683716e-07, -11.613997)
+transform = Transform3D(0.10524913, 0, -0.98925334, 0, 0.99483645, 0, 0.98925334, 0, 0.10524913, 11.6534605, 4.7683716e-07, -11.613997)
 
 [node name="HauntedTree74" parent="NavigationRegion3D/Trees" unique_id=2124641405 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.25374323, 0, 0.97715396, 0, 1.009562, 0, -0.97715396, 0, -0.25374323, 11.6534605, 4.7683716e-07, -10.613997)
+transform = Transform3D(0.7917665, 0, 0.46261147, 0, 0.917008, 0, -0.46261147, 0, 0.7917665, 11.6534605, 4.7683716e-07, -10.613997)
 
 [node name="HauntedTree77" parent="NavigationRegion3D/Trees" unique_id=1967350007 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.894529, 0, 0.17448868, 0, 0.91138816, 0, -0.17448868, 0, -0.894529, 12.6534605, 4.7683716e-07, -10.613997)
+transform = Transform3D(0.6050908, 0, 0.80147505, 0, 1.0042396, 0, -0.80147505, 0, 0.6050908, 12.6534605, 4.7683716e-07, -10.613997)
 
 [node name="HauntedTree78" parent="NavigationRegion3D/Trees" unique_id=1399049816 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8661538, 0, 0.45714095, 0, 0.9793877, 0, -0.45714095, 0, -0.8661538, 12.6534605, 4.7683716e-07, -9.613997)
+transform = Transform3D(-0.8537581, 0, -0.38747886, 0, 0.9375728, 0, 0.38747886, 0, -0.8537581, 12.6534605, 4.7683716e-07, -9.613997)
 
 [node name="HauntedTree80" parent="NavigationRegion3D/Trees" unique_id=123998941 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8551514, 0, 0.38329828, 0, 0.9371241, 0, -0.38329828, 0, -0.8551514, 11.6534605, 4.7683716e-07, -8.613997)
+transform = Transform3D(0.84867275, 0, 0.39027047, 0, 0.9341073, 0, -0.39027047, 0, 0.84867275, 11.6534605, 4.7683716e-07, -8.613997)
 
 [node name="HauntedTree81" parent="NavigationRegion3D/Trees" unique_id=1675987558 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.6362623, 0, -0.856872, 0, 1.0672673, 0, 0.856872, 0, -0.6362623, 11.6534605, 4.7683716e-07, -9.613997)
+transform = Transform3D(-0.9122641, 0, 0.381113, 0, 0.98867226, 0, -0.381113, 0, -0.9122641, 11.6534605, 4.7683716e-07, -9.613997)
 
 [node name="HauntedTree82" parent="NavigationRegion3D/Trees" unique_id=989352581 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.95693034, 0, -0.13304795, 0, 0.9661353, 0, 0.13304795, 0, -0.95693034, 12.6534605, 4.7683716e-07, -8.613997)
+transform = Transform3D(-0.51549035, 0, -0.8581215, 0, 1.0010508, 0, 0.8581215, 0, -0.51549035, 12.6534605, 4.7683716e-07, -8.613997)
 
 [node name="HauntedTree83" parent="NavigationRegion3D/Trees" unique_id=766657738 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8132134, 0, -0.47414753, 0, 0.9413458, 0, 0.47414753, 0, -0.8132134, 10.6534605, 4.7683716e-07, -7.6139975)
+transform = Transform3D(0.71487856, 0, 0.6899855, 0, 0.9935449, 0, -0.6899855, 0, 0.71487856, 10.6534605, 4.7683716e-07, -7.6139975)
 
 [node name="HauntedTree84" parent="NavigationRegion3D/Trees" unique_id=1345515153 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.69998837, 0, 0.7487105, 0, 1.024964, 0, -0.7487105, 0, 0.69998837, 11.6534605, 4.7683716e-07, -6.6139975)
+transform = Transform3D(0.97635543, 0, 0.44376767, 0, 1.0724736, 0, -0.44376767, 0, 0.97635543, 11.6534605, 4.7683716e-07, -6.6139975)
 
 [node name="HauntedTree85" parent="NavigationRegion3D/Trees" unique_id=1846246006 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(1.0883656, 0, 0.01124884, 0, 1.0884237, 0, -0.01124884, 0, 1.0883656, 10.6534605, 4.7683716e-07, -5.6139975)
+transform = Transform3D(0.709464, 0, 0.5955706, 0, 0.9263064, 0, -0.5955706, 0, 0.709464, 10.6534605, 4.7683716e-07, -5.6139975)
 
 [node name="HauntedTree86" parent="NavigationRegion3D/Trees" unique_id=1017509889 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9309303, 0, 0.015468076, 0, 0.93105876, 0, -0.015468076, 0, 0.9309303, 11.6534605, 4.7683716e-07, -4.6139975)
+transform = Transform3D(-1.0656964, 0, -0.11654914, 0, 1.0720506, 0, 0.11654914, 0, -1.0656964, 11.6534605, 4.7683716e-07, -4.6139975)
 
 [node name="HauntedTree87" parent="NavigationRegion3D/Trees" unique_id=1537256679 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.29459158, 0, -1.0152172, 0, 1.0570952, 0, 1.0152172, 0, -0.29459158, 10.6534605, 4.7683716e-07, -3.6139975)
+transform = Transform3D(-0.86153865, 0, 0.5479362, 0, 1.0210205, 0, -0.5479362, 0, -0.86153865, 10.6534605, 4.7683716e-07, -3.6139975)
 
 [node name="HauntedTree88" parent="NavigationRegion3D/Trees" unique_id=308633123 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.9498035, 0, 0.48387527, 0, 1.0659559, 0, -0.48387527, 0, -0.9498035, 9.6534605, 4.7683716e-07, -2.6139975)
+transform = Transform3D(0.2819922, 0, 1.0568674, 0, 1.0938411, 0, -1.0568674, 0, 0.2819922, 9.6534605, 4.7683716e-07, -2.6139975)
 
 [node name="HauntedTree89" parent="NavigationRegion3D/Trees" unique_id=1946037780 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8308089, 0, -0.5368194, 0, 0.9891504, 0, 0.5368194, 0, -0.8308089, 9.6534605, 4.7683716e-07, -1.6139975)
+transform = Transform3D(0.75027, 0, 0.6263573, 0, 0.9773579, 0, -0.6263573, 0, 0.75027, 9.6534605, 4.7683716e-07, -1.6139975)
 
 [node name="HauntedTree90" parent="NavigationRegion3D/Trees" unique_id=709020222 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.2261004, 0, -0.98355997, 0, 1.0092133, 0, 0.98355997, 0, 0.2261004, 8.6534605, 4.7683716e-07, -0.61399746)
+transform = Transform3D(-0.088709585, 0, 0.9152947, 0, 0.9195835, 0, -0.9152947, 0, -0.088709585, 8.6534605, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree91" parent="NavigationRegion3D/Trees" unique_id=986887232 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.3967326, 0, -0.820533, 0, 0.9114116, 0, 0.820533, 0, 0.3967326, 9.6534605, 4.7683716e-07, 0.38600254)
+transform = Transform3D(-0.64281803, 0, 0.70130694, 0, 0.9513393, 0, -0.70130694, 0, -0.64281803, 9.6534605, 4.7683716e-07, 0.38600254)
 
 [node name="HauntedTree92" parent="NavigationRegion3D/Trees" unique_id=2113894604 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.3875324, 0, 0.90049016, 0, 0.9803387, 0, -0.90049016, 0, 0.3875324, 10.6534605, 4.7683716e-07, -0.61399746)
+transform = Transform3D(-0.8206396, 0, 0.6204957, 0, 1.0288169, 0, -0.6204957, 0, -0.8206396, 10.6534605, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree93" parent="NavigationRegion3D/Trees" unique_id=670668546 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.41034982, 0, 0.91451675, 0, 1.0023612, 0, -0.91451675, 0, -0.41034982, 11.6534605, 4.7683716e-07, -1.6139975)
+transform = Transform3D(-1.0418038, 0, 0.29683504, 0, 1.0832665, 0, -0.29683504, 0, -1.0418038, 11.6534605, 4.7683716e-07, -1.6139975)
 
 [node name="HauntedTree94" parent="NavigationRegion3D/Trees" unique_id=324768092 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.27321598, 0, -0.8661366, 0, 0.9082068, 0, 0.8661366, 0, 0.27321598, 11.6534605, 4.7683716e-07, -2.6139975)
+transform = Transform3D(0.9336687, 0, -0.35620055, 0, 0.99930775, 0, 0.35620055, 0, 0.9336687, 11.6534605, 4.7683716e-07, -2.6139975)
 
 [node name="HauntedTree95" parent="NavigationRegion3D/Trees" unique_id=972967659 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.9461512, 0, 0.06412941, 0, 0.948322, 0, -0.06412941, 0, -0.9461512, 10.6534605, 4.7683716e-07, -4.6139975)
+transform = Transform3D(-1.0644377, 0, -0.09848945, 0, 1.0689845, 0, 0.09848945, 0, -1.0644377, 10.6534605, 4.7683716e-07, -4.6139975)
 
 [node name="HauntedTree21" parent="NavigationRegion3D/Trees" unique_id=794252721 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.7250369, 0, 0.5543487, 0, 0.91267794, 0, -0.5543487, 0, 0.7250369, -2.3465393, 4.7683716e-07, -1.6139975)
+transform = Transform3D(-0.29378006, 0, -1.0480283, 0, 1.0884255, 0, 1.0480283, 0, -0.29378006, -2.3465393, 4.7683716e-07, -1.6139975)
 
 [node name="HauntedTree22" parent="NavigationRegion3D/Trees" unique_id=1980528386 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.3963117, 0, -1.0209148, 0, 1.0951393, 0, 1.0209148, 0, -0.3963117, -3.3465393, 4.7683716e-07, -0.61399746)
+transform = Transform3D(0.13954131, 0, 0.98772466, 0, 0.99753284, 0, -0.98772466, 0, 0.13954131, -3.3465393, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree23" parent="NavigationRegion3D/Trees" unique_id=667255572 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.5490405, 0, -0.7603231, 0, 0.93783617, 0, 0.7603231, 0, 0.5490405, -3.0491304, 4.7683716e-07, -2.6139975)
+transform = Transform3D(1.024945, 0, -0.37242997, 0, 1.0905119, 0, 0.37242997, 0, 1.024945, -3.0491304, 4.7683716e-07, -2.6139975)
 
 [node name="HauntedTree24" parent="NavigationRegion3D/Trees" unique_id=1464145621 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(1.0937638, 0, -0.026741732, 0, 1.0940907, 0, 0.026741732, 0, 1.0937638, -2.3465395, 4.7683716e-07, -3.6139975)
+transform = Transform3D(0.11503204, 0, 1.0929494, 0, 1.0989863, 0, -1.0929494, 0, 0.11503204, -2.3465395, 4.7683716e-07, -3.6139975)
 
 [node name="HauntedTree25" parent="NavigationRegion3D/Trees" unique_id=1564897167 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.6056577, 0, 0.70613843, 0, 0.93029714, 0, -0.70613843, 0, 0.6056577, -2.3465395, 4.7683716e-07, -5.6139975)
+transform = Transform3D(0.027784195, 0, 0.9973028, 0, 0.9976897, 0, -0.9973028, 0, 0.027784195, -2.3465395, 4.7683716e-07, -5.6139975)
 
 [node name="HauntedTree47" parent="NavigationRegion3D/Trees" unique_id=1083547190 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.21048333, 0, 1.0374691, 0, 1.0586054, 0, -1.0374691, 0, -0.21048333, -2.3465395, 4.7683716e-07, -4.6139975)
+transform = Transform3D(-0.44995138, 0, -0.82391155, 0, 0.93876857, 0, 0.82391155, 0, -0.44995138, -2.3465395, 4.7683716e-07, -4.6139975)
 
 [node name="HauntedTree119" parent="NavigationRegion3D/Trees" unique_id=2009350262 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.5479831, 0, 0.8744281, 0, 1.0319448, 0, -0.8744281, 0, -0.5479831, -2.3465395, 4.7683716e-07, -6.6139975)
+transform = Transform3D(0.64396197, 0, 0.8394189, 0, 1.0579749, 0, -0.8394189, 0, 0.64396197, -2.3465395, 4.7683716e-07, -6.6139975)
 
 [node name="HauntedTree120" parent="NavigationRegion3D/Trees" unique_id=555778672 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-1.0812396, 0, -0.03586789, 0, 1.0818343, 0, 0.03586789, 0, -1.0812396, -4.3465395, 4.7683716e-07, -0.61399746)
+transform = Transform3D(0.91151875, 0, -0.23806344, 0, 0.94209373, 0, 0.23806344, 0, 0.91151875, -4.3465395, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree122" parent="NavigationRegion3D/Trees" unique_id=1484934007 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8944828, 0, 0.59964824, 0, 1.0768832, 0, -0.59964824, 0, -0.8944828, -5.3465395, 4.7683716e-07, -0.61399746)
+transform = Transform3D(0.9976145, 0, 0.24202007, 0, 1.0265517, 0, -0.24202007, 0, 0.9976145, -5.3465395, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree26" parent="NavigationRegion3D/Trees" unique_id=658494557 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.9319817, 0, 0.037709005, 0, 0.93274426, 0, -0.037709005, 0, -0.9319817, -2.3465395, 4.7683716e-07, -0.61399746)
+transform = Transform3D(-0.46213925, 0, 0.8347749, 0, 0.9541603, 0, -0.8347749, 0, -0.46213925, -2.3465395, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree29" parent="NavigationRegion3D/Trees" unique_id=560734444 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.6707423, 0, -0.71602184, 0, 0.98111284, 0, 0.71602184, 0, -0.6707423, -9.3465395, 4.7683716e-07, -1.6139975)
+transform = Transform3D(0.92457914, 0, 0.3601297, 0, 0.9922399, 0, -0.3601297, 0, 0.92457914, -9.3465395, 4.7683716e-07, -1.6139975)
 
 [node name="HauntedTree30" parent="NavigationRegion3D/Trees" unique_id=65008027 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.701609, 0, -0.8391818, 0, 1.0938379, 0, 0.8391818, 0, -0.701609, -9.3465395, 4.7683716e-07, 0.38600254)
+transform = Transform3D(-0.900677, 0, -0.47829506, 0, 1.0197967, 0, 0.47829506, 0, -0.900677, -9.3465395, 4.7683716e-07, 0.38600254)
 
 [node name="HauntedTree31" parent="NavigationRegion3D/Trees" unique_id=388992425 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.15603755, 0, 1.0433912, 0, 1.0549943, 0, -1.0433912, 0, 0.15603755, -10.3465395, 4.7683716e-07, -0.61399746)
+transform = Transform3D(-0.58585286, 0, 0.7884257, 0, 0.982262, 0, -0.7884257, 0, -0.58585286, -10.3465395, 4.7683716e-07, -0.61399746)
 
 [node name="HauntedTree32" parent="NavigationRegion3D/Trees" unique_id=729901054 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.30564442, 0, 1.0277089, 0, 1.0721959, 0, -1.0277089, 0, 0.30564442, -10.3465395, 4.7683716e-07, -2.6139975)
+transform = Transform3D(0.9447322, 0, 0.19824216, 0, 0.96530765, 0, -0.19824216, 0, 0.9447322, -10.3465395, 4.7683716e-07, -2.6139975)
 
 [node name="HauntedTree33" parent="NavigationRegion3D/Trees" unique_id=423571536 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.335368, 0, 0.96270615, 0, 1.0194483, 0, -0.96270615, 0, 0.335368, -9.3465395, 4.7683716e-07, -2.6139975)
+transform = Transform3D(-0.033504404, 0, 0.9531087, 0, 0.9536974, 0, -0.9531087, 0, -0.033504404, -9.3465395, 4.7683716e-07, -2.6139975)
 
 [node name="HauntedTree34" parent="NavigationRegion3D/Trees" unique_id=778787832 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.3111599, 0, 0.9564534, 0, 1.005795, 0, -0.9564534, 0, -0.3111599, -9.3465395, 4.7683716e-07, -4.6139975)
+transform = Transform3D(1.0401969, 0, 0.26948193, 0, 1.0745372, 0, -0.26948193, 0, 1.0401969, -9.3465395, 4.7683716e-07, -4.6139975)
 
 [node name="HauntedTree35" parent="NavigationRegion3D/Trees" unique_id=1045782081 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.42075282, 0, 1.0051435, 0, 1.0896542, 0, -1.0051435, 0, 0.42075282, -9.3465395, 4.7683716e-07, -3.6139975)
+transform = Transform3D(0.9214665, 0, -0.47977495, 0, 1.0388862, 0, 0.47977495, 0, 0.9214665, -9.3465395, 4.7683716e-07, -3.6139975)
 
 [node name="HauntedTree42" parent="NavigationRegion3D/Trees" unique_id=280254974 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.9168493, 0, -0.31600624, 0, 0.9697797, 0, 0.31600624, 0, -0.9168493, 7.6534605, 4.7683716e-07, -11.613997)
+transform = Transform3D(-1.0014493, 0, 0.18975468, 0, 1.0192682, 0, -0.18975468, 0, -1.0014493, 7.6534605, 4.7683716e-07, -11.613997)
 
 [node name="HauntedTree45" parent="NavigationRegion3D/Trees" unique_id=645026389 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.46994948, 0, 0.975773, 0, 1.0830445, 0, -0.975773, 0, -0.46994948, 7.6534605, 4.7683716e-07, -10.613997)
+transform = Transform3D(-0.059078958, 0, 0.9586061, 0, 0.96042496, 0, -0.9586061, 0, -0.059078958, 7.6534605, 4.7683716e-07, -10.613997)
 
 [node name="HauntedTree48" parent="NavigationRegion3D/Trees" unique_id=795312814 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.25900897, 0, 0.97416586, 0, 1.0080103, 0, -0.97416586, 0, -0.25900897, 6.6534605, 4.7683716e-07, -11.613997)
+transform = Transform3D(0.4372202, 0, -0.97855335, 0, 1.0717874, 0, 0.97855335, 0, 0.4372202, 6.6534605, 4.7683716e-07, -11.613997)
 
 [node name="HauntedTree49" parent="NavigationRegion3D/Trees" unique_id=1973744986 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.0050753364, 0, 1.0765421, 0, 1.0765541, 0, -1.0765421, 0, 0.0050753364, 4.6534605, 4.7683716e-07, -11.613997)
+transform = Transform3D(-0.87285864, 0, -0.5005817, 0, 1.0062128, 0, 0.5005817, 0, -0.87285864, 4.6534605, 4.7683716e-07, -11.613997)
 
 [node name="HauntedTree50" parent="NavigationRegion3D/Trees" unique_id=261014530 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.3315948, 0, -0.9847984, 0, 1.039126, 0, 0.9847984, 0, 0.3315948, 5.6534605, 4.7683716e-07, -10.613997)
+transform = Transform3D(0.29403558, 0, -1.0181152, 0, 1.0597242, 0, 1.0181152, 0, 0.29403558, 5.6534605, 4.7683716e-07, -10.613997)
 
 [node name="HauntedTree51" parent="NavigationRegion3D/Trees" unique_id=547162707 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.014576266, 0, -0.96371937, 0, 0.96382964, 0, 0.96371937, 0, 0.014576266, 4.6534605, 4.7683716e-07, -10.613997)
+transform = Transform3D(1.0563433, 0, 0.059027296, 0, 1.0579913, 0, -0.059027296, 0, 1.0563433, 4.6534605, 4.7683716e-07, -10.613997)
 
 [node name="HauntedTree52" parent="NavigationRegion3D/Trees" unique_id=604471458 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.2782127, 0, 0.9910148, 0, 1.0293263, 0, -0.9910148, 0, 0.2782127, 3.6534605, 4.7683716e-07, -11.613997)
+transform = Transform3D(0.8007711, 0, 0.5865999, 0, 0.99263984, 0, -0.5865999, 0, 0.8007711, 3.6534605, 4.7683716e-07, -11.613997)
 
 [node name="HauntedTree53" parent="NavigationRegion3D/Trees" unique_id=531576603 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.8115084, 0, 0.42871326, 0, 0.91779137, 0, -0.42871326, 0, -0.8115084, 2.6534605, 4.7683716e-07, -11.613997)
+transform = Transform3D(-0.013671932, 0, -1.0183066, 0, 1.0183984, 0, 1.0183066, 0, -0.013671932, 2.6534605, 4.7683716e-07, -11.613997)
 
 [node name="HauntedTree54" parent="NavigationRegion3D/Trees" unique_id=1913688028 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.66387814, 0, 0.7983035, 0, 1.0382787, 0, -0.7983035, 0, 0.66387814, 3.536849, 4.7683716e-07, -10.051275)
+transform = Transform3D(1.0076128, 0, 0.21798396, 0, 1.0309222, 0, -0.21798396, 0, 1.0076128, 3.536849, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree55" parent="NavigationRegion3D/Trees" unique_id=1371924766 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.15493166, 0, -0.9418151, 0, 0.9544734, 0, 0.9418151, 0, -0.15493166, 2.536849, 4.7683716e-07, -10.051275)
+transform = Transform3D(-0.76139724, 0, 0.5235687, 0, 0.92404, 0, -0.5235687, 0, -0.76139724, 2.536849, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree56" parent="NavigationRegion3D/Trees" unique_id=1862529484 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.80943674, 0, 0.42486197, 0, 0.9141638, 0, -0.42486197, 0, -0.80943674, 1.536849, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.5198279, 0, 0.9435048, 0, 1.077229, 0, -0.9435048, 0, -0.5198279, 1.536849, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree57" parent="NavigationRegion3D/Trees" unique_id=2111765162 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.877293, 0, -0.5408621, 0, 1.0306187, 0, 0.5408621, 0, -0.877293, 1.536849, 4.7683716e-07, -12.051275)
+transform = Transform3D(1.0025192, 0, -0.3320736, 0, 1.0560861, 0, 0.3320736, 0, 1.0025192, 1.536849, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree58" parent="NavigationRegion3D/Trees" unique_id=2117343757 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.13132426, 0, 1.0153755, 0, 1.0238327, 0, -1.0153755, 0, 0.13132426, 0.536849, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.56500655, 0, -0.91166246, 0, 1.0725487, 0, 0.91166246, 0, -0.56500655, 0.536849, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree59" parent="NavigationRegion3D/Trees" unique_id=2073624757 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.26301098, 0, -1.0582085, 0, 1.0904036, 0, 1.0582085, 0, -0.26301098, -0.46315098, 4.7683716e-07, -12.051275)
+transform = Transform3D(0.8418295, 0, 0.70704424, 0, 1.0993582, 0, -0.70704424, 0, 0.8418295, -0.46315098, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree60" parent="NavigationRegion3D/Trees" unique_id=1339358052 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.09175711, 0, -0.9527536, 0, 0.95716184, 0, 0.9527536, 0, 0.09175711, -0.46315098, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.060146052, 0, 0.9017808, 0, 0.90378433, 0, -0.9017808, 0, -0.060146052, -0.46315098, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree61" parent="NavigationRegion3D/Trees" unique_id=1123220913 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.78024656, 0, -0.46804872, 0, 0.909865, 0, 0.46804872, 0, -0.78024656, -1.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.5978737, 0, 0.8324064, 0, 1.0248675, 0, -0.8324064, 0, 0.5978737, -1.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree62" parent="NavigationRegion3D/Trees" unique_id=1015999920 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.608552, 0, 0.82925403, 0, 1.0285902, 0, -0.82925403, 0, -0.608552, -2.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.76611936, 0, -0.52582955, 0, 0.9292124, 0, 0.52582955, 0, -0.76611936, -2.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree63" parent="NavigationRegion3D/Trees" unique_id=1586849061 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.1624695, 0, 1.0397907, 0, 1.0524073, 0, -1.0397907, 0, -0.1624695, -3.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.34995142, 0, 0.8310857, 0, 0.901759, 0, -0.8310857, 0, -0.34995142, -3.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree64" parent="NavigationRegion3D/Trees" unique_id=1286636186 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.3917502, 0, -0.9206037, 0, 1.0004896, 0, 0.9206037, 0, 0.3917502, -4.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.949675, 0, -0.42535126, 0, 1.0405798, 0, 0.42535126, 0, 0.949675, -4.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree65" parent="NavigationRegion3D/Trees" unique_id=161744087 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.919389, 0, -0.31402114, 0, 0.97153765, 0, 0.31402114, 0, -0.919389, -5.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.6394589, 0, -0.79742867, 0, 1.0221547, 0, 0.79742867, 0, 0.6394589, -5.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree66" parent="NavigationRegion3D/Trees" unique_id=1133994303 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.6221689, 0, -0.86128485, 0, 1.0624998, 0, 0.86128485, 0, -0.6221689, -6.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.90409386, 0, -0.15359257, 0, 0.9170476, 0, 0.15359257, 0, -0.90409386, -6.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree67" parent="NavigationRegion3D/Trees" unique_id=1423090948 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.5401045, 0, -0.8788029, 0, 1.0315074, 0, 0.8788029, 0, 0.5401045, -7.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.8089437, 0, -0.4078561, 0, 0.90594506, 0, 0.4078561, 0, 0.8089437, -7.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree68" parent="NavigationRegion3D/Trees" unique_id=1351942048 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.13453358, 0, 1.0599105, 0, 1.0684146, 0, -1.0599105, 0, 0.13453358, -8.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.22101235, 0, -1.0108635, 0, 1.0347422, 0, 1.0108635, 0, 0.22101235, -8.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree69" parent="NavigationRegion3D/Trees" unique_id=839905548 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.52199244, -1.938288e-08, 0.90315723, 2.1360437e-08, 1.0431534, 1.0041806e-08, -0.90315723, 1.3468858e-08, 0.52199244, -9.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.64011484, -5.4490346e-09, -0.79556936, 2.090918e-08, 1.0211159, 9.829665e-09, 0.79556936, -2.2452706e-08, 0.64011484, -9.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree70" parent="NavigationRegion3D/Trees" unique_id=2046623883 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.4693928, -1.9826187e-09, -0.79251313, 1.8860971e-08, 0.92108995, 8.866774e-09, 0.79251313, -2.0746691e-08, 0.4693928, -5.463151, 4.7683716e-07, -12.051275)
+transform = Transform3D(-0.40991166, 1.808346e-08, -1.0065852, 2.2255193e-08, 1.0868493, 1.0462436e-08, 1.0065852, -1.6665673e-08, -0.40991166, -5.463151, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree71" parent="NavigationRegion3D/Trees" unique_id=1934831495 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.41360107, 1.6241302e-08, -0.8073717, 1.8575452e-08, 0.9071466, 8.732551e-09, 0.8073717, -1.2550895e-08, -0.41360107, -3.463151, 4.7683716e-07, -12.051275)
+transform = Transform3D(-0.88154525, 2.3530202e-08, -0.5691629, 2.1486668e-08, 1.0493181, 1.0101146e-08, 0.5691629, -3.1685317e-09, -0.88154525, -3.463151, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree73" parent="NavigationRegion3D/Trees" unique_id=94195984 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.36071628, 1.5771896e-08, -0.8711019, 1.9306208e-08, 0.94283336, 9.076098e-09, 0.8711019, -1.4364975e-08, -0.36071628, -4.463151, 4.7683716e-07, -10.051275)
+transform = Transform3D(0.96735066, -2.0967441e-08, 0.12041846, 1.9961128e-08, 0.97481686, 9.383983e-09, -0.12041846, -6.846326e-09, 0.96735066, -4.463151, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree75" parent="NavigationRegion3D/Trees" unique_id=1714523406 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.4484068, -1.0757308e-09, -0.84208125, 1.9535435e-08, 0.954028, 9.183845e-09, 0.84208125, -2.1559662e-08, 0.4484068, -7.463151, 4.7683716e-07, -10.051275)
+transform = Transform3D(-0.032599855, 1.0408274e-08, -1.0118779, 2.0730765e-08, 1.0124029, 9.745787e-09, 1.0118779, -2.0406196e-08, -0.032599855, -7.463151, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree76" parent="NavigationRegion3D/Trees" unique_id=19250663 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.8280031, -1.1481952e-08, -0.56853, 2.0566851e-08, 1.0043981, 9.668735e-09, 0.56853, -1.9612358e-08, 0.8280031, -7.463151, 4.7683716e-07, -12.051275)
+transform = Transform3D(-0.93624157, 1.8376342e-08, 0.08257309, 1.9245642e-08, 0.93987584, 9.047617e-09, -0.08257309, 1.0703465e-08, -0.93624157, -7.463151, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree79" parent="NavigationRegion3D/Trees" unique_id=1029121548 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.83145607, -2.3833858e-08, 0.7072529, 2.2351863e-08, 1.0915704, 1.0507895e-08, -0.7072529, 6.4783428e-09, 0.83145607, -10.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.09517617, -1.1736668e-08, 1.0167625, 2.0911056e-08, 1.0212073, 9.830552e-09, -1.0167625, 1.9903835e-08, 0.09517617, -10.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree104" parent="NavigationRegion3D/Trees" unique_id=319375187 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.34546947, -1.2075995e-09, 0.8603118, 1.8983714e-08, 0.92708445, 8.924486e-09, -0.8603118, 2.0942052e-08, -0.34546947, -11.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.78328127, -1.0810829e-08, -0.5431166, 1.9517561e-08, 0.9531554, 9.175453e-09, 0.5431166, -1.8661462e-08, 0.78328127, -11.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree105" parent="NavigationRegion3D/Trees" unique_id=130256879 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.09472857, 7.489941e-09, -0.97956413, 2.0151907e-08, 0.98413384, 9.473669e-09, 0.97956413, -2.097023e-08, 0.09472857, -12.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.9084078, -1.7762034e-08, -0.087181844, 1.8686752e-08, 0.91258174, 8.7848795e-09, 0.087181844, -1.0529905e-08, 0.9084078, -12.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree106" parent="NavigationRegion3D/Trees" unique_id=908975475 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9387434, -2.3038046e-08, 0.39636803, 2.086571e-08, 1.018993, 9.809222e-09, -0.39636803, -9.203619e-10, 0.9387434, -13.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.87227064, 1.4398121e-08, 0.35975975, 1.9320844e-08, 0.9435482, 9.082962e-09, -0.35975975, 1.5763543e-08, -0.87227064, -13.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree107" parent="NavigationRegion3D/Trees" unique_id=442207980 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.22252882, 4.4282924e-09, -0.9333685, 1.9648077e-08, 0.959529, 9.2368e-09, 0.9333685, -2.1254543e-08, 0.22252882, -14.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.61530375, 6.1273515e-09, 0.67232853, 1.8662261e-08, 0.91138595, 8.7733545e-09, -0.67232853, 1.9690283e-08, -0.61530375, -14.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree108" parent="NavigationRegion3D/Trees" unique_id=677179331 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.54602927, 1.8642796e-08, 0.7639334, 1.5453862e-08, 0.9390113, -1.1869534e-08, -0.7639334, 5.6704414e-09, -0.54602927, -14.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.22700377, -1.6923225e-08, -1.0432606, 1.7571306e-08, 1.0676719, -1.3495861e-08, 1.0432606, -1.4300122e-08, 0.22700377, -14.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree109" parent="NavigationRegion3D/Trees" unique_id=719942125 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(1.0017685, -1.9049988e-08, -0.2027847, 1.682109e-08, 1.022087, -1.2919652e-08, 0.2027847, 9.325468e-09, 1.0017685, -15.463151, 4.7683716e-07, -11.051275)
+transform = Transform3D(0.87202305, -7.978544e-09, 0.5041634, 1.6577339e-08, 1.0072759, -1.2732434e-08, -0.5041634, 1.932009e-08, 0.87202305, -15.463151, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree110" parent="NavigationRegion3D/Trees" unique_id=1500919821 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.3612237, -1.7475518e-08, -0.9122029, 1.614687e-08, 0.9811201, -1.2401794e-08, 0.9122029, -1.044663e-08, 0.3612237, -16.46315, 4.7683716e-07, -11.051275)
+transform = Transform3D(-0.7288517, 2.1324722e-08, 0.7380741, 1.707135e-08, 1.0372937, -1.311185e-08, -0.7380741, 2.9339116e-09, -0.7288517, -16.46315, 4.7683716e-07, -11.051275)
 
 [node name="HauntedTree111" parent="NavigationRegion3D/Trees" unique_id=691298019 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.11674008, 1.0531411e-08, 0.9851446, 1.6326538e-08, 0.9920374, -1.2539799e-08, -0.9851446, 1.7688746e-08, 0.11674008, -15.46315, 4.7683716e-07, -10.051275)
+transform = Transform3D(1.0583227, -1.846345e-08, -0.0827514, 1.7470597e-08, 1.061553, -1.3418506e-08, 0.0827514, 1.2015786e-08, 1.0583227, -15.46315, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree112" parent="NavigationRegion3D/Trees" unique_id=25100064 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.23790948, -1.6541218e-08, -0.99884135, 1.6898387e-08, 1.0267838, -1.2979006e-08, 0.99884135, -1.3431239e-08, 0.23790948, -12.46315, 4.7683716e-07, -10.051275)
+transform = Transform3D(0.8121901, -6.2977477e-09, 0.5592319, 1.6228826e-08, 0.98609996, -1.2464747e-08, -0.5592319, 1.9470056e-08, 0.8121901, -12.46315, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree113" parent="NavigationRegion3D/Trees" unique_id=1439193852 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.79758847, 1.9732154e-08, 0.52259, 1.5693042e-08, 0.95354474, -1.205324e-08, -0.52259, -1.4813135e-09, -0.79758847, -10.46315, 4.7683716e-07, -10.051275)
+transform = Transform3D(0.24163441, 7.575125e-09, 0.9138786, 1.5557085e-08, 0.9452837, -1.1948818e-08, -0.9138786, 1.8094603e-08, 0.24163441, -10.46315, 4.7683716e-07, -10.051275)
 
 [node name="HauntedTree114" parent="NavigationRegion3D/Trees" unique_id=1581319372 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.9040883, 1.4005964e-08, -0.06907557, 1.4922477e-08, 0.90672326, -1.14614e-08, 0.06907557, -1.256491e-08, -0.9040883, -11.46315, 4.7683716e-07, -12.051275)
+transform = Transform3D(-0.20523699, 1.692528e-08, 1.0717627, 1.7959124e-08, 1.0912367, -1.3793736e-08, -1.0717627, 1.5044337e-08, -0.20523699, -11.46315, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree115" parent="NavigationRegion3D/Trees" unique_id=1312379744 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.9139587, 2.147537e-08, 0.5089858, 1.721677e-08, 1.0461296, -1.3223556e-08, -0.5089858, -3.1761767e-09, -0.9139587, -9.46315, 4.7683716e-07, -12.051275)
+transform = Transform3D(0.5018998, 1.5461166e-09, 0.775777, 1.5206432e-08, 0.9239769, -1.1679491e-08, -0.775777, 1.9111662e-08, 0.5018998, -9.46315, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree116" parent="NavigationRegion3D/Trees" unique_id=577567425 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.86152047, 1.8598184e-08, 0.34964204, 1.5301728e-08, 0.92976725, -1.175268e-08, -0.34964204, -5.135744e-09, -0.86152047, -12.46315, 4.7683716e-07, -12.051275)
+transform = Transform3D(-0.2114242, 1.481492e-08, 0.8967549, 1.5163057e-08, 0.9213412, -1.1646169e-08, -0.8967549, 1.2085928e-08, -0.2114242, -12.46315, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree117" parent="NavigationRegion3D/Trees" unique_id=1226369372 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.16706762, -1.4110646e-08, -0.89879006, 1.5045291e-08, 0.9141855, -1.1555722e-08, 0.89879006, -1.26801085e-08, 0.16706762, -14.46315, 4.7683716e-07, -12.051275)
+transform = Transform3D(-0.4422172, -3.9858823e-09, -0.8910844, 1.6371683e-08, 0.99478006, -1.2574472e-08, 0.8910844, -2.0254928e-08, -0.4422172, -14.46315, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree118" parent="NavigationRegion3D/Trees" unique_id=185027066 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.991048, -2.1773804e-08, -0.43222684, 1.7793965e-08, 1.0812012, -1.3666874e-08, 0.43222684, 5.413885e-09, 0.991048, -16.46315, 4.7683716e-07, -12.051275)
+transform = Transform3D(0.63314414, -1.1614114e-09, 0.73245895, 1.5933862e-08, 0.96817744, -1.2238201e-08, -0.73245895, 2.0057733e-08, 0.63314414, -16.46315, 4.7683716e-07, -12.051275)
 
 [node name="HauntedTree36" parent="NavigationRegion3D/Trees" unique_id=1326215436 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.6331042, 0, 0.8684181, 0, 1.0746957, 0, -0.8684181, 0, 0.6331042, -9.596856, 4.7683716e-07, -5.8014183)
+transform = Transform3D(0.72321737, 0, -0.58285415, 0, 0.92885, 0, 0.58285415, 0, 0.72321737, -9.596856, 4.7683716e-07, -5.8014183)
 
 [node name="HauntedTree37" parent="NavigationRegion3D/Trees" unique_id=759089497 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.8960157, 0, -0.37314865, 0, 0.97061014, 0, 0.37314865, 0, 0.8960157, -9.987316, 4.7683716e-07, -4.410959)
+transform = Transform3D(-0.15375847, 0, -0.98955005, 0, 1.0014244, 0, 0.98955005, 0, -0.15375847, -9.987316, 4.7683716e-07, -4.410959)
 
 [node name="HauntedTree38" parent="NavigationRegion3D/Trees" unique_id=2085341411 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-1.0144686, 0, 0.24917549, 0, 1.0446218, 0, -0.24917549, 0, -1.0144686, -9.978241, -0.0076732635, 1.0185432)
+transform = Transform3D(-1.014042, 0, -0.3383229, 0, 1.0689919, 0, 0.3383229, 0, -1.014042, -9.978241, -0.0076732635, 1.0185432)
 
 [node name="HauntedTree6" parent="NavigationRegion3D/Trees" unique_id=1515830155 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.73603284, 0, 0.60854226, 0, 0.9550226, 0, -0.60854226, 0, 0.73603284, 7.8920546, 0, 1.8827113)
+transform = Transform3D(-0.7960568, 0, 0.48128513, 0, 0.93023753, 0, -0.48128513, 0, -0.7960568, 7.8920546, 0, 1.8827113)
 
 [node name="HauntedTree7" parent="NavigationRegion3D/Trees" unique_id=1194742952 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9841328, 0, -0.31300044, 0, 1.0327084, 0, 0.31300044, 0, 0.9841328, 8.892055, 0, 2.8827114)
+transform = Transform3D(0.7400195, 0, -0.5489291, 0, 0.92138594, 0, 0.5489291, 0, 0.7400195, 8.892055, 0, 2.8827114)
 
 [node name="HauntedTree8" parent="NavigationRegion3D/Trees" unique_id=556955234 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.090518996, 0, -0.935443, 0, 0.93981236, 0, 0.935443, 0, -0.090518996, 8.892055, 0, 3.8827114)
+transform = Transform3D(0.9291713, 0, 0.28528064, 0, 0.9719797, 0, -0.28528064, 0, 0.9291713, 8.892055, 0, 3.8827114)
 
 [node name="HauntedTree9" parent="NavigationRegion3D/Trees" unique_id=1152228889 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.4171113, 0, 0.94211787, 0, 1.0303242, 0, -0.94211787, 0, -0.4171113, 8.892055, 0, 5.8827114)
+transform = Transform3D(0.31777012, 0, 0.8977376, 0, 0.95231855, 0, -0.8977376, 0, 0.31777012, 8.892055, 0, 5.8827114)
 
 [node name="HauntedTree10" parent="NavigationRegion3D/Trees" unique_id=2002490630 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.34296995, 0, -0.9230455, 0, 0.9847037, 0, 0.9230455, 0, 0.34296995, 9.892055, 0, 4.8827114)
+transform = Transform3D(-0.90994304, 0, -0.48711166, 0, 1.0321212, 0, 0.48711166, 0, -0.90994304, 9.892055, 0, 4.8827114)
 
 [node name="HauntedTree11" parent="NavigationRegion3D/Trees" unique_id=2052635249 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.034026556, 0, -1.0149993, 0, 1.0155694, 0, 1.0149993, 0, 0.034026556, 8.892055, 0, 6.8827114)
+transform = Transform3D(-0.68316936, 0, -0.8579132, 0, 1.0966929, 0, 0.8579132, 0, -0.68316936, 8.892055, 0, 6.8827114)
 
 [node name="HauntedTree12" parent="NavigationRegion3D/Trees" unique_id=1224951051 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9196521, 0, -0.035594195, 0, 0.92034066, 0, 0.035594195, 0, 0.9196521, 9.892055, 0, 6.8827114)
+transform = Transform3D(-0.9809242, 0, 0.33574435, 0, 1.0367914, 0, -0.33574435, 0, -0.9809242, 9.892055, 0, 6.8827114)
 
 [node name="HauntedTree13" parent="NavigationRegion3D/Trees" unique_id=1226317260 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-0.84607434, 0, 0.52276623, 0, 0.99454826, 0, -0.52276623, 0, -0.84607434, 9.892055, 0, 1.8827114)
+transform = Transform3D(-0.1312444, 0, -0.9180033, 0, 0.9273377, 0, 0.9180033, 0, -0.1312444, 9.892055, 0, 1.8827114)
 
 [node name="HauntedTree97" parent="NavigationRegion3D/Trees" unique_id=825214025 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.629085, 0, -0.7064689, 0, 0.9459631, 0, 0.7064689, 0, 0.629085, 9.892055, 0, 2.8827114)
+transform = Transform3D(0.2475331, 0, 1.0307137, 0, 1.0600204, 0, -1.0307137, 0, 0.2475331, 9.892055, 0, 2.8827114)
 
 [node name="HauntedTree98" parent="NavigationRegion3D/Trees" unique_id=226556293 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.9407477, 0, 0.13744622, 0, 0.95073533, 0, -0.13744622, 0, 0.9407477, 10.892055, 0, 1.8827114)
+transform = Transform3D(-0.8138297, 0, 0.73346806, 0, 1.0955794, 0, -0.73346806, 0, -0.8138297, 10.892055, 0, 1.8827114)
 
 [node name="HauntedTree99" parent="NavigationRegion3D/Trees" unique_id=505761356 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.6420753, 0, -0.8767651, 0, 1.086728, 0, 0.8767651, 0, 0.6420753, 10.892055, 0, 3.8827114)
+transform = Transform3D(-0.5840329, 0, -0.750178, 0, 0.95071626, 0, 0.750178, 0, -0.5840329, 10.892055, 0, 3.8827114)
 
 [node name="HauntedTree96" parent="NavigationRegion3D/Trees" unique_id=1029369100 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(0.5840306, 0, 0.8577897, 0, 1.0377355, 0, -0.8577897, 0, 0.5840306, 11.201743, 0, 0.6276734)
+transform = Transform3D(-0.70078695, 0, -0.6316939, 0, 0.9434721, 0, 0.6316939, 0, -0.70078695, 11.201743, 0, 0.6276734)
 
 [node name="HauntedTree14" parent="NavigationRegion3D/Trees" unique_id=2144732770 instance=ExtResource("14_k5xw1")]
-transform = Transform3D(-1.0208192, 0, 0.20769253, 0, 1.0417331, 0, -0.20769253, 0, -1.0208192, 7.8920546, 0, -0.11728859)
+transform = Transform3D(0.736053, 0, 0.73748165, 0, 1.0419468, 0, -0.73748165, 0, 0.736053, 7.8920546, 0, -0.11728859)
 
 [node name="Storage" parent="NavigationRegion3D" unique_id=168559661 instance=ExtResource("20_21t6r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5445728, 0, 1.1288111)
@@ -778,8 +778,8 @@ metadata/_custom_type_script = "uid://byss77ynwhvcc"
 [node name="WaveManager" parent="." unique_id=1521507309 node_paths=PackedStringArray("obstacle_manager", "paths") instance=ExtResource("20_1xm63")]
 obstacle_manager = NodePath("../ObstacleManager")
 max_wave = 10
-start_enemy_value = 8
-enemy_value_increase = 2.5
+start_enemy_value = 4
+enemy_value_increase = 1.4
 paths = [NodePath("../FirstPaths/Path3D"), NodePath("../FirstPaths/Path3D2"), NodePath("../SecondPaths/Path3D"), NodePath("../SecondPaths/Path3D2")]
 
 [node name="ObstacleManager" type="Node" parent="." unique_id=1081719382 node_paths=PackedStringArray("obstacles", "activation_timer")]

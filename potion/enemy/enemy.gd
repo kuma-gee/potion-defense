@@ -54,6 +54,7 @@ func _on_attack_finished(_anim: String):
 
 func _died():
 	died()
+	freeze_timer.stop()
 	collision_shape_3d.set_deferred("disabled", true)
 	var soul = soul_spawner.spawn()
 	soul.amount = souls
@@ -112,10 +113,8 @@ func _move_to_target():
 			var collider = collision.get_collider(i)
 			if collider is WaterCurrent:
 				var current: WaterCurrent = collider as WaterCurrent
-				var spawn = current.get_closest_spawn(global_position)
-				if spawn:
-					global_position = spawn.global_transform.origin
-					animation_tree.spawn()
+				current.spawn_new_for(global_position)
+				queue_free()
 				break
 
 func _update_navigation_target():

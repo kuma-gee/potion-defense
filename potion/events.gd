@@ -33,6 +33,7 @@ var golem_upgrades: Dictionary[GolemResource, Array] = {}
 
 # Debug variables
 var enemy_move_speed_multipler = 1.0
+var show_dmg_labels := false
 
 var logger = KumaLog.new("Events")
 

@@ -19,7 +19,7 @@ signal all_waves_completed()
 @export var max_wave := 0
 @export var start_enemy_value := 0
 @export var enemy_value_increase: float = 0.0
-@export var spawn_interval := 5.0
+@export var spawn_interval := 8.0
 @export var paths: Array[Path3D] = []
 
 var is_wave_active: bool = false
@@ -120,7 +120,7 @@ func _spawn_enemy_from_budget() -> bool:
 		return false
 
 	var enemy_res: EnemyResource = affordable_enemies[randi() % affordable_enemies.size()]
-	_spawn_enemy(enemy_res, path)
+	spawn_and_complete(enemy_res, path)
 	remaining_enemy_value_budget -= _get_enemy_value(enemy_res)
 	print("Spawned enemy (Wave %d) - remaining budget %.2f" % [wave, remaining_enemy_value_budget])
 	return true
@@ -143,7 +143,7 @@ func _can_spawn_any_enemy() -> bool:
 
 	return false
 
-func _spawn_enemy(enemy_res: EnemyResource, path: Path3D) -> void:
+func spawn_enemy(enemy_res: EnemyResource, path: Path3D) -> void:
 	var enemy_scene: PackedScene = enemy_res.scene
 	var enemy: Node3D = enemy_scene.instantiate() as Node3D
 	enemy.path = path
@@ -152,6 +152,8 @@ func _spawn_enemy(enemy_res: EnemyResource, path: Path3D) -> void:
 	enemy.tree_exited.connect(func(): _on_enemy_removed())
 	enemy_spawn_root.add_child(enemy)
 
+func spawn_and_complete(enemy_res: EnemyResource, path: Path3D) -> void:
+	spawn_enemy(enemy_res, path)
 	if not _can_spawn_any_enemy():
 		spawn_timer.stop()
 		_on_wave_completed()
