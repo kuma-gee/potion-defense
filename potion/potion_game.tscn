@@ -425,7 +425,6 @@ text = "Back to map"
 
 [node name="Recipe" type="ColorRect" parent="InGameCanvas/Control2/Control" unique_id=1327591186 node_paths=PackedStringArray("open_sound", "close_sound", "ingredient_container", "potion_item", "page_label")]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -2,11 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dc1f5ocm8nays" path="res://potion/items/scenes/mushroom.tscn" id="1_37ng7"]
 [ext_resource type="Script" uid="uid://b8r3wk16v6bq7" path="res://potion/items/item_resource.gd" id="2_u33xt"]
-[ext_resource type="Texture2D" uid="uid://bslxmvutacm16" path="res://assets/sprites/Items_Mushroom.png" id="3_ne1a6"]
+[ext_resource type="Texture2D" uid="uid://c3c42ej1rham0" path="res://assets/sprites/Items_FrostLeafCutted.png" id="3_37ng7"]
 
 [resource]
 script = ExtResource("2_u33xt")
-max_capacity = null
-restore_time = null
-texture = ExtResource("3_ne1a6")
+texture = ExtResource("3_37ng7")
 scene = ExtResource("1_37ng7")

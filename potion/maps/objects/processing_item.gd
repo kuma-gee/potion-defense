@@ -12,7 +12,7 @@ extends RayInteractable
 @onready var overheat_timer: Timer = $OverheatTimer
 @onready var overheat_start_timer: Timer = $OverheatStartTimer
 @onready var item_popup: ItemPopup = $ItemPopup
-@onready var icon: Sprite3D = $Icon
+@onready var icon: SpriteTextureOutlined = $Icon
 @onready var sfx: RandomizedLoopSfx = $Sfx
 @onready var disabled: Sprite3D = $Icon/Disabled
 
@@ -45,6 +45,7 @@ func _ready() -> void:
 	hovered.connect(func(_a: FPSPlayer): disabled.visible = not _can_process() and item != null)
 	overheat_start_timer.timeout.connect(func(): overheat_timer.start())
 	overheat_timer.timeout.connect(func(): _on_overheated())
+	icon.change_texture(ItemResource.PROCESS_ICONS[process])
 
 func _process(delta: float) -> void:
 	if processing:

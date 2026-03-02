@@ -31,23 +31,23 @@ shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
 [node name="Cutter" unique_id=665903306 instance=ExtResource("1_rotk1")]
-process_time = 2.5
+process_time = 2.0
 process = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
 shape = SubResource("BoxShape3D_vv5mg")
 
-[node name="ProcessTimer" parent="." index="1"]
+[node name="ProcessTimer" parent="." index="1" unique_id=1434277504]
 wait_time = 2.0
 
-[node name="Progress" parent="." index="4"]
+[node name="Progress" parent="." index="4" unique_id=419207511]
 texture = SubResource("ViewportTexture_fsw0a")
 
-[node name="ItemPopup" parent="." index="5"]
+[node name="ItemPopup" parent="." index="5" unique_id=176227130]
 texture = SubResource("ViewportTexture_rotk1")
 
-[node name="Icon" parent="." index="6"]
+[node name="Icon" parent="." index="6" unique_id=776994336]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
 material_override = SubResource("ShaderMaterial_hptp3")
 

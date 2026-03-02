@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbeqjyuk1dmun"]
+[gd_scene format=3 uid="uid://dbeqjyuk1dmun"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="1_gsnlu"]
 [ext_resource type="Script" uid="uid://cl2yajtqi8duj" path="res://potion/ui/recipe_item.gd" id="1_yyori"]
 [ext_resource type="Texture2D" uid="uid://boip6hxwy0kgr" path="res://assets/sprites/Action_Crush.png" id="2_yyori"]
+[ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="3_iesxl"]
 
-[node name="RecipeItem" type="VBoxContainer" node_paths=PackedStringArray("base", "action", "main")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8sv8m"]
+shader = ExtResource("3_iesxl")
+shader_parameter/allow_out_of_bounds = false
+shader_parameter/outline_thickness = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+
+[node name="RecipeItem" type="VBoxContainer" unique_id=47533667 node_paths=PackedStringArray("base", "action", "main")]
 size_flags_horizontal = 4
 size_flags_vertical = 8
 alignment = 2
@@ -13,21 +20,21 @@ base = NodePath("PanelContainer2")
 action = NodePath("TextureRect")
 main = NodePath("PanelContainer3")
 
-[node name="PanelContainer2" parent="." instance=ExtResource("1_gsnlu")]
+[node name="PanelContainer2" parent="." unique_id=2014908628 instance=ExtResource("1_gsnlu")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1410403071]
+material = SubResource("ShaderMaterial_8sv8m")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("2_yyori")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PanelContainer3" parent="." instance=ExtResource("1_gsnlu")]
+[node name="PanelContainer3" parent="." unique_id=1168130387 instance=ExtResource("1_gsnlu")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

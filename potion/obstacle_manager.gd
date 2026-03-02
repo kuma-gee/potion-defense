@@ -4,6 +4,7 @@ extends Node
 @export var obstacles: Array[Obstacle] = []
 @export var activation_timer: RandomTimer
 
+var started = false
 var current_obstacle: Obstacle = null
 
 func _ready() -> void:
@@ -11,9 +12,10 @@ func _ready() -> void:
 	
 func start():
 	activation_timer.start_random()
+	started = true
 
 func _on_timer_timeout() -> void:
-	if obstacles.is_empty():
+	if obstacles.is_empty() or not started:
 		return
 
 	var obstacle = obstacles.pick_random()
@@ -21,11 +23,14 @@ func _on_timer_timeout() -> void:
 		current_obstacle = obstacle
 		obstacle.activate()
 		await obstacle.finished
-		activation_timer.start_random()
+		
+		if started:
+			activation_timer.start_random()
 
 func stop():
-	if current_obstacle:
-		current_obstacle.deactivate()
-		current_obstacle = null
+	#if current_obstacle:
+		#current_obstacle.deactivate()
+		#current_obstacle = null
 
+	started = false
 	activation_timer.stop()

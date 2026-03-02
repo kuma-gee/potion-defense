@@ -2,12 +2,12 @@ class_name ItemResource
 extends Resource
 
 const ACTION_CRUSH = preload("uid://boip6hxwy0kgr")
+const ACTION_CUT = preload("uid://dlye127ti2r7p")
+const ACTION_DISTILL = preload("uid://gtgr5oquvp0u")
 
 enum Type {
 	RED_HERB, # Fire Leaf
 	FROST_LEAF, # Frost Leaf
-	MOSS, # Ectoplasma
-
 	CRYSTAL, # Bones
 	CRYSTAL_CRUSHED,
 	RED_HERB_CUTTED,
@@ -31,8 +31,8 @@ enum Process {
 
 const PROCESS_ICONS = {
 	Process.CRUSH: ACTION_CRUSH,
-	Process.CUT: ACTION_CRUSH,
-	Process.DISTILL: ACTION_CRUSH,
+	Process.CUT: ACTION_CUT,
+	Process.DISTILL: ACTION_DISTILL,
 }
 
 const PROCESSES = {

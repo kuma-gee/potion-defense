@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc1f5ocm8nays"]
+[gd_scene format=3 uid="uid://dc1f5ocm8nays"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_d1h2a"]
 [ext_resource type="PackedScene" uid="uid://ip2my5nphldv" path="res://assets/models/mushroom.glb" id="2_arbdb"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://dvyfj0ymwmgc7" path="res://assets/models/mushroom_mushroom.png" id="4_aio5o"]
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="5_xiun4"]
 [ext_resource type="Material" uid="uid://cvveser2snnkw" path="res://potion/basic_shader.tres" id="6_ls868"]
+[ext_resource type="PackedScene" uid="uid://cv3h7itlmf37t" path="res://assets/nature/glTF/Petal_3.gltf" id="7_ocjs7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocjs7"]
+albedo_color = Color(0.1882353, 0.8666667, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiun4"]
 diffuse_mode = 3
@@ -23,7 +27,7 @@ albedo_texture = ExtResource("5_xiun4")
 [sub_resource type="PlaneMesh" id="PlaneMesh_ocjs7"]
 size = Vector2(3, 3)
 
-[node name="Mushroom" type="Area3D" node_paths=PackedStringArray("sprite")]
+[node name="Mushroom" type="Area3D" unique_id=385843563 node_paths=PackedStringArray("sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_d1h2a")
@@ -33,19 +37,26 @@ sound_max_pitch = 0.7
 sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://c1ph2gdxcgu0n"
 
-[node name="mushroom" parent="." instance=ExtResource("2_arbdb")]
+[node name="Petal_32" parent="." unique_id=1045497486 instance=ExtResource("7_ocjs7")]
+
+[node name="Petal_3" parent="Petal_32" index="0"]
+material_override = SubResource("StandardMaterial3D_ocjs7")
+
+[node name="mushroom" parent="." unique_id=1114479453 instance=ExtResource("2_arbdb")]
+visible = false
 
 [node name="Mushroom" parent="mushroom" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_xiun4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=187807847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47291082, 0)
 shape = SubResource("SphereShape3D_arbdb")
 
-[node name="Ring" type="MeshInstance3D" parent="."]
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=350059544]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_ls868")
 mesh = SubResource("PlaneMesh_ocjs7")
 surface_material_override/0 = ExtResource("6_ls868")
 
+[editable path="Petal_32"]
 [editable path="mushroom"]
