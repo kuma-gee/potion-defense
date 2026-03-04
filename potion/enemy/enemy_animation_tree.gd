@@ -14,6 +14,8 @@ func knockback():
 	state = "knockback"
 
 func died():
+	set(ATTACK, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+	set(SPAWN, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 	state = "dead"
 
 func move():

@@ -62,6 +62,7 @@ var death_timer := 0.0:
 var input_id := ""
 var player_num := 0
 var is_frozen: bool = false
+var action_lock_target: Node = null
 var dash_cooldown_timer: float = 0.0
 var dash_duration: float = 0.0
 
@@ -155,6 +156,15 @@ func _ready():
 		
 		if event is InputEventMouseMotion:
 			mouse_position = event.position
+
+		if is_action_locked():
+			if event.is_action_pressed("throw_cancel"):
+				cancel_locked_action()
+			elif event.is_action_pressed("action"):
+				_locked_action_pressed()
+			elif event.is_action_released("action"):
+				_locked_action_released()
+			return
 		
 		if event.is_action_pressed("throw_cancel") and throw_button_held:
 			throw_button_held = false
@@ -380,6 +390,35 @@ func _on_catch_area_body_entered(caught_body: Node3D) -> void:
 	pickup_item(item_resource)
 	pickupable.queue_free()
 
+func is_action_locked() -> bool:
+	return action_lock_target != null
+
+func begin_action_lock(target: Node) -> void:
+	if action_lock_target and action_lock_target != target:
+		return
+	action_lock_target = target
+	freeze_player()
+
+func end_action_lock(target: Node = null) -> void:
+	if target != null and action_lock_target != target:
+		return
+	action_lock_target = null
+	unfreeze_player()
+
+func cancel_locked_action() -> void:
+	if action_lock_target and action_lock_target.has_method("cancel_action"):
+		action_lock_target.cancel_action(self)
+		return
+	end_action_lock()
+
+func _locked_action_pressed() -> void:
+	if action_lock_target and action_lock_target.has_method("action"):
+		action_lock_target.action(self)
+
+func _locked_action_released() -> void:
+	if action_lock_target and action_lock_target.has_method("action_released"):
+		action_lock_target.action_released(self)
+
 func freeze_player() -> void:
 	is_frozen = true
 	velocity = Vector3.ZERO
@@ -391,6 +430,7 @@ func unfreeze_player() -> void:
 func reset(_restore = false):
 	hand.release(self)
 	
+	action_lock_target = null
 	held_item_type = null
 	is_frozen = false
 	dash_duration = 0.0
@@ -460,10 +500,6 @@ func deactivate_shield():
 	anim.shield_off()
 	shield.deactivate_shield()
 
-func get_processing_speed() -> float:
-	var base_speed = 1.0
-	base_speed *= wand_ability.get_processing_speed()
-	return base_speed
 #endregion
 
 #region Throwing

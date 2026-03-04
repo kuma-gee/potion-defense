@@ -19,6 +19,8 @@ signal notify(msg: String)
 @export var proton_scatter: Array[ProtonScatter]
 @onready var level: Level = get_node_or_null("Level")
 
+var is_started := false
+
 func _ready() -> void:
 	add_to_group(GROUP)
 	if level:
@@ -26,7 +28,11 @@ func _ready() -> void:
 		
 	wave_manager.all_waves_completed.connect(func(): map_finished())
 	wave_manager.wave_started.connect(func(): notify.emit("Wave %s incoming!" % wave_manager.wave))
-	Events.cauldron_used.connect(func(): map_start())
+
+	if Events.is_tutorial_level():
+		Events.cauldron_potion_created.connect(func(): map_start())
+	else:
+		get_tree().create_timer(6.0).timeout.connect(func(): map_start())
 
 	await get_tree().create_timer(0.5).timeout
 	if initial_recipe and not Events.is_recipe_unlocked(initial_recipe):
@@ -58,5 +64,6 @@ func _show_next_level_area():
 		level.show()
 
 func map_start():
-	if wave_manager.can_start_wave():
+	if wave_manager.can_start_wave() and not is_started:
+		is_started = true
 		wave_manager.next_wave()

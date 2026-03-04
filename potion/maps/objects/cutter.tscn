@@ -5,17 +5,24 @@
 [ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="4_u5t0w"]
 [ext_resource type="AudioStream" uid="uid://dg38bn3p611rx" path="res://assets/sound/sfx/crush.mp3" id="5_188kx"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="6_rhbt8"]
+[ext_resource type="Script" uid="uid://b36dovtr5nxle" path="res://potion/maps/objects/process_action_mash.gd" id="6_rotk1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(0.80371094, 0.4440918, 0.7421875)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_fsw0a"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_rotk1"]
 viewport_path = NodePath("Progress/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rotk1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hptp3"]
+bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lqj2"]
+bg_color = Color(0, 0.627905, 0.9827295, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hptp3"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hptp3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8lqj2"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("3_8lqj2")
@@ -30,9 +37,10 @@ shader_parameter/glowAngle = 1.57
 shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
-[node name="Cutter" unique_id=665903306 instance=ExtResource("1_rotk1")]
-process_time = 2.0
+[node name="Cutter" unique_id=665903306 node_paths=PackedStringArray("process_action") instance=ExtResource("1_rotk1")]
+process_action = NodePath("ProcessActionMash")
 process = 1
+allow_only_valid = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
@@ -41,17 +49,35 @@ shape = SubResource("BoxShape3D_vv5mg")
 [node name="ProcessTimer" parent="." index="1" unique_id=1434277504]
 wait_time = 2.0
 
-[node name="Progress" parent="." index="4" unique_id=419207511]
-texture = SubResource("ViewportTexture_fsw0a")
-
-[node name="ItemPopup" parent="." index="5" unique_id=176227130]
+[node name="Progress" parent="." index="2" unique_id=419207511]
 texture = SubResource("ViewportTexture_rotk1")
 
-[node name="Icon" parent="." index="6" unique_id=776994336]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_hptp3")
+[node name="CenterContainer" type="CenterContainer" parent="Progress/SubViewport" parent_id_path=PackedInt32Array(425712198) index="0" unique_id=760478252]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Sfx" type="AudioStreamPlayer" parent="." index="8" unique_id=2132663254]
+[node name="Progress" type="ProgressBar" parent="Progress/SubViewport/CenterContainer" index="0" unique_id=2037873134]
+custom_minimum_size = Vector2(100, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_hptp3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8lqj2")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="ItemPopup" parent="." index="3" unique_id=176227130]
+texture = SubResource("ViewportTexture_hptp3")
+
+[node name="Icon" parent="." index="4" unique_id=776994336]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
+material_override = SubResource("ShaderMaterial_8lqj2")
+
+[node name="Sfx" type="AudioStreamPlayer" parent="." index="6" unique_id=2132663254]
 stream = ExtResource("5_188kx")
 pitch_scale = 0.8
 bus = &"SFX"
@@ -59,6 +85,11 @@ script = ExtResource("6_rhbt8")
 min_pitch = 0.7
 max_pitch = 0.9
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="9" unique_id=809628834]
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="7" unique_id=809628834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03551364, 0)
 size = Vector3(0.6152344, 0.06085205, 0.4494629)
+
+[node name="ProcessActionMash" type="Node" parent="." index="8" unique_id=1691097143 node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("6_rotk1")
+progress_bar = NodePath("../Progress/SubViewport/CenterContainer/Progress")
+metadata/_custom_type_script = "uid://b36dovtr5nxle"

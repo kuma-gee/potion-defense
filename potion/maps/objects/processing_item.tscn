@@ -8,14 +8,8 @@
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="5_kmoie"]
 [ext_resource type="Texture2D" uid="uid://by56rhmwd31w3" path="res://assets/sprites/Action_X.png" id="5_m4agg"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_tj6nd"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_2x38u"]
 viewport_path = NodePath("Progress/SubViewport")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aror"]
-bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3be1"]
-bg_color = Color(0, 0.627905, 0.9827295, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_eyuq4"]
 viewport_path = NodePath("SubViewport")
@@ -49,12 +43,13 @@ shader_parameter/glowAngle = 1.57
 shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
-[node name="ProcessingItem" type="Area3D" unique_id=790063610 node_paths=PackedStringArray("progress", "progress_bar", "sprite")]
+[node name="ProcessingItem" type="Area3D" unique_id=790063610 node_paths=PackedStringArray("progress", "sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_8aror")
 progress = NodePath("Progress")
-progress_bar = NodePath("Progress/SubViewport/CenterContainer/Progress")
+process = null
+allow_only_valid = null
 sprite = NodePath("Icon")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
@@ -62,42 +57,16 @@ metadata/_custom_type_script = "uid://buns64rcufm7p"
 wait_time = 4.0
 one_shot = true
 
-[node name="OverheatStartTimer" type="Timer" parent="." unique_id=1127198029]
-wait_time = 3.0
-one_shot = true
-
-[node name="OverheatTimer" type="Timer" parent="." unique_id=410921014]
-wait_time = 5.0
-one_shot = true
-
 [node name="Progress" type="Sprite3D" parent="." unique_id=419207511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
-texture = SubResource("ViewportTexture_tj6nd")
+texture = SubResource("ViewportTexture_2x38u")
 
 [node name="SubViewport" type="SubViewport" parent="Progress" unique_id=425712198]
 transparent_bg = true
 size = Vector2i(128, 128)
-
-[node name="CenterContainer" type="CenterContainer" parent="Progress/SubViewport" unique_id=544843273]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Progress" type="ProgressBar" parent="Progress/SubViewport/CenterContainer" unique_id=1024769877]
-custom_minimum_size = Vector2(100, 16)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/background = SubResource("StyleBoxFlat_8aror")
-theme_override_styles/fill = SubResource("StyleBoxFlat_w3be1")
-max_value = 1.0
-value = 0.5
-show_percentage = false
 
 [node name="ItemPopup" parent="." unique_id=176227130 instance=ExtResource("3_ccjue")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

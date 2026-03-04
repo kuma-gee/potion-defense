@@ -3,6 +3,8 @@ extends Node
 signal souls_changed()
 signal cauldron_used()
 signal cauldron_destroyed()
+signal cauldron_potion_created()
+
 signal picked_up_recipe(recipe: ItemResource)
 signal upgrade_unlocked()
 signal player_has_joined(id: String)

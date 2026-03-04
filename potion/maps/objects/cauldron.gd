@@ -210,7 +210,7 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(mixing_player) and mixing:
 		mixing = false
 	
-	time += delta * (1.0 if not mixing else mixing_speed_increase * mixing_player.get_processing_speed())
+	time += delta * (1.0 if not mixing else mixing_speed_increase)
 	if time >= required_time and not finished:
 		_on_finished()
 
@@ -250,6 +250,7 @@ func _check_final_mix():
 		for i in range(potion_size):
 			_add_item(potion)
 		success_anim.play("init")
+		Events.cauldron_potion_created.emit()
 
 		var potion_resource: PotionResource = ItemResource.get_resource(potion) as PotionResource
 		var color: Color = Color.WHITE

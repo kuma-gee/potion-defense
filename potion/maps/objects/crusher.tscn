@@ -1,22 +1,51 @@
 [gd_scene format=3 uid="uid://dv1a0h2dlytsf"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/maps/objects/processing_item.tscn" id="1_vmpsg"]
+[ext_resource type="Shader" uid="uid://c55s46kns21a7" path="res://shader/circle_inner.gdshader" id="3_6wcrg"]
 [ext_resource type="PackedScene" uid="uid://cn1142lp317en" path="res://assets/models/crusher.glb" id="3_jp6c7"]
 [ext_resource type="AudioStream" uid="uid://dg38bn3p611rx" path="res://assets/sound/sfx/crush.mp3" id="3_k4pkg"]
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="3_qt4f4"]
 [ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="4_75ouy"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="4_yufks"]
+[ext_resource type="Script" uid="uid://d0ertv2coaqmk" path="res://potion/maps/objects/process_action_timing.gd" id="7_75ouy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(0.80371094, 0.4440918, 0.7421875)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_qt4f4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6wcrg"]
 viewport_path = NodePath("Progress/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_75ouy"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rva0x"]
+shader = ExtResource("3_6wcrg")
+shader_parameter/radius = 1.0
+shader_parameter/inner_radius = 0.70000003325
+shader_parameter/fill = 0.50000002375
+shader_parameter/blur = 0.0001
+shader_parameter/bg_color = Color(0, 0, 0, 0)
+shader_parameter/inner_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n3xv1"]
+shader = ExtResource("3_6wcrg")
+shader_parameter/radius = 1.0
+shader_parameter/inner_radius = 0.70000003325
+shader_parameter/fill = 0.50000002375
+shader_parameter/blur = 0.0001
+shader_parameter/bg_color = Color(0, 0, 0, 0)
+shader_parameter/inner_color = Color(0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6wcrg"]
+shader = ExtResource("3_6wcrg")
+shader_parameter/radius = 1.0
+shader_parameter/inner_radius = 0.70000003325
+shader_parameter/fill = 0.0050000002375
+shader_parameter/blur = 0.0001
+shader_parameter/bg_color = Color(0, 0, 0, 0)
+shader_parameter/inner_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n3xv1"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5jtj"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("3_qt4f4")
@@ -31,8 +60,9 @@ shader_parameter/glowAngle = 1.57
 shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
-[node name="Crusher" unique_id=665903306 instance=ExtResource("1_vmpsg")]
-process_time = 2.5
+[node name="Crusher" unique_id=665903306 node_paths=PackedStringArray("process_action") instance=ExtResource("1_vmpsg")]
+process_action = NodePath("ProcessActionTiming")
+process = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
@@ -40,23 +70,77 @@ shape = SubResource("BoxShape3D_vv5mg")
 
 [node name="crusher" parent="." index="1" unique_id=789804080 instance=ExtResource("3_jp6c7")]
 
-[node name="ProcessTimer" parent="." index="2"]
+[node name="ProcessTimer" parent="." index="2" unique_id=1434277504]
 wait_time = 2.0
 
-[node name="Progress" parent="." index="5"]
-texture = SubResource("ViewportTexture_qt4f4")
+[node name="Progress" parent="." index="3" unique_id=419207511]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 1.3345735, 0)
+texture = SubResource("ViewportTexture_6wcrg")
 
-[node name="ItemPopup" parent="." index="6"]
-texture = SubResource("ViewportTexture_75ouy")
+[node name="SubViewport" parent="Progress" index="0" unique_id=425712198]
+size = Vector2i(256, 128)
 
-[node name="Icon" parent="." index="7"]
+[node name="FullBar" type="ColorRect" parent="Progress/SubViewport" index="0" unique_id=126130688]
+material = SubResource("ShaderMaterial_rva0x")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_right = 128.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+pivot_offset = Vector2(32, 32)
+color = Color(0.1764706, 0.1764706, 0.1764706, 1)
+
+[node name="HitBar" type="ColorRect" parent="Progress/SubViewport/FullBar" index="0" unique_id=593843109]
+material = SubResource("ShaderMaterial_n3xv1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.2831855
+pivot_offset = Vector2(64, 64)
+
+[node name="CursorBar" type="ColorRect" parent="Progress/SubViewport/FullBar" index="1" unique_id=886889777]
+material = SubResource("ShaderMaterial_6wcrg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+color = Color(1, 0, 0, 1)
+
+[node name="ItemPopup" parent="." index="4" unique_id=176227130]
+texture = SubResource("ViewportTexture_n3xv1")
+
+[node name="Icon" parent="." index="5" unique_id=776994336]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_6wcrg")
+material_override = SubResource("ShaderMaterial_a5jtj")
 
-[node name="Sfx" type="AudioStreamPlayer" parent="." index="9" unique_id=2132663254]
+[node name="ProcessActionTiming" type="Node" parent="." index="7" unique_id=1747904032 node_paths=PackedStringArray("cursor_bar", "full_bar", "hit_bar", "hit_sound")]
+script = ExtResource("7_75ouy")
+cursor_bar = NodePath("../Progress/SubViewport/FullBar/CursorBar")
+full_bar = NodePath("../Progress/SubViewport/FullBar")
+hit_bar = NodePath("../Progress/SubViewport/FullBar/HitBar")
+hit_sound = NodePath("Sfx")
+min_speed = 0.5
+max_speed = 1.5
+min_line_width = 0.02
+metadata/_custom_type_script = "uid://d0ertv2coaqmk"
+
+[node name="Sfx" type="AudioStreamPlayer" parent="ProcessActionTiming" index="0" unique_id=2132663254]
 stream = ExtResource("3_k4pkg")
 pitch_scale = 0.8
 bus = &"SFX"
 script = ExtResource("4_yufks")
 min_pitch = 0.7
 max_pitch = 0.9
+one_shot = true

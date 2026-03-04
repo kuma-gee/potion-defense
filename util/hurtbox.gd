@@ -14,6 +14,7 @@ signal elemental_hit(element: ElementalArea.Element)
 	ElementalArea.Element.POISON: 0.0,
 }
 
+@export var heal_multiplier := 1.0
 @export var anti_heal := false
 @export var invincibility_timer: Timer
 @export var shield: Shield
@@ -62,7 +63,7 @@ func hit(dmg: float, knockback = Vector3.ZERO, element = ElementalArea.Element.N
 			health -= x
 			damaged.emit(x)
 		else:
-			health -= effective_dmg # Healing
+			health -= effective_dmg * heal_multiplier # Healing
 
 	if element != ElementalArea.Element.NONE:
 		elemental_hit.emit(element)
