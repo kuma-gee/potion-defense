@@ -60,7 +60,7 @@ func reset():
 
 func interact(actor: FPSPlayer):
 	if item != null:
-		if not actor.has_item():
+		if not actor.has_item() and not process_action.running:
 			actor.pickup_item(item)
 			reset()
 		return

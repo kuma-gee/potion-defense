@@ -20,10 +20,15 @@ bg_color = Color(0.17641908, 0.17641911, 0.17641899, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1bq3"]
 bg_color = Color(0, 0.627905, 0.9827295, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_tw3no"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tw3no"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntl8x"]
+bg_color = Color(0.7173537, 0.15396485, 0.16913271, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_a520t"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntl8x"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xj8d"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("2_euas7")
@@ -75,13 +80,27 @@ value = 0.5
 fill_mode = 3
 show_percentage = false
 
+[node name="Overheat" type="ProgressBar" parent="Progress/SubViewport/CenterContainer/Progress" index="0" unique_id=1760679274]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_tw3no")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ntl8x")
+max_value = 1.0
+value = 0.2
+fill_mode = 3
+show_percentage = false
+
 [node name="ItemPopup" parent="." index="3" unique_id=176227130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2402164, 0)
-texture = SubResource("ViewportTexture_tw3no")
+texture = SubResource("ViewportTexture_a520t")
 
 [node name="Icon" parent="." index="4" unique_id=776994336]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_ntl8x")
+material_override = SubResource("ShaderMaterial_4xj8d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" parent_id_path=PackedInt32Array(1936211871) index="0" unique_id=351159239]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5135597, 0)
@@ -104,19 +123,17 @@ size = Vector3(1, 0.42871094, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62076694, 0)
 size = Vector3(0.39257813, 0.37380177, 0.38110352)
 
-[node name="ProcessActionHold" type="Node" parent="." index="9" unique_id=2042758560 node_paths=PackedStringArray("progress_bar", "overheat_timer")]
-script = ExtResource("6_euas7")
-duration = 8.0
-progress_bar = NodePath("../Progress/SubViewport/CenterContainer/Progress")
-overheat_timer = NodePath("Overheat")
-automatic = true
-metadata/_custom_type_script = "uid://d13m1xyyelaj7"
-
-[node name="Overheat" type="Timer" parent="ProcessActionHold" index="0" unique_id=1100583328]
+[node name="Overheat" type="Timer" parent="." index="9" unique_id=1100583328 node_paths=PackedStringArray("progress")]
 wait_time = 3.0
 one_shot = true
 script = ExtResource("7_w1bq3")
+progress = NodePath("../Progress/SubViewport/CenterContainer/Progress/Overheat")
+max_overheat = 10.0
 
-[node name="Timer" type="Timer" parent="ProcessActionHold/Overheat" index="0" unique_id=1102445025]
-wait_time = 5.0
-one_shot = true
+[node name="ProcessActionHold" type="Node" parent="." index="10" unique_id=2042758560 node_paths=PackedStringArray("progress_bar", "overheat_timer")]
+script = ExtResource("6_euas7")
+duration = 8.0
+progress_bar = NodePath("../Progress/SubViewport/CenterContainer/Progress")
+overheat_timer = NodePath("../Overheat")
+automatic = true
+metadata/_custom_type_script = "uid://d13m1xyyelaj7"

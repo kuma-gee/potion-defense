@@ -39,22 +39,16 @@ func action_released() -> void:
 	_on_action_released()
 
 func cancel() -> void:
-	if not running:
-		return
 	running = false
 	_on_cancelled()
 	cancelled.emit()
 
 func complete() -> void:
-	if not running:
-		return
 	running = false
 	_on_completed()
 	finished.emit(true)
 
 func fail() -> void:
-	if not running:
-		return
 	running = false
 	_on_failed()
 	finished.emit(false)

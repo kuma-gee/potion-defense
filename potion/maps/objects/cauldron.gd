@@ -17,16 +17,13 @@ signal died()
 @export var potion_size := 1
 
 @export var progress_container: Control
-@export var overheat_progress: Range
-@export var overheat_time := 6.0
-@export var overheat_decrease := -1.0
 @export var available_potions: Array[ItemResource] = []
 
 @export_category("Water")
 @export var water_mesh: MeshInstance3D
 @export var default_water_color := Color.WHITE #water_mesh.material_override.get_shader_parameter("water_color")
 
-@onready var overheat_start_timer: Timer = $OverheatStartTimer
+@onready var overheat_timer: Overheat = $OverheatTimer
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var zelda_fire: Node3D = $ZeldaFire
 @onready var brewing: AudioStreamPlayer = $Brewing
@@ -35,21 +32,6 @@ signal died()
 
 var items: Array = []
 var mixing_player: FPSPlayer = null
-
-var overheat := 0.0:
-	set(v):
-		overheat = v
-		overheat_progress.value = v
-
-var overheating := false:
-	set(v):
-		overheating = v
-		overheat = 0.0
-		if overheating:
-			_overload_start_anim()
-		else:
-			_overload_stop_anim()
-			overheat_start_timer.stop()
 
 var finished := false
 var required_time := 0.0:
@@ -66,7 +48,7 @@ var mixing := false:
 	set(v):
 		mixing = v
 		brewing.volume_db = -15 if v else -25
-		if overheating:
+		if overheat_timer.overheating:
 			if mixing:
 				_overload_stop_anim()
 			else:
@@ -106,7 +88,14 @@ func _ready() -> void:
 	zelda_fire.show()
 	reset()
 	
-	overheat_progress.max_value = overheat_time
+	overheat_timer.overheated.connect(_failed_potion)
+	overheat_timer.overheating_changed.connect(func(value: bool):
+		if value:
+			_overload_start_anim()
+		else:
+			_overload_stop_anim()
+	)
+
 	hurt_box.health_changed.connect(func():
 		if health_bar:
 			health_bar.value = hurt_box.health
@@ -116,7 +105,6 @@ func _ready() -> void:
 		destroyed = true
 		Events.cauldron_destroyed.emit()
 	)
-	overheat_start_timer.timeout.connect(func(): overheating = true)
 	
 func setup_health_bar(bar: ProgressBar):
 	health_bar = bar
@@ -134,7 +122,7 @@ func interact(actor: FPSPlayer) -> void:
 		_add_item(item.type)
 		required_time = mix_time_per_item * items.size()
 		finished = false
-		overheating = false
+		overheat_timer.reset()
 		_check_mixing_items()
 		Events.cauldron_used.emit()
 		drop.play()
@@ -194,15 +182,10 @@ func _process(delta: float) -> void:
 		return
 	
 	progress.show()
-	if overheating:
-		overheat += delta * (1.0 if not mixing else overheat_decrease)
-		if overheat >= overheat_time:
-			_failed_potion()
-		elif overheat <= 0.0:
-			overheating = false
-			overheat = 0.0
-	elif finished and overheat_start_timer.is_stopped():
-		overheat_start_timer.start()
+	if finished:
+		overheat_timer.start_if_stopped()
+
+	overheat_timer.update_overheat(delta, mixing)
 	
 	if not brewing.playing:
 		brewing.play()
@@ -221,8 +204,7 @@ func _on_finished():
 	_check_final_mix()
 	if items.is_empty(): return
 
-	if overheat_start_timer.is_stopped() and not overheating:
-		overheat_start_timer.start()
+	overheat_timer.start_if_stopped()
 
 func _is_only_potions() -> bool:
 	if items.is_empty(): return false
@@ -281,7 +263,6 @@ func reset(_restore = false):
 func _reset_values():
 	required_time = 0.0
 	time = 0.0
-	overheat = 0.0
-	overheating = false
+	overheat_timer.reset()
 	mixing = false
 	finished = false

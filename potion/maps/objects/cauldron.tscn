@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://bav8mlr6l6106" path="res://util/hurtbox.gd" id="20_k7m8g"]
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="20_qaxpm"]
 [ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="21_qorv7"]
+[ext_resource type="Script" uid="uid://b0dppp05kolj2" path="res://potion/maps/objects/overheat.gd" id="22_2n7t0"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27tcb"]
 height = 1.1645508
@@ -1030,7 +1031,7 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_k7m8g"]
 radius = 0.6346844
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qaxpm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qorv7"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("20_qaxpm")
@@ -1090,7 +1091,7 @@ height = 6.0
 radial_segments = 32
 rings = 16
 
-[node name="Cauldron" type="Area3D" unique_id=2088789587 node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "progress_container", "overheat_progress", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
+[node name="Cauldron" type="Area3D" unique_id=2088789587 node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "progress_container", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
@@ -1101,9 +1102,6 @@ failure_anim = NodePath("HIT VFX/AnimationPlayer")
 progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress")
 mix_icon = ExtResource("9_v5itp")
 progress_container = NodePath("CurrentItem/SubViewport/CenterContainer")
-overheat_progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
-overheat_time = 7.0
-overheat_decrease = -1.5
 water_mesh = NodePath("cauldron/Water")
 default_water_color = Color(0.16078432, 0.22352941, 0.77254903, 1)
 sprite = NodePath("SpriteTextureOutlined")
@@ -1281,13 +1279,12 @@ draw_pass_1 = SubResource("QuadMesh_38exi")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HIT VFX" unique_id=369135526]
 libraries/ = SubResource("AnimationLibrary_wanpx")
 
-[node name="OverheatTimer" type="Timer" parent="." unique_id=997029026]
+[node name="OverheatTimer" type="Timer" parent="." unique_id=997029026 node_paths=PackedStringArray("progress")]
 wait_time = 6.0
 one_shot = true
-
-[node name="OverheatStartTimer" type="Timer" parent="." unique_id=782834689]
-wait_time = 3.0
-one_shot = true
+script = ExtResource("22_2n7t0")
+progress = NodePath("../CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progress/Overheat")
+max_overheat = 8.0
 
 [node name="HurtBox" type="Area3D" parent="." unique_id=65320650]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6235945, 0)
@@ -1303,7 +1300,7 @@ shape = SubResource("SphereShape3D_k7m8g")
 
 [node name="SpriteTextureOutlined" parent="." unique_id=330286478 instance=ExtResource("20_crw35")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.07, 3.072, 0)
-material_override = SubResource("ShaderMaterial_qaxpm")
+material_override = SubResource("ShaderMaterial_qorv7")
 texture = ExtResource("9_v5itp")
 
 [node name="Shield" type="Node3D" parent="." unique_id=993404761]

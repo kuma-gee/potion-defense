@@ -20,9 +20,13 @@ func _on_update(delta: float) -> void:
 	if automatic or pressed:
 		elapsed += delta * multipler
 		if elapsed >= duration:
-			complete()
 			if automatic and overheat_timer:
-				overheat_timer.start()
+				overheat_timer.start_if_stopped()
+			complete()
+
+func _process(delta: float) -> void:
+	if overheat_timer:
+		overheat_timer.update_overheat(delta)
 
 func _on_action_pressed() -> void:
 	pressed = true
@@ -33,5 +37,5 @@ func _on_action_released() -> void:
 func on_item_changed(item: ItemResource):
 	if item == null:
 		elapsed = 0.0
-	if overheat_timer:
-		overheat_timer.stop()
+		if overheat_timer:
+			overheat_timer.reset()
