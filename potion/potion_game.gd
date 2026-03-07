@@ -29,6 +29,7 @@ func _ready() -> void:
 	get_tree().paused = false
 	_setup_map()
 	
+	Events.cauldron_destroyed.connect(func(): gameover.show_gameover())
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	Events.has_played = true
 	recipe_container.visible = not Events.unlocked_recipes.is_empty()

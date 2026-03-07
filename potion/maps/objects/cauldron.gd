@@ -13,7 +13,8 @@ signal died()
 @export var progress: Range
 @export var mix_icon: Texture2D
 @export var mix_time_per_item := 4.0
-@export var mixing_speed_increase := 2.0
+@export var mix_progress_per_circle := 0.5
+@export var overheat_decrease_per_circle := 1.5
 @export var potion_size := 1
 
 @export var progress_container: Control
@@ -29,6 +30,7 @@ signal died()
 @onready var brewing: AudioStreamPlayer = $Brewing
 @onready var drop: AudioStreamPlayer = $Drop
 @onready var take: AudioStreamPlayer = $Take
+@onready var mix_action: ProcessActionCircular = $ProcessActionCircular
 
 var items: Array = []
 var mixing_player: FPSPlayer = null
@@ -88,6 +90,10 @@ func _ready() -> void:
 	zelda_fire.show()
 	reset()
 	
+	mix_action.circle_finished.connect(func():
+		time += mix_progress_per_circle
+		overheat_timer.reduce_overheat(overheat_decrease_per_circle)
+	)
 	overheat_timer.overheated.connect(_failed_potion)
 	overheat_timer.overheating_changed.connect(func(value: bool):
 		if value:
@@ -138,15 +144,33 @@ func interact(actor: FPSPlayer) -> void:
 			_reset_water()
 
 func action(actor: FPSPlayer) -> void:
-	if not mixing:
-		mixing_player = actor
-		mixing_player.freeze_player()
-		mixing = true
-		sprite.hide()
+	if items.is_empty():
+		return
+	if mixing_player and mixing_player != actor:
+		return
+	if mixing:
+		return
+
+	mixing_player = actor
+	mixing_player.begin_action_lock(self)
+	mixing = true
+	sprite.hide()
+
+	if mix_action:
+		mix_action.start(actor)
 
 func action_released(actor: FPSPlayer) -> void:
-	if mixing and actor == mixing_player:
-		mixing = false
+	if actor != mixing_player:
+		return
+	if mix_action:
+		mix_action.action_released()
+
+func cancel_action(actor: FPSPlayer) -> void:
+	if actor != mixing_player:
+		return
+	if mix_action and mix_action.running:
+		mix_action.cancel()
+	mixing = false
 
 func _clear_items():
 	for child in item_container.get_children():
@@ -184,22 +208,28 @@ func _process(delta: float) -> void:
 	progress.show()
 	if finished:
 		overheat_timer.start_if_stopped()
-
-	overheat_timer.update_overheat(delta, mixing)
+	overheat_timer.update_overheat(delta)
 	
 	if not brewing.playing:
 		brewing.play()
 	
 	if not is_instance_valid(mixing_player) and mixing:
 		mixing = false
-	
-	time += delta * (1.0 if not mixing else mixing_speed_increase)
+
+	if mixing and mix_action:
+		if not mix_action.running:
+			mix_action.start(mixing_player)
+		
+		mix_action.update(delta)
+
+	time += delta
 	if time >= required_time and not finished:
 		_on_finished()
 
 func _on_finished():
 	if finished: return
 	finished = true
+	#mixing = false
 	
 	_check_final_mix()
 	if items.is_empty(): return
@@ -216,7 +246,7 @@ func _is_only_potions() -> bool:
 
 func _unfreeze_mixing_player() -> void:
 	if mixing_player:
-		mixing_player.unfreeze_player()
+		mixing_player.end_action_lock(self)
 		mixing_player = null
 
 func _check_mixing_items() -> void:
@@ -265,4 +295,6 @@ func _reset_values():
 	time = 0.0
 	overheat_timer.reset()
 	mixing = false
+	if mix_action and mix_action.running:
+		mix_action.cancel()
 	finished = false

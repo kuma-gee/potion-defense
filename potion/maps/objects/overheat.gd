@@ -11,7 +11,6 @@ signal overheat_changed(value: float)
 		max_overheat = max(value, 0.001)
 		if progress:
 			progress.max_value = max_overheat
-@export var cooldown_multiplier := -1.0
 
 var overheat := 0.0:
 	set(value):
@@ -41,11 +40,16 @@ func _on_overheated() -> void:
 	overheating = false
 	overheated.emit()
 
-func update_overheat(delta: float, is_cooling: bool = false) -> void:
+func reduce_overheat(value: float) -> void:
+	overheat -= value
+	if overheat <= 0.0:
+		overheat = 0.0
+		overheating = false
+
+func update_overheat(delta: float, direction = 1.0) -> void:
 	if not overheating:
 		return
 
-	var direction: float = 1.0 if not is_cooling else cooldown_multiplier
 	overheat += delta * direction
 	if overheat >= max_overheat:
 		overheat = max_overheat

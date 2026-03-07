@@ -1,45 +1,53 @@
 class_name ProcessActionCircular
-extends "res://potion/maps/objects/process_action.gd"
+extends ProcessAction
 
-@export var required_rotations: float = 1.0
-@export var timeout: float = 5.0
+signal circle_finished()
+
+@export var circle: Sprite3D
 @export var min_input_strength: float = 0.4
+@export var resume_angle_tolerance: float = 0.35
 
-var elapsed: float = 0.0
-var accumulated_angle: float = 0.0
-var last_angle: float = 0.0
-var has_last_angle: bool = false
+@onready var camera: Camera3D = get_viewport().get_camera_3d()
+
+var travelled_angle: float = 0.0
+var current_angle: float = 0.0:
+	set(v):
+		current_angle = wrapf(v, -PI, PI)
+		if circle != null:
+			circle.rotation.y = -current_angle + PI/2 + PI/6
+
+func _ready() -> void:
+	_on_cancelled()
+
+func _on_cancelled() -> void:
+	circle.hide()
 
 func _reset_state() -> void:
-	elapsed = 0.0
-	accumulated_angle = 0.0
-	has_last_angle = false
+	current_angle = 0.0
+	travelled_angle = 0.0
+	circle.show()
 
-func _on_update(delta: float) -> void:
-	elapsed += delta
-	if timeout > 0.0 and elapsed >= timeout:
-		fail()
-		return
-
+func _on_update(_delta: float) -> void:
 	if player == null:
 		return
 
-	var input_direction: Vector3 = player.get_input_direction()
+	var input_direction: Vector3 = Vector3.ZERO
+	input_direction = player.get_aim_direction(circle.global_position)
+
 	if input_direction.length() < min_input_strength:
-		has_last_angle = false
 		return
 
 	var angle = atan2(input_direction.z, input_direction.x)
-	if not has_last_angle:
-		last_angle = angle
-		has_last_angle = true
-		return
-
-	var delta_angle = wrapf(angle - last_angle, -PI, PI)
-	accumulated_angle += delta_angle
-	last_angle = angle
-
-	var goal = TAU * max(required_rotations, 0.01)
-	var progress = clamp(absf(accumulated_angle) / goal, 0.0, 1.0)
-	if progress >= 1.0:
-		complete()
+	var delta_angle = wrapf(angle - current_angle, -PI, PI)
+	var dir = sign(delta_angle)
+	var current_dir = sign(travelled_angle)
+	
+	if dir != 0 and current_dir != 0 and current_dir != dir:
+		travelled_angle = 0.0
+	
+	if abs(travelled_angle) >= TAU:
+		travelled_angle = 0.0
+		circle_finished.emit()
+	
+	travelled_angle += delta_angle
+	current_angle = angle

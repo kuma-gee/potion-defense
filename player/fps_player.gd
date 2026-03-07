@@ -274,7 +274,7 @@ func _physics_process(delta):
 	if throw_button_held and has_item():
 		current_throw_force = min(current_throw_force + delta / throw_charge_time * (max_throw_force - min_throw_force), max_throw_force - min_throw_force)
 		
-		var aim = _get_aim_direction()
+		var aim = get_aim_direction()
 		if aim.length() > 0.1:
 			body.look_at(body.global_position + aim, Vector3.UP)
 		
@@ -510,7 +510,7 @@ func throw_item() -> void:
 	var item = release_item()
 	
 	var throw_direction: Vector3 = -body.global_transform.basis.z
-	var aim = _get_aim_direction()
+	var aim = get_aim_direction()
 	if aim.length() < 0.1:
 		throw_direction = -body.global_transform.basis.z
 
@@ -531,13 +531,13 @@ func throw_item() -> void:
 func _get_throw_start():
 	return hand.global_position + Vector3.UP * 0.5
 
-func _get_aim_direction() -> Vector3:
+func get_aim_direction(center = global_position) -> Vector3:
 	if player_input.joypad:
 		var controller_aim = player_input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 		return Vector3(controller_aim.x, 0, controller_aim.y)
 
 	var mouse_world_pos = _get_mouse_world_position()
-	var aim_direction = (mouse_world_pos - global_position).normalized()
+	var aim_direction = (mouse_world_pos - center).normalized()
 	return aim_direction
 
 func _get_mouse_world_position() -> Vector3:
@@ -561,7 +561,7 @@ func update_trajectory_visualization() -> void:
 		return
 	
 	var throw_direction: Vector3 = -body.global_transform.basis.z
-	var aim = _get_aim_direction()
+	var aim = get_aim_direction()
 	if aim.length() >= 0.1:
 		throw_direction = aim.normalized()
 	

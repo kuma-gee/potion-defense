@@ -3,7 +3,6 @@ extends Node
 
 const ENEMY_GROUP := Enemy.GROUP
 
-signal game_over()
 signal wave_started()
 signal wave_completed()
 signal all_waves_completed()
@@ -38,7 +37,6 @@ func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_enemy)
 	wave_completed.connect(func(): rest_timer.start())
 	rest_timer.timeout.connect(next_wave)
-	Events.cauldron_destroyed.connect(func(): game_over.emit())
 
 func can_start_wave() -> bool:
 	return not is_wave_active and wave < max_wave
