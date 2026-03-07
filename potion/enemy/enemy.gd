@@ -5,6 +5,7 @@ const GROUP = "Enemy"
 
 @export var spawn_anim := false
 @export var target_end := false
+@export var extra_collision: CollisionShape3D
 
 @onready var attack_range: RayCast3D = $AttackRange
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
@@ -56,6 +57,9 @@ func _died():
 	died()
 	freeze_timer.stop()
 	collision_shape_3d.set_deferred("disabled", true)
+	if extra_collision:
+		extra_collision.set_deferred("disabled", true)
+	
 	var soul = soul_spawner.spawn()
 	soul.amount = souls
 

@@ -168,8 +168,6 @@ func action_released(actor: FPSPlayer) -> void:
 func cancel_action(actor: FPSPlayer) -> void:
 	if actor != mixing_player:
 		return
-	if mix_action and mix_action.running:
-		mix_action.cancel()
 	mixing = false
 
 func _clear_items():
@@ -248,6 +246,8 @@ func _unfreeze_mixing_player() -> void:
 	if mixing_player:
 		mixing_player.end_action_lock(self)
 		mixing_player = null
+	if mix_action and mix_action.running:
+		mix_action.cancel()
 
 func _check_mixing_items() -> void:
 	var potion = ItemResource.find_potential_recipe(items, false, available_potions)
@@ -263,6 +263,7 @@ func _check_final_mix():
 			_add_item(potion)
 		success_anim.play("init")
 		Events.cauldron_potion_created.emit()
+		mixing = false
 
 		var potion_resource: PotionResource = ItemResource.get_resource(potion) as PotionResource
 		var color: Color = Color.WHITE
@@ -295,6 +296,4 @@ func _reset_values():
 	time = 0.0
 	overheat_timer.reset()
 	mixing = false
-	if mix_action and mix_action.running:
-		mix_action.cancel()
 	finished = false

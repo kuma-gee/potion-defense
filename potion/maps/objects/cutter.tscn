@@ -91,5 +91,6 @@ size = Vector3(0.6152344, 0.06085205, 0.4494629)
 
 [node name="ProcessActionMash" type="Node" parent="." index="8" unique_id=1691097143 node_paths=PackedStringArray("progress_bar")]
 script = ExtResource("6_rotk1")
+required_presses = 16
 progress_bar = NodePath("../Progress/SubViewport/CenterContainer/Progress")
 metadata/_custom_type_script = "uid://b36dovtr5nxle"

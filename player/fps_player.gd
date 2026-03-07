@@ -281,7 +281,7 @@ func _physics_process(delta):
 		update_trajectory_visualization()
 	else:
 		current_throw_force = 0.0
-		if velocity.length() > 0.1:
+		if direction.length() > 0.1:
 			var target_direction = direction.normalized()
 			var current_forward = -body.global_transform.basis.z
 			var angle = current_forward.signed_angle_to(target_direction, Vector3.UP)

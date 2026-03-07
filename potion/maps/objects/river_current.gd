@@ -19,6 +19,7 @@ func _ready() -> void:
 		collision_shape_3d.disabled = false
 		show()
 		timer.start()
+		activated.emit()
 		
 		for area in interactable_detector.get_overlapping_areas():
 			if area is PlaceableSlot and area.has_item():
@@ -28,7 +29,6 @@ func _ready() -> void:
 	)
 	
 func activate():
-	super()
 	water_start_particles.emitting = true
 	activation_timer.start()
 
