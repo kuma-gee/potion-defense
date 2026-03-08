@@ -155,15 +155,15 @@ func action(actor: FPSPlayer) -> void:
 	mixing_player.begin_action_lock(self)
 	mixing = true
 	sprite.hide()
-
 	if mix_action:
-		mix_action.start(actor)
+		mix_action.action_pressed(actor)
 
 func action_released(actor: FPSPlayer) -> void:
 	if actor != mixing_player:
 		return
 	if mix_action:
-		mix_action.action_released()
+		mix_action.action_released(actor)
+	mixing = false
 
 func cancel_action(actor: FPSPlayer) -> void:
 	if actor != mixing_player:
@@ -215,9 +215,6 @@ func _process(delta: float) -> void:
 		mixing = false
 
 	if mixing and mix_action:
-		if not mix_action.running:
-			mix_action.start(mixing_player)
-		
 		mix_action.update(delta)
 
 	time += delta
@@ -246,7 +243,7 @@ func _unfreeze_mixing_player() -> void:
 	if mixing_player:
 		mixing_player.end_action_lock(self)
 		mixing_player = null
-	if mix_action and mix_action.running:
+	if mix_action:
 		mix_action.cancel()
 
 func _check_mixing_items() -> void:

@@ -12,9 +12,6 @@ extends RayInteractable
 @onready var disabled: Sprite3D = $Icon/Disabled
 
 var logger = KumaLog.new("Oven")
-var working_player: FPSPlayer
-
-var processing: bool = false
 var item: ItemResource:
 	set(v):
 		item = v
@@ -26,16 +23,18 @@ func _ready() -> void:
 	super()
 	process_action.finished.connect(_on_process_action_finished)
 	process_action.cancelled.connect(reset_player)
-	process_action.setup(self)
 
 	reset()
-	hovered.connect(func(_a: FPSPlayer): disabled.visible = not _can_process() and item != null)
+	hovered.connect(func(_a: FPSPlayer):
+		disabled.visible = not _can_process() and item != null
+		process_action.hovered(_a)
+	)
+	unhovered.connect(func(_a: FPSPlayer):
+		process_action.unhovered(_a)
+	)
 	icon.change_texture(ItemResource.PROCESS_ICONS[process])
 
 func _process(delta: float) -> void:
-	if not processing or process_action == null:
-		return
-
 	process_action.update(delta)
 	
 func _on_processed():
@@ -44,7 +43,9 @@ func _on_processed():
 		return
 	
 	var new_item = item_processing.get(item.type)
-	item = ItemResource.get_resource(new_item)
+	if new_item:
+		item = ItemResource.get_resource(new_item)
+	
 	reset_player()
 
 func _on_process_action_finished(success: bool) -> void:
@@ -60,7 +61,7 @@ func reset():
 
 func interact(actor: FPSPlayer):
 	if item != null:
-		if not actor.has_item() and not process_action.running:
+		if not actor.has_item() and process_action.player == null:
 			actor.pickup_item(item)
 			reset()
 		return
@@ -71,51 +72,30 @@ func interact(actor: FPSPlayer):
 		return
 	
 	item = actor.release_item()
-	if process_action.automatic and _can_process():
-		_start_processing(null)
+	# if process_action.automatic and _can_process():
+	# 	_start_processing(null)
 
 func _can_process(i = item) -> bool:
 	return i != null and item_processing.has(i.type)
 
-func release(actor: FPSPlayer):
-	cancel_action(actor)
-
 func action(actor: FPSPlayer):
 	if not _can_process() or actor.has_item(): return
-	if working_player and working_player != actor: return
-
-	if not processing:
-		working_player = actor
-		working_player.begin_action_lock(self)
-		_start_processing(actor)
-
 	if process_action:
-		process_action.action_pressed()
+		process_action.action_pressed(actor)
 
 func action_released(actor: FPSPlayer):
-	if working_player != actor: return
 	if process_action:
-		process_action.action_released()
+		process_action.action_released(actor)
 
-func cancel_action(actor: FPSPlayer) -> void:
-	if working_player != actor:
-		return
-	if process_action and process_action.running:
-		process_action.cancel()
-	else:
-		reset_player()
-
-func _start_processing(actor: FPSPlayer) -> void:
-	processing = true
-	if process_action:
-		process_action.start(actor)
+# func cancel_action(_actor: FPSPlayer) -> void:
+# 	if process_action and process_action.player != null:
+# 		process_action.cancel()
+# 	else:
+# 		reset_player()
 
 func reset_item():
 	item = null
 	reset_player()
 
 func reset_player():
-	processing = false
-	if working_player:
-		working_player.end_action_lock(self)
-		working_player = null
+	return

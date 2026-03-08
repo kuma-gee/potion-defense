@@ -25,10 +25,10 @@ bg_color = Color(0, 0.627905, 0.9827295, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntl8x"]
 bg_color = Color(0.7173537, 0.15396485, 0.16913271, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_a520t"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tw3no"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xj8d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntl8x"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("2_euas7")
@@ -96,11 +96,11 @@ show_percentage = false
 
 [node name="ItemPopup" parent="." index="3" unique_id=176227130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2402164, 0)
-texture = SubResource("ViewportTexture_a520t")
+texture = SubResource("ViewportTexture_tw3no")
 
 [node name="Icon" parent="." index="4" unique_id=776994336]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_4xj8d")
+material_override = SubResource("ShaderMaterial_ntl8x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" parent_id_path=PackedInt32Array(1936211871) index="0" unique_id=351159239]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5135597, 0)

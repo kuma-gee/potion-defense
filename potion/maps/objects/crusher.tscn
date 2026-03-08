@@ -62,7 +62,6 @@ shader_parameter/alphaThreshold = 0.2
 
 [node name="Crusher" unique_id=665903306 node_paths=PackedStringArray("process_action") instance=ExtResource("1_vmpsg")]
 process_action = NodePath("ProcessActionTiming")
-process = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17243695, 0)
@@ -133,7 +132,8 @@ hit_bar = NodePath("../Progress/SubViewport/FullBar/HitBar")
 hit_sound = NodePath("Sfx")
 min_speed = 0.5
 max_speed = 1.5
-min_line_width = 0.02
+min_line_width = 0.04
+max_line_width = 0.06
 metadata/_custom_type_script = "uid://d0ertv2coaqmk"
 
 [node name="Sfx" type="AudioStreamPlayer" parent="ProcessActionTiming" index="0" unique_id=2132663254]

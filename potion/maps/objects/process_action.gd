@@ -1,63 +1,29 @@
 class_name ProcessAction
 extends Node
 
-signal started(player)
 signal finished(success: bool)
 signal cancelled()
 
 @export var automatic := false
 
-var station: ProcessingItem
 var player: FPSPlayer
-var running: bool = false
+var hovered_players: Array = []
 
-func setup(processing_item: ProcessingItem) -> void:
-	station = processing_item
-
-func start(actor: FPSPlayer) -> void:
-	player = actor
-	running = true
-	_reset_state()
-	started.emit(player)
-
-func update(delta: float) -> void:
-	if not running:
-		return
-	_on_update(delta)
-
-func on_item_changed(_item: ItemResource):
+func update(_delta: float) -> void:
 	pass
 
-func action_pressed() -> void:
-	if not running:
-		return
+func on_item_changed(_item: ItemResource) -> void:
+	pass
+
+func action_pressed(actor: FPSPlayer) -> void:
+	if player == null:
+		player = actor
 	_on_action_pressed()
 
-func action_released() -> void:
-	if not running:
-		return
-	_on_action_released()
-
-func cancel() -> void:
-	running = false
-	_on_cancelled()
-	cancelled.emit()
-
-func complete() -> void:
-	running = false
-	_on_completed()
-	finished.emit(true)
-
-func fail() -> void:
-	running = false
-	_on_failed()
-	finished.emit(false)
-
-func _reset_state() -> void:
-	pass
-
-func _on_update(_delta: float) -> void:
-	pass
+func action_released(actor: FPSPlayer) -> void:
+	if actor == player:
+		player = null
+		_on_action_released()
 
 func _on_action_pressed() -> void:
 	pass
@@ -65,11 +31,23 @@ func _on_action_pressed() -> void:
 func _on_action_released() -> void:
 	pass
 
-func _on_cancelled() -> void:
-	pass
+func cancel() -> void:
+	cancelled.emit()
 
-func _on_completed() -> void:
-	pass
+func complete() -> void:
+	finished.emit(true)
 
-func _on_failed() -> void:
+func fail() -> void:
+	finished.emit(false)
+
+func hovered(actor: FPSPlayer) -> void:
+	if not hovered_players.has(actor):
+		hovered_players.append(actor)
+	_on_hover_change(hovered_players.size())
+
+func unhovered(actor: FPSPlayer) -> void:
+	hovered_players.erase(actor)
+	_on_hover_change(hovered_players.size())
+
+func _on_hover_change(player_count: int) -> void:
 	pass

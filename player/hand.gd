@@ -4,6 +4,8 @@ extends Area3D
 
 var last_collider = null:
 	set(v):
+		if last_collider == v: return
+		
 		if last_collider and last_collider.has_method("unhover"):
 			last_collider.unhover(player)
 		

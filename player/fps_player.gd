@@ -532,8 +532,8 @@ func _get_throw_start():
 	return hand.global_position + Vector3.UP * 0.5
 
 func get_aim_direction(center = global_position) -> Vector3:
-	if player_input.joypad:
-		var controller_aim = player_input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+	var controller_aim = player_input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+	if controller_aim.length() > 0.1:
 		return Vector3(controller_aim.x, 0, controller_aim.y)
 
 	var mouse_world_pos = _get_mouse_world_position()

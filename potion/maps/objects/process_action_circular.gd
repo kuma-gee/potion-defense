@@ -17,17 +17,21 @@ var current_angle: float = 0.0:
 			circle.rotation.y = -current_angle + PI/2 + PI/6
 
 func _ready() -> void:
-	_on_cancelled()
-
-func _on_cancelled() -> void:
 	circle.hide()
 
-func _reset_state() -> void:
+func _on_action_pressed() -> void:
 	current_angle = 0.0
 	travelled_angle = 0.0
 	circle.show()
 
-func _on_update(_delta: float) -> void:
+func _on_action_released() -> void:
+	circle.hide()
+
+func cancel() -> void:
+	super()
+	circle.hide()
+
+func update(_delta: float) -> void:
 	if player == null:
 		return
 

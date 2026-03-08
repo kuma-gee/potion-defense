@@ -14,7 +14,7 @@ extends ProcessAction
 
 @export var min_speed := 1.0
 @export var max_speed := 2.0
-@export var min_line_width := 0.01
+@export var min_line_width := 0.02
 @export var max_line_width := 0.05
 
 var cursor_speed := 0.0
@@ -41,21 +41,18 @@ var cursor: float = 0.0:
 func _ready() -> void:
 	hide_visuals()
 
-func on_item_changed(_item: ItemResource):
+func on_item_changed(_item: ItemResource) -> void:
 	hits = 0
 	misses = 0
 	cursor = 0.0
 	direction = 1.0
 	hide_visuals()
 
-func _reset_state() -> void:
-	_new_hit_position()
-
-func hide_visuals():
+func hide_visuals() -> void:
 	hit_bar.hide()
 	cursor_bar.hide()
 
-func _new_hit_position():
+func _new_hit_position() -> void:
 	hit_position = randf_range(0 + line_tolerance, 1)
 	
 	var part_size = (max_line_width - min_line_width) / float(required_hits - 1)
@@ -64,10 +61,15 @@ func _new_hit_position():
 	hit_bar.show()
 	cursor_bar.show()
 
-func _on_cancelled() -> void:
-	hide_visuals()
+func _on_hover_change(player_count: int) -> void:
+	if player_count <= 0:
+		hide_visuals()
+	elif not hit_bar.visible:
+		_new_hit_position()
 
-func _on_update(delta: float) -> void:
+func update(delta: float) -> void:
+	if not hit_bar.visible: return
+
 	cursor += direction * cursor_speed * delta
 	if cursor >= 1.0:
 		cursor = 1.0
