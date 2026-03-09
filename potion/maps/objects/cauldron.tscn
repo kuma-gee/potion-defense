@@ -31,6 +31,7 @@
 [ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="20_qaxpm"]
 [ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="21_qorv7"]
 [ext_resource type="Script" uid="uid://b0dppp05kolj2" path="res://potion/maps/objects/overheat.gd" id="22_2n7t0"]
+[ext_resource type="PackedScene" uid="uid://2dch5xvw7kd6" path="res://potion/maps/objects/input_icon.tscn" id="23_rygmh"]
 [ext_resource type="Script" uid="uid://lrges84j43y6" path="res://potion/maps/objects/process_action_circular.gd" id="32_lk2w6"]
 [ext_resource type="Shader" uid="uid://c55s46kns21a7" path="res://shader/circle_inner.gdshader" id="33_51rjx"]
 
@@ -1048,6 +1049,9 @@ shader_parameter/glowAngle = 1.57
 shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 0.2
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_7hclj"]
+viewport_path = NodePath("InputSprite/SubViewport")
+
 [sub_resource type="Gradient" id="Gradient_op8v4"]
 offsets = PackedFloat32Array(0.5, 0.68, 0.75, 1)
 colors = PackedColorArray(0, 0.255, 1, 0.016, 0, 0.255, 1, 0.106, 0.027, 0.157, 2.925, 0.31, 0.1, 0.8, 8, 1)
@@ -1105,7 +1109,7 @@ shader_parameter/blur = 0.009999999747
 shader_parameter/bg_color = Color(0, 0, 0, 0)
 shader_parameter/inner_color = Color(0, 0, 0, 0)
 
-[node name="Cauldron" type="Area3D" unique_id=2088789587 node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "progress_container", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
+[node name="Cauldron" type="Area3D" unique_id=2088789587 node_paths=PackedStringArray("item_container", "success_anim", "failure_anim", "progress", "input_icon", "action_sprite", "progress_container", "water_mesh", "sprite") groups=["cauldron", "resetable"]]
 collision_layer = 32768
 collision_mask = 32
 script = ExtResource("3_r1gsc")
@@ -1117,10 +1121,12 @@ progress = NodePath("CurrentItem/SubViewport/CenterContainer/VBoxContainer/Progr
 mix_icon = ExtResource("9_v5itp")
 mix_time_per_item = 6.0
 overheat_decrease_per_circle = 1.3
+input_icon = NodePath("InputSprite/SubViewport/InputIcon")
+action_sprite = NodePath("SpriteTextureOutlined")
 progress_container = NodePath("CurrentItem/SubViewport/CenterContainer")
 water_mesh = NodePath("cauldron/Water")
 default_water_color = Color(0.16078432, 0.22352941, 0.77254903, 1)
-sprite = NodePath("SpriteTextureOutlined")
+sprite = NodePath("InputSprite")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1648753078]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6735281, 0)
@@ -1316,9 +1322,21 @@ metadata/_custom_type_script = "uid://bav8mlr6l6106"
 shape = SubResource("SphereShape3D_k7m8g")
 
 [node name="SpriteTextureOutlined" parent="." unique_id=330286478 instance=ExtResource("20_crw35")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.07, 3.072, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126160905, 0.8339548, 0)
 material_override = SubResource("ShaderMaterial_51rjx")
 texture = ExtResource("9_v5itp")
+
+[node name="InputSprite" type="Sprite3D" parent="." unique_id=57213179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033961035, 0.8066579, 0.75521845)
+billboard = 1
+render_priority = 127
+texture = SubResource("ViewportTexture_7hclj")
+
+[node name="SubViewport" type="SubViewport" parent="InputSprite" unique_id=1193060515]
+transparent_bg = true
+size = Vector2i(48, 48)
+
+[node name="InputIcon" parent="InputSprite/SubViewport" unique_id=2099516191 instance=ExtResource("23_rygmh")]
 
 [node name="Shield" type="Node3D" parent="." unique_id=993404761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76831734, 0)

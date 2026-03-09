@@ -1,8 +1,8 @@
 shader_type canvas_item;
 
-uniform bool allow_out_of_bounds = true;
-uniform float outline_thickness: hint_range(0.0, 16.0, 1.0) = 1.0;
-uniform vec4 outline_color: source_color = vec4(1.0);
+uniform bool allow_out_of_bounds = false;
+uniform float outline_thickness: hint_range(0.0, 32.0, 1.0) = 16.0;
+uniform vec4 outline_color: source_color = vec4(0.0, 0.0, 0.0, 1.0);
 
 bool is_inside_usquare(vec2 x) {
 	return x == clamp(x, vec2(0.0), vec2(1.0));
@@ -68,6 +68,6 @@ void fragment() {
 			if (1.0 - alpha < 0.0001) break;
 		}
 
-		COLOR = blend(vec4(outline_color.rgb, alpha * outline_color.a), texture_color);
+		COLOR = blend(vec4(outline_color.rgb, alpha * outline_color.a), texture_color * COLOR);
 	}
 }

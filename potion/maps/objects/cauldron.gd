@@ -17,6 +17,8 @@ signal died()
 @export var overheat_decrease_per_circle := 1.5
 @export var potion_size := 1
 
+@export var input_icon: Control
+@export var action_sprite: Node3D
 @export var progress_container: Control
 @export var available_potions: Array[ItemResource] = []
 
@@ -102,6 +104,8 @@ func _ready() -> void:
 			_overload_stop_anim()
 	)
 
+	hovered.connect(func(_a): action_sprite.visible = not items.is_empty())
+	unhovered.connect(func(_a): action_sprite.hide())
 	hurt_box.health_changed.connect(func():
 		if health_bar:
 			health_bar.value = hurt_box.health
@@ -154,9 +158,9 @@ func action(actor: FPSPlayer) -> void:
 	mixing_player = actor
 	mixing_player.begin_action_lock(self)
 	mixing = true
-	sprite.hide()
 	if mix_action:
 		mix_action.action_pressed(actor)
+	_update_sprites()
 
 func action_released(actor: FPSPlayer) -> void:
 	if actor != mixing_player:
@@ -164,6 +168,7 @@ func action_released(actor: FPSPlayer) -> void:
 	if mix_action:
 		mix_action.action_released(actor)
 	mixing = false
+	_update_sprites()
 
 func cancel_action(actor: FPSPlayer) -> void:
 	if actor != mixing_player:
@@ -174,7 +179,12 @@ func _clear_items():
 	for child in item_container.get_children():
 		child.queue_free()
 	items.clear()
-	sprite.texture = null
+	_update_sprites()
+
+func _update_sprites():
+	var v = not items.is_empty()
+	action_sprite.visible = v and not mixing
+	input_icon.visible = v
 
 func _add_item(item: ItemResource.Type):
 	#var child = _find_item_for(item)
@@ -183,7 +193,7 @@ func _add_item(item: ItemResource.Type):
 	
 	#child.count += 1
 	items.append(item)
-	sprite.texture = mix_icon if not items.is_empty() else null
+	_update_sprites()
 
 func _create_item_for(item: ItemResource.Type):
 	var new_item = item_scene.instantiate()

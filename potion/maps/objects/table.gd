@@ -24,8 +24,11 @@ func _ready() -> void:
 
 func _on_placed(item: ItemResource):
 	var scene = item.scene
-	if scene == null and item.is_potion_item():
-		scene = POTION_MODEL
+	if scene == null:
+		if item.is_potion_item():
+			scene = POTION_MODEL
+		else:
+			return
 	
 	var node = scene.instantiate()
 	item_position.add_child(node)

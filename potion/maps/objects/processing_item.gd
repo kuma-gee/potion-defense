@@ -2,20 +2,27 @@ class_name ProcessingItem
 extends RayInteractable
 
 @export var process_action: ProcessAction
-@export var progress: Node3D
 @export var process := ItemResource.Process.CRUSH
 @export var allow_only_valid := false
 
+@export_category("Nodes")
+@export var action_icon: Control
+@export var progress: Control
+@export var input: Control
+
 @onready var item_processing = ItemResource.PROCESSES.get(process, {})
 @onready var item_popup: ItemPopup = $ItemPopup
-@onready var icon: SpriteTextureOutlined = $Icon
-@onready var disabled: Sprite3D = $Icon/Disabled
 
 var logger = KumaLog.new("Oven")
 var item: ItemResource:
 	set(v):
+		progress.visible = v != null
+		action_icon.visible = v != null
+		if input:
+			input.visible = _can_process(v)
+		
+		if item == v: return
 		item = v
-		progress.visible = item != null
 		item_popup.set_item(item)
 		process_action.on_item_changed(item)
 
@@ -26,13 +33,18 @@ func _ready() -> void:
 
 	reset()
 	hovered.connect(func(_a: FPSPlayer):
-		disabled.visible = not _can_process() and item != null
-		process_action.hovered(_a)
+		self.item = item
+		action_icon.modulate = Color.DIM_GRAY if not _can_process() and item != null else Color.WHITE
+		action_icon.show()
+		if _can_process():
+			process_action.hovered(_a)
 	)
 	unhovered.connect(func(_a: FPSPlayer):
+		self.item = item
 		process_action.unhovered(_a)
+		if input:
+			input.hide()
 	)
-	icon.change_texture(ItemResource.PROCESS_ICONS[process])
 
 func _process(delta: float) -> void:
 	process_action.update(delta)
@@ -72,6 +84,8 @@ func interact(actor: FPSPlayer):
 		return
 	
 	item = actor.release_item()
+	if _can_process():
+		process_action._on_hover_change(true)
 	# if process_action.automatic and _can_process():
 	# 	_start_processing(null)
 

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://d3j75sgca4o62"]
 
 [ext_resource type="PackedScene" uid="uid://rlhxkq2nl4mv" path="res://potion/maps/objects/processing_item.tscn" id="1_vwcli"]
-[ext_resource type="Shader" uid="uid://wnm0p58cgmbq" path="res://shader/sprite_outline.gdshader" id="2_euas7"]
-[ext_resource type="Texture2D" uid="uid://bfyjhvicjeent" path="res://assets/sprites/Action_Trash.png" id="3_w1bq3"]
+[ext_resource type="Texture2D" uid="uid://gtgr5oquvp0u" path="res://assets/sprites/Action_Distill.png" id="2_euas7"]
+[ext_resource type="Shader" uid="uid://csjnjpnou85wc" path="res://shader/outline.gdshader" id="2_w1bq3"]
 [ext_resource type="AudioStream" uid="uid://fbgjbquaxv6q" path="res://assets/sound/sfx/水ぶくぶく1.mp3" id="4_vwcli"]
 [ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="5_ntl8x"]
 [ext_resource type="Script" uid="uid://d13m1xyyelaj7" path="res://potion/maps/objects/process_action_hold.gd" id="6_euas7"]
@@ -11,7 +11,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(1.0527344, 1.0256348, 1.0351563)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_w1bq3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_vwcli"]
 viewport_path = NodePath("Progress/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_euas7"]
@@ -25,30 +25,23 @@ bg_color = Color(0, 0.627905, 0.9827295, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntl8x"]
 bg_color = Color(0.7173537, 0.15396485, 0.16913271, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_tw3no"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tw3no"]
+shader = ExtResource("2_w1bq3")
+shader_parameter/allow_out_of_bounds = false
+shader_parameter/outline_thickness = 16.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntl8x"]
-resource_local_to_scene = true
-render_priority = 1
-shader = ExtResource("2_euas7")
-shader_parameter/sprite_texture = ExtResource("3_w1bq3")
-shader_parameter/enable_billboard = true
-shader_parameter/enable_outline = true
-shader_parameter/line_color = Color(0, 0, 0, 1)
-shader_parameter/glowSize = 15.0
-shader_parameter/glowDensity = 1
-shader_parameter/glowRadialCoverage = 8
-shader_parameter/glowAngle = 1.57
-shader_parameter/glowSharpness = 1.0
-shader_parameter/alphaThreshold = 0.2
+[sub_resource type="ViewportTexture" id="ViewportTexture_euas7"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vwcli"]
 
-[node name="Distiller" unique_id=665903306 node_paths=PackedStringArray("process_action") instance=ExtResource("1_vwcli")]
+[node name="Distiller" unique_id=665903306 node_paths=PackedStringArray("process_action", "action_icon", "progress") instance=ExtResource("1_vwcli")]
 process_action = NodePath("ProcessActionHold")
 process = 2
 allow_only_valid = true
+action_icon = NodePath("Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress/MarginContainer")
+progress = NodePath("Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=257818051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46320844, 0)
@@ -58,17 +51,27 @@ shape = SubResource("BoxShape3D_vv5mg")
 wait_time = 2.0
 
 [node name="Progress" parent="." index="2" unique_id=419207511]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4674244, 0.75592816, 0)
-texture = SubResource("ViewportTexture_w1bq3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44759405, 0.75592816, 0)
+texture = SubResource("ViewportTexture_vwcli")
 
-[node name="CenterContainer" type="CenterContainer" parent="Progress/SubViewport" parent_id_path=PackedInt32Array(425712198) index="0" unique_id=1545982967]
+[node name="SubViewport" parent="Progress" index="0" unique_id=425712198]
+size = Vector2i(256, 256)
+
+[node name="CenterContainer" type="CenterContainer" parent="Progress/SubViewport" index="0" unique_id=1545982967]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Progress" type="ProgressBar" parent="Progress/SubViewport/CenterContainer" index="0" unique_id=1802254687]
+[node name="MarginContainer" type="MarginContainer" parent="Progress/SubViewport/CenterContainer" index="0" unique_id=1063343581]
+layout_mode = 2
+theme_override_constants/margin_top = -32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Progress/SubViewport/CenterContainer/MarginContainer" index="0" unique_id=1921611824]
+layout_mode = 2
+
+[node name="Progress" type="ProgressBar" parent="Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer" index="0" unique_id=1802254687]
 custom_minimum_size = Vector2(16, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -80,7 +83,7 @@ value = 0.5
 fill_mode = 3
 show_percentage = false
 
-[node name="Overheat" type="ProgressBar" parent="Progress/SubViewport/CenterContainer/Progress" index="0" unique_id=1760679274]
+[node name="Overheat" type="ProgressBar" parent="Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress" index="0" unique_id=1760679274]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -94,19 +97,30 @@ value = 0.2
 fill_mode = 3
 show_percentage = false
 
+[node name="MarginContainer" type="MarginContainer" parent="Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress" index="1" unique_id=1131974019]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = -25
+theme_override_constants/margin_bottom = -101
+
+[node name="TextureRect" type="TextureRect" parent="Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress/MarginContainer" index="0" unique_id=778698950]
+material = SubResource("ShaderMaterial_tw3no")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_euas7")
+expand_mode = 5
+stretch_mode = 5
+
 [node name="ItemPopup" parent="." index="3" unique_id=176227130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2402164, 0)
-texture = SubResource("ViewportTexture_tw3no")
+texture = SubResource("ViewportTexture_euas7")
 
-[node name="Icon" parent="." index="4" unique_id=776994336]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.066091776, 2.1, 0)
-material_override = SubResource("ShaderMaterial_ntl8x")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" parent_id_path=PackedInt32Array(1936211871) index="0" unique_id=351159239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5135597, 0)
-shape = SubResource("BoxShape3D_vwcli")
-
-[node name="Sfx" type="AudioStreamPlayer" parent="." index="6" unique_id=2132663254]
+[node name="Sfx" type="AudioStreamPlayer" parent="." index="4" unique_id=2132663254]
 stream = ExtResource("4_vwcli")
 volume_db = -20.0
 pitch_scale = 0.3
@@ -115,25 +129,31 @@ script = ExtResource("5_ntl8x")
 min_pitch = 0.7
 max_pitch = 0.9
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="7" unique_id=170249706]
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="5" unique_id=170249706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22045341, 0)
 size = Vector3(1, 0.42871094, 1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="." index="8" unique_id=1025672453]
+[node name="CSGBox3D2" type="CSGBox3D" parent="." index="6" unique_id=1025672453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62076694, 0)
 size = Vector3(0.39257813, 0.37380177, 0.38110352)
 
-[node name="Overheat" type="Timer" parent="." index="9" unique_id=1100583328 node_paths=PackedStringArray("progress")]
+[node name="Overheat" type="Timer" parent="." index="7" unique_id=1100583328 node_paths=PackedStringArray("progress")]
 wait_time = 3.0
 one_shot = true
 script = ExtResource("7_w1bq3")
-progress = NodePath("../Progress/SubViewport/CenterContainer/Progress/Overheat")
+progress = NodePath("../Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress/Overheat")
 max_overheat = 10.0
 
-[node name="ProcessActionHold" type="Node" parent="." index="10" unique_id=2042758560 node_paths=PackedStringArray("progress_bar", "overheat_timer")]
+[node name="ProcessActionHold" type="Node" parent="." index="8" unique_id=2042758560 node_paths=PackedStringArray("progress_bar", "overheat_timer")]
 script = ExtResource("6_euas7")
 duration = 8.0
-progress_bar = NodePath("../Progress/SubViewport/CenterContainer/Progress")
+progress_bar = NodePath("../Progress/SubViewport/CenterContainer/MarginContainer/VBoxContainer/Progress")
 overheat_timer = NodePath("../Overheat")
 automatic = true
 metadata/_custom_type_script = "uid://d13m1xyyelaj7"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="9" unique_id=2111756274]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=351159239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5135597, 0)
+shape = SubResource("BoxShape3D_vwcli")

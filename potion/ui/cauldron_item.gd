@@ -7,6 +7,7 @@ extends Control
 var item: ItemResource:
 	set(v):
 		item = v
+		visible = item != null
 		if item != null:
 			texture_rect.texture = item.texture
 			set_potion_color()

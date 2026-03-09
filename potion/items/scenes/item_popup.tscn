@@ -1,12 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://byg2lnoey0c73"]
+[gd_scene format=3 uid="uid://byg2lnoey0c73"]
 
 [ext_resource type="PackedScene" uid="uid://bqsb8dcdmlb48" path="res://potion/ui/cauldron_item.tscn" id="1_01chs"]
 [ext_resource type="Script" uid="uid://cnoab8glkh17g" path="res://potion/items/scenes/item_popup.gd" id="1_1dpwh"]
+[ext_resource type="Shader" uid="uid://brpxo4jool5jb" path="res://shader/potion_ui.gdshader" id="3_3rtps"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1dpwh"]
 viewport_path = NodePath("SubViewport")
 
-[node name="ItemPopup" type="Sprite3D" node_paths=PackedStringArray("cauldron_item")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xcqd2"]
+resource_local_to_scene = true
+shader = ExtResource("3_3rtps")
+shader_parameter/enabled = true
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[node name="ItemPopup" type="Sprite3D" unique_id=1799131158 node_paths=PackedStringArray("cauldron_item")]
 billboard = 1
 double_sided = false
 no_depth_test = true
@@ -14,21 +21,21 @@ texture = SubResource("ViewportTexture_1dpwh")
 script = ExtResource("1_1dpwh")
 cauldron_item = NodePath("SubViewport/CenterContainer/CauldronItem")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1671014507]
 transparent_bg = true
 size = Vector2i(128, 128)
 
-[node name="CenterContainer" type="CenterContainer" parent="SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="SubViewport" unique_id=902588790]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CauldronItem" parent="SubViewport/CenterContainer" instance=ExtResource("1_01chs")]
+[node name="CauldronItem" parent="SubViewport/CenterContainer" unique_id=936227739 instance=ExtResource("1_01chs")]
 layout_mode = 2
 
-[node name="Label" parent="SubViewport/CenterContainer/CauldronItem/MarginContainer/CauldronItem" index="0"]
-visible = true
+[node name="CauldronItem" parent="SubViewport/CenterContainer/CauldronItem/MarginContainer" parent_id_path=PackedInt32Array(936227739, 1421427541) index="0" unique_id=716443176]
+material = SubResource("ShaderMaterial_xcqd2")
 
 [editable path="SubViewport/CenterContainer/CauldronItem"]

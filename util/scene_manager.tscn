@@ -176,10 +176,11 @@ vertical_alignment = 1
 [node name="Label3" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1058588774]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-text = "Throw"
+text = "Action / Throw"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=231436908]
+visible = false
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Action"
@@ -231,6 +232,7 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=619579952]
+visible = false
 layout_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/Controls/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1605448988]

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://2dch5xvw7kd6"]
+
+[ext_resource type="Texture2D" uid="uid://deil3t8i1aorq" path="res://assets/Inputs/Keyboard & Mouse/Dark/Mouse_Right_Key_Dark.png" id="1_gdquo"]
+
+[node name="InputIcon" type="MarginContainer" unique_id=2099516191]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=748892070]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_gdquo")
+expand_mode = 5
+stretch_mode = 5

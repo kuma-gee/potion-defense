@@ -62,6 +62,10 @@ func _new_hit_position() -> void:
 	cursor_bar.show()
 
 func _on_hover_change(player_count: int) -> void:
+	if hits >= required_hits:
+		hide_visuals()
+		return
+	
 	if player_count <= 0:
 		hide_visuals()
 	elif not hit_bar.visible:

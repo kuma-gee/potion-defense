@@ -9,7 +9,6 @@ func _ready() -> void:
 
 func set_item(item: ItemResource):
 	cauldron_item.item = item
-	visible = item != null
 
 func set_count(count: int):
 	cauldron_item.count = count

@@ -10,14 +10,14 @@ var item: ItemResource:
 	set(v):
 		item = v
 		item_popup.set_item(item)
+		item_popup.visible = item != null
 
 func _ready() -> void:
 	super()
 	
 	item = null
-	# no idea why this is required, pls tell me if u do
-	await get_tree().create_timer(0.1).timeout
 	
+	await get_tree().create_timer(0.1).timeout
 	if has_overlapping_areas():
 		monitorable = false
 		hide()
@@ -46,14 +46,14 @@ func hover(actor: FPSPlayer):
 	if not has_item() and not actor.has_item():
 		return
 	
-	if has_item():
-		item_popup.show()
+	#if has_item():
+		#item_popup.show()
 	super(actor)
 
 func unhover(actor: FPSPlayer):
 	if not has_item() and not actor.has_item():
 		return
 	
-	if has_item():
-		item_popup.hide()
+	#if has_item():
+		#item_popup.hide()
 	super(actor)
