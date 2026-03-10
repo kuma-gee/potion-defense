@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://2dch5xvw7kd6"]
 
 [ext_resource type="Texture2D" uid="uid://deil3t8i1aorq" path="res://assets/Inputs/Keyboard & Mouse/Dark/Mouse_Right_Key_Dark.png" id="1_gdquo"]
+[ext_resource type="Script" uid="uid://70v3iay4lbaq" path="res://potion/maps/objects/input_icon.gd" id="1_ppujx"]
 
-[node name="InputIcon" type="MarginContainer" unique_id=2099516191]
+[node name="InputIcon" type="MarginContainer" unique_id=2099516191 node_paths=PackedStringArray("texture")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ppujx")
+texture = NodePath("TextureRect")
+action = "action"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=748892070]
 custom_minimum_size = Vector2(32, 32)

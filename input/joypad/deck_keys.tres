@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="JoypadKeys" load_steps=21 format=3 uid="uid://xy6tkxn78w4l"]
+
+[ext_resource type="Texture2D" uid="uid://baiveth6xrd8l" path="res://assets/Inputs/Steam Deck/SteamDeck_A.png" id="1_x8uu2"]
+[ext_resource type="Texture2D" uid="uid://b6288v6j50q0n" path="res://assets/Inputs/Steam Deck/SteamDeck_B.png" id="2_v4hny"]
+[ext_resource type="Texture2D" uid="uid://brn3ewokapsus" path="res://assets/Inputs/Steam Deck/SteamDeck_Dpad_Down.png" id="3_buhm3"]
+[ext_resource type="Texture2D" uid="uid://c5abq28mk5xvl" path="res://assets/Inputs/Steam Deck/SteamDeck_Dpad_Left.png" id="4_rhwjo"]
+[ext_resource type="Texture2D" uid="uid://doevgkkdgo7t7" path="res://assets/Inputs/Steam Deck/SteamDeck_Dpad_Right.png" id="5_xftf7"]
+[ext_resource type="Texture2D" uid="uid://b5ndoyy4cl5qa" path="res://assets/Inputs/Steam Deck/SteamDeck_Dpad_Up.png" id="6_vr7f0"]
+[ext_resource type="Texture2D" uid="uid://cpm6xhasq0tkm" path="res://assets/Inputs/Steam Deck/SteamDeck_Steam.png" id="7_kyrny"]
+[ext_resource type="Texture2D" uid="uid://cb56sjl6n1upc" path="res://assets/Inputs/Steam Deck/SteamDeck_L1.png" id="8_mstfn"]
+[ext_resource type="Texture2D" uid="uid://cjcdyylrwot1i" path="res://assets/Inputs/Steam Deck/SteamDeck_L2.png" id="9_k5wch"]
+[ext_resource type="Texture2D" uid="uid://6w5q0wwksdt8" path="res://assets/Inputs/Steam Deck/SteamDeck_Left_Stick_Click.png" id="10_0dv83"]
+[ext_resource type="Texture2D" uid="uid://dskhdbrfsh3mk" path="res://assets/Inputs/Steam Deck/SteamDeck_Left_Stick.png" id="11_lfiip"]
+[ext_resource type="Texture2D" uid="uid://6ux3dpy2y50s" path="res://assets/Inputs/Steam Deck/SteamDeck_R1.png" id="12_sd6hx"]
+[ext_resource type="Texture2D" uid="uid://cqtj4h0wdouw2" path="res://assets/Inputs/Steam Deck/SteamDeck_R2.png" id="13_m73iq"]
+[ext_resource type="Texture2D" uid="uid://dtpyirnn1bcw0" path="res://assets/Inputs/Steam Deck/SteamDeck_Right_Stick_Click.png" id="14_juxgt"]
+[ext_resource type="Texture2D" uid="uid://ckcxcqnjxfmmk" path="res://assets/Inputs/Steam Deck/SteamDeck_Right_Stick.png" id="15_fdgg1"]
+[ext_resource type="Texture2D" uid="uid://cyh2v8lcymyaj" path="res://assets/Inputs/Steam Deck/SteamDeck_Square.png" id="16_5cakp"]
+[ext_resource type="Texture2D" uid="uid://ckqspd4vp7o2e" path="res://assets/Inputs/Steam Deck/SteamDeck_Menu.png" id="17_1c1ua"]
+[ext_resource type="Texture2D" uid="uid://cm0sbacrkyrat" path="res://assets/Inputs/Steam Deck/SteamDeck_X.png" id="18_bkkfi"]
+[ext_resource type="Texture2D" uid="uid://ccj7jl55kcp42" path="res://assets/Inputs/Steam Deck/SteamDeck_Y.png" id="19_pxkbm"]
+[ext_resource type="Script" uid="uid://dv1u0530v6vq2" path="res://input/joypad/joypad_keys.gd" id="20_bv87m"]
+
+[resource]
+script = ExtResource("20_bv87m")
+JOYSTICK_L_UP = ExtResource("11_lfiip")
+JOYSTICK_L_DOWN = ExtResource("11_lfiip")
+JOYSTICK_L_RIGHT = ExtResource("11_lfiip")
+JOYSTICK_L_LEFT = ExtResource("11_lfiip")
+JOYSTICK_L_CLICK = ExtResource("10_0dv83")
+JOYSTICK_R_UP = ExtResource("15_fdgg1")
+JOYSTICK_R_DOWN = ExtResource("15_fdgg1")
+JOYSTICK_R_RIGHT = ExtResource("15_fdgg1")
+JOYSTICK_R_LEFT = ExtResource("15_fdgg1")
+JOYSTICK_R_CLICK = ExtResource("14_juxgt")
+JOYSTICK_DPAD_UP = ExtResource("6_vr7f0")
+JOYSTICK_DPAD_DOWN = ExtResource("3_buhm3")
+JOYSTICK_DPAD_LEFT = ExtResource("4_rhwjo")
+JOYSTICK_DPAD_RIGHT = ExtResource("5_xftf7")
+JOYSTICK_A = ExtResource("1_x8uu2")
+JOYSTICK_B = ExtResource("2_v4hny")
+JOYSTICK_X = ExtResource("18_bkkfi")
+JOYSTICK_Y = ExtResource("19_pxkbm")
+JOYSTICK_L1 = ExtResource("8_mstfn")
+JOYSTICK_L2 = ExtResource("9_k5wch")
+JOYSTICK_R1 = ExtResource("12_sd6hx")
+JOYSTICK_R2 = ExtResource("13_m73iq")
+JOYSTICK_START = ExtResource("17_1c1ua")
+JOYSTICK_HOME = ExtResource("7_kyrny")
+JOYSTICK_SELECT = ExtResource("16_5cakp")

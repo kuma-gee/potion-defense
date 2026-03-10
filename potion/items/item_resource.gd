@@ -48,6 +48,7 @@ const PROCESSES = {
 	},
 }
 
+const BASE_TYPES = [Type.RED_HERB, Type.FROST_LEAF, Type.CRYSTAL]
 const RECIPIES = {
 	Type.POTION_FIRE_BOMB: [Type.RED_HERB_CUTTED, Type.CRYSTAL],
 	Type.POTION_BLIZZARD: [Type.FROST_LEAF_CUTTED, Type.CRYSTAL_CRUSHED],
@@ -77,13 +78,36 @@ var name: String = "":
 	get():
 		return build_name(type)
 
-static func find_base_type(i: Type):
-	for process in PROCESSES.keys():
-		var mapping = PROCESSES[process]
-		for base in mapping.keys():
-			if mapping[base] == i:
-				return base
-	return null
+static func find_base_type(i: Type) -> Array[Dictionary]:
+	var chain: Array[Dictionary] = []
+	var current: Type = i
+	var visited: Array[Type] = []
+
+	while not BASE_TYPES.has(current):
+		if visited.has(current):
+			break
+		visited.append(current)
+
+		var next_step: Dictionary = {}
+		for process in PROCESSES.keys():
+			var mapping: Dictionary = PROCESSES[process]
+			for base in mapping.keys():
+				if mapping[base] == current:
+					next_step = {
+						"type": base,
+						"process": process,
+					}
+					break
+			if not next_step.is_empty():
+				break
+
+		if next_step.is_empty():
+			break
+
+		chain.append(next_step)
+		current = next_step["type"]
+
+	return chain
 
 static func find_process_for(base: Type, result: Type):
 	for process in PROCESSES.keys():

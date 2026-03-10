@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="JoypadKeys" load_steps=21 format=3 uid="uid://bbo7vskbeu85s"]
+
+[ext_resource type="Script" uid="uid://dv1u0530v6vq2" path="res://input/joypad/joypad_keys.gd" id="1_ojyl3"]
+[ext_resource type="Texture2D" uid="uid://j0yx18cllr7m" path="res://assets/Inputs/Xbox Series/XboxSeriesX_A.png" id="1_s24fq"]
+[ext_resource type="Texture2D" uid="uid://c5l6jq67mokil" path="res://assets/Inputs/Xbox Series/XboxSeriesX_B.png" id="2_b53ll"]
+[ext_resource type="Texture2D" uid="uid://7atyeaj7iw17" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Dpad_Down.png" id="3_8acja"]
+[ext_resource type="Texture2D" uid="uid://b87tvgmtih132" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Dpad_Left.png" id="4_g32vr"]
+[ext_resource type="Texture2D" uid="uid://34hr0s0c7npc" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Dpad_Right.png" id="5_4m44b"]
+[ext_resource type="Texture2D" uid="uid://bj0y82jcebbaj" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Dpad_Up.png" id="6_erh8e"]
+[ext_resource type="Texture2D" uid="uid://fdhsprbv4a7f" path="res://assets/Inputs/Xbox Series/XboxSeriesX_View.png" id="7_fgbrq"]
+[ext_resource type="Texture2D" uid="uid://cvjp3ci7whfys" path="res://assets/Inputs/Xbox Series/XboxSeriesX_LB.png" id="8_xy8pl"]
+[ext_resource type="Texture2D" uid="uid://ch7wjprhyybgp" path="res://assets/Inputs/Xbox Series/XboxSeriesX_LT.png" id="9_guc3f"]
+[ext_resource type="Texture2D" uid="uid://c54lnvg2miu6c" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Left_Stick_Click.png" id="10_w5i6s"]
+[ext_resource type="Texture2D" uid="uid://bq0esqt8erg0t" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Left_Stick.png" id="11_7hp1g"]
+[ext_resource type="Texture2D" uid="uid://bigqwkop4ner2" path="res://assets/Inputs/Xbox Series/XboxSeriesX_RB.png" id="12_5rvqo"]
+[ext_resource type="Texture2D" uid="uid://k3ug1mx7ktyx" path="res://assets/Inputs/Xbox Series/XboxSeriesX_RT.png" id="13_763di"]
+[ext_resource type="Texture2D" uid="uid://csuugnd4alw64" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Right_Stick_Click.png" id="14_r7wwc"]
+[ext_resource type="Texture2D" uid="uid://bsp5inxwykv3j" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Right_Stick.png" id="15_e6ipp"]
+[ext_resource type="Texture2D" uid="uid://dpvnv3gsch7p7" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Share.png" id="16_ypjsg"]
+[ext_resource type="Texture2D" uid="uid://5b0yioms780i" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Menu.png" id="17_e80q0"]
+[ext_resource type="Texture2D" uid="uid://b4uhhthjmtkkh" path="res://assets/Inputs/Xbox Series/XboxSeriesX_X.png" id="18_yp32t"]
+[ext_resource type="Texture2D" uid="uid://db1a38j6jp7ks" path="res://assets/Inputs/Xbox Series/XboxSeriesX_Y.png" id="19_0yje5"]
+
+[resource]
+script = ExtResource("1_ojyl3")
+JOYSTICK_L_UP = ExtResource("11_7hp1g")
+JOYSTICK_L_DOWN = ExtResource("11_7hp1g")
+JOYSTICK_L_RIGHT = ExtResource("11_7hp1g")
+JOYSTICK_L_LEFT = ExtResource("11_7hp1g")
+JOYSTICK_L_CLICK = ExtResource("10_w5i6s")
+JOYSTICK_R_UP = ExtResource("15_e6ipp")
+JOYSTICK_R_DOWN = ExtResource("15_e6ipp")
+JOYSTICK_R_RIGHT = ExtResource("15_e6ipp")
+JOYSTICK_R_LEFT = ExtResource("15_e6ipp")
+JOYSTICK_R_CLICK = ExtResource("14_r7wwc")
+JOYSTICK_DPAD_UP = ExtResource("6_erh8e")
+JOYSTICK_DPAD_DOWN = ExtResource("3_8acja")
+JOYSTICK_DPAD_LEFT = ExtResource("4_g32vr")
+JOYSTICK_DPAD_RIGHT = ExtResource("5_4m44b")
+JOYSTICK_A = ExtResource("1_s24fq")
+JOYSTICK_B = ExtResource("2_b53ll")
+JOYSTICK_X = ExtResource("18_yp32t")
+JOYSTICK_Y = ExtResource("19_0yje5")
+JOYSTICK_L1 = ExtResource("8_xy8pl")
+JOYSTICK_L2 = ExtResource("9_guc3f")
+JOYSTICK_R1 = ExtResource("12_5rvqo")
+JOYSTICK_R2 = ExtResource("13_763di")
+JOYSTICK_START = ExtResource("17_e80q0")
+JOYSTICK_HOME = ExtResource("16_ypjsg")
+JOYSTICK_SELECT = ExtResource("7_fgbrq")

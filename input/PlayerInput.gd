@@ -20,6 +20,9 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_PAUSED:
 		reset()
 
+func get_device():
+	return _device
+
 func _set_joypad(is_joypad: bool):
 	joypad = is_joypad
 	
@@ -52,7 +55,7 @@ func get_vector(left: String, right: String, up: String, down: String):
 	)
 
 func is_player_event(event: InputEvent) -> bool:
-	return joypad == is_joypad_event(event) and device_id == event.device
+	return joypad == is_joypad_event(event) and (device_id == event.device or event.device == -1)
 
 func get_id():
 	return "%s-%s" % [device_id, joypad]

@@ -1,6 +1,7 @@
 class_name InputType extends Node
 
 # Create a custom Map for the mappable keys since Godot does not group controller/keyboard/etc as one enum
+# Keyboard keys will be mapped to negative numbers based on their unicode
 enum Key {
 	MOUSE_LEFT = 2,
 	MOUSE_RIGHT,
@@ -53,9 +54,7 @@ const JOY_MOTION_MAP = {
 
 const JOY_BUTTON_MAP = {
 	JOY_BUTTON_LEFT_SHOULDER: Key.JOYSTICK_L1,
-#	JOY_BUTTON_LEFT_STICK: Key.JOYSTICK_L2,
 	JOY_BUTTON_RIGHT_SHOULDER: Key.JOYSTICK_R1,
-#	JOY_BUTTON_RIGHT_STICK: Key.JOYSTICK_R2,
 	JOY_BUTTON_LEFT_STICK: Key.JOYSTICK_L_CLICK,
 	JOY_BUTTON_RIGHT_STICK: Key.JOYSTICK_R_CLICK,
 	JOY_BUTTON_A: Key.JOYSTICK_A,
@@ -80,8 +79,9 @@ const MOUSE_BUTTON_MAP = {
 static func to_text(type: int) -> String:
 	var index = Key.values().find(type)
 	if index != -1:
-		return Key.keys()[index]
-	
+		var key = Key.keys()[index] as String
+		return "_".join(Array(key.split("_")).map(func(k): return k.to_lower().capitalize()))
+			
 	var ev = to_event(type) as InputEventKey
 	if ev:
 #		if ev.unicode:
@@ -137,7 +137,6 @@ static func to_type(event: InputEvent) -> int:
 			return -event.unicode
 		
 		return -event.keycode # Special Keys like Enter, Tab should only have keycode ?
-	
 	if event is InputEventJoypadMotion and event.axis_value != 0:
 		for key in JOY_MOTION_MAP:
 			var value = JOY_MOTION_MAP.get(key)

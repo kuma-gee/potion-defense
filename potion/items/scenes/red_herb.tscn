@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cv3h7itlmf37t" path="res://assets/nature/glTF/Petal_3.gltf" id="2_taovy"]
 [ext_resource type="AudioStream" uid="uid://d1xmyofooa3o6" path="res://assets/sound/sfx/pickup.mp3" id="2_yo4xb"]
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="4_yo4xb"]
+[ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="5_ty8ja"]
+[ext_resource type="Shader" uid="uid://brpxo4jool5jb" path="res://shader/potion_ui.gdshader" id="6_m5q3e"]
+[ext_resource type="PackedScene" uid="uid://2dch5xvw7kd6" path="res://potion/maps/objects/input_icon.tscn" id="7_mhq72"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taovy"]
 diffuse_mode = 3
@@ -20,6 +23,15 @@ albedo_texture = ExtResource("4_yo4xb")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_aox8i"]
 size = Vector2(3, 3)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_aox8i"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ud0r5"]
+resource_local_to_scene = true
+shader = ExtResource("6_m5q3e")
+shader_parameter/enabled = true
+shader_parameter/color = Color(0, 0, 0, 1)
 
 [node name="RedHerbVisual" type="Area3D" unique_id=1240194477 node_paths=PackedStringArray("sprite")]
 collision_layer = 32768
@@ -43,4 +55,22 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_ty8ja")
 mesh = SubResource("PlaneMesh_aox8i")
 
+[node name="ItemPopup" parent="." unique_id=1799131158 instance=ExtResource("5_ty8ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0261984, 0)
+texture = SubResource("ViewportTexture_aox8i")
+
+[node name="CauldronItem" parent="ItemPopup/SubViewport/CenterContainer/CauldronItem/MarginContainer" parent_id_path=PackedInt32Array(1799131158, 936227739, 1421427541) index="0" unique_id=716443176]
+material = SubResource("ShaderMaterial_ud0r5")
+
+[node name="InputIcon" parent="ItemPopup/SubViewport/CenterContainer/CauldronItem" parent_id_path=PackedInt32Array(1799131158, 936227739) index="2" unique_id=2099516191 instance=ExtResource("7_mhq72")]
+z_index = 5
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_constants/margin_top = -22
+theme_override_constants/margin_right = -213
+action = "interact"
+
 [editable path="Petal_32"]
+[editable path="ItemPopup"]
+[editable path="ItemPopup/SubViewport/CenterContainer/CauldronItem"]
+[editable path="ItemPopup/SubViewport/CenterContainer/CauldronItem/InputIcon"]

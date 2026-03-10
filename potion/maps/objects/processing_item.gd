@@ -8,7 +8,7 @@ extends RayInteractable
 @export_category("Nodes")
 @export var action_icon: Control
 @export var progress: Control
-@export var input: Control
+@export var input: InputIcon
 
 @onready var item_processing = ItemResource.PROCESSES.get(process, {})
 @onready var item_popup: ItemPopup = $ItemPopup
@@ -34,6 +34,8 @@ func _ready() -> void:
 	reset()
 	hovered.connect(func(_a: FPSPlayer):
 		self.item = item
+		if input:
+			input.hover(_a)
 		action_icon.modulate = Color.DIM_GRAY if not _can_process() and item != null else Color.WHITE
 		action_icon.show()
 		if _can_process():
@@ -41,6 +43,8 @@ func _ready() -> void:
 	)
 	unhovered.connect(func(_a: FPSPlayer):
 		self.item = item
+		if input:
+			input.unhover(_a)
 		process_action.unhovered(_a)
 		if input:
 			input.hide()

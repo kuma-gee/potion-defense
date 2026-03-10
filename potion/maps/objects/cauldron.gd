@@ -17,7 +17,7 @@ signal died()
 @export var overheat_decrease_per_circle := 1.5
 @export var potion_size := 1
 
-@export var input_icon: Control
+@export var input_icon: InputIcon
 @export var action_sprite: Node3D
 @export var progress_container: Control
 @export var available_potions: Array[ItemResource] = []
@@ -104,8 +104,14 @@ func _ready() -> void:
 			_overload_stop_anim()
 	)
 
-	hovered.connect(func(_a): action_sprite.visible = not items.is_empty())
-	unhovered.connect(func(_a): action_sprite.hide())
+	hovered.connect(func(_a):
+		action_sprite.visible = not items.is_empty()
+		input_icon.hover(_a)
+	)
+	unhovered.connect(func(_a):
+		action_sprite.hide()
+		input_icon.unhover(_a)
+	)
 	hurt_box.health_changed.connect(func():
 		if health_bar:
 			health_bar.value = hurt_box.health

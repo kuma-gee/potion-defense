@@ -9,7 +9,7 @@ signal notify(msg: String)
 @export var spawn_point: Node3D
 @export var wave_resources: Array[WaveResource] = []
 @export var upgrades: Array[UpgradeResource]
-@export var new_recipe: ItemResource
+#@export var new_recipe: ItemResource
 @export var initial_recipe: ItemResource
 @export var paths: Array[Path3D]
 @export var entrance_scene: PackedScene

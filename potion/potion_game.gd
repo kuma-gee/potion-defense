@@ -32,7 +32,9 @@ func _ready() -> void:
 	Events.cauldron_destroyed.connect(func(): gameover.show_gameover())
 	Events.picked_up_recipe.connect(_unlocked_recipe)
 	Events.has_played = true
+	
 	recipe_container.visible = not Events.unlocked_recipes.is_empty()
+	recipe_ui.update_unlocked(Events.unlocked_recipes)
 
 func _unlocked_recipe(item: ItemResource):
 	new_recipe.open(item)

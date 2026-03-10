@@ -11,7 +11,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vv5mg"]
 size = Vector3(1.0527344, 1.0256348, 1.0351563)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vwcli"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_w1bq3"]
 viewport_path = NodePath("Progress/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_euas7"]
@@ -31,7 +31,7 @@ shader_parameter/allow_out_of_bounds = false
 shader_parameter/outline_thickness = 16.0
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_euas7"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tw3no"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vwcli"]
@@ -52,7 +52,7 @@ wait_time = 2.0
 
 [node name="Progress" parent="." index="2" unique_id=419207511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44759405, 0.75592816, 0)
-texture = SubResource("ViewportTexture_vwcli")
+texture = SubResource("ViewportTexture_w1bq3")
 
 [node name="SubViewport" parent="Progress" index="0" unique_id=425712198]
 size = Vector2i(256, 256)
@@ -118,7 +118,7 @@ stretch_mode = 5
 
 [node name="ItemPopup" parent="." index="3" unique_id=176227130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2402164, 0)
-texture = SubResource("ViewportTexture_euas7")
+texture = SubResource("ViewportTexture_tw3no")
 
 [node name="Sfx" type="AudioStreamPlayer" parent="." index="4" unique_id=2132663254]
 stream = ExtResource("4_vwcli")
