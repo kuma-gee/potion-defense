@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://tqsaqyisvhqb"]
+[gd_scene format=3 uid="uid://tqsaqyisvhqb"]
 
 [ext_resource type="Script" uid="uid://c1ph2gdxcgu0n" path="res://potion/items/scenes/pickupable_ingredient.gd" id="1_kd1o8"]
 [ext_resource type="PackedScene" uid="uid://c2o1sbb83f08y" path="res://assets/models/crystal.glb" id="2_nhfkn"]
+[ext_resource type="Script" uid="uid://bcciptatfqqj6" path="res://potion/effect/sfx_player.gd" id="4_4yoc6"]
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="4_lw03e"]
+[ext_resource type="AudioStream" uid="uid://d1xmyofooa3o6" path="res://assets/sound/sfx/pickup.mp3" id="5_d2lfu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kd1o8"]
 radius = 0.88878846
@@ -14,22 +16,30 @@ albedo_texture = ExtResource("4_lw03e")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_d2lfu"]
 
-[node name="CollisionShape3D" type="Area3D" node_paths=PackedStringArray("sprite")]
+[node name="CollisionShape3D" type="Area3D" unique_id=920812046 node_paths=PackedStringArray("sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_kd1o8")
 sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://buns64rcufm7p"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1012443715]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21132779, 0)
 shape = SubResource("SphereShape3D_kd1o8")
 
-[node name="crystal" parent="." instance=ExtResource("2_nhfkn")]
+[node name="crystal" parent="." unique_id=344645251 instance=ExtResource("2_nhfkn")]
 
-[node name="Ring" type="MeshInstance3D" parent="."]
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=626437925]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_4yoc6")
 mesh = SubResource("PlaneMesh_d2lfu")
+
+[node name="SFXPlayer" type="Node" parent="." unique_id=1752940600]
+script = ExtResource("4_4yoc6")
+audio = ExtResource("5_d2lfu")
+pitch = 0.8
+max_pitch = 1.0
+play_on_ready = false
+metadata/_custom_type_script = "uid://bcciptatfqqj6"
 
 [editable path="crystal"]

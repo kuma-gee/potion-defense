@@ -89,18 +89,18 @@ show_percentage = false
 [node name="ItemPopup" parent="." index="3" unique_id=176227130]
 texture = SubResource("ViewportTexture_8lqj2")
 
-[node name="Sfx" type="AudioStreamPlayer" parent="." index="5" unique_id=2132663254]
+[node name="Sfx" type="AudioStreamPlayer" parent="." index="4" unique_id=2132663254]
 stream = ExtResource("4_rotk1")
 volume_db = -10.0
 bus = &"SFX"
 script = ExtResource("6_rhbt8")
 one_shot = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="6" unique_id=809628834]
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="5" unique_id=809628834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03551364, 0)
 size = Vector3(0.6152344, 0.06085205, 0.4494629)
 
-[node name="ProcessActionMash" type="Node" parent="." index="7" unique_id=1691097143 node_paths=PackedStringArray("progress_bar", "sfx")]
+[node name="ProcessActionMash" type="Node" parent="." index="6" unique_id=1691097143 node_paths=PackedStringArray("progress_bar", "sfx")]
 script = ExtResource("6_rotk1")
 required_presses = 16
 progress_bar = NodePath("../Progress/SubViewport/CenterContainer/VBoxContainer/HBoxContainer2/Progress")

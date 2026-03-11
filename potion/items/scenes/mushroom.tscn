@@ -7,6 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://xt0womexw2fu" path="res://assets/particles/T_Ring.png" id="5_xiun4"]
 [ext_resource type="Material" uid="uid://cvveser2snnkw" path="res://potion/basic_shader.tres" id="6_ls868"]
 [ext_resource type="PackedScene" uid="uid://cv3h7itlmf37t" path="res://assets/nature/glTF/Petal_3.gltf" id="7_ocjs7"]
+[ext_resource type="Script" uid="uid://bcciptatfqqj6" path="res://potion/effect/sfx_player.gd" id="7_xw1o1"]
+[ext_resource type="Script" uid="uid://b36dovtr5nxle" path="res://potion/maps/objects/process_action_mash.gd" id="9_u4xd1"]
+[ext_resource type="AudioStream" uid="uid://m08hp0jkpucn" path="res://assets/sound/sfx/落ち葉の上を歩く.mp3" id="10_lrh1k"]
+[ext_resource type="Script" uid="uid://bvtmvfhj8hn36" path="res://util/randomized_loop_sfx.gd" id="11_m8qec"]
+[ext_resource type="PackedScene" uid="uid://byg2lnoey0c73" path="res://potion/items/scenes/item_popup.tscn" id="12_yiqdw"]
+[ext_resource type="Shader" uid="uid://brpxo4jool5jb" path="res://shader/potion_ui.gdshader" id="13_82v3n"]
+[ext_resource type="PackedScene" uid="uid://2dch5xvw7kd6" path="res://potion/maps/objects/input_icon.tscn" id="14_jiw4g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocjs7"]
 albedo_color = Color(0.1882353, 0.8666667, 1, 1)
@@ -27,13 +34,21 @@ albedo_texture = ExtResource("5_xiun4")
 [sub_resource type="PlaneMesh" id="PlaneMesh_ocjs7"]
 size = Vector2(3, 3)
 
-[node name="Mushroom" type="Area3D" unique_id=385843563 node_paths=PackedStringArray("sprite")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_4pfgj"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdtv0"]
+resource_local_to_scene = true
+shader = ExtResource("13_82v3n")
+shader_parameter/enabled = true
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[node name="Mushroom" type="Area3D" unique_id=385843563 node_paths=PackedStringArray("input_icon", "process_action", "sprite")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("1_d1h2a")
-sound = ExtResource("2_hmasw")
-sound_min_pitch = 0.5
-sound_max_pitch = 0.7
+input_icon = NodePath("ItemPopup/SubViewport/CenterContainer/InputIcon")
+process_action = NodePath("ProcessActionMash")
 sprite = NodePath("Ring")
 metadata/_custom_type_script = "uid://c1ph2gdxcgu0n"
 
@@ -58,5 +73,50 @@ material_override = SubResource("StandardMaterial3D_ls868")
 mesh = SubResource("PlaneMesh_ocjs7")
 surface_material_override/0 = ExtResource("6_ls868")
 
+[node name="SFXPlayer" type="Node" parent="." unique_id=1109923412]
+script = ExtResource("7_xw1o1")
+audio = ExtResource("2_hmasw")
+pitch = 0.8
+max_pitch = 1.0
+play_on_ready = false
+metadata/_custom_type_script = "uid://bcciptatfqqj6"
+
+[node name="ProcessActionMash" type="Node" parent="." unique_id=1368235532 node_paths=PackedStringArray("sfx")]
+script = ExtResource("9_u4xd1")
+required_presses = 6
+sfx = NodePath("RandomizedLoopSfx")
+metadata/_custom_type_script = "uid://b36dovtr5nxle"
+
+[node name="RandomizedLoopSfx" type="AudioStreamPlayer" parent="ProcessActionMash" unique_id=736474630]
+stream = ExtResource("10_lrh1k")
+volume_db = -10.0
+pitch_scale = 1.3
+bus = &"SFX"
+script = ExtResource("11_m8qec")
+min_pitch = 1.1
+max_pitch = 1.4
+one_shot = true
+metadata/_custom_type_script = "uid://bvtmvfhj8hn36"
+
+[node name="ItemPopup" parent="." unique_id=1799131158 instance=ExtResource("12_yiqdw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0261984, 0)
+texture = SubResource("ViewportTexture_4pfgj")
+
+[node name="CauldronItem" parent="ItemPopup/SubViewport/CenterContainer" parent_id_path=PackedInt32Array(1799131158, 902588790) index="0" unique_id=936227739]
+visible = false
+
+[node name="CauldronItem" parent="ItemPopup/SubViewport/CenterContainer/CauldronItem/MarginContainer" parent_id_path=PackedInt32Array(1799131158, 936227739, 1421427541) index="0" unique_id=716443176]
+material = SubResource("ShaderMaterial_hdtv0")
+
+[node name="InputIcon" parent="ItemPopup/SubViewport/CenterContainer" parent_id_path=PackedInt32Array(1799131158, 902588790) index="1" unique_id=2099516191 instance=ExtResource("14_jiw4g")]
+z_index = 5
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_constants/margin_top = 0
+action = "interact"
+
 [editable path="Petal_32"]
 [editable path="mushroom"]
+[editable path="ItemPopup"]
+[editable path="ItemPopup/SubViewport/CenterContainer/CauldronItem"]
+[editable path="ItemPopup/SubViewport/CenterContainer/InputIcon"]

@@ -25,6 +25,7 @@ var item: ItemResource:
 		item = v
 		item_popup.set_item(item)
 		process_action.on_item_changed(item)
+		_update_action_icon()
 
 func _ready() -> void:
 	super()
@@ -36,7 +37,6 @@ func _ready() -> void:
 		self.item = item
 		if input:
 			input.hover(_a)
-		action_icon.modulate = Color.DIM_GRAY if not _can_process() and item != null else Color.WHITE
 		action_icon.show()
 		if _can_process():
 			process_action.hovered(_a)
@@ -49,6 +49,10 @@ func _ready() -> void:
 		if input:
 			input.hide()
 	)
+
+func _update_action_icon():
+	if not action_icon: return
+	action_icon.modulate = Color.DIM_GRAY if not _can_process() and item != null else Color.WHITE
 
 func _process(delta: float) -> void:
 	process_action.update(delta)
